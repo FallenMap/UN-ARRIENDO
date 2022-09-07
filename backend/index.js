@@ -23,21 +23,39 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(express.static('public'));
 
+// importa schema definido en carpeta models
+const Arrendador = require('./models/Arrendador');
+// usa schema importado para compilar modelo, conecta con collecion (tabla) 'Arrendador' (se ve como 'arrendadors' en la DB)
+const ArrendadorModel = mongoose.model('Arrendador', Arrendador.schema);
+
+
+// form basica para pruebas
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'public/testform.html'))
 });
 
+//form manda POST request a /send_form
 app.post('/send_form', function(req, res) {
-    res.json(req.body);
-    // Compile model from schema
-    const Arrendador = require('./models/Arrendador');
-    const ArrendadorModel = mongoose.model('Arrendador', Arrendador.schema);
+    //req.body es JSON con info del form
+    res.send(req.body);    
+    // crea instancia del modelo utilizando el cuerpo del request
     var NewArrendador = new ArrendadorModel(req.body);
+    // guarda en DB
     NewArrendador.save((err) => {
         if (err) return handleError(err);
         console.log('arrendador saved!');// saved!
     });
 });
+
+// manejo de busqueda por nombre
+app.get('/search', function(req, res) {
+    // encuentra arrendadores por campo de Nombres, exacto
+    ArrendadorModel.find({ 'Nombres': req.query.Nombres}, (err, arrendadores) => {
+        if (err) return handleError(err);
+        console.log(arrendadores);
+        res.send(arrendadores);
+    })
+  });
 
 app.listen(port, function() {
   console.log(`Example app listening on port ${port}!`)
