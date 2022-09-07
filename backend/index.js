@@ -11,9 +11,9 @@ app.use(bodyParser.json());
 //Import the mongoose module
 const mongoose = require('mongoose');
 
-//Set up default mongoose connection
-const mongoDB = 'mongodb+srv://developer:password@cluster0.ogaq1.mongodb.net/UN-ARRIENDO?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+//Set up default mongoose connection, uses URI on .env file
+require('dotenv').config();
+mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Get the default connection
 const db = mongoose.connection;
@@ -23,11 +23,8 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(express.static('public'));
 
-// importa schema definido en carpeta models
+// importa modelo ya definido
 const Arrendador = require('./models/Arrendador');
-// usa schema importado para compilar modelo, conecta con collecion (tabla) 'Arrendador' (se ve como 'arrendadors' en la DB)
-const ArrendadorModel = mongoose.model('Arrendador', Arrendador.schema);
-
 
 // form basica para pruebas
 app.get('/', function(req, res) {
@@ -39,7 +36,7 @@ app.post('/send_form', function(req, res) {
     //req.body es JSON con info del form
     res.send(req.body);    
     // crea instancia del modelo utilizando el cuerpo del request
-    var NewArrendador = new ArrendadorModel(req.body);
+    var NewArrendador = new Arrendador(req.body);
     // guarda en DB
     NewArrendador.save((err) => {
         if (err) return handleError(err);
@@ -50,9 +47,9 @@ app.post('/send_form', function(req, res) {
 // manejo de busqueda por nombre
 app.get('/search', function(req, res) {
     // encuentra arrendadores por campo de Nombres, exacto
-    ArrendadorModel.find({ 'Nombres': req.query.Nombres}, (err, arrendadores) => {
+    Arrendador.find({ 'Nombres': req.query.Nombres}, (err, arrendadores) => {
         if (err) return handleError(err);
-        console.log(arrendadores);
+        //console.log(arrendadores);
         res.send(arrendadores);
     })
   });
