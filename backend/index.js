@@ -24,7 +24,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use(express.static('public'));
 
 //Import compiled model
-const arrendador = require('./models/arrendador');
+const landlord = require('./models/landlord');
 
 //Serves basic HTML form for testing
 app.get('/', function(req, res) {
@@ -36,21 +36,22 @@ app.post('/send_form', function(req, res) {
     //req.body contains JSON with request info
     res.send(req.body);    
     //Creates instance of model
-    var newArrendador = new arrendador(req.body);
+    var newLandlord = new landlord(req.body);
     //Saves instance in DB
-    newArrendador.save((err) => {
+    newLandlord.save((err) => {
         if (err) return handleError(err);
-        console.log('arrendador saved!');// saved!
+        console.log('landlord saved!');// saved!
     });
 });
 
 //Search showcase, 'Nombres' field is passed as an URL parameter
 app.get('/search', function(req, res) {
-    //Finds arrendadors by exact match in 'Nombres', returns list of JSON
-    arrendador.find({ 'Nombres': req.query.Nombres}, (err, arrendadores) => {
+    //Finds arrendadors by exact match in 'firstName', returns list of JSON
+    landlord.find({ 'firstName': req.query.firstName}, (err, landlords) => {
         if (err) return handleError(err);
-        //console.log(arrendadores);
-        res.send(arrendadores);
+        console.log('landords found:');
+        console.log(landlords);
+        res.send(landlords);
     })
   });
 
