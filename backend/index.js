@@ -23,31 +23,31 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(express.static('public'));
 
-// importa modelo ya definido
-const Arrendador = require('./models/Arrendador');
+//Import compiled model
+const arrendador = require('./models/arrendador');
 
-// form basica para pruebas
+//Serves basic HTML form for testing
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'public/testform.html'))
+  res.sendFile(path.join(__dirname, 'public/testForm.html'))
 });
 
-//form manda POST request a /send_form
+//Receives POST request with data for one record
 app.post('/send_form', function(req, res) {
-    //req.body es JSON con info del form
+    //req.body contains JSON with request info
     res.send(req.body);    
-    // crea instancia del modelo utilizando el cuerpo del request
-    var NewArrendador = new Arrendador(req.body);
-    // guarda en DB
-    NewArrendador.save((err) => {
+    //Creates instance of model
+    var newArrendador = new arrendador(req.body);
+    //Saves instance in DB
+    newArrendador.save((err) => {
         if (err) return handleError(err);
         console.log('arrendador saved!');// saved!
     });
 });
 
-// manejo de busqueda por nombre
+//Search showcase, 'Nombres' field is passed as an URL parameter
 app.get('/search', function(req, res) {
-    // encuentra arrendadores por campo de Nombres, exacto
-    Arrendador.find({ 'Nombres': req.query.Nombres}, (err, arrendadores) => {
+    //Finds arrendadors by exact match in 'Nombres', returns list of JSON
+    arrendador.find({ 'Nombres': req.query.Nombres}, (err, arrendadores) => {
         if (err) return handleError(err);
         //console.log(arrendadores);
         res.send(arrendadores);
