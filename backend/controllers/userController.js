@@ -26,7 +26,24 @@ userController.createUser = async (req, res) => {
 };
 
 userController.updateUser = (req, res) => {
-    //Actualizar los datos en la base de datos.
+    //Updating the user
+    let user = await User.findOne({email:req.body.email}).exec();
+    if(user){
+        // User exists
+        if(req.session.userRol == "landlord"){
+            // update user landlord
+        }else{
+            // update user tenant
+        }
+    }else{
+        // user doesn't exists
+        res.status(404).json({
+            error:"The user does not exist",
+            data: user
+        });
+    }
+
+    // exit message
     req.session.userRol
     res.status(200).json({
         msg:"Update done"
