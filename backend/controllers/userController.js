@@ -35,6 +35,10 @@ userController.updateUser = async (req, res) => {
         }else{
             // update user tenant
         }
+        // exit message
+        res.status(200).json({
+        msg:"Update done"
+        });
     }else{
         // user doesn't exists
         res.status(404).json({
@@ -42,11 +46,6 @@ userController.updateUser = async (req, res) => {
             data: user
         });
     }
-
-    // exit message
-    res.status(200).json({
-        msg:"Update done"
-    });
 };
 
 userController.loginUser = async (req, res) => {

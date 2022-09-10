@@ -35,55 +35,12 @@ align-content: center;
 
 }
 
-.card{
-    position: relative;
-    transform: translate(0%, -10%);
-    margin-top: auto;
-    margin-bottom: auto;
-    /*width: 400px;*/
-    background-color: rgba(0,0,0,0.5) !important;
-}
-
-.social_icon span{
-font-size: 60px;
-margin-left: 10px;
-color: #FFC312;
-}
-
-.social_icon span:hover{
-color: white;
-cursor: pointer;
-}
-
-.card-header h3{
-    
-color: white;
-}
-
-.midLetter {
-    height: 370px;
-    width: 400px;
-    text-align:center;
-    color:white
-}
-
-.social_icon{
-position: absolute;
-right: 20px;
-top: -45px;
-}
 
 .input-group-prepend span{
 width: 50px;
 background-color: #FFC312;
 color: black;
 border:0 !important;
-}
-
-input:focus{
-outline: 0 0 0 0  !important;
-box-shadow: 0 0 0 0 !important;
-
 }
 
 .remember{
@@ -96,6 +53,14 @@ width: 20px;
 height: 20px;
 margin-left: 15px;
 margin-right: 5px;
+}
+
+.pageTitle h1{
+    position: relative;
+    text-align: center;
+    padding-top: 70px;
+    color:white;
+    font-size: 80px;
 }
 
 .login_btn{
