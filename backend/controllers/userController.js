@@ -55,7 +55,7 @@ userController.loginUser = async (req, res) => {
         let exist = await bcrypt.compare(req.body.password, user.password);
         if(exist){
             req.session.userLogin = true;
-            req.session.userID = user.id;
+            req.session.userID = user._id;
             req.session.userRol = user.role;
             res.status(200).json({
                 msg:"You are logged in",
