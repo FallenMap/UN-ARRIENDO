@@ -2,12 +2,31 @@
 
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
+
+@font-face {
+    font-family: 'Monoton';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Monoton'), local('Monoton-Regular'), url(http://themes.googleusercontent.com/static/fonts/monoton/v4/AKI-lyzyNHXByGHeOcds_w.woff) format('woff');
+  }
+
 html,body{
 /*background-image: url('https://www.xtrafondos.com/descargar.php?id=3593&resolucion=3840x2160');*/
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
 font-family: 'Numans', sans-serif;
+}
+
+
+.title h1{
+    
+    font-family: "Monoton",sans-serif;
+    font-size: 60px;
+    color: #ffa;
+    text-shadow: 0 0 30px #fff;
+    text-align: center;
+    padding: 10%;
 }
 
 .container{
@@ -17,8 +36,8 @@ align-content: center;
 }
 
 .card{
-    position: absolute;
-    transform: translate(0%, 70%);
+    position: relative;
+    transform: translate(0%, -10%);
     margin-top: auto;
     margin-bottom: auto;
     /*width: 400px;*/
@@ -97,3 +116,6 @@ color: white;
 .links a{
 margin-left: 4px;
 }
+
+
+
