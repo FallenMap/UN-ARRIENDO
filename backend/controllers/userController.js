@@ -44,7 +44,6 @@ userController.updateUser = (req, res) => {
     }
 
     // exit message
-    req.session.userRol
     res.status(200).json({
         msg:"Update done"
     });
