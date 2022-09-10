@@ -25,7 +25,7 @@ userController.createUser = async (req, res) => {
     });
 };
 
-userController.updateUser = (req, res) => {
+userController.updateUser = async (req, res) => {
     //Updating the user
     let user = await User.findOne({email:req.body.email}).exec();
     if(user){
