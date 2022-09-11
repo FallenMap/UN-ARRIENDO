@@ -1,20 +1,25 @@
-import { Card } from "./login/card";
-import styles from "./css/logIn.module.css";
+
+import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import { Login } from "./login/login";
+import { SelectRegister } from "./selectRegister/selectRegister";
 
 export function App() {
   return (
-    <>
-      <div className={styles.pageTitle}>
-        <h1> UN-ARRIENDO </h1>
-      </div>
-      
-      <link rel="stylesheet" type="text/css" href="logIn.css" />
-      
-      <div className= {styles.container}>
-          </div>
-        <div className="d-flex justify-content-center h-100">
-          <Card/>
-        </div>
-    </>
+
+    <Router>
+
+        <main>
+
+          <Routes>
+
+              <Route path="/SelectRegister" element={<SelectRegister/>}> </Route>
+
+              <Route path="/" element={<Login/>}> </Route>
+
+          </Routes> 
+          
+        </main>
+
+     </Router>
   );
 }
