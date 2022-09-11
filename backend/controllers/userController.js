@@ -27,24 +27,54 @@ userController.createUser = async (req, res) => {
 
 userController.updateUser = async (req, res) => {
     //Updating the user
-    let user = await User.findOne({email:req.body.email}).exec();
-    if(user){
-        // User exists
-        if(req.session.userRol == "landlord"){
+    if(req.session.userRol == "Landlord"){
+        try{
             // update user landlord
-        }else{
-            // update user tenant
-        }
+            req.body.password = await bcrypt.hash(req.body.password, 8);
+            await Landlord.updateOne({_id:req.session.userID}, {
+                firstName:              req.body.firstName,
+                lastName:               req.body.lastName,
+                email:                  req.body.email,
+                user:                   req.body.user,
+                gender:                 req.body.gender,
+                password:               req.body.password,
+                birthDate:              req.body.birthDate,
+                description:            req.body.description,
+                socialMediaHandles:     req.body.socialMediaHandles,
+                businessHours:          req.body.businessHours});
         // exit message
         res.status(200).json({
-        msg:"Update done"
+        msg:"Update landlord done"
         });
+        } catch{
+            res.status(404).json({
+                error:"user or email already in use landlord",
+            });
+        }
     }else{
-        // user doesn't exists
-        res.status(404).json({
-            error:"The user does not exist",
-            data: user
+        try{
+            // update user tenant
+            req.body.password = await bcrypt.hash(req.body.password, 8);
+            await Tenant.updateOne({_id:req.session.userID}, {
+                firstName:              req.body.firstName,
+                lastName:               req.body.lastName,
+                email:                  req.body.email,
+                user:                   req.body.user,
+                gender:                 req.body.gender,
+                password:               req.body.password,
+                birthDate:              req.body.birthDate,
+                description:            req.body.description,
+                degree:                 req.body.degree,
+                cityBirth:              req.body.cityBirth});
+        // exit message
+        res.status(200).json({
+        msg:"Update tenant done"
         });
+        } catch{
+            res.status(404).json({
+                error:"user or email already in use tenant",
+            });
+        }
     }
 };
 
@@ -55,7 +85,7 @@ userController.loginUser = async (req, res) => {
         if(exist){
             req.session.userLogin = true;
             req.session.userID = user._id;
-            req.session.userRol = user.role;
+            req.session.userRol = user.type;
             res.status(200).json({
                 msg:"You are logged in",
                 data: user
