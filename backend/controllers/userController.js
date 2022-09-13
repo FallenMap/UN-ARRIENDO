@@ -2,16 +2,17 @@ const Tenant = require('../models/tenant');
 const Landlord = require('../models/landlord');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const path = require('path');
 
 // Create an object that save all controller functions.
 const userController = {};
 
 // Function to register a new user, we must validate the information given by the frontend.
 userController.createUser = async (req, res) => {
-
     // Change the password given by frontend to the encrypted password
     req.body.password = await bcrypt.hash(req.body.password, 8);
-
+    // Adds the uploaded photo filename (inside /public/userPhotos/) to request body before saving on DB
+    req.body.photo = path.win32.basename(req.file.path);
     // Verify the user type and use the respective schema
     if(req.body.role=="landlord"){
         const landlordDetail = new Landlord(req.body);
@@ -19,7 +20,7 @@ userController.createUser = async (req, res) => {
     }else if(req.body.role=="tenant"){
         const tenantDetail = new Tenant(req.body);
         await tenantDetail.save();
-    }
+    }    
     res.status(200).json({
         msg:"User created"
     });
