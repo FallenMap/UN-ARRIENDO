@@ -1,0 +1,90 @@
+.pageTitle{
+    font-size: 8vh;
+    position: absolute;
+    padding: 2.5vh;
+    top: 10vh;
+    left: 65vh;
+    color: #272343;
+    background-color: #E3F6F5;
+
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #272343;
+    height: 100vh;
+}
+
+.left{
+    background: #BAE8E8;
+    display: flex;
+    place-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.right{
+
+    justify-content: center;
+
+}
+
+.titleLeft{
+    position: absolute;
+    top: 40vh;
+    left: 28vh;
+    color: #272343;
+    text-align: center;
+    align-items: center;
+    font-size: 6vh;
+    padding: 0.5vh;
+}
+
+.questionLeft{
+    position: absolute;
+    top: 50vh;
+    left: 5vh;
+    color: #272343;
+    align-items: center;
+    text-align: center;
+    font-size: 3.4vh;
+    padding: 1.9vh;
+}
+
+.titleRight{
+    position: absolute;
+    top: 40vh;
+    left: 135vh;
+    color: #BAE8E8;
+    text-align: center;
+    align-items: center;
+    font-size: 6vh;
+    padding: 0.5vh;
+}
+
+.questionRight{
+    position: absolute;
+    top: 50vh;
+    left: 105vh;
+    color: #BAE8E8;
+    align-items: center;
+    text-align: center;
+    font-size: 3.4vh;
+    padding: 1.9vh;
+}
+
+.buttonLeft{
+    position: absolute;
+    top: 64.7vh;
+    left: 35vh;
+    font-size: 2.3vh;
+    border-radius: 1.3vh;
+}
+
+.buttonRight{
+    position: absolute;
+    top: 64.7vh;
+    left: 144.9vh;
+    font-size: 2.3vh;
+    border-radius: 1.3vh;
+}
