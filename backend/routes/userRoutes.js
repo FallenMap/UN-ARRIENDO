@@ -8,6 +8,6 @@ const upload = require('../middlewares/fileUpload');
 router.post('/register', upload.userPhoto, userController.createUser)
     .post('/login', userController.loginUser)
     .get('/logout', userController.logoutUser) 
-    .put('/update', validateSession, userController.updateUser);
+    .put('/update', validateSession, upload.userPhoto, userController.updateUser);
 
 module.exports = router;
