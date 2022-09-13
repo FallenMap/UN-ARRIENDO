@@ -18,5 +18,3 @@ const landlordModel = User.discriminator('Landlord', landlordSchema, {
 });
 
 module.exports = landlordModel;
-
-//https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
