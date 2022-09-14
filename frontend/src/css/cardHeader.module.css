@@ -1,5 +1,7 @@
 .cardHeader{
     text-align: center;
     padding-top: 10px;
-    color: rgb(233, 233, 233);
+    /*color: rgb(233, 233, 233);*/
+    color: #ffa;
+    text-shadow: 0 0 30px #fff;
     }

@@ -21,20 +21,20 @@ font-family: 'Numans', sans-serif;
 }
 
 
-.title h1{
-    
-    font-family: "Monoton",sans-serif;
-    font-size: 60px;
-    color: #ffa;
-    text-shadow: 0 0 30px #fff;
-    text-align: center;
-    padding: 10%;
-}
+
 
 .container{
 height: 100%;
 align-content: center;
 
+}
+
+
+.logo img{
+  position: absolute;
+  max-height: 200px;
+  max-width: 200px;
+  transform: translate(850%,400%) ;
 }
 
 
@@ -57,13 +57,52 @@ margin-left: 15px;
 margin-right: 5px;
 }
 
+
+
 .pageTitle h1{
+    transform: translate(0%, 40%);
+    animation: flicker 1.5s infinite alternate;
     position: relative;
     text-align: center;
-    padding-top: 70px;
-    color:white;
-    font-size: 80px;
+    padding-top: 2rem;
+    font-family: "Monoton",sans-serif;
+    font-size: 60px;
+    color: #ff7;
+    text-shadow: 0 0 30px #fff;
+    border: 0.2rem solid #fff;
+    border-radius: 2rem;
+    padding: 0.4em;
+    box-shadow: 0 0 .2rem #fff,
+              0 0 .2rem #fff,
+              0 0 2rem #ff7,
+              0 0 0.8rem #ff7,
+              0 0 2.8rem #ff7,
+              inset 0 0 1.3rem #ff7; 
+    
 }
+
+/* Flickering animation */
+@keyframes flicker {
+    
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+  
+        text-shadow:
+        0 0 11px #fff,
+        0 0 19px #fff,
+        0 0 40px #fff,
+        0 0 80px #ff7,
+        0 0 90px #ff7,
+        0 0 100px #ff7,
+        0 0 150px #ff7,
+    
+    }
+    
+    20%, 24%, 55% {        
+        text-shadow: none;
+    }    
+  }
+
+
 
 .login_btn{
 color: black;

@@ -1,13 +1,47 @@
+
 .pageTitle{
     font-size: 8vh;
     position: absolute;
     padding: 2.5vh;
     top: 10vh;
     left: 65vh;
-    color: #272343;
-    background-color: #E3F6F5;
+    /*color: #272343;*/
+    background-color: white;
+    color: rgb(0, 0, 0);
+    border: 0.2rem solid white;
+    border-radius: 5rem;
+    padding: 0.4em;
+    box-shadow: 0 0 .2rem #fff,
+              0 0 .2rem #fff,
+              0 0 2rem black,
+              0 0 0.8rem black,
+              0 0 2.8rem black,
+              inset 0 0 1.3rem black; 
 
 }
+
+.picture2 img{
+    
+    rotate: 10deg;
+    position: absolute;
+    height: 250px;
+    width: 250px;
+    transform: translate(650%,-80%) ;
+  }
+
+
+
+
+.picture img{
+    
+    rotate: 10deg;
+    position: absolute;
+    height: 350px;
+    width: 350px;
+    transform: translate(30%,160%) ;
+  }
+  
+
 
 .container{
     display: grid;
