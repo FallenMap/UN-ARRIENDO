@@ -6,19 +6,21 @@ export function Login() {
   return (
     <>
       <main>
-        <div className={styles.logo}>
-          <img src={imagen} alt="Logo" />
-        </div>
-        <div className="d-flex justify-content-center h-100">
-          <div className={styles.pageTitle}>
-            <h1> UN-ARRIENDO </h1>
+        <div class={styles.container}>
+          <div class={styles.logo}>
+            <img src={imagen} alt="Logo" />
           </div>
-        </div>
-        <link rel="stylesheet" type="text/css" href="logIn.css" />
+          <div class="d-flex justify-content-center h-100">
+            <div class={styles.pageTitle}>
+              <h1> UN-ARRIENDO </h1>
+            </div>
+          </div>
+          <link rel="stylesheet" type="text/css" href="logIn.css" />
 
-        <div className="d-flex justify-content-center h-100">
-          <Card />
-        </div>
+          <div class="d-flex justify-content-center h-100">
+            <Card />
+          </div>
+        </div>       
       </main>
     </>
   );

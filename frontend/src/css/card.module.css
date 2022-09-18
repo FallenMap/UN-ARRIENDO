@@ -1,8 +1,14 @@
 .card{
     position: relative;
-    transform: translate(0%, 60%);
-    margin-top: auto;
+    top: -100%;
+    left: 0%;
+    margin-top: 50px;
     margin-bottom: auto;
-    width: 400px;
+    width: 25%;
+    max-width: 400px;
+    min-width: 300px;
+    height: auto;
     background-color: rgba(0,0,0,0.8) !important;
 }
+
+
