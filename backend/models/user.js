@@ -18,8 +18,8 @@ const userSchema = new mongoose.Schema({
         enum: ['Male', 'Female', 'Not specified']
     },
     birthDate: Date,
-    description: String
-    //Foto: String //path del archivo subido
+    description: String,
+    photo: String
 }, { discriminatorKey: 'type' });
 
 module.exports = mongoose.model('User', userSchema);
