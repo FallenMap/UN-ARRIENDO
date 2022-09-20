@@ -21,21 +21,24 @@ font-family: 'Numans', sans-serif;
 }
 
 
-
-
 .container{
-height: 100%;
-align-content: center;
+  display: grid;
+  gap: 1 rem;
+  grid-auto-rows: 22rem;
+  grid-template-areas: auto;
 
 }
 
 
 .logo img{
-  position: absolute;
+  position: relative;
   max-height: 200px;
   max-width: 200px;
-  transform: translate(850%,380%) ;
+  margin: 50 px;
+  top: 250%;
+  left: 80%;
 }
+
 
 
 .input-group-prepend span{
@@ -60,11 +63,12 @@ margin-right: 5px;
 
 
 .pageTitle h1{
-    transform: translate(0%, 40%);
     animation: flicker 1.5s infinite alternate;
     position: relative;
     text-align: center;
+    top: -70%;
     padding-top: 2rem;
+    padding-bottom: 60px;
     font-family: "Monoton",sans-serif;
     font-size: 60px;
     color: #ff7;
