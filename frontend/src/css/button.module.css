@@ -1,0 +1,14 @@
+.loginButton {
+    font-family: "Passion One";
+    margin-top: 5px;
+    color: black;
+    background-color: #ffc312;
+    width: 200px;
+    height: 30px;
+    transform: translate(10%, 0%);
+  }
+  
+  .loginButton:hover{
+     color: black;
+     background-color: white;
+     }

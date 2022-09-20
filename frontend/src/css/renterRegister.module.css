@@ -11,29 +11,14 @@ label {
     height: 28px;
     font-weight: 50px;
   }
-  
-  h1.title {
-    transform: translate(125%, 15%);
-    font-size: 50px;
-    font-family: "Passion One", cursive;
-    font-weight: 400;
-    color: #ff7;
-    text-shadow: 0 0 30px #fff;
-    border: 0.2rem solid #fff;
-    border-radius: 2rem;
-    padding: 0.4em;
-    box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #ff7, 0 0 0.8rem #ff7,
-      0 0 2.8rem #ff7, inset 0 0 1.3rem #ff7;
-  }
+
   
   hr {
     width: 10%;
     color: #fff;
   }
   
-  .formGroup {
-    margin-bottom: 15px;
-  }
+ 
   
   label {
     margin-bottom: 15px;
@@ -71,20 +56,6 @@ label {
     padding: 40px 40px;
   }
   
-  .loginButton {
-    font-family: "Passion One";
-    margin-top: 5px;
-    color: black;
-    background-color: #ffc312;
-    width: 200px;
-    height: 30px;
-    transform: translate(10%, 0%);
-  }
-  
-  .loginButton:hover{
-     color: black;
-     background-color: white;
-     }
   
   .loginRegister {
     font-size: 15px;

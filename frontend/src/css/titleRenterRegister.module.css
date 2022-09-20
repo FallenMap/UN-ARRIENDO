@@ -1,0 +1,13 @@
+h1.title {
+    transform: translate(125%, 15%);
+    font-size: 50px;
+    font-family: "Passion One", cursive;
+    font-weight: 400;
+    color: #ff7;
+    text-shadow: 0 0 30px #fff;
+    border: 0.2rem solid #fff;
+    border-radius: 2rem;
+    padding: 0.4em;
+    box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #ff7, 0 0 0.8rem #ff7,
+      0 0 2.8rem #ff7, inset 0 0 1.3rem #ff7;
+  }
