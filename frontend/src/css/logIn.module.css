@@ -24,7 +24,7 @@ font-family: 'Numans', sans-serif;
 .container{
   display: grid;
   gap: 1 rem;
-  grid-auto-rows: 22rem;
+  grid-auto-rows: 18rem;
   grid-template-areas: auto;
 
 }
@@ -34,9 +34,9 @@ font-family: 'Numans', sans-serif;
   position: relative;
   max-height: 200px;
   max-width: 200px;
-  margin: 50 px;
+  margin: 5 px;
   top: 250%;
-  left: 80%;
+  left: 87%;
 }
 
 
