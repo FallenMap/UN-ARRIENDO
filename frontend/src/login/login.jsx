@@ -5,6 +5,7 @@ import imagen from "../Images/Logo.png";
 export function Login() {
   return (
     <>
+      
       <main>
         <div className={styles.logo}>
           <img src={imagen} alt="Logo" />

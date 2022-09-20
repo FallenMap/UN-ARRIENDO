@@ -1,6 +1,7 @@
 import { CheckBox } from "./checkBox";
 import { SubmitButton } from "./submitButton";
 import { TextBox } from "./textBox";
+import { PasswordBox } from "./passwordBox";
 
 export function CardBody(){
     return(
@@ -8,7 +9,7 @@ export function CardBody(){
         <div className="card-body">
               <form>
                 <TextBox Name="Username"/>
-                <TextBox Name="Password"/>
+                <PasswordBox Name="Password"/>
                 <CheckBox/>
                 <SubmitButton/>
               </form>

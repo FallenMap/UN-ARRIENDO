@@ -24,7 +24,7 @@ export function SelectRegister() {
               ¿Buscas publicar un apartamento o habitacion?
             </h2>
 
-            <Link to="/">
+            <Link to="/RenterRegister">
               <button className={styles.buttonLeft}> Crear cuenta</button>
             </Link>
           </div>
@@ -37,7 +37,7 @@ export function SelectRegister() {
               {" "}
               ¿Buscas una habitación o apartamento para arrendar?
             </h2>
-            <Link to="/">
+            <Link to="/StudentRegister">
               <button className={styles.buttonRight}> Crear cuenta</button>
             </Link>
           </div>
