@@ -11,7 +11,7 @@ export function FormGroup(props){
                     <span className="input-group-addon">
                       <i className= {props.image} aria-hidden="true" />
                     </span>
-                    <TextForm title={props.title} placeholder={props.placeholder} />
+                    <TextForm title={props.title} placeholder={props.placeholder} type={props.type}/>
                   </div>
                 </div>
         </div>

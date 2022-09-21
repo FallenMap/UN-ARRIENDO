@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "../css/studentRegister.module.css";
 
 export function StudentRegister() {
@@ -138,7 +139,7 @@ export function StudentRegister() {
                 </button>
               </div>
               <div className={styles.loginRegister}>
-                <a href="/">Login</a>
+                <Link to="/">Login</Link>
               </div>
             </form>
           </div>

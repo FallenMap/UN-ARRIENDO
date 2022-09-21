@@ -2,7 +2,7 @@ export function TextForm(props){
     return(
         <div>
             <input
-                    type="text"
+                    type={props.type}
                     className="form-control"
                     name= {props.name}
                     id= {props.name}
