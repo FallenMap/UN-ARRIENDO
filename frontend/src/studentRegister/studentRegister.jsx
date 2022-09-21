@@ -1,146 +1,55 @@
 import { Link } from "react-router-dom";
 import styles from "../css/studentRegister.module.css";
+import { ButtonRegister } from "../renterRegister/buttonRegister";
+import { FormGroup } from "../renterRegister/formGroup";
+import { LinksPage } from "../renterRegister/linksPage";
+import { ListGenre } from "../renterRegister/selectGenre";
+import { TitleRegister } from "../renterRegister/titleRenterRegister";
 
 export function StudentRegister() {
   return (
     <>
-      <link
-        href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-        rel="stylesheet"
-        id="bootstrap-css"
-      ></link>
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
-      {/* Website CSS style */}
-      <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
-      {/* Website Font style */}
-      <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
-      />
-      {/* Google Fonts */}
-      <link
-        href="https://fonts.googleapis.com/css?family=Passion+One"
-        rel="stylesheet"
-        type="text/css"
-      />
-      <link
-        href="https://fonts.googleapis.com/css?family=Oxygen"
-        rel="stylesheet"
-        type="text/css"
-      />
+      <LinksPage/>
+      
       <title>Admin</title>
+      
       <div className="container">
+
         <div className="row main">
-          <div className="panel-heading">
-            <div class="panel-title text-center">
-              <h1 className={styles.title}>Student Register</h1>
-            </div>
-          </div>
+
+          <TitleRegister title="Student Register"/>
+
           <div className={styles.mainLogin}>
             <form className="form-horizontal" method="post" action="#">
+
               <div className={styles.formGroup}>
-                <label htmlFor="name" className="cols-sm-2 control-label">
-                  Your Name
-                </label>
-                <div className="cols-sm-10">
-                  <div className="input-group">
-                    <span className="input-group-addon">
-                      <i className="fa fa-user fa" aria-hidden="true" />
-                    </span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="name"
-                      id="name"
-                      placeholder="Enter your Name"
-                    />
-                  </div>
-                </div>
+              <FormGroup name="name" placeholder="Enter your Name" title="Your Name" image="fa fa-user fa" type="text" /> 
               </div>
+
               <div className={styles.formGroup}>
-                <label htmlFor="email" className="cols-sm-2 control-label">
-                  Your Email
-                </label>
-                <div className="cols-sm-10">
-                  <div className="input-group">
-                    <span className="input-group-addon">
-                      <i className="fa fa-envelope fa" aria-hidden="true" />
-                    </span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="email"
-                      id="email"
-                      placeholder="Enter your Email"
-                    />
-                  </div>
-                </div>
+                <FormGroup name="email" placeholder="Enter your Email" title="Your Email" image="fa fa-envelope fa"  type="text"/>
               </div>
+
               <div className={styles.formGroup}>
-                <label htmlFor="username" className="cols-sm-2 control-label">
-                  Username
-                </label>
-                <div className="cols-sm-10">
-                  <div className="input-group">
-                    <span className="input-group-addon">
-                      <i className="fa fa-users fa" aria-hidden="true" />
-                    </span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="username"
-                      id="username"
-                      placeholder="Enter your Username"
-                    />
-                  </div>
-                </div>
+                <FormGroup name="username" placeholder="Enter your Username" title="Username" image="fa fa-users fa" type="text"/>
               </div>
+
               <div className={styles.formGroup}>
-                <label htmlFor="Genre" className="cols-sm-2 control-label">
-                  Your Genre
-                </label>
-                <div className="cols-sm-10">
-                  <div className="input-group">
-                    <span className="input-group-addon">
-                      <i className="fa fa-male fa-lg" aria-hidden="true"  />
-                    </span>
-                      <select name="Genre" id="Genre" >
-                        <option>Masculino</option>
-                        <option>Femenino</option>
-                      </select>
-                  </div>
-                </div>
+                <ListGenre/>
               </div>
+
               <div className={styles.formGroup}>
-                <label htmlFor="confirm" className="cols-sm-2 control-label">
-                  Password
-                </label>
-                <div className="cols-sm-10">
-                  <div className="input-group">
-                    <span className="input-group-addon">
-                      <i className="fa fa-lock fa-lg" aria-hidden="true" />
-                    </span>
-                    <input
-                      type="password"
-                      className="form-control"
-                      name="confirm"
-                      id="confirm"
-                      placeholder="Enter your password"
-                    />
-                  </div>
-                </div>
+                <FormGroup name="confirm" placeholder="Enter your password" title="Password" image="fa fa-lock fa" type="password"/>
               </div>
+
               <div className={styles.formGroup}>
-                <button type="button" className={styles.loginButton}>
-                  Register
-                </button>
+                <ButtonRegister/>
               </div>
+
               <div className={styles.loginRegister}>
                 <Link to="/">Login</Link>
               </div>
+
             </form>
           </div>
         </div>

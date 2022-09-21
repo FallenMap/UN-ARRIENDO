@@ -5,7 +5,7 @@ import { Description } from "./description";
 import { FormGroup } from "./formGroup";
 import { LinksPage } from "./linksPage";
 import { ListGenre } from "./selectGenre";
-import { TitleRenterRegister } from "./titleRenterRegister";
+import { TitleRegister} from "./titleRenterRegister";
 
 export function RenterRegister() {
   return (
@@ -19,7 +19,7 @@ export function RenterRegister() {
 
         <div className="row main">
 
-          <TitleRenterRegister/>
+          <TitleRegister title="Renter Register"/>
 
           <div className={styles.mainLogin}>
             <form className="form-horizontal" method="post" action="#">
