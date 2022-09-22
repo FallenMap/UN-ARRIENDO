@@ -1,29 +1,30 @@
 import { Link } from "react-router-dom";
-import styles from "../css/studentRegister.module.css";
+import styles from "../css/renterRegister.module.css";
 import { ButtonRegister } from "../renterRegister/buttonRegister";
+import { Description } from "../renterRegister/description";
 import { FormGroup } from "../renterRegister/formGroup";
 import { LinksPage } from "../renterRegister/linksPage";
-import { ListGenre } from "../renterRegister/selectGenre";
-import { TitleRegister } from "../renterRegister/titleRenterRegister";
+import { TitleRegister} from "../renterRegister/titleRenterRegister";
 
-export function StudentRegister() {
+export function RenterUpdate() {
   return (
     <>
+
       <LinksPage/>
       
       <title>Admin</title>
-      
+
       <div className="container">
 
         <div className="row main">
 
-          <TitleRegister title="Student Register"/>
+          <TitleRegister title="Renter Update"/>
 
-          <div className={styles.mainLogin}>
+          <div className={styles.mainLoginUpdate}>
             <form className="form-horizontal" method="post" action="#">
 
               <div className={styles.formGroup}>
-              <FormGroup name="name" placeholder="Enter your Name" title="Your Name" image="fa fa-user fa" type="text" /> 
+                <FormGroup name="name" placeholder="Enter your Name" title="Your Name" image="fa fa-user fa" type="text" /> 
               </div>
 
               <div className={styles.formGroup}>
@@ -31,11 +32,11 @@ export function StudentRegister() {
               </div>
 
               <div className={styles.formGroup}>
-                <FormGroup name="username" placeholder="Enter your Username" title="Username" image="fa fa-users fa" type="text"/>
+                <FormGroup name="number" placeholder="Enter your number of contact" title="Your Number Of Contact" image="fa fa-phone fa" type="text"/>
               </div>
 
-              <div className={styles.formGroup}>
-                <ListGenre/>
+              <div class={styles.formGroup}>
+                <Description/>
               </div>
 
               <div className={styles.formGroup}>
@@ -43,11 +44,11 @@ export function StudentRegister() {
               </div>
 
               <div className={styles.formGroup}>
-                <ButtonRegister loginButton="Register"/>
+                <ButtonRegister loginButton="Actualizar"/>
               </div>
-
+              
               <div className={styles.loginRegister}>
-                <Link to="/">Login</Link>
+                <Link to="/">Login </Link>
               </div>
 
             </form>

@@ -53,7 +53,7 @@ export function RenterRegister() {
               </div>
 
               <div className={styles.formGroup}>
-                <ButtonRegister/>
+                <ButtonRegister loginButton="Register"/>
               </div>
               
               <div className={styles.loginRegister}>

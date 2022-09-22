@@ -122,3 +122,19 @@
     font-size: 2.3vh;
     border-radius: 1.3vh;
 }
+
+.button{
+    position: absolute;
+    top: 90%;
+    left: 45%;
+    font-size: 2.3vh;
+    border-radius: 1.3vh;
+    color: black;
+    background-color: #FFC312;
+}
+
+    
+    .button:hover{
+    color: black;
+    background-color: white;
+    }

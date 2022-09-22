@@ -6,7 +6,7 @@ import { LinksPage } from "../renterRegister/linksPage";
 import { ListGenre } from "../renterRegister/selectGenre";
 import { TitleRegister } from "../renterRegister/titleRenterRegister";
 
-export function StudentRegister() {
+export function StudentUpdate() {
   return (
     <>
       <LinksPage/>
@@ -43,7 +43,7 @@ export function StudentRegister() {
               </div>
 
               <div className={styles.formGroup}>
-                <ButtonRegister loginButton="Register"/>
+                <ButtonRegister/>
               </div>
 
               <div className={styles.loginRegister}>

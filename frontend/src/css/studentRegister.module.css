@@ -16,7 +16,8 @@ select {
 }
 
 h1.title {
-  transform: translate(118%, 15%);
+
+  transform: translate(100%, 15%);
   font-size: 50px;
   font-family: "Passion One", cursive;
   font-weight: 400;
@@ -50,7 +51,7 @@ input::-webkit-input-placeholder {
 
 .mainLogin {
   position: relative;
-  transform: translate(-50%, 40%);
+  transform: translate(-45%, 40%);
   /*background-color: #fff;*/
   background-color: rgba(0, 0, 0, 0.8) !important;
 
