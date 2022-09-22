@@ -4,7 +4,7 @@ import { ButtonRegister } from "../renterRegister/buttonRegister";
 import { FormGroup } from "../renterRegister/formGroup";
 import { LinksPage } from "../renterRegister/linksPage";
 import { ListGenre } from "../renterRegister/selectGenre";
-import { TitleRegister } from "../renterRegister/titleRenterRegister";
+import { TitleStudent } from "./titleRenterRegister copy";
 
 export function StudentRegister() {
   return (
@@ -17,7 +17,7 @@ export function StudentRegister() {
 
         <div className="row main">
 
-          <TitleRegister title="Student Register"/>
+          <TitleStudent title="Student Register"/>
 
           <div className={styles.mainLogin}>
             <form className="form-horizontal" method="post" action="#">

@@ -9,6 +9,7 @@
     font-weight: 400;
     src: local('Monoton'), local('Monoton-Regular'), url(http://themes.googleusercontent.com/static/fonts/monoton/v4/AKI-lyzyNHXByGHeOcds_w.woff) format('woff');
   }
+  
 
 html,body{
 /*background-image: url('https://www.xtrafondos.com/descargar.php?id=3593&resolucion=3840x2160');*/
@@ -31,12 +32,8 @@ font-family: 'Numans', sans-serif;
 
 
 .logo img{
-  position: relative;
   max-height: 200px;
   max-width: 200px;
-  margin: 5 px;
-  top: 250%;
-  left: 87%;
 }
 
 
@@ -66,7 +63,8 @@ margin-right: 5px;
     animation: flicker 1.5s infinite alternate;
     position: relative;
     text-align: center;
-    top: -70%;
+    background-color: rgba(0, 0, 0, 0.801);
+    top: 20%;
     padding-top: 2rem;
     padding-bottom: 60px;
     font-family: "Monoton",sans-serif;
