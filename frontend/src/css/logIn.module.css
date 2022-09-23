@@ -32,8 +32,11 @@ font-family: 'Numans', sans-serif;
 
 
 .logo img{
+  position: relative;
   max-height: 200px;
   max-width: 200px;
+  left: 80%;
+  top: 30%;
 }
 
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "../css/SelectRegister.module.css";
+import styles from "../../css/SelectRegister.module.css";
 
 export function SelectRegister() {
   return (

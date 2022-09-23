@@ -1,4 +1,4 @@
-import styles from "../css/textForm.module.css"
+import styles from "../../css/textForm.module.css"
 export function ListGenre(){
     return(
         

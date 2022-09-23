@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import styles from "../css/studentRegister.module.css";
+import styles from "../../css/studentRegister.module.css";
 import { ButtonRegister } from "../renterRegister/buttonRegister";
 import { FormGroup } from "../renterRegister/formGroup";
 import { LinksPage } from "../renterRegister/linksPage";
 import { ListGenre } from "../renterRegister/selectGenre";
-import { TitleRegister } from "../renterRegister/titleRenterRegister";
+import { TitleStudent } from "./titleRenterRegister copy";
 
-export function StudentUpdate() {
+export function StudentRegister() {
   return (
     <>
       <LinksPage/>
@@ -17,7 +17,7 @@ export function StudentUpdate() {
 
         <div className="row main">
 
-          <TitleRegister title="Student Register"/>
+          <TitleStudent title="Student Register"/>
 
           <div className={styles.mainLogin}>
             <form className="form-horizontal" method="post" action="#">
@@ -43,7 +43,7 @@ export function StudentUpdate() {
               </div>
 
               <div className={styles.formGroup}>
-                <ButtonRegister/>
+                <ButtonRegister loginButton="Register"/>
               </div>
 
               <div className={styles.loginRegister}>

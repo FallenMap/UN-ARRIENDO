@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import styles from "../css/SelectRegister.module.css";
+import styles from "../../css/renterRegister.module.css";
 export function MainScreen() {
   return (
       <div className="container">

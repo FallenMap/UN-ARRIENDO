@@ -1,4 +1,4 @@
-import styles from "../css/titleRenterRegister.module.css"
+import styles from "../../css/titleRenterRegister.module.css"
 
 export function TitleRegister(props){
     return(

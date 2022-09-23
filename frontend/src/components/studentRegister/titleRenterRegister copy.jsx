@@ -1,4 +1,4 @@
-import styles from "../css/titleStudentRegister.module.css"
+import styles from "../../css/titleStudentRegister.module.css"
 
 export function TitleStudent(props){
     return(

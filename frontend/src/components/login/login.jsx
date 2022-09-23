@@ -1,6 +1,6 @@
 import { Card } from "./card";
-import styles from "../css/logIn.module.css";
-import imagen from "../Images/Logo.png";
+import styles from "../../css/logIn.module.css";
+import imagen from "../../Images/Logo.png";
 
 export function Login() {
   return (

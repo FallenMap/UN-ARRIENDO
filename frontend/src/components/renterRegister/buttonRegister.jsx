@@ -1,4 +1,4 @@
-import styles from "../css/button.module.css"
+import styles from "../../css/button.module.css"
 export function ButtonRegister(props){
     return(
         
