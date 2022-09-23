@@ -35,8 +35,8 @@ font-family: 'Numans', sans-serif;
   position: relative;
   max-height: 200px;
   max-width: 200px;
-  left: 80%;
-  top: 30%;
+  left: 45%;
+  top: 120%;
 }
 
 
@@ -67,7 +67,7 @@ margin-right: 5px;
     position: relative;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.801);
-    top: 20%;
+    top: 40%;
     padding-top: 2rem;
     padding-bottom: 60px;
     font-family: "Monoton",sans-serif;

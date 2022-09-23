@@ -59,68 +59,11 @@
     grid-column: 1/2;
     grid-row: 15;
 }
+
 .containerRight{
     text-align: center;
     grid-column: 3;
     grid-row: 15;
-}
-
-.titleLeft{
-    font-size: 40px;
-    font-weight: bolder;
-    position: relative;
-    color: white;
-    text-shadow: 0px 0px 10px rgb(3, 3, 3);
-    left: 20%;
-}
-
-.questionLeft{
-    color: #fff;
-    font-size: 30px;
-    position: relative;
-    text-justify: center;
-    padding-top: 20px;
-    left: 20%;
-}
-
-.buttonLeft{
-    position: relative;
-    width: 150px;
-    height: 30px;
-    text-justify: center;
-    margin: 20px;
-    left: 20%;
-    font-size: 15px;
-    border-radius: 10px;
-}
-
-.titleRight{
-    font-size: 40px;
-    font-weight: bolder;
-    position: relative;
-    color:#fff;
-    text-shadow: 0px 0px 10px rgb(3, 3, 3);
-    left: -20%;
-    
-}
-.questionRight{
-    color: #fff;
-    font-size: 25px;
-    position: relative;
-    text-justify: center;
-    padding-top: 20px;
-    left: -20%;
-}
-
-.buttonRight{
-    position: relative;
-    width: 150px;
-    height: 30px;
-    text-justify: center;
-    margin: 25px;
-    left: -20%;
-    font-size: 15px;
-    border-radius: 10px;
 }
 
 .containerCenter{

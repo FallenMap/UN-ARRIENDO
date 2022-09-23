@@ -1,6 +1,5 @@
 import { Card } from "./card";
 import styles from "../../css/logIn.module.css";
-import imagen from "../../Images/Logo.png";
 
 export function Login() {
   return (
@@ -23,12 +22,6 @@ export function Login() {
           <div class="d-flex justify-content-center h-100">
             <Card />
           </div>
-
- 
-          <div class={styles.logo}>
-              <img src={imagen} alt="Logo" />
-          </div>
-
 
         </div>       
       </main>
