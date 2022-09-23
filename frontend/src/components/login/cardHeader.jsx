@@ -1,4 +1,4 @@
-import styles from "../css/cardHeader.module.css"
+import styles from "../../css/cardHeader.module.css"
 
 export function CardHeader(){
     return(

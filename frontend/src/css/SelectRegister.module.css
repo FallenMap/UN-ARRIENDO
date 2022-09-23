@@ -1,10 +1,12 @@
+.color{
+    background-color: rgba(85, 85, 32, 0.151);
+}
 
 .pageTitle{
-    font-size: 8vh ;
-    position: absolute;
-    padding: 2.5vh;
-    top: 10%;
-    left: 34%;
+    font-size: 5.5vh ;
+    position: relative;
+    left: -3%;
+    text-align: center;
     /*color: #272343;*/
     background-color: white;
     color: rgb(0, 0, 0);
@@ -20,7 +22,7 @@
 
 }
 
-.picture2 img{
+.pictures .picture2  img{
     
     rotate: 10deg;
     position: absolute;
@@ -31,9 +33,7 @@
   }
 
 
-
-
-.picture img{
+.pictures .picture img {
     
     rotate: 10deg;
     position: absolute;
@@ -42,83 +42,88 @@
     top: 60%;
     left: auto;
   }
-  
 
+  .backgroundPage{
+    background: linear-gradient(to right, rgba(18, 18, 19, 0.50) 50%, rgba(88, 88, 83, 0.5) 50%);
+    width:  100%;
+    height: 100vh;
+  }
+.wrapped{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
 
 .container{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background: #272343;
-    height: 100vh;
-}
-
-.left{
-    background: #BAE8E8;
-    display: flex;
-    place-items: center;
     text-align: center;
-    justify-content: center;
+    grid-column: 1/2;
+    grid-row: 15;
 }
-.right{
-    justify-content: center;
+.containerRight{
+    text-align: center;
+    grid-column: 3;
+    grid-row: 15;
 }
 
 .titleLeft{
-    position: absolute;
-    top: 40%;
-    left: 15%;
-    color: #272343;
-    text-align: center;
-    align-items: center;
-    font-size: 6vh;
-    padding: 0.5vh;
+    font-size: 40px;
+    font-weight: bolder;
+    position: relative;
+    color: white;
+    text-shadow: 0px 0px 10px rgb(3, 3, 3);
+    left: 20%;
 }
 
 .questionLeft{
-    position: absolute;
-    top: 50%;
-    left: 3%;
-    color: #272343;
-    align-items: center;
-    text-align: center;
-    font-size: 3.4vh;
-    padding: 1.9vh;
-}
-
-.titleRight{
-    position: absolute;
-    top: 40%;
-    left: 68%;
-    color: #BAE8E8;
-    text-align: center;
-    align-items: center;
-    font-size: 6vh;
-    padding: 0.5vh;
-}
-
-.questionRight{
-    position: absolute;
-    top: 50%;
-    left: 52%;
-    color: #BAE8E8;
-    align-items: center;
-    text-align: center;
-    font-size: 3.4vh;
-    padding: 1.9vh;
+    color: #fff;
+    font-size: 30px;
+    position: relative;
+    text-justify: center;
+    padding-top: 20px;
+    left: 20%;
 }
 
 .buttonLeft{
-    position: absolute;
-    top: 64.7%;
+    position: relative;
+    width: 150px;
+    height: 30px;
+    text-justify: center;
+    margin: 20px;
     left: 20%;
-    font-size: 2.3vh;
-    border-radius: 1.3vh;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.titleRight{
+    font-size: 40px;
+    font-weight: bolder;
+    position: relative;
+    color:#fff;
+    text-shadow: 0px 0px 10px rgb(3, 3, 3);
+    left: -20%;
+    
+}
+.questionRight{
+    color: #fff;
+    font-size: 25px;
+    position: relative;
+    text-justify: center;
+    padding-top: 20px;
+    left: -20%;
 }
 
 .buttonRight{
-    position: absolute;
-    top: 64.7%;
-    left: 72%;
-    font-size: 2.3vh;
-    border-radius: 1.3vh;
+    position: relative;
+    width: 150px;
+    height: 30px;
+    text-justify: center;
+    margin: 25px;
+    left: -20%;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.containerCenter{
+    grid-column: 2;
+    grid-row: 7;
 }
