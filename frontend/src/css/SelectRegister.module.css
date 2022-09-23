@@ -113,7 +113,6 @@
 }
 
 .buttonRight{
-<<<<<<< HEAD
     position: relative;
     width: 150px;
     height: 30px;
@@ -128,27 +127,3 @@
     grid-column: 2;
     grid-row: 7;
 }
-=======
-    position: absolute;
-    top: 64.7%;
-    left: 72%;
-    font-size: 2.3vh;
-    border-radius: 1.3vh;
-}
-
-.button{
-    position: absolute;
-    top: 90%;
-    left: 45%;
-    font-size: 2.3vh;
-    border-radius: 1.3vh;
-    color: black;
-    background-color: #FFC312;
-}
-
-    
-    .button:hover{
-    color: black;
-    background-color: white;
-    }
->>>>>>> 04c83899253f03e45e1bf33e4fcfab7c31de1be2
