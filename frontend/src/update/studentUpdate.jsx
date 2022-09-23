@@ -4,9 +4,9 @@ import { ButtonRegister } from "../renterRegister/buttonRegister";
 import { FormGroup } from "../renterRegister/formGroup";
 import { LinksPage } from "../renterRegister/linksPage";
 import { ListGenre } from "../renterRegister/selectGenre";
-import { TitleStudent } from "./titleRenterRegister copy";
+import { TitleRegister } from "../renterRegister/titleRenterRegister";
 
-export function StudentRegister() {
+export function StudentUpdate() {
   return (
     <>
       <LinksPage/>
@@ -17,7 +17,7 @@ export function StudentRegister() {
 
         <div className="row main">
 
-          <TitleStudent title="Student Register"/>
+          <TitleRegister title="Student Register"/>
 
           <div className={styles.mainLogin}>
             <form className="form-horizontal" method="post" action="#">
@@ -43,7 +43,7 @@ export function StudentRegister() {
               </div>
 
               <div className={styles.formGroup}>
-                <ButtonRegister loginButton="Register"/>
+                <ButtonRegister/>
               </div>
 
               <div className={styles.loginRegister}>
