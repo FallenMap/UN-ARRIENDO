@@ -4,10 +4,16 @@ import { TextBox } from "./textBox";
 import { PasswordBox } from "./passwordBox";
 
 export function CardBody(){
+    
+    const submitHandler = (event)=>{
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      console.log(formData.get('Password'));
+      return;
+    }
     return(
-
         <div className="card-body">
-              <form>
+              <form onSubmit={submitHandler}>
                 <TextBox Name="Username"/>
                 <PasswordBox Name="Password"/>
                 <CheckBox/>

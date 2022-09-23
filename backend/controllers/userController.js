@@ -119,16 +119,35 @@ userController.updateUser = async (req, res) => {
 };
 
 userController.loginUser = async (req, res) => {
-    let user = await User.findOne({email:req.body.email}).exec();
+    let user;
+    try{
+        user = await User.findOne({email:req.body.email}).exec();
+    }catch{
+        res.status(500).json({
+            error:"Something bad happened..."
+        });
+        return;
+    }
+
     if(user){
-        let exist = await bcrypt.compare(req.body.password, user.password);
-        if(exist){
+        let match; 
+        try{
+            match = await bcrypt.compare(req.body.password, user.password);
+        }catch{
+            res.status(500).json({
+                error:"Something bad happened..."
+            });
+            return;
+        }
+        if(match){
             req.session.userLogin = true;
             req.session.userID = user._id;
             req.session.userRol = user.type;
             res.status(200).json({
                 msg:"You are logged in",
-                data: user
+                data: {
+                    role: user
+                }
             });
         }else{
             res.status(404).json({

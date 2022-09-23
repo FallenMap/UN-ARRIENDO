@@ -18,7 +18,7 @@ export function App() {
               <Route path="/" element={<Login/>}> </Route>
               <Route path="/StudentRegister" element={<StudentRegister/>}> </Route>
               <Route path="/RenterRegister" element={<RenterRegister/>}> </Route>
-
+              <Route path="*" element={<>NOT FOUND</>}/>
 
           </Routes> 
           

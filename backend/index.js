@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const cors = require('cors');
+
 
 require('dotenv').config();
 
@@ -13,6 +15,9 @@ app.use(bodyParser.json());
 
 //Configure the morgan library to view requests.
 app.use(morgan('tiny'));
+
+//Configure the cors for request from frontend
+app.use(cors());
 
 //Initialize the session
 app.use(session({

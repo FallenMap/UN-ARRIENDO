@@ -10,6 +10,7 @@ export function PasswordBox(props) {
         type="password"
         className="form-control"
         placeholder={props.Name}
+        name={props.Name}
       />
     </div>
   );

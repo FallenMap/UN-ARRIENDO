@@ -10,6 +10,7 @@ export function TextBox(props){
       type="text"
       className="form-control"
       placeholder={props.Name}
+      name="name"
     />
   </div>);
 }
