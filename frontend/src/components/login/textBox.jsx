@@ -7,10 +7,11 @@ export function TextBox(props){
       </span>
     </div>
     <input
+      id="user-name-login"
       type="text"
       className="form-control"
       placeholder={props.Name}
-      name="name"
+      name="user"
     />
   </div>);
 }

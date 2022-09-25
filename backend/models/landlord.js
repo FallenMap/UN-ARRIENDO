@@ -10,6 +10,7 @@ const landlordSchema = new Schema({
         of: String
     },
     businessHours: String,
+    phoneNumber: String,
 });
 
 // We inherit the fields from the base schema (User)

@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 
+
 require('dotenv').config();
 
 //Here we are configuring express to use body-parser as middle-ware.
@@ -17,7 +18,13 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 //Configure the cors for request from frontend
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000'
+  ],
+  credentials: true,
+  exposedHeaders: ['set-cookie']
+}));
 
 //Initialize the session
 app.use(session({

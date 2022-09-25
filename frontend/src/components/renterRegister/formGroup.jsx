@@ -3,7 +3,7 @@ import { TextForm } from "./text";
 export function FormGroup(props){
     return(
         <div>
-            <label htmlFor={props.name} className="cols-sm-2 control-label">
+            <label className="cols-sm-2 control-label">
                   {props.title}
                 </label>
                 <div className="cols-sm-10">
@@ -11,7 +11,7 @@ export function FormGroup(props){
                     <span className="input-group-addon">
                       <i className= {props.image} aria-hidden="true" />
                     </span>
-                    <TextForm title={props.title} placeholder={props.placeholder} type={props.type}/>
+                    <TextForm name={props.name} title={props.title} placeholder={props.placeholder} type={props.type}/>
                   </div>
                 </div>
         </div>

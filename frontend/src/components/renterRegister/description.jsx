@@ -1,3 +1,5 @@
+import {formAllDataUser} from "../../adapters/formAdapters";
+
 export function Description(){
     return(
         <div>
@@ -6,7 +8,9 @@ export function Description(){
             </label>
             <div className="cols-sm-10">
                 <div className="input-group">
-                <textarea name="description" id="description" cols="30" rows="3"></textarea>
+                <textarea name={formAllDataUser.description} id="description" cols="30" rows="3" style={{
+                    width:"100%"
+                }}></textarea>
                 </div>
             </div>
         </div>

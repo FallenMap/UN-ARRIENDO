@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import styles from "../../css/SelectRegister.module.css";
+import { changeTitle } from "../../utilities/changeTitle";
 
 export function SelectRegister() {
+  changeTitle("Select register");
   return (
     <>
-    <div class={styles.color}>
-    <div class={styles.backgroundPage}> 
-      <div class= {styles.wrapped}>
-        <div class={styles.containerCenter}>
+    <div className={styles.color}>
+    <div className={styles.backgroundPage}> 
+      <div className= {styles.wrapped}>
+        <div className={styles.containerCenter}>
             <h1 className={styles.pageTitle}> Selecciona tu registro </h1>
           </div>
-        <div class={styles.container}>
+        <div className={styles.container}>
           <div>
                 <h1 className={styles.titleLeft}> Arrendador </h1>
                 <h2 className={styles.questionLeft}>
@@ -23,8 +25,8 @@ export function SelectRegister() {
               </div>
         </div>
 
-        <div class={styles.containerRight}>
-          <h1 class={styles.titleRight}> Estudiante</h1>
+        <div className={styles.containerRight}>
+          <h1 className={styles.titleRight}> Estudiante</h1>
           <h2 className={styles.questionRight}>
             ¿Buscas una habitación o apartamento para arrendar?
           </h2>

@@ -1,4 +1,5 @@
 import styles from "../../css/textForm.module.css"
+import { formAllDataUser } from "../../adapters/formAdapters";
 export function ListGenre(){
     return(
         
@@ -11,10 +12,10 @@ export function ListGenre(){
                     <span className="input-group-addon">
                       <i className="fa fa-male fa-lg" aria-hidden="true"  />
                     </span>
-                      <select class={styles.select} name="Genre" id="Genre" >
+                      <select className={styles.select} name={formAllDataUser.gender} id="Genre" >
 
-                        <option>Masculino</option>
-                        <option>Femenino</option>
+                        <option>Male</option>
+                        <option>Female</option>
 
                       </select>
                   </div>

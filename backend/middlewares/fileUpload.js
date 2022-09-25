@@ -27,7 +27,7 @@ module.exports.userPhoto = (req, res, next) => {
         }
     });
     
-    return upload.single('photo')(req, res, () => {
+    return upload.single('file')(req, res, () => {
       // Remember, the middleware will call it's next function
       // so we can inject our controller manually as the next()
   

@@ -7,10 +7,11 @@ export function PasswordBox(props) {
         </span>
       </div>
       <input
+        id="user-password-login"
         type="password"
         className="form-control"
         placeholder={props.Name}
-        name={props.Name}
+        name="password"
       />
     </div>
   );
