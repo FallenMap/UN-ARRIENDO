@@ -7,7 +7,7 @@ export function CardFooter(){
           
               <RedirectingQuestion Question="Don't have a account?" url = "/SelectRegister" text="Sign Up" />
 
-              <RedirectingQuestion text="Forgot your password?" url = "/changePassword"/>
+              {/*  <RedirectingQuestion text="Forgot your password?" url = "/changePassword"/>*/}
               
             </div>
     );
