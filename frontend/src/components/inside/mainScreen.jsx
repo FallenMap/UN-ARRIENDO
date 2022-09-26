@@ -11,7 +11,7 @@ export function MainScreen() {
               <div className="col-md-12 text-center">
                   <span className="display-1 d-block">( ͡❛ ͜ʖ ͡❛)👌</span>
                   <div className="mb-4 lead">
-                      La página está en construcción mamahuevo
+                      La página está en construcción.
                   </div>
                   <Link to="/">Login</Link>
                   <br></br>
