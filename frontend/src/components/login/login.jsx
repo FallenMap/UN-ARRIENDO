@@ -20,7 +20,6 @@ export function Login() {
 
 
 
-          <link rel="stylesheet" type="text/css" href="logIn.css" />
 
           <div className="d-flex justify-content-center h-100">
             <Card />

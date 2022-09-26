@@ -7,7 +7,7 @@ export function SubmitButton(){
                   <input
                     type="submit"
                     defaultValue="Login"
-                    className="btn float-right login_btn"
+                    className="btn login_btn"
                     style={{
                       width:"100%"
                     }} 

@@ -29,6 +29,7 @@ export const userRegisterHandlerOnSubmit = (event, auth, navigate, role) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     formData.append("role", role);
+    console.log([...formData]);
     registerUser(formData).then(res => {
         auth.logIn(res.data.data);
         navigate("/MainScreen");
