@@ -67,7 +67,7 @@ export function RenterRegister() {
               </div>
 
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.user} placeholder="Enter your Username" title="Username" image="fa fa-users fa" type="text" />
+                <FormGroup name={formAllDataUser.username} placeholder="Enter your Username" title="Username" image="fa fa-users fa" type="text" />
               </div>
 
               <div className={styles.formGroup}>

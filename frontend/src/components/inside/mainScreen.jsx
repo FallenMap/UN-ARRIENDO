@@ -13,7 +13,6 @@ export function MainScreen() {
                   <div className="mb-4 lead">
                       La página está en construcción.
                   </div>
-                  <Link to="/">Login</Link>
                   <br></br>
                   <a href="https://www.youtube.com/watch?v=mCdA4bJAGGk" className="btn btn-link">Adelanto página principal</a>
                   
