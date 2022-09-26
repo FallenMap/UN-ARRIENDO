@@ -202,6 +202,7 @@ userController.loginUser = async (req, res) => {
 
     try {
         user = await User.findOne(query);
+        
     } catch (error) {
         console.log(error);
         return res.status(500).json({
