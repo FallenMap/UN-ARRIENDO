@@ -105,6 +105,7 @@ export function StudentRegister() {
               </div>
 
               <div className={styles.loginRegister}>
+                
                 {/* Create redirect text to login */}
                 <Link to="/">Login</Link>
                 

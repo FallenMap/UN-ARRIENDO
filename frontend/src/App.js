@@ -20,7 +20,12 @@ export function App() {
 
       <main>
         <AuthProvider>
+
+          {/* Depending of url change the component */}
           <Routes>
+
+
+            {/* Create multiple routes of this page */}
 
             <Route path="/SelectRegister" element={<PublicRoute component={<SelectRegister />} />}> </Route>
             <Route exact path="/" element={<PublicRoute component={<Login />} />}> </Route>
@@ -32,6 +37,7 @@ export function App() {
             <Route path="/StudentUpdate" element={<TenantRoute component={<StudentUpdate />} />}> </Route>
 
           </Routes>
+
         </AuthProvider>
       </main>
 
