@@ -16,11 +16,21 @@ export function CardBody() {
 
   return (
     <div className="card-body">
+      {/* Create login form */}
       <form onSubmit={sumbitHandler}>
+
+        {/* Call Textbox component */}
         <TextBox Name="Username" />
+
+        {/* Call Passwordbox component */}
         <PasswordBox Name="Password" />
+
+        {/* Call Checkbox component */}
         <CheckBox />
+
+        {/* Call SubmitButton component */}
         <SubmitButton />
+        
       </form>
     </div>
   );

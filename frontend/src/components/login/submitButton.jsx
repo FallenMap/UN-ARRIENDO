@@ -4,6 +4,9 @@ export function SubmitButton(){
 
     return(
         <div className="form-group">
+
+            {/* Create submit button */}
+            
                   <input
                     type="submit"
                     defaultValue="Login"
