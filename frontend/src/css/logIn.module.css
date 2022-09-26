@@ -1,0 +1,132 @@
+
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+
+@font-face {
+    font-family: 'Monoton';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Monoton'), local('Monoton-Regular'), url(http://themes.googleusercontent.com/static/fonts/monoton/v4/AKI-lyzyNHXByGHeOcds_w.woff) format('woff');
+  }
+  
+
+html,body{
+/*background-image: url('https://www.xtrafondos.com/descargar.php?id=3593&resolucion=3840x2160');*/
+background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/73/Plaza_Che%2C_Bogot%C3%A1.jpg");
+background-position: center center;
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+
+.container{
+  display: grid;
+  gap: 1 rem;
+  grid-auto-rows: 18rem;
+  grid-template-areas: auto;
+
+}
+
+
+.logo img{
+  position: relative;
+  max-height: 200px;
+  max-width: 200px;
+  left: 45%;
+  top: 120%;
+}
+
+
+
+.input-group-prepend span{
+width: 50px;
+background-color: #FFC312;
+color: black;
+border:0 !important;
+}
+
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+
+
+.pageTitle h1{
+    animation: flicker 1.5s infinite alternate;
+    position: relative;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.801);
+    top: 40%;
+    padding-top: 2rem;
+    padding-bottom: 60px;
+    font-family: "Monoton",sans-serif;
+    font-size: 60px;
+    color: #ff7;
+    text-shadow: 0 0 30px #fff;
+    border: 0.2rem solid #fff;
+    border-radius: 2rem;
+    padding: 0.4em;
+    box-shadow: 0 0 .2rem #fff,
+              0 0 .2rem #fff,
+              0 0 2rem #ff7,
+              0 0 0.8rem #ff7,
+              0 0 2.8rem #ff7,
+              inset 0 0 1.3rem #ff7; 
+    
+}
+
+/* Flickering animation */
+@keyframes flicker {
+    
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+  
+        text-shadow:
+        0 0 11px #fff,
+        0 0 19px #fff,
+        0 0 40px #fff,
+        0 0 80px #ff7,
+        0 0 90px #ff7,
+        0 0 100px #ff7,
+        0 0 150px #ff7,
+    
+    }
+    
+    20%, 24%, 55% {        
+        text-shadow: none;
+    }    
+  }
+
+
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
+
+
+

@@ -1,0 +1,72 @@
+.color{
+    background-color: rgba(85, 85, 32, 0.151);
+}
+
+.pageTitle{
+    font-size: 5.5vh ;
+    position: relative;
+    left: -3%;
+    text-align: center;
+    /*color: #272343;*/
+    background-color: white;
+    color: rgb(0, 0, 0);
+    border: 0.2rem solid white;
+    border-radius: 5rem;
+    padding: 0.4em;
+    box-shadow: 0 0 .2rem #fff,
+              0 0 .2rem #fff,
+              0 0 2rem black,
+              0 0 0.8rem black,
+              0 0 2.8rem black,
+              inset 0 0 1.3rem black; 
+
+}
+
+.pictures .picture2  img{
+    
+    rotate: 10deg;
+    position: absolute;
+    height: 250px;
+    width: 250px;
+    top: 5%;
+    left: 80%;
+  }
+
+
+.pictures .picture img {
+    
+    rotate: 10deg;
+    position: absolute;
+    height: 350px;
+    width: 350px;
+    top: 60%;
+    left: auto;
+  }
+
+  .backgroundPage{
+    background: linear-gradient(to right, rgba(18, 18, 19, 0.50) 50%, rgba(88, 88, 83, 0.5) 50%);
+    width:  100%;
+    height: 100vh;
+  }
+.wrapped{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.container{
+    text-align: center;
+    grid-column: 1/2;
+    grid-row: 15;
+}
+
+.containerRight{
+    text-align: center;
+    grid-column: 3;
+    grid-row: 15;
+}
+
+.containerCenter{
+    grid-column: 2;
+    grid-row: 7;
+}

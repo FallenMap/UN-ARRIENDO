@@ -1,0 +1,96 @@
+
+
+
+
+label {
+  color: #fff;
+}
+
+.main {
+  margin-top: 70px;
+}
+select {
+  width: 204px;
+  height: 28px;
+  font-weight: 50px;
+}
+
+h1.title {
+
+  transform: translate(100%, 15%);
+  font-size: 50px;
+  font-family: "Passion One", cursive;
+  font-weight: 400;
+  color: #ff7;
+  text-shadow: 0 0 30px #fff;
+  border: 0.2rem solid #fff;
+  border-radius: 2rem;
+  padding: 0.4em;
+  box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #ff7, 0 0 0.8rem #ff7,
+    0 0 2.8rem #ff7, inset 0 0 1.3rem #ff7;
+}
+
+hr {
+  width: 10%;
+  color: #fff;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 15px;
+}
+
+input,
+input::-webkit-input-placeholder {
+  font-size: 11px;
+  padding-top: 3px;
+}
+
+.mainLogin {
+  position: relative;
+  transform: translate(-45%, 40%);
+  /*background-color: #fff;*/
+  background-color: rgba(0, 0, 0, 0.8) !important;
+
+  /* shadows and rounded borders */
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 10px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  margin-top: auto;
+  margin: 0 auto;
+  max-width: 330px;
+  padding: 40px 40px;
+}
+
+.main-center {
+  margin-top: 30px;
+  margin: 0 auto;
+  max-width: 330px;
+  padding: 40px 40px;
+}
+
+.loginButton {
+  font-family: "Passion One";
+  margin-top: 5px;
+  color: black;
+  background-color: #ffc312;
+  width: 200px;
+  height: 30px;
+  transform: translate(10%, 0%);
+}
+
+.loginButton:hover{
+   color: black;
+   background-color: white;
+   }
+
+.loginRegister {
+  font-size: 15px;
+  text-align: center;
+}
