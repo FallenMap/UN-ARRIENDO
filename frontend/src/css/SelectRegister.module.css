@@ -54,7 +54,7 @@
     grid-gap: 10px;
 }
 
-.container{
+.containerLeft{
     text-align: center;
     grid-column: 1/2;
     grid-row: 15;

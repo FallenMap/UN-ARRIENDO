@@ -47,47 +47,79 @@ export function RenterRegister() {
             <form className="form-horizontal" onSubmit={submitHandler}>
 
               <div className={styles.formGroup}>
+
+                {/* Call FormGroup compontent with its own arguments of name*/}
                 <FormGroup name={formAllDataUser.name} placeholder="Enter your Name" title="Your Name" image="fa fa-user fa" type="text" />
+
               </div>
 
               <div className={styles.formGroup}>
+
+                {/* Call FormGroup compontent with its own arguments of lastName*/}
                 <FormGroup name={formAllDataUser.lastName} placeholder="Enter your Last Name" title="Your Last Name" image="fa fa-user fa" type="text" />
+
               </div>
 
               <div className={styles.formGroup}>
+
+                {/* Call FormGroup compontent with its own arguments of Email*/}
                 <FormGroup name={formAllDataUser.email} placeholder="Enter your Email" title="Your Email" image="fa fa-envelope fa" type="text" />
+
               </div>
 
               <div className={styles.formGroup}>
+
+                {/* Call FormGroup compontent with its own arguments of Phone*/}
                 <FormGroup name={formAllDataUser.phone} placeholder="Enter your number of contact" title="Your Number Of Contact" image="fa fa-phone fa" type="text" />
+
               </div>
 
               <div className={styles.formGroup}>
+
+                {/* Call Description component */}
                 <Description />
+                
               </div>
 
               <div className={styles.formGroup}>
+
+                {/* Call FormGroup compontent with its own arguments of username*/}
                 <FormGroup name={formAllDataUser.username} placeholder="Enter your Username" title="Username" image="fa fa-users fa" type="text" />
+                
               </div>
 
               <div className={styles.formGroup}>
+
+                {/* Call ListGenre component */}
                 <ListGenre />
               </div>
 
               <div className={styles.formGroup}>
+
+                {/* Call FormGroup compontent with its own arguments of password with type different for security*/}
                 <FormGroup name={formAllDataUser.password} placeholder="Enter your password" title="Password" image="fa fa-lock fa" type="password" />
+
               </div>
 
               <div className={styles.formGrup}>
+
+                {/* Call ButtonUploadPhoto component with it own photo */}
                 <ButtonUploadPhoto name={formAllDataUser.photo} />
+
               </div>
 
               <div className={styles.formGroup}>
+
+                {/* Call ButtonRegister component with one argument */}
                 <ButtonRegister loginButton="Register" />
+
               </div>
 
               <div className={styles.loginRegister}>
+
+                {/* Create redirect text to login */}
                 <Link to="/">Login </Link>
+
               </div>
 
             </form>
