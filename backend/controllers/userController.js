@@ -202,14 +202,7 @@ userController.loginUser = async (req, res) => {
 
     try {
         user = await User.findOne(query);
-        if (user) {
-            data = {};
-            for (let i in user.toJSON()) {
-                if (DoNotSendThisData.indexOf(i) == -1) {
-                    data[i] = user.toJSON()[i];
-                }
-            }
-        }
+        
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -217,10 +210,10 @@ userController.loginUser = async (req, res) => {
         });
     }
 
-    if (data) {
+    if (user) {
         let match;
         try {
-            match = await bcrypt.compare(req.body.password, data.password);
+            match = await bcrypt.compare(req.body.password, user.password);
         } catch {
             return res.status(500).json({
                 error: "Something bad happened..."
@@ -229,8 +222,14 @@ userController.loginUser = async (req, res) => {
 
         if (match) {
             req.session.userLogin = true;
-            req.session.userID = data._id;
-            req.session.userRole = data.type;
+            req.session.userID = user._id;
+            req.session.userRole = user.type;
+            data = {};
+            for (let i in user.toJSON()) {
+                if (DoNotSendThisData.indexOf(i) == -1) {
+                    data[i] = user.toJSON()[i];
+                }
+            }
             return res.status(200).json({
                 msg: "You are logged in",
                 data: data
