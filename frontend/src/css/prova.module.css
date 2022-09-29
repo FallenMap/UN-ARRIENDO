@@ -1,0 +1,11 @@
+html,body{
+    /*background-image: url('https://www.xtrafondos.com/descargar.php?id=3593&resolucion=3840x2160');*/
+    background-image: '../Images/viejito-01.png';
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    }
+    
