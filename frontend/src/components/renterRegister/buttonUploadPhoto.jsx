@@ -7,7 +7,7 @@ export default function ButtonUploadPhoto(props) {
         <>
             {/* Create label for title of this camp, in this case the photo */}
             <label className="cols-sm-2 control-label">
-                Upload your photo
+                Subir tu foto
             </label>
 
             {/* Create button with its own styles */}

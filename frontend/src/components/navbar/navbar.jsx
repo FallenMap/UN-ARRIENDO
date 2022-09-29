@@ -31,10 +31,10 @@ function Navbar() {
                     <Box sx={{
                         flexGrow: 1
                     }} />
-                    <Link to={auth.user.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"}>
+                    {/* <Link to={auth.user.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"}>
                         <button className={styles.button}> Actualizar datos</button>
                     </Link>
-                    {auth.isLogged() && <button className={styles.button} onClick={logoutHandler}> Cerrar sesion</button>}
+                    {auth.isLogged() && <button className={styles.button} onClick={logoutHandler}> Cerrar sesion</button>} */}
                 </Toolbar>
             </AppBar>
             <Toolbar />

@@ -6,7 +6,7 @@ export function ContainerRight(){
         <div>
 
             {/* Create student subtitle */}
-            <h1 class={styles.titleRight}> Estudiante</h1>
+            <h1 className={styles.titleRight}> Estudiante</h1>
 
             {/* Create main question of this section */}
             <h2 className={styles.questionRight}>

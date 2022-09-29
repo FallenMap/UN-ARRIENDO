@@ -8,20 +8,20 @@ export function SelectRegister() {
   return (
     <>
     {/* Use for more image warmth */}
-    <div class={styles.color}>
+    <div className={styles.color}>
     
     {/* Use background image */}
-    <div class={styles.backgroundPage}> 
+    <div className={styles.backgroundPage}> 
     
       {/* Create class for use of grid css */}
-      <div class= {styles.wrapped}>
+      <div className= {styles.wrapped}>
 
         {/* Create page title with styles and use of grid css */}
-        <div class={styles.containerCenter}>
-            <h1 class={styles.pageTitle}> Selecciona tu registro </h1>
+        <div className={styles.containerCenter}>
+            <h1 className={styles.pageTitle}> Selecciona tu registro </h1>
           </div>
           
-        <div class={styles.containerLeft}>
+        <div className={styles.containerLeft}>
 
           {/* Call containerLeft componet */}
           <ContainerLeft/>
@@ -29,7 +29,7 @@ export function SelectRegister() {
         </div>
 
 
-        <div class={styles.containerRight}>
+        <div className={styles.containerRight}>
 
           {/* Call containerRight component */}
           <ContainerRight/>
