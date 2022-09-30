@@ -14,9 +14,10 @@
 html,body{
 /*background-image: url('https://www.xtrafondos.com/descargar.php?id=3593&resolucion=3840x2160');*/
 background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/73/Plaza_Che%2C_Bogot%C3%A1.jpg");
-background-position: center center;
 background-size: cover;
 background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: center;
 height: 100%;
 font-family: 'Numans', sans-serif;
 }

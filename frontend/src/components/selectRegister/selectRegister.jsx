@@ -7,20 +7,33 @@ export function SelectRegister() {
   changeTitle("Select register");
   return (
     <>
-    <div class={styles.color}>
-    <div class={styles.backgroundPage}> 
-      <div class= {styles.wrapped}>
+    {/* Use for more image warmth */}
+    <div className={styles.color}>
+    
+    {/* Use background image */}
+    <div className={styles.backgroundPage}> 
+    
+      {/* Create class for use of grid css */}
+      <div className= {styles.wrapped}>
 
-        <div class={styles.containerCenter}>
-            <h1 class={styles.pageTitle}> Selecciona tu registro </h1>
+        {/* Create page title with styles and use of grid css */}
+        <div className={styles.containerCenter}>
+            <h1 className={styles.pageTitle}> Selecciona tu registro </h1>
           </div>
           
-        <div class={styles.container}>
+        <div className={styles.containerLeft}>
+
+          {/* Call containerLeft componet */}
           <ContainerLeft/>
+
         </div>
 
-        <div class={styles.containerRight}>
+
+        <div className={styles.containerRight}>
+
+          {/* Call containerRight component */}
           <ContainerRight/>
+
         </div>
       </div>
     

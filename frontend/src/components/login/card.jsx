@@ -7,8 +7,13 @@ export function Card(){
     return(
     <div className= {styles.card}>
 
+        {/* Call CardHeader component */}
             <CardHeader/>
+
+        {/* Call CardBody component */}
             <CardBody/>
+
+        {/* Call CardFooter component */}
             <CardFooter/>
 
 

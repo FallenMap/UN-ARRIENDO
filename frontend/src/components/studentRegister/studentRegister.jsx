@@ -3,8 +3,8 @@ import styles from "../../css/studentRegister.module.css";
 import { ButtonRegister } from "../renterRegister/buttonRegister";
 import { FormGroup } from "../renterRegister/formGroup";
 import { LinksPage } from "../renterRegister/linksPage";
-import { ListGenre } from "../renterRegister/selectGenre";
-import { TitleStudent } from "./titleRenterRegister copy";
+import { ListGender } from "../renterRegister/selectGender";
+import { TitleStudent } from "./titleStudent";
 import ButtonUploadPhoto from "../renterRegister/buttonUploadPhoto";
 import {userRegisterHandlerOnSubmit} from "../../controllers/userActionsController";
 
@@ -36,6 +36,8 @@ export function StudentRegister() {
         maxWidth: "500px"
       }}>
         <Stack spacing={2}>
+
+          {/* Call titleStudent component */}
           <TitleStudent title="Stundent Register" />
           <Container style={{
             maxWidth: "400px",
@@ -45,33 +47,70 @@ export function StudentRegister() {
             padding: "40px 40px"
           }} display="flex">
             <form className="form-horizontal" onSubmit={submitHandler}>
+
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.name} placeholder="Enter your Name" title="Your Name" image="fa fa-user fa" type="text" />
+
+                {/* Call FormGroup compontent with its own arguments of name*/}
+                <FormGroup name={formAllDataUser.name} placeholder="Ingresa tu nombre" title="Nombre" image="fa fa-user fa" type="text" />
+
               </div>
+
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.lastName} placeholder="Enter your Last Name" title="Your Last Name" image="fa fa-user fa" type="text" />
+
+                {/* Call FormGroup compontent with its own arguments of LastName*/}
+                <FormGroup name={formAllDataUser.lastName} placeholder="Ingresa tu apellidos" title="Apellidos" image="fa fa-user fa" type="text" />
+
               </div>
+
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.email} placeholder="Enter your Email" title="Your Email" image="fa fa-envelope fa" type="text" />
+
+                {/* Call FormGroup compontent with its own arguments of email*/}
+                <FormGroup name={formAllDataUser.email} placeholder="Ingresa tu correo electrónico" title="Tu correo electrónico" image="fa fa-envelope fa" type="text" />
+
               </div>
+
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.username} placeholder="Enter your Username" title="Username" image="fa fa-users fa" type="text" />
+
+                {/* Call FormGroup compontent with its own arguments of username*/}
+                <FormGroup name={formAllDataUser.username} placeholder="Ingresa tu usuario" title="Usuario" image="fa fa-users fa" type="text" />
+
               </div>
+
               <div className={styles.formGroup}>
-                <ListGenre />
+
+                {/* Call ListGender component */}
+                <ListGender />
+
               </div>
+
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.password} placeholder="Enter your password" title="Password" image="fa fa-lock fa" type="password" />
+
+                {/* Call FormGroup compontent with its own arguments of password*/}
+                <FormGroup name={formAllDataUser.password} placeholder="Ingresa tu contraseña" title="Contraseña" image="fa fa-lock fa" type="password" />
+
               </div>
+
               <div className={styles.formGrup}>
+
+                {/* Call ButtonUploadPhoto component with it own photo */}
                 <ButtonUploadPhoto name={formAllDataUser.photo} />
+
               </div>
+
               <div className={styles.formGroup}>
-                <ButtonRegister loginButton="Register" />
+
+                {/* Call ButtonRegister component with one argument */}
+                <ButtonRegister loginButton="Registrar" />
+
               </div>
+
               <div className={styles.loginRegister}>
-                <Link to="/">Login</Link>
+                
+                {/* Create redirect text to login */}
+                <Link to="/">Regresar</Link>
+                
               </div>
+
             </form>
           </Container>
         </Stack>

@@ -20,18 +20,26 @@ export function App() {
 
       <main>
         <AuthProvider>
+
+          {/* Depending of url change the component */}
           <Routes>
+
+
+            {/* Create multiple routes of this page */}
 
             <Route path="/SelectRegister" element={<PublicRoute component={<SelectRegister />} />}> </Route>
             <Route exact path="/" element={<PublicRoute component={<Login />} />}> </Route>
             <Route path="/StudentRegister" element={<PublicRoute component={<StudentRegister />} />}> </Route>
             <Route path="/RenterRegister" element={<PublicRoute component={<RenterRegister />} />}> </Route>
             <Route path="*" element={<>NOT FOUND</>} /> {/* HAY QUE HACER UNA PAGINA PARA EL 404 */}
-            <Route exact path="/MainScreen" element={<LoggedRoute component={<MainScreen />} />} />
+            {/* <Route exact path="/MainScreen" element={<LoggedRoute component={<MainScreen />} />} /> */}
+            <Route path="/pepe" element={ < MainScreen />} />
             <Route path="/RenterUpdate" element={<LandlordRoute component={<RenterUpdate />} />}> </Route>
             <Route path="/StudentUpdate" element={<TenantRoute component={<StudentUpdate />} />}> </Route>
 
+
           </Routes>
+
         </AuthProvider>
       </main>
 
