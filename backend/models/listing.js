@@ -34,6 +34,15 @@ const listingSchema = new mongoose.Schema({
     photos: {
         type: Array,
         of: String
+    },
+    rating: {
+        type: Number,
+        min: 0,
+        max: 5
+    },
+    active: {
+        type: Boolean,
+        default: true
     }
 }, { discriminatorKey: 'type' });
 
