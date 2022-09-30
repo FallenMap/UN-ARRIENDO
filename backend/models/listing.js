@@ -40,6 +40,10 @@ const listingSchema = new mongoose.Schema({
         min: 0,
         max: 5
     },
+    numberOfReviews: {
+        type: Number,
+        default: 0
+    },
     active: {
         type: Boolean,
         default: true
