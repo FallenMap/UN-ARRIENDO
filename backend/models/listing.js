@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
 // We define the base listing scheme
@@ -11,7 +12,7 @@ const listingSchema = new mongoose.Schema({
     timeToUN: Number,
     price: Number,
     description: String,
-    landlord: String,
+    landlord: ObjectId,
     shared: Boolean,
     characteristics: {
         furnished: Boolean,
@@ -43,6 +44,14 @@ const listingSchema = new mongoose.Schema({
     numberOfReviews: {
         type: Number,
         default: 0
+    },
+    reviewedByTenants: {
+        type: Array,
+        of: ObjectId
+    },
+    date: {
+        type: Date,
+        default: Date.now 
     },
     active: {
         type: Boolean,
