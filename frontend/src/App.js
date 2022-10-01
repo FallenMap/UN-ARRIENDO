@@ -7,6 +7,7 @@ import { RenterRegister } from "./components/renterRegister/renterRegister";
 import { MainScreen } from "./components/inside/mainScreen";
 import { RenterUpdate } from "./components/update/renterUpdate";
 import { StudentUpdate } from "./components/update/studentUpdate";
+import { Historial } from "./components/inside/historial";
 import AuthProvider from "./auth/authProvider";
 import LoggedRoute from "./components/routes/loggedRoute";
 import PublicRoute from "./components/routes/publicRoute";
@@ -36,6 +37,7 @@ export function App() {
             <Route path="/pepe" element={ < MainScreen />} />
             <Route path="/RenterUpdate" element={<LandlordRoute component={<RenterUpdate />} />}> </Route>
             <Route path="/StudentUpdate" element={<TenantRoute component={<StudentUpdate />} />}> </Route>
+            <Route exact path="/Historial" element={<LoggedRoute component={<Historial />} />}> </Route>
 
 
           </Routes>

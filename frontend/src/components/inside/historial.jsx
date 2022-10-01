@@ -8,7 +8,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -37,8 +36,8 @@ const cards = results;
 
 const theme = createTheme();
 
-export function MainScreen() {
-  changeTitle("Main page");
+export function Historial() {
+  changeTitle("Historial");
   changeImage();
   return (
     <>
@@ -46,56 +45,7 @@ export function MainScreen() {
         <div className="container">
           <Navbar />
         </div>
-
-        <Grid container spacing={3} justifyContent="space-around">
-          <Grid item rowGap={10}>
-            <Box
-              justifItems="center"
-              component="img"
-              alt="The house from the offer."
-              src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/01_%C2%BFQu%C3%A9-puedo-hacer-si-mi-gato-est%C3%A1-triste-.png?itok=cOA5aYW-"
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Box
-              sx={{
-                bgcolor: "background.paper",
-                pt: 8,
-                pb: 6,
-              }}
-            >
-              <Container maxWidth="sm">
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  color="text.primary"
-                  gutterBottom
-                >
-                  BIENVENIDO
-                </Typography>
-                <Typography
-                  variant="h5"
-                  align="center"
-                  color="text.secondary"
-                  paragraph
-                >
-                  ¿Eres nuevo en la página? ¡Realiza tu primera publicación!
-                </Typography>
-                <Stack
-                  sx={{ pt: 4 }}
-                  direction="row"
-                  spacing={2}
-                  justifyContent="center"
-                >
-                  <Button variant="contained">Realizar publicación</Button>
-                  <Button variant="outlined">Ver perfil</Button>
-                </Stack>
-              </Container>
-            </Box>
-          </Grid>
-
+        
           <Grid item xs>
             {" "}
             {/* tarjetas */}
@@ -147,7 +97,6 @@ export function MainScreen() {
               </main>
             </ThemeProvider>
           </Grid>
-        </Grid>
       </Box>
     </>
   );
