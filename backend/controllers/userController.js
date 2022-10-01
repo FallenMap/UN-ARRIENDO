@@ -13,6 +13,7 @@ const userController = {};
 
 // Function to register a new user, we must validate the information given by the frontend.
 userController.createUser = async (req, res) => {
+    
     // Change the password given by frontend to the encrypted password
     req.body.password = await bcrypt.hash(req.body.password, 8);
 
