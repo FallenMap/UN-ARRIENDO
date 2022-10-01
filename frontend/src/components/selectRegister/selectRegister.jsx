@@ -2,6 +2,7 @@ import styles from "../../css/SelectRegister.module.css";
 import { changeTitle } from "../../utilities/changeTitle";
 import { ContainerLeft } from "./containerLeft";
 import { ContainerRight } from "./containerRight";
+import { Link } from "react-router-dom";
 
 export function SelectRegister() {
   changeTitle("Select register");
@@ -19,6 +20,9 @@ export function SelectRegister() {
         {/* Create page title with styles and use of grid css */}
         <div className={styles.containerCenter}>
             <h1 className={styles.pageTitle}> Selecciona tu registro </h1>
+            <Link to="/">
+              <button className={styles.btn}> Volver</button>
+            </Link>
           </div>
           
         <div className={styles.containerLeft}>
