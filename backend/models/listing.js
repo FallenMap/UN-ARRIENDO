@@ -36,18 +36,13 @@ const listingSchema = new mongoose.Schema({
         type: Array,
         of: String
     },
-    rating: {
-        type: Number,
-        min: 0,
-        max: 5
-    },
     numberOfReviews: {
         type: Number,
         default: 0
     },
     reviewedByTenants: {
         type: Array,
-        of: ObjectId
+        of: mongoose.SchemaTypes.Mixed
     },
     date: {
         type: Date,
@@ -58,5 +53,6 @@ const listingSchema = new mongoose.Schema({
         default: true
     }
 }, { discriminatorKey: 'type' });
+
 
 module.exports = mongoose.model('Listing', listingSchema);
