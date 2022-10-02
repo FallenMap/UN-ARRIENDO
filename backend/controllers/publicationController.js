@@ -42,7 +42,41 @@ publicationController.createPublication = async (req, res) => {
 };
 
 // Function to update a publication.
-publicationController.updatePublication = async (req, res) => {};
+publicationController.updatePublication = async (req, res) => {
+    // handle photos
+    if (!req.files) {
+        req.body.photos = [];
+    } else {
+        let arrayPhotos = [];
+        req.files.forEach(element => {
+            arrayPhotos.push(path.win32.basename(element.path))
+        });
+        req.body.photos = arrayPhotos;
+    }
+    //updating
+    if ((req.body.type).toLowerCase() == "apartment") {
+        try {
+            await Apartment.updateOne({ _id: req.body.publicationID }, { $set: { ...req.body } });
+        } catch (error) {
+            console.log(error);
+        }
+    } else if ((req.body.type).toLowerCase() == "room") {
+        try {
+            await Room.updateOne({ _id: req.body.publicationID }, { $set: { ...req.body } });
+        } catch (error) {
+            console.log(error);
+        }
+    } else if ((req.body.type).toLowerCase() == "studioapartment") {
+        try {
+            await StudioApartment.updateOne({ _id: req.body.publicationID }, { $set: { ...req.body } });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    res.status(200).json({
+        msg: "Updated!"
+    });
+};
 
 // Function to delete a publication.
 publicationController.deletePublication = async (req, res) => {};
