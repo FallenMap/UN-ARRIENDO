@@ -53,9 +53,9 @@ publicationController.ratingPublication = async (req, res) => {};
 // Function to get user post history.
 publicationController.userPostHistory = async (req, res) => {
     try{
-        let apartments = await Apartment.find({ landlord: String(req.body.user) }).sort({ date: -1});
-        let rooms = await Room.find({ landlord: String(req.body.user) }).sort({ date : -1});
-        let studioApartments = await StudioApartment.find({ landlord: String(req.body.user) }).sort({ date : -1});
+        let apartments = await Apartment.find({ landlord: String(req.session.userID) }).sort({ date: -1});
+        let rooms = await Room.find({ landlord: String(req.session.userID) }).sort({ date : -1});
+        let studioApartments = await StudioApartment.find({ landlord: String(req.session.userID) }).sort({ date : -1});
     
         // debugging
         console.log(apartments);
