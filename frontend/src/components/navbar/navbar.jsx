@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styles from "../../css/renterRegister.module.css";
 import { useState } from 'react'
-import { AppBar, Container, Box, Toolbar, Typography, Avatar, Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip, Button } from '@mui/material';
+import { AppBar, Container, Box, Toolbar, Typography, Avatar, Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip } from '@mui/material';
 
 import { Logout, History } from '@mui/icons-material';
 import useAuth from '../../auth/useAuth';

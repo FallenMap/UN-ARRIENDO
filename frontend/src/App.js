@@ -8,6 +8,7 @@ import { MainScreen } from "./components/inside/mainScreen";
 import { RenterUpdate } from "./components/update/renterUpdate";
 import { StudentUpdate } from "./components/update/studentUpdate";
 import { Historial } from "./components/inside/historial";
+import PublicationRegister from "./components/register/registerPublication/registerPublication";
 import AuthProvider from "./auth/authProvider";
 import LoggedRoute from "./components/routes/loggedRoute";
 import PublicRoute from "./components/routes/publicRoute";
@@ -39,6 +40,7 @@ export function App() {
             <Route exact path="/StudentUpdate" element={<TenantRoute component={<StudentUpdate />} />}> </Route>
             {/*<Route exact path="/Historial" element={<LoggedRoute component={<Historial />} />}> </Route>*/}
             <Route exact path="/Historial" element={<Historial />}> </Route>
+            <Route exact path="/PublicationRegister" element={<PublicationRegister />}> </Route>
 
 
           </Routes>
