@@ -28,16 +28,17 @@ export function App() {
 
             {/* Create multiple routes of this page */}
 
-            <Route path="/SelectRegister" element={<PublicRoute component={<SelectRegister />} />}> </Route>
+            <Route exact path="/SelectRegister" element={<PublicRoute component={<SelectRegister />} />}> </Route>
             <Route exact path="/" element={<PublicRoute component={<Login />} />}> </Route>
-            <Route path="/StudentRegister" element={<PublicRoute component={<StudentRegister />} />}> </Route>
-            <Route path="/RenterRegister" element={<PublicRoute component={<RenterRegister />} />}> </Route>
+            <Route exact path="/StudentRegister" element={<PublicRoute component={<StudentRegister />} />}> </Route>
+            <Route exact path="/RenterRegister" element={<PublicRoute component={<RenterRegister />} />}> </Route>
             <Route path="*" element={<>NOT FOUND</>} /> {/* HAY QUE HACER UNA PAGINA PARA EL 404 */}
             <Route exact path="/MainScreen" element={<LoggedRoute component={<MainScreen />} />} /> 
-            <Route path="/pepe" element={ < MainScreen />} />
-            <Route path="/RenterUpdate" element={<LandlordRoute component={<RenterUpdate />} />}> </Route>
-            <Route path="/StudentUpdate" element={<TenantRoute component={<StudentUpdate />} />}> </Route>
-            <Route exact path="/Historial" element={<LoggedRoute component={<Historial />} />}> </Route>
+            <Route exact path="/pepe" element={ < MainScreen />} />
+            <Route exact path="/RenterUpdate" element={<LandlordRoute component={<RenterUpdate />} />}> </Route>
+            <Route exact path="/StudentUpdate" element={<TenantRoute component={<StudentUpdate />} />}> </Route>
+            {/*<Route exact path="/Historial" element={<LoggedRoute component={<Historial />} />}> </Route>*/}
+            <Route exact path="/Historial" element={<Historial />}> </Route>
 
 
           </Routes>

@@ -26,6 +26,7 @@ const jsonprov = [
   { concepto: "IOS", importe: 0 },
   { concepto: "Ruby", importe: 5000 },
 ];
+
 const results = jsonprov.map(function (elemento) {
   return {
     concepto: elemento.concepto.toUpperCase(),
@@ -33,6 +34,7 @@ const results = jsonprov.map(function (elemento) {
     importeIva: elemento.importe * 1.21,
   };
 });
+
 const cards = results;
 
 const theme = createTheme();

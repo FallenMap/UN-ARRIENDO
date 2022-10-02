@@ -45,6 +45,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 //Configure the routes of the project
 app.use('/user', require('./routes/userRoutes'));
 app.use('/listing', require('./routes/listingRoutes'));
+app.use('/images', require('./routes/imagesRoutes'));
 
 //app.use(express.static('public'));
 

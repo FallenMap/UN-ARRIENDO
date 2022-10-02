@@ -56,9 +56,6 @@ userController.createUser = async (req, res) => {
 };
 
 userController.updateUser = async (req, res) => {
-    //Updating the user
-    //const current = await User.findOne({_id:req.session.userID});
-    //console.log(current);
 
     if (req.file) {
         req.body.photo = path.win32.basename(req.file.path);

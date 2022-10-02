@@ -1,5 +1,14 @@
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 
-module.exports.logInValidations = [body('user').isEmail()];
+function logInValidations(){
+    return [body('user').isEmail()];
+}
 
-module.exports.registerValidations = [];
+function registerValidations(){
+    return [];
+}
+
+module.exports = {
+    logInValidations,
+    registerValidations
+}
