@@ -51,6 +51,30 @@ publicationController.deletePublication = async (req, res) => {};
 publicationController.ratingPublication = async (req, res) => {};
 
 // Function to get user post history.
-publicationController.userPostHistory = async (req, res) => {};
+publicationController.userPostHistory = async (req, res) => {
+    try{
+        let apartments = await Apartment.find({ landlord: String(req.body.user) }).sort({ date: -1});
+        let rooms = await Room.find({ landlord: String(req.body.user) }).sort({ date : -1});
+        let studioApartments = await StudioApartment.find({ landlord: String(req.body.user) }).sort({ date : -1});
+    
+        // debugging
+        console.log(apartments);
+        console.log(rooms);
+        console.log(studioApartments);
+    
+        // exit message
+        res.status(200).json({
+            msg:"user post history done",
+            apartments: apartments,
+            rooms:rooms,
+            studioApartments:studioApartments
+            });
+        }
+        catch{
+            res.status(500).json({
+                error:"Something bad happened..."
+            });
+        }
+};
 
 module.exports = { publicationController };
