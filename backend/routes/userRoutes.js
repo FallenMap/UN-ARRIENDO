@@ -7,7 +7,7 @@ const { logInValidations } = require('../middlewares/validateData');
 
 // Create different routes for each action and call the userController functions.
 router.post('/register', upload.userPhoto, userController.createUser)
-    .post('/login', [logInValidations], userController.loginUser)
+    .post('/login', logInValidations, userController.loginUser)
     .post('/logout', userController.logoutUser) 
     .put('/update', validateSession, upload.userPhoto, userController.updateUser);
 

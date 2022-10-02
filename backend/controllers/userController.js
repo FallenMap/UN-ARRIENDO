@@ -97,7 +97,7 @@ userController.loginUser = async (req, res) => {
     let user, query, data;
     //Prints the data sent by the user on the console.
     //console.log("---------------\nloginUserFunctionBodyRequest\n"+JSON.stringify(req.body)+"\n---------------");
-
+    console.log(req.body);
     const error = validationResult(req);
     if (!error.isEmpty()) {
         query = {

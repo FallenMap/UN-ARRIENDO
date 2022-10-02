@@ -26,12 +26,15 @@ publicationController.createPublication = async (req, res) => {
     let type = req.body.type;
     delete req.body.type;
 
+    // Adding the user that created the publication:V
+    req.body.landlord = req.session.userID;
+
     if (type.toLowerCase() == "apartment") {
-        publication = new Apartment({ ...req.body, landlord:req.session.userID });
+        publication = new Apartment({ ...req.body});
     } else if (type.toLowerCase() == "room") {
-        publication = new Room({ ...req.body, landlord:req.session.userID });
+        publication = new Room({ ...req.body});
     }else if(type.toLowerCase() == "studioapartment"){
-        publication = new StudioApartment({ ...req.body, landlord:req.session.userID });   
+        publication = new StudioApartment({ ...req.body});   
     }
 
     if(publication){

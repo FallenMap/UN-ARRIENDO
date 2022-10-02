@@ -14,7 +14,10 @@ export const userLoginHandlerOnSubmit = (event, auth, navigate) => {
         body[pair[0]] = pair[1];
     }
 
+    console.log(body);
+
     logInAPI(body).then(res => {
+        console.log(res);
         document.getElementById("error-text-login").innerText = "";
         auth.logIn(res.data.data);
         /* the first data is property of axios response, the second is property of backend response*/

@@ -1,8 +1,6 @@
 const { body } = require('express-validator');
 
-function logInValidations(){
-    return [body('user').isEmail()];
-}
+const logInValidations = [body('user').isEmail()];
 
 function registerValidations(){
     return [];

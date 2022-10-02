@@ -54,7 +54,7 @@ function Navbar() {
                             flexGrow: 1
                         }} />
 
-                        {/*
+                        {/* ESTO SE VA A ELIMINAR, LO DEJO COMO "BACKUP"
                         <Link to={auth.user?.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"}>
                             <button className={styles.btn}> Actualizar datos</button>
                         </Link>
