@@ -21,19 +21,13 @@ const changeImage = () => {
 };
 
 const jsonprov = [
-  { concepto: "mac", importe: 1000 },
-  { concepto: "android", importe: 500 },
-  { concepto: "IOS", importe: 0 },
-  { concepto: "Ruby", importe: 5000 },
+  { concepto: "mac", importe: 1000, url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg" },
+  { concepto: "android", importe: 500, url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg" },
+  { concepto: "IOS", importe: 0, url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg" },
+  { concepto: "Ruby", importe: 5000, url: "https://www.fundacion-affinity.org/sites/default/files/el-gato-necesita-tener-acceso-al-exterior.jpg" },
 ];
-const results = jsonprov.map(function (elemento) {
-  return {
-    concepto: elemento.concepto.toUpperCase(),
-    importe: elemento.importe,
-    importeIva: elemento.importe * 1.21,
-  };
-});
-const cards = results;
+
+const cards = jsonprov;
 
 const theme = createTheme();
 
@@ -121,7 +115,7 @@ export function MainScreen() {
                               // 16:9
                               pt: "5%",
                             }}
-                            image="https://source.unsplash.com/random"
+                            image= {card.url}
                             alt="random"
                           />
                           <CardContent sx={{ flexGrow: 1 }}>

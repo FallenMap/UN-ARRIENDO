@@ -13,6 +13,7 @@ import LoggedRoute from "./components/routes/loggedRoute";
 import PublicRoute from "./components/routes/publicRoute";
 import LandlordRoute from "./components/routes/landlordRoute";
 import TenantRoute from "./components/routes/tenantRoute";
+import { ListinDetails } from "./components/idontknow/listingDetails";
 
 export function App() {
   return (
@@ -33,8 +34,9 @@ export function App() {
             <Route path="/StudentRegister" element={<PublicRoute component={<StudentRegister />} />}> </Route>
             <Route path="/RenterRegister" element={<PublicRoute component={<RenterRegister />} />}> </Route>
             <Route path="*" element={<>NOT FOUND</>} /> {/* HAY QUE HACER UNA PAGINA PARA EL 404 */}
-            <Route exact path="/MainScreen" element={<LoggedRoute component={<MainScreen />} />} /> 
-            <Route path="/pepe" element={ < MainScreen />} />
+            {/* <Route exact path="/MainScreen" element={<LoggedRoute component={<MainScreen />} />} />  */}
+            <Route path="/pepe" element={ < ListinDetails />} />
+            <Route path="/federico" element={ < MainScreen />} />
             <Route path="/RenterUpdate" element={<LandlordRoute component={<RenterUpdate />} />}> </Route>
             <Route path="/StudentUpdate" element={<TenantRoute component={<StudentUpdate />} />}> </Route>
             <Route exact path="/Historial" element={<LoggedRoute component={<Historial />} />}> </Route>
