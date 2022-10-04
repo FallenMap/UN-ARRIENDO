@@ -3,8 +3,12 @@ import Carousel from 'react-elastic-carousel';
 import {Grid} from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
+import "../../css/ListingDetail.css";
 
- export function ListinDetails(){
+
+ export function ListingDetails(){
+
+    
 
     var items = [
         {
@@ -43,6 +47,7 @@ import Navbar from '../navbar/navbar';
       
     return (
         <>
+        
 
         <div className="container">
           <Navbar />
@@ -50,7 +55,8 @@ import Navbar from '../navbar/navbar';
 
         <Grid container spacing={2} alignItems="center"  justifyContent="center" >
 
-            <Grid item xs>
+            <Grid item xs sx={{backgroundColor: 'rgba(0, 0, 0, 0.514)'}}>
+                <div>
 
                 <Carousel 
                     ref={carouselRef} 
@@ -79,6 +85,9 @@ import Navbar from '../navbar/navbar';
                     }
 
                 </Carousel>
+
+                </div>
+                
 
             </Grid>
 
