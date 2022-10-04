@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { HoverRating } from "./rating";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Link } from 'react-router-dom';
 
 const changeImage = () => {
   document.body.style.backgroundImage =
@@ -91,7 +92,9 @@ export function MainScreen() {
                   spacing={2}
                   justifyContent="center"
                 >
+                  <Link to="/PublicationRegister">
                   <Button variant="contained">Realizar publicación</Button>
+                  </Link>
                   <Button variant="outlined">Ver perfil</Button>
                 </Stack>
               </Container>

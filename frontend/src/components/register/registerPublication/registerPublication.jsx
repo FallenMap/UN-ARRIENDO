@@ -11,6 +11,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BasicForm from './basicForm';
+import PhotosForm from './photosForm';
+import Navbar from "../../navbar/navbar";
 
 const steps = ['Datos basicos', 'Datos especificos', 'Fotos'];
 const theme = createTheme();
@@ -22,7 +24,7 @@ function getStepContent(step) {
         case 1:
             return <Container />;
         case 2:
-            return <Container />;
+            return <PhotosForm />;
         default:
             throw new Error('Unknown step');
     }
@@ -42,6 +44,7 @@ export default function RegisterPublication() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
+            <Navbar></Navbar>
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
                     <Typography component="h1" variant="h4" align="center">

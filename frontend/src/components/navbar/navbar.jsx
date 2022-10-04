@@ -72,7 +72,7 @@ function Navbar() {
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
                                 >
-                                    <Avatar sx={{ width: 32, height: 32 }} src={`http://localhost:5000/images/profile/${auth.user?.photo}`} />
+                                    <Avatar sx={{ width: 32, height: 32 }} src={`http://localhost:5000/images/profile/prueba.jpeg`} />
                                 </IconButton>
                             </Tooltip>
                         </Box>
