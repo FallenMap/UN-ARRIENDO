@@ -1,9 +1,17 @@
 const path = require('path');
 const multer  = require('multer')
+const {mkdir} = require('node:fs');
 // const maxPhotos = 10;
 
 // Uploads user profile photos, during registration or updates
 module.exports.userPhoto = (req, res, next) => {
+    //Create the directory where photos will be stored.
+    mkdir(path.join(__dirname, '../public/userPhotos/'), {recursive:true}, (err) => {
+        if(err){
+            console.log("No se pudo crear la carpeta userPhotos")
+        }
+    });
+
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
           cb(null, path.join(__dirname, '../public/userPhotos/'))
@@ -39,7 +47,13 @@ module.exports.userPhoto = (req, res, next) => {
 
 // Uploads listings pictures
 module.exports.listingPhotos = (req, res, next) => {
-  const storage = multer.diskStorage({
+    //Create the directory where photos will be stored.
+    mkdir(path.join(__dirname, '../public/listingPhotos/'), {recursive:true}, (err) => {
+        if(err){
+            console.log("No se pudo crear la carpeta listingPhotos")
+        }
+    });
+    const storage = multer.diskStorage({
      destination: function (req, file, cb) {
          cb(null, path.join(__dirname, '../public/listingPhotos/'))
      },
@@ -50,7 +64,7 @@ module.exports.listingPhotos = (req, res, next) => {
      }
     
      });
- const upload = multer({
+    const upload = multer({
      storage: storage,
      fileFilter: (req, file, cb) => {
          if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {

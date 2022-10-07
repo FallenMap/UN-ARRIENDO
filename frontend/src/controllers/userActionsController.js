@@ -14,10 +14,15 @@ export const userLoginHandlerOnSubmit = (event, auth, navigate) => {
         body[pair[0]] = pair[1];
     }
 
+    console.log(body);
+
     logInAPI(body).then(res => {
+        console.log(res);
         document.getElementById("error-text-login").innerText = "";
-        auth.logIn(res.data.data);
+
         /* the first data is property of axios response, the second is property of backend response*/
+        auth.logIn(res.data.data);
+        
         navigate("/MainScreen");
     }).catch(e => {
         document.getElementById("error-text-login").innerText = e.response.data.error;
@@ -27,9 +32,10 @@ export const userLoginHandlerOnSubmit = (event, auth, navigate) => {
 
 export const userRegisterHandlerOnSubmit = (event, auth, navigate, role) => {
     event.preventDefault();
+    
     const formData = new FormData(event.currentTarget);
     formData.append("role", role);
-    console.log([...formData]);
+
     registerUser(formData).then(res => {
         auth.logIn(res.data.data);
         navigate("/MainScreen");
