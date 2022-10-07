@@ -118,7 +118,7 @@ publicationController.getPublications = async (req, res) => {
     
         // exit message
         res.status(200).json({
-            msg:"Get publications listing done",
+            msg:"Get publications done",
             listings: listing
             });
         }
