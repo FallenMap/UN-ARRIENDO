@@ -92,9 +92,9 @@ publicationController.userPostHistory = async (req, res) => {
         let studioApartments = await StudioApartment.find({ landlord: String(req.session.userID) }).sort({ date : -1});
     
         // debugging
-        console.log(apartments);
-        console.log(rooms);
-        console.log(studioApartments);
+        // console.log(apartments);
+        // console.log(rooms);
+        // console.log(studioApartments);
     
         // exit message
         res.status(200).json({
