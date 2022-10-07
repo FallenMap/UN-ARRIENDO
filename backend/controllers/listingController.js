@@ -56,7 +56,7 @@ listingController.createListing = async (req, res) => {
 };
 
 // Function to update a publication.
-publicationController.updateListing = async (req, res) => {
+listingController.updateListing = async (req, res) => {
     // handle photos
     if (!req.files) {
         req.body.photos = [];
@@ -126,7 +126,7 @@ listingController.userListingHistory = async (req, res) => {
 };
 
 // Function to get all post.
-publicationController.getPublications = async (req, res) => {
+listingController.getPublications = async (req, res) => {
     try{
         let listing = await Listing.find().sort({ date: -1});
     
