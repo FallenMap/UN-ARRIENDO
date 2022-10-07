@@ -1,15 +1,19 @@
 import React, { useRef } from 'react';
 import Carousel from 'react-elastic-carousel';
-import {Button, Grid, Typography} from '@mui/material'
+import { Grid, Typography} from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
-import "../../css/ListingDetail.css";
-import { Box, Container, Stack } from '@mui/system';
+import  "../../css/ListingDetail.css";
+import {  Box, Container } from '@mui/system';
+import imagen from "../../Images/Logo.png";
+import { changeBackground } from '../../utilities/changeBackground';
+
 
 
  export function ListingDetails(){
 
-    var publication = [{title: "Apartamento en Teusaquillo",name:"Bryan Smith Colorado Lopez", numberOfContact:"3217342313",description: "I don't know what i should say", photos: [{url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg"}, {url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg"},{url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"} ]}]
+    changeBackground('none');
+    var publication = [{title: "Apartamento en Teusaquillo",name:"Bryan Smith Colorado Lopez", numberOfContact:"3217342313",description: "I don't know what i should say", photos: [{url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg"}, {url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg"},{url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"} ], valoracion: '5 estrellas pa'}]
 
     const carouselRef = useRef(null);
     let resetTimeout;
@@ -21,6 +25,17 @@ import { Box, Container, Stack } from '@mui/system';
         }
       };
 
+      const breakPoints = [
+        { width: 1, itemsToShow: 1 },
+        { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
+        { width: 850, itemsToShow: 3 },
+        { width: 1150, itemsToShow: 3, itemsToScroll: 2 },
+        { width: 1450, itemsToShow: 3 },
+        { width: 1750, itemsToShow: 3 },
+      ];
+
+    
+
     const onPrevStart = (currentItem, nextItem) => {
         if (currentItem.index === nextItem.index) {
           // we hit the first item, go to last item
@@ -31,7 +46,6 @@ import { Box, Container, Stack } from '@mui/system';
       
     return (
         <>
-        
 
         <div className="container">
           <Navbar />
@@ -40,87 +54,44 @@ import { Box, Container, Stack } from '@mui/system';
         <Grid container spacing={2} alignItems="center"  justifyContent="center" backgroundColor="rgba(34, 40, 49, .4)" >
 
             <Grid item xs={12}>
-                <Grid container spacing={1} backgroundColor="rgba(89, 82, 96, .3)">
-                    <Grid item xs>
+                <Grid container spacing={1} backgroundColor="rgba(89, 82, 96, .3)" justifyContent='flex-end'>
+                    <Grid item xs={12}>
                     <Box
                     sx={{
                         bgcolor: "background.paper",
-                        pt: 8,
-                        pb: 6,
+                        pt: 1,
+                        pb: 1,
+                        pr: 10
                     }}
                     >
-                        <Container maxWidth="sm">
-                                <Typography
+                        <Container maxWidth='sm'>
+                          <Grid container spacing={1} justifyContent='center'>
+                            <Grid item xs align='center'>
+                              <img src={imagen} alt="Logo" style={{maxHeight: '170px', maxWidth: '170px'}}/>
+                            </Grid>
+                            <Grid item xs>
+                            <Typography
                                 component="h1"
-                                variant="h2"
+                                variant="h1"
                                 align="center"
                                 color="text.primary"
                                 gutterBottom
                                 >
-                                BIENVENIDO
+                                UN
+                                ARRIENDO
                                 </Typography>
-                                <Typography
-                                variant="h5"
-                                align="center"
-                                color="text.secondary"
-                                paragraph
-                                >
-                                ¿Eres nuevo en la página? ¡Realiza tu primera publicación!
-                                </Typography>
-                                <Stack
-                                sx={{ pt: 4 }}
-                                direction="row"
-                                spacing={2}
-                                justifyContent="center"
-                                >
-                                <Button variant="contained">Realizar publicación</Button>
-                                <Button variant="outlined">Ver perfil</Button>
-                                </Stack>
+                            </Grid>
+                          </Grid>
+                        
+                                
+                               
+                                  
+
                         </Container>
                     </Box>
 
                 </Grid>
 
-                    <Grid item xs>
-                        
-                    <Box
-              sx={{
-                bgcolor: "background.paper",
-                pt: 8,
-                pb: 6,
-              }}
-            >
-              <Container maxWidth="sm">
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  color="text.primary"
-                  gutterBottom
-                >
-                  BIENVENIDO
-                </Typography>
-                <Typography
-                  variant="h5"
-                  align="center"
-                  color="text.secondary"
-                  paragraph
-                >
-                  ¿Eres nuevo en la página? ¡Realiza tu primera publicación!
-                </Typography>
-                <Stack
-                  sx={{ pt: 4 }}
-                  direction="row"
-                  spacing={2}
-                  justifyContent="center"
-                >
-                  <Button variant="contained">Realizar publicación</Button>
-                  <Button variant="outlined">Ver perfil</Button>
-                </Stack>
-              </Container>
-            </Box>
-
-                    </Grid>
                 </Grid>
                 
 
@@ -130,8 +101,12 @@ import { Box, Container, Stack } from '@mui/system';
 
 
                 <Carousel 
+                    focusOnSelect={true}
+                    breakPoints={breakPoints}
+                    itemPadding={[10, 10]} 
+                    itemsToShow={3} 
+                    outerSpacing={1}
                     ref={carouselRef} 
-                    itemsToShow={1} 
                     itemPosition='CENTER' 
                     enableAutoPlay 
                     autoPlaySpeed={6000} 
@@ -160,7 +135,39 @@ import { Box, Container, Stack } from '@mui/system';
             </Grid>
 
 
+
         </Grid>
+        <Grid container >
+          <Grid item xs={6} position='relative' sx={{margin: '20px', left: '3%', borderBottom: '1px solid'}}>
+            <Grid item xs={12} justifyContent='flex-end' >
+                <Box pl='8%' pt='1%'>
+                  <Typography
+                      component="h3"
+                      variant="h3"
+                      color="text.primary"
+                      gutterBottom
+                      >
+                     {publication[0]['title']}
+                  </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={6} justifyContent='flex-end'>
+                <Box  pl='16%' >
+                  <Typography
+                      component="body1"
+                      variant="body1"
+                      fontSize= {20}
+                      color="text.primary"
+                      gutterBottom
+                      >
+                      {publication[0]['description']}
+                      </Typography> 
+                </Box>
+            </Grid>
+          </Grid>
+        </Grid>
+        
+        
         </>
     )
  }
