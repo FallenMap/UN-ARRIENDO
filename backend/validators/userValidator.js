@@ -97,7 +97,7 @@ const validateCreate = [  //validate user & email
     }
 ]
 
-const validateUpdate = [  //validate user & email
+const validateUpdate = [  //validate user unique & email unique
     check('firstName')
     .exists()
     .not()
