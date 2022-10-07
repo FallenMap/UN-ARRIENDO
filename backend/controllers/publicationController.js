@@ -92,9 +92,9 @@ publicationController.userPostHistory = async (req, res) => {
         let studioApartments = await StudioApartment.find({ landlord: String(req.session.userID) }).sort({ date : -1});
     
         // debugging
-        console.log(apartments);
-        console.log(rooms);
-        console.log(studioApartments);
+        // console.log(apartments);
+        // console.log(rooms);
+        // console.log(studioApartments);
     
         // exit message
         res.status(200).json({
@@ -102,6 +102,24 @@ publicationController.userPostHistory = async (req, res) => {
             apartments: apartments,
             rooms:rooms,
             studioApartments:studioApartments
+            });
+        }
+        catch{
+            res.status(500).json({
+                error:"Something bad happened..."
+            });
+        }
+};
+
+// Function to get all post.
+publicationController.getPublications = async (req, res) => {
+    try{
+        let listing = await Listing.find().sort({ date: -1});
+    
+        // exit message
+        res.status(200).json({
+            msg:"Get publications done",
+            listings: listing
             });
         }
         catch{

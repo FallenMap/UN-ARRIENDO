@@ -10,6 +10,7 @@ router.post('/update', upload.listingPhotos, publicationController.updatePublica
 router.post('/delete', upload.listingPhotos, publicationController.deletePublication);
 router.post('/rating', upload.listingPhotos, publicationController.ratingPublication);
 router.post('/postHistory', upload.listingPhotos, publicationController.userPostHistory);
+router.post('/get', upload.listingPhotos, publicationController.getPublications);
 
 module.exports = router;
 
