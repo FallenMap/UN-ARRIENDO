@@ -111,4 +111,22 @@ publicationController.userPostHistory = async (req, res) => {
         }
 };
 
+// Function to get all post.
+publicationController.getPublications = async (req, res) => {
+    try{
+        let listing = await Listing.find().sort({ date: -1});
+    
+        // exit message
+        res.status(200).json({
+            msg:"Get publications listing done",
+            listings: listing
+            });
+        }
+        catch{
+            res.status(500).json({
+                error:"Something bad happened..."
+            });
+        }
+};
+
 module.exports = { publicationController };
