@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Paper } from '@mui/material';
-import { formAllPublication } from '../../../adapters/formAdapters';
+import { formAllListings } from '../../../adapters/formAdapters';
 
 
 const thumbsContainer = {
@@ -36,21 +36,38 @@ const img = {
   height: '100%'
 };
 
-export default function PhotosForm() {
+export default function PhotosForm(props) {
   const [files, setFiles] = useState([]);
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+
+  if (files.length === 0) {
+    let tempFiles = props.data.getAll('files');
+    if (tempFiles.length !== 0) {
+      setFiles(tempFiles.map(file => {
+        Object.assign(file, {
+          preview: URL.createObjectURL(file)
+        });
+        return file;
+      }));
+    }
+  }
+  
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       'image/png': ['.png'],
-      'image/jpeg':['.jpeg'],
+      'image/jpeg': ['.jpeg'],
       'image/jpg': ['.jpg']
     },
     onDrop: acceptedFiles => {
+      while (props.data.get('files')) {
+        props.data.delete('files');
+      }
+      acceptedFiles.forEach((file) => { props.data.append('files', file) });
       setFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
-    }
+    },
   });
-  
+
   const thumbs = files.map(file => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>
@@ -72,18 +89,18 @@ export default function PhotosForm() {
 
   return (
     <Paper className="container" sx={{
-      cursor:'pointer',
+      cursor: 'pointer',
       background: '#fafafa',
       color: '#bdbdbd',
       border: '1px dashed #ccc',
-      '&:hover':{border:'1px solid #ccc'}
+      '&:hover': { border: '1px solid #ccc' }
     }}>
-      <div {...getRootProps({className: 'dropzone'})}>
-        <input name={formAllPublication.fotos} {...getInputProps()} />
+      <div {...getRootProps({ className: 'dropzone' })}>
+        <input name={formAllListings.fotos} {...getInputProps()} />
         {
-          isDragActive?(
-            <p style={{color:'green'}}>¡Coloca tus imagenes aqui!</p>
-          ):(
+          isDragActive ? (
+            <p style={{ color: 'green' }}>¡Coloca tus imagenes aqui!</p>
+          ) : (
             <p>Suelta las imagenes aqui, o da clic para subirlas.</p>
           )
         }
@@ -94,34 +111,4 @@ export default function PhotosForm() {
       </aside>
     </Paper>
   );
-
-  /*const [files, setFiles] = useState([]);
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles(acceptedFiles);
-  })
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
-    onDrop,
-    accept: {'image/*':[]}
-  })
-  return (
-    <Paper sx={{
-      cursor:'pointer',
-      background: '#fafafa',
-      color: '#bdbdbd',
-      border: '1px dashed #ccc',
-      '&:hover':{border:'1px solid #ccc'}
-    }}>
-      <div {...getRootProps()}>
-        <input {...getInputProps()}></input>
-        {
-          isDragActive?(
-            <p style={{color:'green'}}>¡Coloca tus imagenes aqui!</p>
-          ):(
-            <p>Suelta las imagenes aqui, o da clic para subirlas.</p>
-          )
-        }
-        <em>Imagenes con extension .jpeg, .png, .jpg serán aceptadas.</em>
-      </div>
-    </Paper>
-  )*/
 }

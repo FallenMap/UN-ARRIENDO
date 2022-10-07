@@ -3,12 +3,12 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
-import { formAllPublication } from '../../../adapters/formAdapters';
+import { formAllListings } from '../../../adapters/formAdapters';
 import { InputLabel, MenuItem, Select, FormControl, OutlinedInput, InputAdornment } from '@mui/material';
 import { useState } from 'react';
 
-export default function BasicForm() {
-    const [postType, setPostType] = useState('');
+export default function BasicForm(props) {
+    const [postType, setPostType] = useState(undefined);
 
     const handlerChangeType = (e) => {
         setPostType(e.target.value)
@@ -16,16 +16,14 @@ export default function BasicForm() {
 
     return (
         <Container>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h5" gutterBottom>
                 ¿Qué vas a publicar?
             </Typography>
-            <Grid container spacing={4} style={{
-                marginTop: "7px"
-            }}>
+            <Grid container spacing={4}>
                 <Grid item xs={12}>
                     <FormControl fullWidth variant="standard">
                         <InputLabel>Elige un tipo de inmueble:</InputLabel>
-                        <Select name={formAllPublication.tipo} onChange={handlerChangeType} value={postType}>
+                        <Select name={formAllListings.tipo} onChange={handlerChangeType} value={postType || props.data.get(formAllListings.tipo) || ''}>
                             <MenuItem value="Apartaestudio">Apartaestudio</MenuItem>
                             <MenuItem value="Apartamento">Apartamento</MenuItem>
                             <MenuItem value="Habitación">Habitación</MenuItem>
@@ -36,54 +34,59 @@ export default function BasicForm() {
                     <TextField
                         required
                         id="title-pub"
-                        name={formAllPublication.titulo}
+                        name={formAllListings.titulo}
                         label="Titulo"
                         fullWidth
                         variant="standard"
+                        defaultValue={props.data.get(formAllListings.titulo) || ""}
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
                         required
                         id="description-pub"
-                        name={formAllPublication.descripcion}
+                        name={formAllListings.descripcion}
                         label="Descripcion"
                         fullWidth
                         autoComplete="family-name"
                         variant="standard"
                         multiline
+                        defaultValue={props.data.get(formAllListings.descripcion) || ""}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
                         id="address1-pub"
-                        name={formAllPublication.direccion}
+                        name={formAllListings.direccion}
                         label="Dirección"
                         fullWidth
                         autoComplete="shipping address-line1"
                         variant="standard"
+                        defaultValue={props.data.get(formAllListings.direccion) || ""}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         id="address2-pub"
-                        name={formAllPublication.complemento}
+                        name={formAllListings.complemento}
                         label="Complemento de la dirección"
                         fullWidth
                         autoComplete="shipping address-line2"
                         variant="standard"
+                        defaultValue={props.data.get(formAllListings.complemento) || ""}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
                         id="neighborhood-pub"
-                        name={formAllPublication.barrio}
+                        name={formAllListings.barrio}
                         label="Barrio"
                         fullWidth
                         autoComplete="shipping address-level2"
                         variant="standard"
+                        defaultValue={props.data.get(formAllListings.barrio) || ""}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -93,7 +96,8 @@ export default function BasicForm() {
                             id='outlined-adorment-amount'
                             startAdornment={<InputAdornment position='start'>$</InputAdornment>}
                             label="Precio"
-                            name={formAllPublication.precio}
+                            name={formAllListings.precio}
+                            defaultValue={props.data.get(formAllListings.precio) || ""}
                         />
                     </FormControl>
                 </Grid>

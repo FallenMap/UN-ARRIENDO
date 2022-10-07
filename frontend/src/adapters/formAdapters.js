@@ -21,7 +21,7 @@ export const formAllDataUser = {
     phone: "phoneNumber",
 }
 
-export const formAllPublication = {
+export const formAllListings = {
     titulo: "title",
     direccion: "address",
     complemento: "address2",

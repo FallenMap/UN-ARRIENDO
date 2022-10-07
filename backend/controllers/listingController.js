@@ -7,10 +7,10 @@ const fs = require('fs');
 const path = require('path');
 
 // Create an object that save all controller functions.
-const publicationController = {};
+const listingController = {};
 
 // Function to create a new publication.
-publicationController.createPublication = async (req, res) => {
+listingController.createListing = async (req, res) => {
 
     if (!req.files) {
         req.body.photos = [];
@@ -26,15 +26,21 @@ publicationController.createPublication = async (req, res) => {
     let type = req.body.type;
     delete req.body.type;
 
-    // Adding the user that created the publication:V
+    // Adding the user that created the listing:V
     req.body.landlord = req.session.userID;
 
     if (type.toLowerCase() == "apartment") {
+
         publication = new Apartment({ ...req.body});
+
     } else if (type.toLowerCase() == "room") {
+
         publication = new Room({ ...req.body});
+
     }else if(type.toLowerCase() == "studioapartment"){
-        publication = new StudioApartment({ ...req.body});   
+
+        publication = new StudioApartment({ ...req.body});
+
     }
 
     if(publication){
@@ -50,16 +56,16 @@ publicationController.createPublication = async (req, res) => {
 };
 
 // Function to update a publication.
-publicationController.updatePublication = async (req, res) => {};
+listingController.updateListing = async (req, res) => {};
 
 // Function to delete a publication.
-publicationController.deletePublication = async (req, res) => {};
+listingController.deleteListing = async (req, res) => {};
 
 // Function to save a rating of a publication.
-publicationController.ratingPublication = async (req, res) => {};
+listingController.ratingListing = async (req, res) => {};
 
 // Function to get user post history.
-publicationController.userPostHistory = async (req, res) => {
+listingController.userListingHistory = async (req, res) => {
     try{
         let apartments = await Apartment.find({ landlord: String(req.session.userID) }).sort({ date: -1});
         let rooms = await Room.find({ landlord: String(req.session.userID) }).sort({ date : -1});
@@ -85,4 +91,4 @@ publicationController.userPostHistory = async (req, res) => {
         }
 };
 
-module.exports = { publicationController };
+module.exports = { listingController };

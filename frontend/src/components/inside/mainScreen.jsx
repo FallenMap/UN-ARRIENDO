@@ -84,7 +84,7 @@ export function MainScreen() {
                   color="text.secondary"
                   paragraph
                 >
-                  ¿Eres nuevo en la página? ¡Realiza tu primera publicación!
+                  ¿Listo para publicar?
                 </Typography>
                 <Stack
                   sx={{ pt: 4 }}
@@ -92,7 +92,7 @@ export function MainScreen() {
                   spacing={2}
                   justifyContent="center"
                 >
-                  <Link to="/PublicationRegister">
+                  <Link to="/ListingRegister">
                   <Button variant="contained">Realizar publicación</Button>
                   </Link>
                   <Button variant="outlined">Ver perfil</Button>
