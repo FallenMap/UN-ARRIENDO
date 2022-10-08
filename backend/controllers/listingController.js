@@ -3,6 +3,7 @@ const Apartment = require('../models/apartment');
 const Listing = require('../models/listing');
 const Room = require('../models/room');
 const StudioApartment = require('../models/studioApartment');
+const { ObjectId } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
 
@@ -93,7 +94,27 @@ listingController.updateListing = async (req, res) => {
 };
 
 // Function to delete a publication.
-listingController.deleteListing = async (req, res) => {};
+listingController.deleteListing = async (req, res) => {
+        
+    let found;
+    //deleting, set to inactive
+    try {
+        const query = await Listing.updateOne({ _id: ObjectId(req.body.listingID) }, {active: false});
+        found = query.matchedCount;
+    } catch (error) {
+        console.log(error);
+    }
+    
+    if (found === 0) {
+        res.status(404).json({
+            msg: "Listing not found!"
+        });
+    } else {
+        res.status(200).json({
+            msg: "Listing deactivated!"
+        });
+    }
+};
 
 // Function to save a rating of a publication.
 listingController.ratingListing = async (req, res) => {};
