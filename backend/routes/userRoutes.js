@@ -5,7 +5,7 @@ const validateSession = require('../middlewares/validateSession');
 const upload = require('../middlewares/fileUpload');
 const { logInValidations } = require('../middlewares/validateData');
 const { body, validationResult } = require('express-validator');
-const { validateCreate } = require('../validators/userValidator');
+const { validateRegisterUser } = require('../validators/userValidator');
 
 // Create different routes for each action and call the userController functions.
 router.post('/register', upload.userPhoto, validateRegisterUser,userController.createUser)
