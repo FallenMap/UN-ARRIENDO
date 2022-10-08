@@ -137,33 +137,137 @@ import { changeBackground } from '../../utilities/changeBackground';
 
 
         </Grid>
-        <Grid container >
-          <Grid item xs={6} position='relative' sx={{margin: '20px', left: '3%', borderBottom: '1px solid'}}>
-            <Grid item xs={12} justifyContent='flex-end' >
-                <Box pl='8%' pt='1%'>
+        <Grid container justifyContent='left'>
+          <Grid item xs={8} position='relative' sx={{margin: '20px'}}>
+            <Grid item xs={12}   >
+                <Box pl='8%' pt=' 1%' >
                   <Typography
                       component="h3"
+                      align='left'
                       variant="h3"
                       color="text.primary"
+                      sx={{borderBottom: '3px solid #D5CDCD'}}
                       gutterBottom
+                      
                       >
                      {publication[0]['title']}
                   </Typography>
                 </Box>
             </Grid>
-            <Grid item xs={6} justifyContent='flex-end'>
-                <Box  pl='16%' >
+            <Grid item xs>
+              <Grid content>
+
+              <Box  pl='8%' pt='1%'>
+                  <Container sx={{borderBottom:'3px solid #D5CDCD'}}>
+                    
                   <Typography
                       component="body1"
                       variant="body1"
+                      align='left'
                       fontSize= {20}
                       color="text.primary"
                       gutterBottom
                       >
-                      {publication[0]['description']}
+                      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                       </Typography> 
+
+                  </Container>
                 </Box>
+
+              </Grid>
+                <Grid content spacing={1} sx={{border:'1px solid'}}>
+
+                  <Grid item sx={12} >
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                          component="h3"
+                          align='left'
+                          variant="h3"
+                          color="text.primary"
+                          gutterBottom
+                          >
+                        Características:
+                      </Typography>
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs >
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                        component="h5"
+                        align='left'
+                        variant="h5"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                      Pedro
+                      </Typography>
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs>
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                        component="h5"
+                        align='left'
+                        variant="h5"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                      Federico
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  
+                  <Grid item xs>
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                        component="h5"
+                        align='left'
+                        variant="h5"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                      Alfredo:
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  
+                </Grid>
             </Grid>
+          </Grid>
+          <Grid item xs sx={{border: '1px solid'}}>
+
+            <Grid content> 
+
+              <Grid item xs={12}>
+
+                <Box pl='8%' pt=' 1%'>
+                  <Typography
+                      component="h3"
+                      align='left'
+                      variant="h3"
+                      color="text.primary"
+                      gutterBottom
+                      >
+                     Información Adicional:
+                  
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs>
+               <h1> Alejandro</h1> 
+              </Grid>
+              <Grid item xs>
+                <h1> Alejandro</h1> 
+              </Grid>
+              <Grid item xs>
+                <h1> Alejandro</h1> 
+              </Grid>
+
+            </Grid>
+            
+                
           </Grid>
         </Grid>
         

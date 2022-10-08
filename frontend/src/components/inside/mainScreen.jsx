@@ -25,13 +25,7 @@ const jsonprov = [
   { concepto: "Ruby", importe: 5000, url: "https://www.fundacion-affinity.org/sites/default/files/el-gato-necesita-tener-acceso-al-exterior.jpg" },
 ];
 
-const results = jsonprov.map(function (elemento) {
-  return {
-    concepto: elemento.concepto.toUpperCase(),
-    importe: elemento.importe,
-    importeIva: elemento.importe * 1.21,
-  };
-});
+const results = jsonprov
 
 const cards = results;
 
