@@ -1,7 +1,7 @@
-
+import Image from 'mui-image'
 
 export default function Item(props){
   return(
-    <img src={props.item.url} alt={props.item.name} style={{width: '40%', height: "400px", marginTop:'20px', borderRadius:'5%'}}></img>
+    <Image src={props.item.url} alt={props.item.name} width='auto' height= "400px"></Image>
   )
 }

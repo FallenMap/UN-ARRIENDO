@@ -1,32 +1,19 @@
 import React, { useRef } from 'react';
 import Carousel from 'react-elastic-carousel';
-import {Grid} from '@mui/material'
+import { Grid, Typography} from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
-import "../../css/ListingDetail.css";
+import  "../../css/ListingDetail.css";
+import {  Box, Container } from '@mui/system';
+import imagen from "../../Images/Logo.png";
+import { changeBackground } from '../../utilities/changeBackground';
+
 
 
  export function ListingDetails(){
 
-    
-
-    var items = [
-        {
-            name: "Random Name #1",
-            description: "Probably the most random thing you have ever seen!",
-            url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg"
-        },
-        {
-            name: "Random Name #2",
-            description: "Hello World!",
-            url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg"
-        },
-        {
-            name: "Random Name #1",
-            description: "Probably the most random thing you have ever seen!",
-            url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"
-        }
-    ]
+    changeBackground('none');
+    var publication = [{title: "Apartamento en Teusaquillo",name:"Bryan Smith Colorado Lopez", numberOfContact:"3217342313",description: "I don't know what i should say", photos: [{url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg"}, {url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg"},{url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"} ], valoracion: '5 estrellas pa'}]
 
     const carouselRef = useRef(null);
     let resetTimeout;
@@ -38,29 +25,88 @@ import "../../css/ListingDetail.css";
         }
       };
 
+      const breakPoints = [
+        { width: 1, itemsToShow: 1 },
+        { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
+        { width: 850, itemsToShow: 3 },
+        { width: 1150, itemsToShow: 3, itemsToScroll: 2 },
+        { width: 1450, itemsToShow: 3 },
+        { width: 1750, itemsToShow: 3 },
+      ];
+
+    
+
     const onPrevStart = (currentItem, nextItem) => {
         if (currentItem.index === nextItem.index) {
           // we hit the first item, go to last item
-          carouselRef.current.goTo(items.length);
+          carouselRef.current.goTo(publication[0]['photos'].length);
         }
       };
+
       
     return (
         <>
-        
 
         <div className="container">
           <Navbar />
         </div>
 
-        <Grid container spacing={2} alignItems="center"  justifyContent="center" >
+        <Grid container spacing={2} alignItems="center"  justifyContent="center" backgroundColor="rgba(34, 40, 49, .4)" >
 
-            <Grid item xs sx={{backgroundColor: 'rgba(0, 0, 0, 0.514)'}}>
-                <div>
+            <Grid item xs={12}>
+                <Grid container spacing={1} backgroundColor="rgba(89, 82, 96, .3)" justifyContent='flex-end'>
+                    <Grid item xs={12}>
+                    <Box
+                    sx={{
+                        bgcolor: "background.paper",
+                        pt: 1,
+                        pb: 1,
+                        pr: 10
+                    }}
+                    >
+                        <Container maxWidth='sm'>
+                          <Grid container spacing={1} justifyContent='center'>
+                            <Grid item xs align='center'>
+                              <img src={imagen} alt="Logo" style={{maxHeight: '170px', maxWidth: '170px'}}/>
+                            </Grid>
+                            <Grid item xs>
+                            <Typography
+                                component="h1"
+                                variant="h1"
+                                align="center"
+                                color="text.primary"
+                                gutterBottom
+                                >
+                                UN
+                                ARRIENDO
+                                </Typography>
+                            </Grid>
+                          </Grid>
+                        
+                                
+                               
+                                  
+
+                        </Container>
+                    </Box>
+
+                </Grid>
+
+                </Grid>
+                
+
+            </Grid>
+
+            <Grid item xs={12}>
+
 
                 <Carousel 
+                    focusOnSelect={true}
+                    breakPoints={breakPoints}
+                    itemPadding={[10, 10]} 
+                    itemsToShow={3} 
+                    outerSpacing={1}
                     ref={carouselRef} 
-                    itemsToShow={1} 
                     itemPosition='CENTER' 
                     enableAutoPlay 
                     autoPlaySpeed={6000} 
@@ -69,7 +115,7 @@ import "../../css/ListingDetail.css";
                     onNextEnd={({ index }) => {
 
                         clearTimeout(resetTimeout)
-                        if (index + 1 === items.length) {
+                        if (index + 1 === publication[0]['photos'].length) {
                         resetTimeout = setTimeout(() => {
                             carouselRef.current.goTo(0)
                         }, 6000) 
@@ -79,19 +125,153 @@ import "../../css/ListingDetail.css";
                     disableArrowsOnEnd={false}>
 
                     {
-                        items.map( (item, i) => 
-                        <Item key={i} item={item}/> 
+                        publication[0]['photos'].map( (item, i) => 
+                        <Item item={item}/> 
                         )
                     }
 
                 </Carousel>
 
-                </div>
-                
-
             </Grid>
 
+
+
         </Grid>
+        <Grid container justifyContent='left'>
+          <Grid item xs={8} position='relative' sx={{margin: '20px'}}>
+            <Grid item xs={12}   >
+                <Box pl='8%' pt=' 1%' >
+                  <Typography
+                      component="h3"
+                      align='left'
+                      variant="h3"
+                      color="text.primary"
+                      sx={{borderBottom: '3px solid #D5CDCD'}}
+                      gutterBottom
+                      
+                      >
+                     {publication[0]['title']}
+                  </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs>
+              <Grid content>
+
+              <Box  pl='8%' pt='1%'>
+                  <Container sx={{borderBottom:'3px solid #D5CDCD'}}>
+                    
+                  <Typography
+                      component="body1"
+                      variant="body1"
+                      align='left'
+                      fontSize= {20}
+                      color="text.primary"
+                      gutterBottom
+                      >
+                      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                      </Typography> 
+
+                  </Container>
+                </Box>
+
+              </Grid>
+                <Grid content spacing={1} sx={{border:'1px solid'}}>
+
+                  <Grid item sx={12} >
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                          component="h3"
+                          align='left'
+                          variant="h3"
+                          color="text.primary"
+                          gutterBottom
+                          >
+                        Características:
+                      </Typography>
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs >
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                        component="h5"
+                        align='left'
+                        variant="h5"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                      Pedro
+                      </Typography>
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs>
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                        component="h5"
+                        align='left'
+                        variant="h5"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                      Federico
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  
+                  <Grid item xs>
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                        component="h5"
+                        align='left'
+                        variant="h5"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                      Alfredo:
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  
+                </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs sx={{border: '1px solid'}}>
+
+            <Grid content> 
+
+              <Grid item xs={12}>
+
+                <Box pl='8%' pt=' 1%'>
+                  <Typography
+                      component="h3"
+                      align='left'
+                      variant="h3"
+                      color="text.primary"
+                      gutterBottom
+                      >
+                     Información Adicional:
+                  
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs>
+               <h1> Alejandro</h1> 
+              </Grid>
+              <Grid item xs>
+                <h1> Alejandro</h1> 
+              </Grid>
+              <Grid item xs>
+                <h1> Alejandro</h1> 
+              </Grid>
+
+            </Grid>
+            
+                
+          </Grid>
+        </Grid>
+        
+        
         </>
     )
  }

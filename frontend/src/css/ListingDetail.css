@@ -1,3 +1,14 @@
+@import url('https://www.dafont.com/es/designer.font');
+
+
+@font-face {
+    font-family: 'Designer';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Designer'), local('Designer'), url(https://www.dafont.com/es/designer.font) format('otf');
+  }
+  
+
 .rec-dot_active {
     background-color: var(--white) !important;
     box-shadow: 0 0 1px 3px var(--white) !important;
@@ -30,3 +41,4 @@
 .rec.rec-arrow:hover {
     border-radius: 50%;
 }
+
