@@ -2,7 +2,7 @@ const { check } = require('express-validator')
 const { validateResult } = require('../helpers/validateHelper')
 const User = require('../models/user');
 
-const validateCreate = [  //validate user & email
+const validateRegisterUser = [  //validate user & email
     check('firstName')
     .exists()
     .not()
@@ -19,7 +19,7 @@ const validateCreate = [  //validate user & email
         .exists()
         .isEmail()
         .withMessage('Input is not an email')/////////////////////////////////////////////////////////////////////////////////////
-        .custom(async value => {
+        .custom(async (value, { res }) => {
             let email_resp;
 
             let query = {
@@ -97,7 +97,7 @@ const validateCreate = [  //validate user & email
     }
 ]
 
-/*const validateUpdate = [  //validate user unique & email unique
+/*const validateUpdateUser = [  //validate user unique & email unique
     check('firstName')
     .exists()
     .not()
@@ -114,7 +114,7 @@ const validateCreate = [  //validate user & email
         .exists()
         .isEmail()
         .withMessage('Input is not an email')/////////////////////////////////////////////////////////////////////////////////////
-        .custom(async value => {
+        .custom(async (value, { res }) => {
             let email_resp;
 
             let query = {
@@ -173,7 +173,7 @@ const validateCreate = [  //validate user & email
         .exists()
         .not()
         .isEmpty()
-        .withMessage('Gender input is empty'),
+        .withMessage('Gender input is empty'),  
     
     check('password')
         .exists()
@@ -192,5 +192,5 @@ const validateCreate = [  //validate user & email
     }
 ]*/
 
-module.exports = { validateCreate }
-//module.exports = { validateUpdate }
+module.exports = { validateRegisterUser }
+//module.exports = { validateUpdateUser }
