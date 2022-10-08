@@ -52,14 +52,7 @@ function Navbar() {
                             flexGrow: 1
                         }} />
 
-                        {/* ESTO SE VA A ELIMINAR, LO DEJO COMO "BACKUP"
-                        <Link to={auth.user?.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"}>
-                            <button className={styles.btn}> Actualizar datos</button>
-                        </Link>
-                        {auth.user?.type === "Landlord" && <Link to="/Historial"><button className={styles.btn}> Historial</button></Link>}
-
-                        {auth.isLogged() && <button className={styles.btn} onClick={logoutHandler}> Cerrar sesion</button>}
-                        */}
+                       
                         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                             <Tooltip title="Account settings">
                                 <IconButton
