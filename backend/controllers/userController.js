@@ -64,9 +64,6 @@ userController.createUser = async (req, res) => {
 };
 
 userController.updateUser = async (req, res) => {
-    //Updating the user
-    //const current = await User.findOne({_id:req.session.userID});
-    //console.log(current);
 
     if (req.file) {
         req.body.photo = path.win32.basename(req.file.path);
@@ -108,7 +105,7 @@ userController.loginUser = async (req, res) => {
     let user, query, data;
     //Prints the data sent by the user on the console.
     //console.log("---------------\nloginUserFunctionBodyRequest\n"+JSON.stringify(req.body)+"\n---------------");
-
+    console.log(req.body);
     const error = validationResult(req);
     if (!error.isEmpty()) {
         query = {

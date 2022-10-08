@@ -25,7 +25,15 @@ const jsonprov = [
   { concepto: "Ruby", importe: 5000, url: "https://www.fundacion-affinity.org/sites/default/files/el-gato-necesita-tener-acceso-al-exterior.jpg" },
 ];
 
-const cards = jsonprov;
+const results = jsonprov.map(function (elemento) {
+  return {
+    concepto: elemento.concepto.toUpperCase(),
+    importe: elemento.importe,
+    importeIva: elemento.importe * 1.21,
+  };
+});
+
+const cards = results;
 
 const theme = createTheme();
 
@@ -73,7 +81,7 @@ export function MainScreen() {
                   color="text.secondary"
                   paragraph
                 >
-                  ¿Eres nuevo en la página? ¡Realiza tu primera publicación!
+                  ¿Listo para publicar?
                 </Typography>
                 <Stack
                   sx={{ pt: 4 }}
@@ -81,7 +89,9 @@ export function MainScreen() {
                   spacing={2}
                   justifyContent="center"
                 >
+                  <Link to="/ListingRegister">
                   <Button variant="contained">Realizar publicación</Button>
+                  </Link>
                   <Button variant="outlined">Ver perfil</Button>
                 </Stack>
               </Container>

@@ -97,7 +97,7 @@ const validateCreate = [  //validate user & email
     }
 ]
 
-const validateUpdate = [  //validate user & email
+/*const validateUpdate = [  //validate user unique & email unique
     check('firstName')
     .exists()
     .not()
@@ -190,7 +190,7 @@ const validateUpdate = [  //validate user & email
     (req, res, next) => {
         validateResult(req, res, next)
     }
-]
+]*/
 
 module.exports = { validateCreate }
-module.exports = { validateUpdate }
+//module.exports = { validateUpdate }

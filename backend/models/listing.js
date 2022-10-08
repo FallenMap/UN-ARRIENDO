@@ -46,7 +46,7 @@ const listingSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now 
+        default: Date.now
     },
     active: {
         type: Boolean,
