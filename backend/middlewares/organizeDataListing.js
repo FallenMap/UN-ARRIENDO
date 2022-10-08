@@ -42,7 +42,7 @@ module.exports = (req, res, next) => {
 
     let group = {};
 
-    for(let i in characteristics){
+    for(let i of characteristics){
         if(req.body[i]){
             group[i]=req.body[i];
             delete req.body[i];

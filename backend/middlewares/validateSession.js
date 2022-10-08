@@ -3,7 +3,8 @@ module.exports = (req, res, next) => {
         next();
     }else{
         res.status(401).json({
-            error:"You are not logged in"
+            error:"You are not logged in",
+            isNotLogged: true
         });
     }
 }

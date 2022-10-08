@@ -58,15 +58,14 @@ listingController.createListing = async (req, res) => {
 // Function to update a publication.
 listingController.updateListing = async (req, res) => {
     // handle photos
-    if (!req.files) {
-        req.body.photos = [];
-    } else {
+    if (req.files) {
         let arrayPhotos = [];
         req.files.forEach(element => {
             arrayPhotos.push(path.win32.basename(element.path))
         });
         req.body.photos = arrayPhotos;
     }
+
     //updating
     if ((req.body.type).toLowerCase() == "apartment") {
         try {
