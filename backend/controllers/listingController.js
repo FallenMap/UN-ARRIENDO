@@ -116,6 +116,29 @@ listingController.deleteListing = async (req, res) => {
     }
 };
 
+// Function to restore a publication.
+listingController.restoreListing = async (req, res) => {
+        
+    let found;
+    //restoring, set to active
+    try {
+        const query = await Listing.updateOne({ _id: ObjectId(req.body.listingID) }, {active: true});
+        found = query.matchedCount;
+    } catch (error) {
+        console.log(error);
+    }
+    
+    if (found === 0) {
+        res.status(404).json({
+            msg: "Listing not found!"
+        });
+    } else {
+        res.status(200).json({
+            msg: "Listing restored!"
+        });
+    }
+};
+
 // Function to save a rating of a publication.
 listingController.ratingListing = async (req, res) => {};
 

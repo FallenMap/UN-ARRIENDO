@@ -10,6 +10,7 @@ router.post('/get', upload.listingPhotos, listingController.getPublications);
 router.post('/create', upload.listingPhotos, organizeDataListing, listingController.createListing);
 router.post('/update', listingController.updateListing);
 router.post('/delete', listingController.deleteListing);
+router.post('/restore', listingController.restoreListing);
 router.post('/rating', listingController.ratingListing);
 router.post('/postHistory', listingController.userListingHistory);
 
