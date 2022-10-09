@@ -1,5 +1,4 @@
-import React from 'react'
-import {useState} from 'react';
+import {React, useState} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -10,15 +9,16 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-import { useNavigate } from 'react-router-dom';
 import BasicForm from './basicForm';
 import PhotosForm from './photosForm';
 import SpecificForm from './specificForm';
 import Navbar from "../../navbar/navbar";
+
+import { redirect } from 'react-router-dom';
 import { listingCreateHandlerOnSubmit } from '../../../controllers/listingActionsController';
 import { formAllListings } from '../../../adapters/formAdapters';
 import { normalize } from '../../../utilities/normalizeString';
+import useAuth from '../../../auth/useAuth';
 
 const steps = ['Datos basicos', 'Datos especificos', 'Fotos'];
 const theme = createTheme();
@@ -45,7 +45,8 @@ function getStepContent(step, formData) {
 export default function ListingRegister() {
     const [activeStep, setActiveStep] = useState(0);
     const [formData, setFormData] = useState(new FormData());
-    const navigate = useNavigate();
+
+    const auth = useAuth();
 
     const handleAnotherRegister = () => {
         setFormData(new FormData());
@@ -68,7 +69,7 @@ export default function ListingRegister() {
         if(steps.length - 1 === activeStep){
             let newType = translateType[normalize(formData.get(formAllListings.tipo))];
             formData.set(formAllListings.tipo, newType);
-            showSuccessText = listingCreateHandlerOnSubmit(formData);
+            showSuccessText = listingCreateHandlerOnSubmit(auth, formData);
         }
 
         setActiveStep(activeStep + 1);
@@ -122,7 +123,7 @@ export default function ListingRegister() {
                                 
                                 <br></br>
                                 <br></br>
-                                <Button onClick={()=>{navigate('/MainScreen')}} variant='outlined'>
+                                <Button onClick={()=>{redirect('/MainScreen')}} variant='outlined'>
                                     Regresar al inicio
                                 </Button>
                             </Box>

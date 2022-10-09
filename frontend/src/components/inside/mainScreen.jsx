@@ -16,7 +16,8 @@ import Container from "@mui/material/Container";
 import { HoverRating } from "./rating";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import useAuth from "../../auth/useAuth";
+
 
 
 const jsonprov = [
@@ -35,6 +36,8 @@ const cards = results;
 const theme = createTheme();
 
 export function MainScreen() {
+  const auth = useAuth();
+
   changeTitle("Main page");
   changeBackground('none');
 

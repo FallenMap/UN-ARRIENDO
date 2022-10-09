@@ -13,7 +13,7 @@ import { changeBackground } from '../../utilities/changeBackground';
  export function ListingDetails(){
 
     changeBackground('none');
-    var publication = [{title: "Apartamento en Teusaquillo",name:"Bryan Smith Colorado Lopez", numberOfContact:"3217342313",description: "I don't know what i should say", photos: [{url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg"}, {url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg"},{url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"} ], valoracion: '5 estrellas pa'}]
+    var publication = {title: "Apartamento en Teusaquillo",name:"Bryan Smith Colorado Lopez", numberOfContact:"3217342313",description: "I don't know what i should say", photos: [{url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg"}, {url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg"},{url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"} ], valoracion: '5 estrellas pa'}
 
     const carouselRef = useRef(null);
     let resetTimeout;
@@ -39,7 +39,7 @@ import { changeBackground } from '../../utilities/changeBackground';
     const onPrevStart = (currentItem, nextItem) => {
         if (currentItem.index === nextItem.index) {
           // we hit the first item, go to last item
-          carouselRef.current.goTo(publication[0]['photos'].length);
+          carouselRef.current.goTo(publication['photos'].length);
         }
       };
 
@@ -115,7 +115,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                     onNextEnd={({ index }) => {
 
                         clearTimeout(resetTimeout)
-                        if (index + 1 === publication[0]['photos'].length) {
+                        if (index + 1 === publication['photos'].length) {
                         resetTimeout = setTimeout(() => {
                             carouselRef.current.goTo(0)
                         }, 6000) 
@@ -125,7 +125,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                     disableArrowsOnEnd={false}>
 
                     {
-                        publication[0]['photos'].map( (item, i) => 
+                        publication?.photos.map( (item, i) => 
                         <Item item={item}/> 
                         )
                     }
@@ -150,7 +150,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                       gutterBottom
                       
                       >
-                     {publication[0]['title']}
+                     {publication['title']}
                   </Typography>
                 </Box>
             </Grid>
@@ -177,7 +177,7 @@ import { changeBackground } from '../../utilities/changeBackground';
               </Grid>
                 <Grid content spacing={1} sx={{border:'1px solid'}}>
 
-                  <Grid item sx={12} >
+                  <Grid item xs={12} >
                     <Box pl='6%' sx={{marginTop:'10px'}}>
                       <Typography
                           component="h3"
@@ -191,7 +191,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                     </Box>
                   </Grid>
 
-                  <Grid item xs >
+                  <Grid item xs={6}>
                     <Box pl='6%' sx={{marginTop:'10px'}}>
                       <Typography
                         component="h5"
@@ -205,7 +205,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                     </Box>
                   </Grid>
 
-                  <Grid item xs>
+                  <Grid item xs={6}>
                     <Box pl='6%' sx={{marginTop:'10px'}}>
                       <Typography
                         component="h5"

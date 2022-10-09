@@ -20,12 +20,9 @@ const listingSchema = new mongoose.Schema({
         privateArea: Number,
         rooms: Number,
         privateBathrooms: Number,
-        petFriendly: {
-            type: Array,
-            of: String
-        },
-        carParking: Number,
-        bicycleParking: Number,
+        petFriendly: Boolean,
+        carParking: Boolean,
+        bicycleParking: Boolean,
         storage: String,
         communalAreas: {
             type: Array,
