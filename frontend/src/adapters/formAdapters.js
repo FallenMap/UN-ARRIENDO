@@ -49,5 +49,6 @@ export const formAllListings = {
     tipo: "type",
     apartaestudio: "StudioApartment",
     apartamento: "Apartment",
-    habitacion: "Room"
+    habitacion: "Room",
+    imagenes: "photos"
 }

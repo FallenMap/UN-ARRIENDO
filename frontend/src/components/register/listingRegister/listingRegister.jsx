@@ -15,7 +15,7 @@ import PhotosForm from './photosForm';
 import SpecificForm from './specificForm';
 import Navbar from "../../navbar/navbar";
 
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { listingCreateHandlerOnSubmit } from '../../../controllers/listingActionsController';
 import { formAllListings } from '../../../adapters/formAdapters';
 import { normalize } from '../../../utilities/normalizeString';
@@ -48,6 +48,7 @@ export default function ListingRegister() {
     const [formData, setFormData] = useState(new FormData());
 
     const auth = useAuth();
+    const navigate = useNavigate();
 
     const handleAnotherRegister = () => {
         setFormData(new FormData());
@@ -83,7 +84,7 @@ export default function ListingRegister() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Navbar></Navbar>
+            <Navbar />
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
                     <Typography component="h1" variant="h4" align="center">
@@ -124,7 +125,7 @@ export default function ListingRegister() {
                                 
                                 <br></br>
                                 <br></br>
-                                <Button onClick={()=>{redirect('/MainScreen')}} variant='outlined'>
+                                <Button onClick={()=>{navigate("/MainScreen");}} variant='outlined'>
                                     Regresar al inicio
                                 </Button>
                             </Box>

@@ -16,10 +16,15 @@ import Container from "@mui/material/Container";
 import { HoverRating } from "./rating";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import useAuth from "../../auth/useAuth";
+import { getAllListings } from "../../controllers/listingActionsController";
+import { useState } from "react";
+import { useEffect } from "react";
+import { formAllListings } from "../../adapters/formAdapters";
 
 
 
-const jsonprov = [
+/*const jsonprov = [
   { concepto: "mac", importe: 1000, url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg" },
   { concepto: "android", importe: 500, url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg" },
   { concepto: "IOS", importe: 0, url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg" },
@@ -30,15 +35,21 @@ const jsonprov = [
 
 const results = jsonprov
 
-const cards = results;
+const cards = results;*/
 
 const theme = createTheme();
 
 export function MainScreen() {
+  const [listings, setListings] = useState([]);
 
-  changeTitle("Main page");
+  changeTitle("Inicio");
   changeBackground('none');
 
+  const auth = useAuth();
+  
+  useEffect(()=>{
+    getAllListings(auth).then(listingsResp => setListings(listingsResp));
+  },[auth]);
 
 
   return (
@@ -91,7 +102,7 @@ export function MainScreen() {
                   justifyContent="center"
                 >
                   <Link to="/ListingRegister">
-                  <Button variant="contained">Realizar publicación</Button>
+                    <Button variant="contained">Realizar publicación</Button>
                   </Link>
                   <Button variant="outlined">Ver perfil</Button>
                 </Stack>
@@ -109,7 +120,7 @@ export function MainScreen() {
                 <Container sx={{ py: 8 }} maxWidth="md">
                   {/* End hero unit */}
                   <Grid container spacing={3}>
-                    {cards.map((card) => (
+                    {listings.map((listing) => (
                       <Grid item xs={6}>
                         <Card
                           sx={{
@@ -127,7 +138,7 @@ export function MainScreen() {
                               pr: "2%",
                               height: '300px'
                             }}
-                            image= {card.url}
+                            image={"http://localhost:5000/images/listing/"+listing[formAllListings.imagenes][0]}
                             alt="random"
                           />
                           <CardContent sx={{ flexGrow: 1 }}>
@@ -136,15 +147,15 @@ export function MainScreen() {
                               variant="h5"
                               component="h2"
                             >
-                              {card.concepto}
+                              {listing[formAllListings.titulo]}
                             </Typography>
-                            <Typography>{card.importe}</Typography>
+                            <Typography>{listing[formAllListings.descripcion]}</Typography>
                           </CardContent>
                           <CardActions>
                             <Link to='/details'>
-                            <Button size="small">Ver más detalles</Button>
+                              <Button size="small">Ver más detalles</Button>
                             </Link>
-                           
+
                             <Button size="small">Contactar</Button>
                             <HoverRating />
                           </CardActions>

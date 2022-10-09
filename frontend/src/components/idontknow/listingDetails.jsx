@@ -107,7 +107,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                     itemsToShow={3} 
                     outerSpacing={1}
                     ref={carouselRef} 
-                    itemPosition='CENTER' 
+                    position='CENTER' 
                     enableAutoPlay 
                     autoPlaySpeed={6000} 
                     onNextStart={onNextStart} 

@@ -4,6 +4,6 @@ const {getImageProfile, getImageListing} = require('../controllers/imageControll
 
 
 router.get('/profile/:image', getImageProfile)
-    .get('/listing/image/:image', getImageListing);
+    .get('/listing/:image', getImageListing);
 
 module.exports=router;

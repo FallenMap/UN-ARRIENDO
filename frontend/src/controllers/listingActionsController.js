@@ -17,17 +17,18 @@ export const listingCreateHandlerOnSubmit = (auth, listing) => {
     });
 }   
 
-export const getAllListings = (auth) => {
-    getAllListingsAPI()
-    .then(res => {
-        return res.data.listings;
-    })
-    .catch(err => {
+export const getAllListings = async (auth) => {
+    let listings;
+    try{
+       let res = await getAllListingsAPI();
+       listings = res.data.listings;
+    }catch(err){
         if(err.response.data.isNotLogged){
             auth.logOut();
         }
         
         console.log('Listing get all error: '+err.response.data.error);
-        return null;
-    });
+    }
+    
+    return listings;
 }  
