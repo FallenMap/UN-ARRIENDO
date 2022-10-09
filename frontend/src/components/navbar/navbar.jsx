@@ -45,13 +45,12 @@ function Navbar() {
                         <Typography className={styles.title}>
                             UN-ARRIENDO
                         </Typography>
-                        <br />
-                        <Link to="/MainScreen" style={{textDecoration:"none"}}><Button variant="outlined"> Inicio </Button></Link>
+                        <Link to="/MainScreen" style={{textDecoration:"none"}}><Button variant="outlined" sx={{marginLeft:"20px"}}> Inicio </Button></Link>
                         <Box sx={{
                             flexGrow: 1
                         }} />
 
-                        <Button variant="outlined">Contained</Button>
+                        <Link to="/ListingRegister" style={{textDecoration:"none"}}><Button variant="outlined">¡Publicar!</Button></Link>
                         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                             <Tooltip title="Account settings">
                                 <IconButton
