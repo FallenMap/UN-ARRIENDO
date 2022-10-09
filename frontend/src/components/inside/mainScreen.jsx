@@ -16,6 +16,8 @@ import Container from "@mui/material/Container";
 import { HoverRating } from "./rating";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import useAuth from "../../auth/useAuth";
+
 
 
 const jsonprov = [
@@ -25,19 +27,15 @@ const jsonprov = [
   { concepto: "Ruby", importe: 5000, url: "https://www.fundacion-affinity.org/sites/default/files/el-gato-necesita-tener-acceso-al-exterior.jpg" },
 ];
 
-const results = jsonprov.map(function (elemento) {
-  return {
-    concepto: elemento.concepto.toUpperCase(),
-    importe: elemento.importe,
-    importeIva: elemento.importe * 1.21,
-  };
-});
+const results = jsonprov
 
 const cards = results;
 
 const theme = createTheme();
 
 export function MainScreen() {
+  const auth = useAuth();
+
   changeTitle("Main page");
   changeBackground('none');
   return (

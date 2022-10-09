@@ -7,6 +7,7 @@ import { formAllListings } from '../../../adapters/formAdapters';
 import { InputLabel, MenuItem, Select, FormControl, OutlinedInput, InputAdornment } from '@mui/material';
 import { useState } from 'react';
 
+
 export default function BasicForm(props) {
     const [postType, setPostType] = useState(undefined);
 

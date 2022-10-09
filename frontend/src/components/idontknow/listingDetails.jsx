@@ -13,7 +13,7 @@ import { changeBackground } from '../../utilities/changeBackground';
  export function ListingDetails(){
 
     changeBackground('none');
-    var publication = [{title: "Apartamento en Teusaquillo",name:"Bryan Smith Colorado Lopez", numberOfContact:"3217342313",description: "I don't know what i should say", photos: [{url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg"}, {url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg"},{url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"} ], valoracion: '5 estrellas pa'}]
+    var publication = {title: "Apartamento en Teusaquillo",name:"Bryan Smith Colorado Lopez", numberOfContact:"3217342313",description: "I don't know what i should say", photos: [{url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg"}, {url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg"},{url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"} ], valoracion: '5 estrellas pa'}
 
     const carouselRef = useRef(null);
     let resetTimeout;
@@ -39,7 +39,7 @@ import { changeBackground } from '../../utilities/changeBackground';
     const onPrevStart = (currentItem, nextItem) => {
         if (currentItem.index === nextItem.index) {
           // we hit the first item, go to last item
-          carouselRef.current.goTo(publication[0]['photos'].length);
+          carouselRef.current.goTo(publication['photos'].length);
         }
       };
 
@@ -115,7 +115,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                     onNextEnd={({ index }) => {
 
                         clearTimeout(resetTimeout)
-                        if (index + 1 === publication[0]['photos'].length) {
+                        if (index + 1 === publication['photos'].length) {
                         resetTimeout = setTimeout(() => {
                             carouselRef.current.goTo(0)
                         }, 6000) 
@@ -125,7 +125,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                     disableArrowsOnEnd={false}>
 
                     {
-                        publication[0]['photos'].map( (item, i) => 
+                        publication?.photos.map( (item, i) => 
                         <Item item={item}/> 
                         )
                     }
@@ -137,33 +137,137 @@ import { changeBackground } from '../../utilities/changeBackground';
 
 
         </Grid>
-        <Grid container >
-          <Grid item xs={6} position='relative' sx={{margin: '20px', left: '3%', borderBottom: '1px solid'}}>
-            <Grid item xs={12} justifyContent='flex-end' >
-                <Box pl='8%' pt='1%'>
+        <Grid container justifyContent='left'>
+          <Grid item xs={8} position='relative' sx={{margin: '20px'}}>
+            <Grid item xs={12}   >
+                <Box pl='8%' pt=' 1%' >
                   <Typography
                       component="h3"
+                      align='left'
                       variant="h3"
                       color="text.primary"
+                      sx={{borderBottom: '3px solid #D5CDCD'}}
                       gutterBottom
+                      
                       >
-                     {publication[0]['title']}
+                     {publication['title']}
                   </Typography>
                 </Box>
             </Grid>
-            <Grid item xs={6} justifyContent='flex-end'>
-                <Box  pl='16%' >
+            <Grid item xs>
+              <Grid content>
+
+              <Box  pl='8%' pt='1%'>
+                  <Container sx={{borderBottom:'3px solid #D5CDCD'}}>
+                    
                   <Typography
                       component="body1"
                       variant="body1"
+                      align='left'
                       fontSize= {20}
                       color="text.primary"
                       gutterBottom
                       >
-                      {publication[0]['description']}
+                      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                       </Typography> 
+
+                  </Container>
                 </Box>
+
+              </Grid>
+                <Grid content spacing={1} sx={{border:'1px solid'}}>
+
+                  <Grid item xs={12} >
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                          component="h3"
+                          align='left'
+                          variant="h3"
+                          color="text.primary"
+                          gutterBottom
+                          >
+                        Características:
+                      </Typography>
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                        component="h5"
+                        align='left'
+                        variant="h5"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                      Pedro
+                      </Typography>
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                        component="h5"
+                        align='left'
+                        variant="h5"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                      Federico
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  
+                  <Grid item xs>
+                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                      <Typography
+                        component="h5"
+                        align='left'
+                        variant="h5"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                      Alfredo:
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  
+                </Grid>
             </Grid>
+          </Grid>
+          <Grid item xs sx={{border: '1px solid'}}>
+
+            <Grid content> 
+
+              <Grid item xs={12}>
+
+                <Box pl='8%' pt=' 1%'>
+                  <Typography
+                      component="h3"
+                      align='left'
+                      variant="h3"
+                      color="text.primary"
+                      gutterBottom
+                      >
+                     Información Adicional:
+                  
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs>
+               <h1> Alejandro</h1> 
+              </Grid>
+              <Grid item xs>
+                <h1> Alejandro</h1> 
+              </Grid>
+              <Grid item xs>
+                <h1> Alejandro</h1> 
+              </Grid>
+
+            </Grid>
+            
+                
           </Grid>
         </Grid>
         
