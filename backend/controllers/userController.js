@@ -183,5 +183,21 @@ userController.logoutUser = (req, res) => {
     }
 }
 
+userController.getUser = async (req, res) => {
+    try{
+        let userPublication = await User.findOne({ _id: req.body.userPubID});
+        // exit message
+        res.status(200).json({
+            msg:"Get user Information done",
+            user: userPublication
+            });
+    }
+    catch{
+        res.status(500).json({
+            error:"Something bad happened..."
+        });
+    }
+}
+
 module.exports = { userController };
 

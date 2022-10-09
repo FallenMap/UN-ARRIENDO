@@ -12,6 +12,7 @@ router.post('/register', upload.userPhoto, validateRegisterUser,userController.c
     .post('/login', body('user').isEmail(), userController.loginUser)
     .post('/login', logInValidations, userController.loginUser)
     .post('/logout', userController.logoutUser) 
+    .post('/get', userController.getUser)
     .put('/update', validateSession, /*function(req, res){validateUpdateUser},*/ upload.userPhoto, userController.updateUser);
 
 module.exports = router;
