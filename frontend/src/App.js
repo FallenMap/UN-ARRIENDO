@@ -36,8 +36,7 @@ export function App() {
             <Route exact path="/RenterRegister" element={<PublicRoute component={<RenterRegister />} />}> </Route>
             <Route path="*" element={<>NOT FOUND</>} /> {/* HAY QUE HACER UNA PAGINA PARA EL 404 */}
             <Route exact path="/MainScreen" element={<LoggedRoute component={<MainScreen />} />} /> 
-            <Route path="/pepe" element={ < ListingDetails/>} />
-            <Route path="/federico" element={ < MainScreen />} />
+            <Route path="/details" element={ < ListingDetails/>} />
             <Route path="/RenterUpdate" element={<LandlordRoute component={<RenterUpdate />} />}> </Route>
             <Route path="/StudentUpdate" element={<TenantRoute component={<StudentUpdate />} />}> </Route>
             <Route exact path="/Historial" element={<LoggedRoute component={<Historial />} />}> </Route>

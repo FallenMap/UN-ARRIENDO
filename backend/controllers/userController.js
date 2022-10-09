@@ -4,7 +4,7 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const fs = require('fs');
-const { body, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 
 const DoNotSendThisData = ['password'];
 
@@ -105,7 +105,6 @@ userController.loginUser = async (req, res) => {
     let user, query, data;
     //Prints the data sent by the user on the console.
     //console.log("---------------\nloginUserFunctionBodyRequest\n"+JSON.stringify(req.body)+"\n---------------");
-    console.log(req.body);
     const error = validationResult(req);
     if (!error.isEmpty()) {
         query = {
@@ -179,6 +178,22 @@ userController.logoutUser = (req, res) => {
     } else {
         res.status(400).json({
             error: "There is no open session"
+        });
+    }
+}
+
+userController.getUser = async (req, res) => {
+    try{
+        let userPublication = await User.findOne({ _id: req.body.userPubID});
+        // exit message
+        res.status(200).json({
+            msg:"Get user Information done",
+            user: userPublication
+            });
+    }
+    catch{
+        res.status(500).json({
+            error:"Something bad happened..."
         });
     }
 }

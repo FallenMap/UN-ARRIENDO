@@ -7,19 +7,17 @@ import { AppBar, Container, Box, Toolbar, Typography, Avatar, Menu, MenuItem, Li
 import { Logout, History } from '@mui/icons-material';
 import useAuth from '../../auth/useAuth';
 import { logOutAPI } from "../../api/userAPI";
+import { changeBackground } from '../../utilities/changeBackground';
 
 
 function Navbar() {
-    const changeImage = () => {
-        document.body.style.backgroundImage = "url('https://upload.wikimedia.org/wikipedia/commons/7/73/Plaza_Che%2C_Bogot%C3%A1.jpg')";
-    }
 
     const auth = useAuth();
 
     const logoutHandler = (e) => {
         logOutAPI().then(res => {
             auth.logOut();
-            changeImage();
+            changeBackground( "url('https://upload.wikimedia.org/wikipedia/commons/7/73/Plaza_Che%2C_Bogot%C3%A1.jpg')");
         }).catch(e => {
             console.log("Something bad happened while logging out..." + e);
             auth.logOut();
@@ -54,13 +52,6 @@ function Navbar() {
                             flexGrow: 1
                         }} />
 
-                        {/* ESTO SE VA A ELIMINAR, LO DEJO COMO "BACKUP" */}
-                        <Link to={auth.user?.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"}>
-                            <button className={styles.btn}> Actualizar datos</button>
-                        </Link>
-                        {auth.user?.type === "Landlord" && <Link to="/Historial"><button className={styles.btn}> Historial</button></Link>}
-
-                        {auth.isLogged() && <button className={styles.btn} onClick={logoutHandler}> Cerrar sesion</button>}
                        
                         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                             <Tooltip title="Account settings">

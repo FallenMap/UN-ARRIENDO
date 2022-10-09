@@ -18,6 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 
 
+
 const jsonprov = [
   { concepto: "mac", importe: 1000, url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg" },
   { concepto: "android", importe: 500, url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg" },
@@ -25,21 +26,21 @@ const jsonprov = [
   { concepto: "Ruby", importe: 5000, url: "https://www.fundacion-affinity.org/sites/default/files/el-gato-necesita-tener-acceso-al-exterior.jpg" },
 ];
 
-const results = jsonprov.map(function (elemento) {
-  return {
-    concepto: elemento.concepto.toUpperCase(),
-    importe: elemento.importe,
-    importeIva: elemento.importe * 1.21,
-  };
-});
+
+
+const results = jsonprov
 
 const cards = results;
 
 const theme = createTheme();
 
 export function MainScreen() {
+
   changeTitle("Main page");
   changeBackground('none');
+
+
+
   return (
     <>
       <Box>
@@ -140,7 +141,7 @@ export function MainScreen() {
                             <Typography>{card.importe}</Typography>
                           </CardContent>
                           <CardActions>
-                            <Link to='/pepe'>
+                            <Link to='/details'>
                             <Button size="small">Ver más detalles</Button>
                             </Link>
                            
