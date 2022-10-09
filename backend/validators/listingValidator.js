@@ -81,5 +81,4 @@ const validateCreateListing = [
 
 //const validateUpdateListing = []
 
-module.exports = { validateCreateListing }
-//module.exports = { validateUpdateListing }
+module.exports = { validateCreateListing/*, validateUpdateListing*/ }
