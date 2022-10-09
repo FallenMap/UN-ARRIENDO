@@ -143,8 +143,8 @@ export function MainScreen() {
                               pr: "2%",
                               height: '300px'
                             }}
-                            image={"http://localhost:5000/images/listing/" + listing[formAllListings.imagenes][0]}
-                            alt="random"
+                            image={listing[formAllListings.imagenes][0] ? "http://localhost:5000/images/listing/" + listing[formAllListings.imagenes][0] : "https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png"}
+                            alt="first image"
                           />
                           <CardContent sx={{ flexGrow: 1 }}>
                             <Typography

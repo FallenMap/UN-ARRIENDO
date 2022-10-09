@@ -52,5 +52,6 @@ export const formAllListings = {
     apartamento: "Apartment",
     habitacion: "Room",
     imagenes: "photos",
-    valoracion: "rating"
+    valoracion: "rating",
+    activo: "active"
 }
