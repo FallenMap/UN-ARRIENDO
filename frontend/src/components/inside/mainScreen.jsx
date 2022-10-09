@@ -16,6 +16,7 @@ import Container from "@mui/material/Container";
 import { HoverRating } from "./rating";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const jsonprov = [
@@ -24,6 +25,8 @@ const jsonprov = [
   { concepto: "IOS", importe: 0, url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg" },
   { concepto: "Ruby", importe: 5000, url: "https://www.fundacion-affinity.org/sites/default/files/el-gato-necesita-tener-acceso-al-exterior.jpg" },
 ];
+
+
 
 const results = jsonprov
 
@@ -34,6 +37,9 @@ const theme = createTheme();
 export function MainScreen() {
   changeTitle("Main page");
   changeBackground('none');
+
+
+
   return (
     <>
       <Box>
