@@ -24,19 +24,6 @@ import { formAllListings } from "../../adapters/formAdapters";
 
 
 
-/*const jsonprov = [
-  { concepto: "mac", importe: 1000, url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg" },
-  { concepto: "android", importe: 500, url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg" },
-  { concepto: "IOS", importe: 0, url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg" },
-  { concepto: "Ruby", importe: 5000, url: "https://www.fundacion-affinity.org/sites/default/files/el-gato-necesita-tener-acceso-al-exterior.jpg" },
-];
-
-
-
-const results = jsonprov
-
-const cards = results;*/
-
 const theme = createTheme();
 
 export function MainScreen() {
@@ -51,7 +38,7 @@ export function MainScreen() {
     getAllListings(auth).then(listingsResp => setListings(listingsResp));
   },[auth]);
 
-
+  console.log(listings)
   return (
     <>
       <Box>
@@ -138,8 +125,8 @@ export function MainScreen() {
                               pr: "2%",
                               height: '300px'
                             }}
-                            image={"http://localhost:5000/images/listing/"+listing[formAllListings.imagenes][0]}
-                            alt="random"
+                            image={"http://localhost:5000/images/listing/" +  listing[formAllListings.imagenes][0]}
+                            alt={listing[formAllListings.titulo]} 
                           />
                           <CardContent sx={{ flexGrow: 1 }}>
                             <Typography

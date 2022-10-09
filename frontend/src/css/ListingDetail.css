@@ -1,11 +1,7 @@
-@import url('https://www.dafont.com/es/designer.font');
-
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&family=Playfair+Display&display=swap');
 
 @font-face {
-    font-family: 'Designer';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Designer'), local('Designer'), url(https://www.dafont.com/es/designer.font) format('otf');
+    font-family: 'Josefin Sans', sans-serif;
   }
   
 
