@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -13,31 +13,31 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BasicForm from './basicForm';
 import PhotosForm from './photosForm';
 import SpecificForm from './specificForm';
-import Navbar from "../../navbar/navbar";
 
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { listingCreateHandlerOnSubmit } from '../../../controllers/listingActionsController';
 import { formAllListings } from '../../../adapters/formAdapters';
 import { normalize } from '../../../utilities/normalizeString';
 import useAuth from '../../../auth/useAuth';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 const steps = ['Datos basicos', 'Datos especificos', 'Fotos'];
 const theme = createTheme();
 
 const translateType = {
     "Apartamento": "Apartment",
-    "Apartaestudio":"StudioApartment",
-    "Habitacion":"Room"
+    "Apartaestudio": "StudioApartment",
+    "Habitacion": "Room"
 }
 
 function getStepContent(step, formData) {
     switch (step) {
         case 0:
-            return <BasicForm data={formData}/>;
+            return <BasicForm data={formData} />;
         case 1:
-            return <SpecificForm data={formData}/>;
+            return <SpecificForm data={formData} />;
         case 2:
-            return <PhotosForm data={formData}/>;
+            return <PhotosForm data={formData} />;
         default:
             throw new Error('Unknown step');
     }
@@ -48,7 +48,6 @@ export default function ListingRegister() {
     const [formData, setFormData] = useState(new FormData());
 
     const auth = useAuth();
-    const navigate = useNavigate();
 
     const handleAnotherRegister = () => {
         setFormData(new FormData());
@@ -59,16 +58,16 @@ export default function ListingRegister() {
 
     const handleNext = () => {
         let tempFormData = new FormData(document.querySelector('form'));
-        
+
         for (const pair of tempFormData.entries()) {
-            if([...formData.keys()].indexOf(pair[0])===-1){
+            if ([...formData.keys()].indexOf(pair[0]) === -1) {
                 formData.append(pair[0], pair[1]);
-            }else if(pair[0]!=="files"){
+            } else if (pair[0] !== "files") {
                 formData.set(pair[0], pair[1]);
             }
         }
-        
-        if(steps.length - 1 === activeStep){
+
+        if (steps.length - 1 === activeStep) {
             let newType = translateType[normalize(formData.get(formAllListings.tipo))];
             formData.set(formAllListings.tipo, newType);
             showSuccessText = listingCreateHandlerOnSubmit(auth, formData);
@@ -84,8 +83,10 @@ export default function ListingRegister() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Navbar />
-            <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+            <Container component="main" maxWidth="sm" sx={{ mb: 4, mt: 4 }}>
+                <Link to='/MainScreen' style={{ textDecoration: "none" }}>
+                    <Button variant="contained"><KeyboardBackspaceIcon />&nbsp;Regresar</Button>
+                </Link>
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
                     <Typography component="h1" variant="h4" align="center">
                         Publicación
@@ -99,35 +100,37 @@ export default function ListingRegister() {
                     </Stepper>
                     <React.Fragment>
                         {activeStep === steps.length ? (
-                            <Box justifyContent="center" style={{textAlign:"center"}}>
+                            <Box justifyContent="center" style={{ textAlign: "center" }}>
                                 {showSuccessText ? (
                                     <><Typography variant="h5" gutterBottom>
                                         ¡Se ha realizado la publicación!
                                     </Typography>
-                                    <Typography variant="subtitle1">
-                                        Esperamos puedas encontrar a la persona indicada:{")"}
-                                    </Typography>
-                                    <br></br>
-                                    <Button onClick={handleAnotherRegister} variant='contained'>
-                                        Hacer otra publicacion
-                                    </Button></>) : (<><Typography variant="h5" gutterBottom>
-                                        Algo malo pasó...
-                                    </Typography>
-                                    <Typography variant="subtitle1">
-                                        No se pudo crear la publicacion, intentalo nuevamente.
-                                    </Typography>
-                                    <br></br>
-                                    <Button onClick={handleAnotherRegister} variant='contained'>
-                                        Crear publicación
-                                    </Button>
-                                    </>)
+                                        <Typography variant="subtitle1">
+                                            Esperamos puedas encontrar a la persona indicada:{")"}
+                                        </Typography>
+                                        <br></br>
+                                        <Button onClick={handleAnotherRegister} variant='contained'>
+                                            Hacer otra publicacion
+                                        </Button></>) : (<><Typography variant="h5" gutterBottom>
+                                            Algo malo pasó...
+                                        </Typography>
+                                            <Typography variant="subtitle1">
+                                                No se pudo crear la publicacion, intentalo nuevamente.
+                                            </Typography>
+                                            <br></br>
+                                            <Button onClick={handleAnotherRegister} variant='contained'>
+                                                Crear publicación
+                                            </Button>
+                                        </>)
                                 }
-                                
+
                                 <br></br>
                                 <br></br>
-                                <Button onClick={()=>{navigate("/MainScreen");}} variant='outlined'>
-                                    Regresar al inicio
-                                </Button>
+                                <Link to='/MainScreen' style={{ textDecoration: "none" }}>
+                                    <Button variant='outlined'>
+                                        Regresar al inicio
+                                    </Button>
+                                </Link>
                             </Box>
                         ) : (
                             <form>
@@ -151,7 +154,7 @@ export default function ListingRegister() {
                         )}
                     </React.Fragment>
                 </Paper>
-                </Container>
+            </Container>
         </ThemeProvider>
     )
 }

@@ -33,7 +33,7 @@ const listingSchema = new mongoose.Schema({
         type: Array,
         of: String
     },
-    numberOfReviews: {
+    rating: {
         type: Number,
         default: 0
     },

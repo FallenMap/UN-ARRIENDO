@@ -152,13 +152,12 @@ listingController.userListingHistory = async (req, res) => {
         // console.log(apartments);
         // console.log(rooms);
         // console.log(studioApartments);
+        let listings = [...apartments, ...rooms, ...studioApartments]
     
         // exit message
         res.status(200).json({
             msg:"user post history done",
-            apartments: apartments,
-            rooms:rooms,
-            studioApartments:studioApartments
+            listings
             });
         }
         catch{
@@ -169,7 +168,7 @@ listingController.userListingHistory = async (req, res) => {
 };
 
 // Function to get all post.
-listingController.getPublications = async (req, res) => {
+listingController.getListings = async (req, res) => {
     try{
         let listing = await Listing.find().sort({ date: -1});
     
@@ -185,5 +184,22 @@ listingController.getPublications = async (req, res) => {
             });
         }
 };
+
+listingController.getListing = async (req, res) => {
+    try{
+        // console.log(req.params.listingID)
+        let getListing = await Listing.findOne({ _id: req.params.listingID});
+        // exit message
+        res.status(200).json({
+            msg:"Get listing Information done",
+            listing: getListing
+            });
+    }
+    catch{
+        res.status(500).json({
+            error:"Something bad happened..."
+        });
+    }
+}
 
 module.exports = { listingController };
