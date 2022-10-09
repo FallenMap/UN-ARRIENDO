@@ -19,4 +19,8 @@ export const getAllListingsAPI = () => {
     return axios.get(URL+"/listing/get");
 }
 
+export const getHistoryListingsAPI = () => {
+    return axios.get(URL+"/listing/listingHistory");
+}
+
 
