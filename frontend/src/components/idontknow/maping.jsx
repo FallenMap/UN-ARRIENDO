@@ -2,8 +2,6 @@ import { Box, Grid, Typography } from "@mui/material";
 
 export function Maping(props){
     let temp = props?.listing?.[props?.type];
-    console.log(temp)
-
     if (temp===true) temp= 'Sí'
         else if (temp===false) temp= 'No'
 

@@ -23,4 +23,7 @@ export const getHistoryListingsAPI = () => {
     return axios.get(URL+"/listing/listingHistory");
 }
 
-
+export const getListingApi = (listingID) => {
+    const tuMama = listingID['id']
+    return axios.get(URL+"/listing/get/"+tuMama);
+}

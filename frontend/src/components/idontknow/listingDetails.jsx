@@ -8,9 +8,10 @@ import {  Box, Container } from '@mui/system';
 import imagen from "../../Images/Logo.png";
 import { changeBackground } from '../../utilities/changeBackground';
 import useAuth from '../../auth/useAuth';
-import { getAllListings } from '../../controllers/listingActionsController';
+import { getListing } from '../../controllers/listingActionsController';
 import { Maping } from './maping';
 import Image from 'mui-image';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -18,13 +19,17 @@ import Image from 'mui-image';
 
     changeBackground('none');
 
-    const [listings, setListings] = useState([]);
+    const id = useParams();
+    
+    
+    
+    const [listing, setlisting] = useState([]);
     const auth = useAuth();
     useEffect(()=>{
-    getAllListings(auth).then(listingsResp => setListings(listingsResp));
-    },[auth]);
+    getListing(auth,id).then(listingResp => setlisting(listingResp));
+    },[auth,id]);
+
    
-    console.log(listings)
 
     const carouselRef = useRef(null);
     let resetTimeout;
@@ -50,7 +55,7 @@ import Image from 'mui-image';
     const onPrevStart = (currentItem, nextItem) => {
         if (currentItem.index === nextItem.index) {
           // we hit the first item, go to last item
-          carouselRef.current.goTo(listings[0]['photos'].length);
+          carouselRef.current.goTo(listing[0]['photos'].length);
         }
       };
 
@@ -140,7 +145,7 @@ import Image from 'mui-image';
                     onNextEnd={({ index }) => {
 
                         clearTimeout(resetTimeout)
-                        if (index + 1 === listings[0].photos.length) {
+                        if (index + 1 === listing[0].photos.length) {
                         resetTimeout = setTimeout(() => {
                             carouselRef.current.goTo(0)
                         }, 6000) 
@@ -150,7 +155,7 @@ import Image from 'mui-image';
                     disableArrowsOnEnd={false}>
 
                     {
-                        listings[1]?.photos.map( (item, i) => 
+                        listing?.photos?.map( (item, i) => 
                         <Item item={item}/> 
                         )
                     }
@@ -175,7 +180,7 @@ import Image from 'mui-image';
                       gutterBottom
                       
                       >
-                     {listings[1]?.title}
+                     {listing?.title}
                   </Typography>
                 </Box>
             </Grid>
@@ -193,7 +198,7 @@ import Image from 'mui-image';
                       color="text.primary"
                       gutterBottom
                       > 
-                      {listings[1]?.description}
+                      {listing?.description}
                       </Typography>   
 
                   </Container>
@@ -221,15 +226,15 @@ import Image from 'mui-image';
                         </Typography>
                       </Box>
                     </Grid>
-                    <Maping listing={listings[1]?.characteristics} type='furnished' name='Amoblado' align='center'/>
-                    <Maping listing={listings[1]?.characteristics} type='stratum' name='Estrato'  align='center' />
-                    <Maping listing={listings[1]?.characteristics} type='carParking' name='Parqueadero'  align='center'/>
-                    <Maping listing={listings[1]?.characteristics} type='privateArea' name='Area Privada'  align='center'/>
-                    <Maping listing={listings[1]?.characteristics} type='rooms' name='Habitaciones'  align='center'/>
-                    <Maping listing={listings[1]?.characteristics} type='privateBathrooms' name='Baños privados'  align='center'/>
-                    <Maping listing={listings[1]?.characteristics} type='bicycleParking' name='Bicicletero'  align='center'/>
-                    <Maping listing={listings[1]?.characteristics} type='storage' name='Almacén'  align='center'/>
-                    <Maping listing={listings[1]?.characteristics} type='privateBathrooms' name='Baños privados'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='furnished' name='Amoblado' align='center'/>
+                    <Maping listing={listing?.characteristics} type='stratum' name='Estrato'  align='center' />
+                    <Maping listing={listing?.characteristics} type='carParking' name='Parqueadero'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='privateArea' name='Area Privada'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='rooms' name='Habitaciones'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='bicycleParking' name='Bicicletero'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='storage' name='Almacén'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='center'/>
 
 
                   </Grid>
@@ -261,11 +266,11 @@ import Image from 'mui-image';
                   </Typography>
                 </Box>
               </Grid>
-              <Maping listing={listings[1]} type='type' name='Tipo' xs={12} align='left'/>
-              <Maping listing={listings[1]} type='address' name='Dirección' xs={12} align='left'/>
-              <Maping listing={listings[1]} type='address2' name='Dirección 2' xs={12} align='left'/>
-              <Maping listing={listings[1]} type='price' name='Precio' xs={12} align='left'/>
-              <Maping listing={listings[1]} type='neighborhood' name='Barrio' xs={12} align='left ' />
+              <Maping listing={listing} type='type' name='Tipo' xs={12} align='left'/>
+              <Maping listing={listing} type='address' name='Dirección' xs={12} align='left'/>
+              <Maping listing={listing} type='address2' name='Dirección 2' xs={12} align='left'/>
+              <Maping listing={listing} type='price' name='Precio' xs={12} align='left'/>
+              <Maping listing={listing} type='neighborhood' name='Barrio' xs={12} align='left ' />
       
             </Grid>
             
