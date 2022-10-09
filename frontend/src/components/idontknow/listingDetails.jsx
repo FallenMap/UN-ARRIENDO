@@ -155,7 +155,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                 </Box>
             </Grid>
             <Grid item xs>
-              <Grid content>
+              <Grid container>
 
               <Box  pl='8%' pt='1%'>
                   <Container sx={{borderBottom:'3px solid #D5CDCD'}}>
@@ -167,15 +167,15 @@ import { changeBackground } from '../../utilities/changeBackground';
                       fontSize= {20}
                       color="text.primary"
                       gutterBottom
-                      >
-                      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                      </Typography> 
+                      > 
+                      AAAAAAAAAAAA AAAAAAAAA AAAAAAAAAA AAAAAAAA AAAAAAAAAAAA AAAAAAAAAAAA AAA AAAAAAA AAAAAAAAAAA AAAA AAAAAAAA AAAAAA AAA AAAAAA AAAAAAAAA AAAAA AAAAAAA AAAAA AAAAAAAAAAAAA
+                      </Typography>   
 
                   </Container>
                 </Box>
 
               </Grid>
-                <Grid content spacing={1} sx={{border:'1px solid'}}>
+                <Grid container spacing={1} sx={{border:'1px solid', marginTop: '10px'}}>
 
                   <Grid item xs={12} >
                     <Box pl='6%' sx={{marginTop:'10px'}}>
@@ -191,12 +191,12 @@ import { changeBackground } from '../../utilities/changeBackground';
                     </Box>
                   </Grid>
 
-                  <Grid item xs={6}>
-                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                  <Grid item xs>
+                    <Box  sx={{marginTop:'10px'}}>
                       <Typography
-                        component="h5"
+                        component="h3"
                         align='left'
-                        variant="h5"
+                        variant="h3"
                         color="text.primary"
                         gutterBottom
                         >
@@ -205,12 +205,12 @@ import { changeBackground } from '../../utilities/changeBackground';
                     </Box>
                   </Grid>
 
-                  <Grid item xs={6}>
-                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                  <Grid item xs>
+                    <Box  sx={{marginTop:'10px'}}>
                       <Typography
-                        component="h5"
+                        component="h3"
                         align='left'
-                        variant="h5"
+                        variant="h3"
                         color="text.primary"
                         gutterBottom
                         >
@@ -220,11 +220,11 @@ import { changeBackground } from '../../utilities/changeBackground';
                   </Grid>
                   
                   <Grid item xs>
-                    <Box pl='6%' sx={{marginTop:'10px'}}>
+                    <Box sx={{marginTop:'10px'}}>
                       <Typography
-                        component="h5"
+                        component="h3"
                         align='left'
-                        variant="h5"
+                        variant="h3"
                         color="text.primary"
                         gutterBottom
                         >
@@ -238,7 +238,7 @@ import { changeBackground } from '../../utilities/changeBackground';
           </Grid>
           <Grid item xs sx={{border: '1px solid'}}>
 
-            <Grid content> 
+            <Grid container> 
 
               <Grid item xs={12}>
 

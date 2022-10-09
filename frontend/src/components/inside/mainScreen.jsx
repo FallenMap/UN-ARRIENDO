@@ -16,7 +16,6 @@ import Container from "@mui/material/Container";
 import { HoverRating } from "./rating";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import useAuth from "../../auth/useAuth";
 
 
 
@@ -36,7 +35,6 @@ const cards = results;
 const theme = createTheme();
 
 export function MainScreen() {
-  const auth = useAuth();
 
   changeTitle("Main page");
   changeBackground('none');
@@ -143,7 +141,7 @@ export function MainScreen() {
                             <Typography>{card.importe}</Typography>
                           </CardContent>
                           <CardActions>
-                            <Link to='/pepe'>
+                            <Link to='/details'>
                             <Button size="small">Ver más detalles</Button>
                             </Link>
                            
