@@ -184,7 +184,8 @@ userController.logoutUser = (req, res) => {
 
 userController.getUser = async (req, res) => {
     try{
-        let userPublication = await User.findOne({ _id: req.body.userPubID});
+        //console.log(req.params.userPubID)
+        let userPublication = await User.findOne({ _id: req.params.userPubID});
         // exit message
         res.status(200).json({
             msg:"Get user Information done",
