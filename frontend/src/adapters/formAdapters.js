@@ -22,6 +22,7 @@ export const formAllDataUser = {
 }
 
 export const formAllListings = {
+    idlisting: '_id',
     titulo: "title",
     direccion: "address",
     complemento: "address2",
@@ -50,5 +51,6 @@ export const formAllListings = {
     apartaestudio: "StudioApartment",
     apartamento: "Apartment",
     habitacion: "Room",
-    imagenes: "photos"
+    imagenes: "photos",
+    valoracion: "rating"
 }

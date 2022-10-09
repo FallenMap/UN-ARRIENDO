@@ -42,14 +42,14 @@ const theme = createTheme();
 export function MainScreen() {
   const [listings, setListings] = useState([]);
 
-  changeTitle("Inicio");
+  changeTitle("Pagina principal");
   changeBackground('none');
 
   const auth = useAuth();
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     getAllListings(auth).then(listingsResp => setListings(listingsResp));
-  },[auth]);
+  }, [auth]);
 
 
   return (
@@ -59,20 +59,25 @@ export function MainScreen() {
           <Navbar />
         </div>
 
-        <Grid container spacing={3} justifyContent="space-around" backgroundColor="rgba(89, 82, 96, .3)">
+        <Grid container spacing={3} justifyContent="space-around">
           <Grid item rowGap={10}>
-            <Box
-              justifItems="center"
-              component="img"
-              alt="The house from the offer."
-              src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/01_%C2%BFQu%C3%A9-puedo-hacer-si-mi-gato-est%C3%A1-triste-.png?itok=cOA5aYW-"
-            />
+            <Container sx={{
+              marginTop:"10px",
+              padding: '10px'
+            }}>
+              <Box
+                justifItems="center"
+                component="img"
+                alt="The house from the offer."
+                src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/01_%C2%BFQu%C3%A9-puedo-hacer-si-mi-gato-est%C3%A1-triste-.png?itok=cOA5aYW-"
+              />
+            </Container>
           </Grid>
 
           <Grid item xs={12}>
             <Box
               sx={{
-                bgcolor: "background.paper",
+                bgcolor: "white",
                 pt: 8,
                 pb: 6,
               }}
@@ -101,7 +106,7 @@ export function MainScreen() {
                   spacing={2}
                   justifyContent="center"
                 >
-                  <Link to="/ListingRegister">
+                  <Link to="/ListingRegister" style={{textDecoration:"none"}}>
                     <Button variant="contained">Realizar publicación</Button>
                   </Link>
                   <Button variant="outlined">Ver perfil</Button>
@@ -138,7 +143,7 @@ export function MainScreen() {
                               pr: "2%",
                               height: '300px'
                             }}
-                            image={"http://localhost:5000/images/listing/"+listing[formAllListings.imagenes][0]}
+                            image={"http://localhost:5000/images/listing/" + listing[formAllListings.imagenes][0]}
                             alt="random"
                           />
                           <CardContent sx={{ flexGrow: 1 }}>
@@ -152,12 +157,33 @@ export function MainScreen() {
                             <Typography>{listing[formAllListings.descripcion]}</Typography>
                           </CardContent>
                           <CardActions>
-                            <Link to='/details'>
-                              <Button size="small">Ver más detalles</Button>
-                            </Link>
-
-                            <Button size="small">Contactar</Button>
-                            <HoverRating />
+                            <Box sx={{ padding: "0" }}>
+                              <Grid container spacing={2}>
+                                <Grid item xs>
+                                  <Box display="flex"
+                                    justifyContent="center"
+                                    alignItems="center">
+                                    <Link to={`/listing/details?id=${listing[formAllListings.idlisting]}`} style={{textDecoration:"none"}}>
+                                      <Button size="small">Ver más detalles</Button>
+                                    </Link>
+                                  </Box>
+                                </Grid>
+                                <Grid item xs>
+                                  <Box display="flex"
+                                    justifyContent="center"
+                                    alignItems="center">
+                                    <Button size="small">Contactar</Button>
+                                  </Box>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <Box display="flex"
+                                    justifyContent="center"
+                                    alignItems="center">
+                                    <HoverRating value={listing[formAllListings.valoracion] || 0} />
+                                  </Box>
+                                </Grid>
+                              </Grid>
+                            </Box>
                           </CardActions>
                         </Card>
                       </Grid>

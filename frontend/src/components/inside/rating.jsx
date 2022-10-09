@@ -2,8 +2,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 
-export function HoverRating() {
-  const [value, setValue] = React.useState(2);
+export function HoverRating(props) {
+  const [value, setValue] = React.useState(props.value);
 
   return (
     <Box

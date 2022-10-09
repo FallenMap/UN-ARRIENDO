@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styles from "../../css/renterRegister.module.css";
 import { useState } from 'react'
-import { AppBar, Container, Box, Toolbar, Typography, Avatar, Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip } from '@mui/material';
-
-import { Logout, History } from '@mui/icons-material';
+import { AppBar, Container, Box, Toolbar, Typography, Avatar,
+        Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip, Button } from '@mui/material';
+import { Logout, History, Person } from '@mui/icons-material';
 import useAuth from '../../auth/useAuth';
 import { logOutAPI } from "../../api/userAPI";
 import { changeBackground } from '../../utilities/changeBackground';
@@ -38,7 +38,7 @@ function Navbar() {
     return (
         <div>
             <AppBar sx={{
-                backgroundColor: "#1a1a1a"
+                backgroundColor: "#17202A"
             }}>
                 <Container>
                     <Toolbar>
@@ -46,13 +46,12 @@ function Navbar() {
                             UN-ARRIENDO
                         </Typography>
                         <br />
-                        <Link to="/MainScreen"><button className={styles.btnHome}> Inicio </button> </Link>
-
+                        <Link to="/MainScreen" style={{textDecoration:"none"}}><Button variant="outlined"> Inicio </Button></Link>
                         <Box sx={{
                             flexGrow: 1
                         }} />
 
-                       
+                        <Button variant="outlined">Contained</Button>
                         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                             <Tooltip title="Account settings">
                                 <IconButton
@@ -67,6 +66,7 @@ function Navbar() {
                                 </IconButton>
                             </Tooltip>
                         </Box>
+
                         <Menu
                             anchorEl={anchorEl}
                             id="account-menu"
@@ -103,9 +103,11 @@ function Navbar() {
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
                             {auth.isLogged() &&
-                                <Link to={auth.user?.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"}>
+                                <Link to={auth.user?.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"} style={{textDecoration:"none"}}>
                                     <MenuItem>
-                                        <Avatar /> Actualizar datos
+                                        <ListItemIcon>
+                                        <Person fontSize='medium' />
+                                        </ListItemIcon> Actualizar datos
                                     </MenuItem>
                                 </Link>
                             }
@@ -114,7 +116,7 @@ function Navbar() {
                             <Divider style={{
                                 width: "100%"
                             }} />
-                            {auth.user?.type === "Landlord" && <Link to="/Historial">
+                            {auth.user?.type === "Landlord" && <Link to="/Historial" style={{textDecoration:"none"}}>
                                 <MenuItem>
                                     <ListItemIcon>
                                         <History fontSize='medium' />
