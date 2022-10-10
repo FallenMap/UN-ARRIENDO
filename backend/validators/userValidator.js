@@ -97,7 +97,9 @@ const validateRegisterUser = [  //validate user & email
     }
 ]
 
-/*function validationUpdateUser (req, res, next){
+
+
+function validationUpdateUser (req, res, next){
     const validateUpdateUser = [ ]
 
     if (req.body.firstName) {
@@ -224,6 +226,7 @@ const validateRegisterUser = [  //validate user & email
     )
 
     return validateUpdateUser;
-}*/
+}
 
-module.exports = { validateRegisterUser/*, validationUpdateUser*/ }
+
+module.exports = { validateRegisterUser, validationUpdateUser }
