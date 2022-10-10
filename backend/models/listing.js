@@ -37,10 +37,7 @@ const listingSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    reviewedByTenants: {
-        type: Array,
-        of: mongoose.SchemaTypes.Mixed
-    },
+    reviewedByTenants:  mongoose.SchemaTypes.Mixed,
     date: {
         type: Date,
         default: Date.now
