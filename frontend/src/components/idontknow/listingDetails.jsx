@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
 import { Grid, Typography} from '@mui/material'
 import Item from './item';
@@ -7,13 +7,29 @@ import  "../../css/ListingDetail.css";
 import {  Box, Container } from '@mui/system';
 import imagen from "../../Images/Logo.png";
 import { changeBackground } from '../../utilities/changeBackground';
+import useAuth from '../../auth/useAuth';
+import { getListing } from '../../controllers/listingActionsController';
+import { Maping } from './maping';
+import Image from 'mui-image';
+import { useParams } from 'react-router-dom';
 
 
 
  export function ListingDetails(){
 
     changeBackground('none');
-    var publication = {title: "Apartamento en Teusaquillo",name:"Bryan Smith Colorado Lopez", numberOfContact:"3217342313",description: "I don't know what i should say", photos: [{url: "https://s1.eestatic.com/2020/05/18/como/gatos-mascotas-trucos_490961518_152142875_1706x960.jpg"}, {url: "https://www.tiendanimal.es/articulos/wp-content/uploads/2018/01/que-necesita-un-gato-1200x675.jpg"},{url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"}, {url: "https://estaticos.muyinteresante.es/uploads/images/gallery/60dd8da05bafe884f4c6c56c/gato-slide.jpg"} ], valoracion: '5 estrellas pa'}
+
+    const id = useParams();
+    
+    
+    
+    const [listing, setlisting] = useState([]);
+    const auth = useAuth();
+    useEffect(()=>{
+    getListing(auth,id).then(listingResp => setlisting(listingResp));
+    },[auth,id]);
+
+   
 
     const carouselRef = useRef(null);
     let resetTimeout;
@@ -39,7 +55,7 @@ import { changeBackground } from '../../utilities/changeBackground';
     const onPrevStart = (currentItem, nextItem) => {
         if (currentItem.index === nextItem.index) {
           // we hit the first item, go to last item
-          carouselRef.current.goTo(publication['photos'].length);
+          carouselRef.current.goTo(listing[0]['photos'].length);
         }
       };
 
@@ -54,8 +70,9 @@ import { changeBackground } from '../../utilities/changeBackground';
         <Grid container spacing={2} alignItems="center"  justifyContent="center" backgroundColor="rgba(34, 40, 49, .4)" >
 
             <Grid item xs={12}>
-                <Grid container spacing={1} backgroundColor="rgba(89, 82, 96, .3)" justifyContent='flex-end'>
-                    <Grid item xs={12}>
+              
+                <Grid container spacing={1} backgroundColor="rgba(89, 82, 96, .3)" justifyContent='right'>
+                    <Grid item xs={6}>
                     <Box
                     sx={{
                         bgcolor: "background.paper",
@@ -65,15 +82,15 @@ import { changeBackground } from '../../utilities/changeBackground';
                     }}
                     >
                         <Container maxWidth='sm'>
-                          <Grid container spacing={1} justifyContent='center'>
-                            <Grid item xs align='center'>
+                          <Grid container spacing={1}>
+                            <Grid item xs>
                               <img src={imagen} alt="Logo" style={{maxHeight: '170px', maxWidth: '170px'}}/>
                             </Grid>
                             <Grid item xs>
                             <Typography
                                 component="h1"
                                 variant="h1"
-                                align="center"
+                                align="left"
                                 color="text.primary"
                                 gutterBottom
                                 >
@@ -90,7 +107,20 @@ import { changeBackground } from '../../utilities/changeBackground';
                         </Container>
                     </Box>
 
-                </Grid>
+
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography
+                        component="h1"
+                        variant="h1"
+                        align="right"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                        UN
+                        ARRIENDO
+                      </Typography>
+                  </Grid>
 
                 </Grid>
                 
@@ -115,7 +145,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                     onNextEnd={({ index }) => {
 
                         clearTimeout(resetTimeout)
-                        if (index + 1 === publication['photos'].length) {
+                        if (index + 1 === listing[0].photos.length) {
                         resetTimeout = setTimeout(() => {
                             carouselRef.current.goTo(0)
                         }, 6000) 
@@ -125,7 +155,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                     disableArrowsOnEnd={false}>
 
                     {
-                        publication?.photos.map( (item, i) => 
+                        listing?.photos?.map( (item, i) => 
                         <Item item={item}/> 
                         )
                     }
@@ -150,7 +180,7 @@ import { changeBackground } from '../../utilities/changeBackground';
                       gutterBottom
                       
                       >
-                     {publication['title']}
+                     {listing?.title}
                   </Typography>
                 </Box>
             </Grid>
@@ -168,81 +198,62 @@ import { changeBackground } from '../../utilities/changeBackground';
                       color="text.primary"
                       gutterBottom
                       > 
-                      AAAAAAAAAAAA AAAAAAAAA AAAAAAAAAA AAAAAAAA AAAAAAAAAAAA AAAAAAAAAAAA AAA AAAAAAA AAAAAAAAAAA AAAA AAAAAAAA AAAAAA AAA AAAAAA AAAAAAAAA AAAAA AAAAAAA AAAAA AAAAAAAAAAAAA
+                      {listing?.description}
                       </Typography>   
 
                   </Container>
                 </Box>
 
               </Grid>
-                <Grid container spacing={1} sx={{border:'1px solid', marginTop: '10px'}}>
 
-                  <Grid item xs={12} >
-                    <Box pl='6%' sx={{marginTop:'10px'}}>
-                      <Typography
-                          component="h3"
-                          align='left'
-                          variant="h3"
-                          color="text.primary"
-                          gutterBottom
-                          >
-                        Características:
-                      </Typography>
-                    </Box>
-                  </Grid>
-
-                  <Grid item xs>
-                    <Box  sx={{marginTop:'10px'}}>
-                      <Typography
-                        component="h3"
-                        align='left'
-                        variant="h3"
-                        color="text.primary"
-                        gutterBottom
-                        >
-                      Pedro
-                      </Typography>
-                    </Box>
-                  </Grid>
-
-                  <Grid item xs>
-                    <Box  sx={{marginTop:'10px'}}>
-                      <Typography
-                        component="h3"
-                        align='left'
-                        variant="h3"
-                        color="text.primary"
-                        gutterBottom
-                        >
-                      Federico
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  
-                  <Grid item xs>
-                    <Box sx={{marginTop:'10px'}}>
-                      <Typography
-                        component="h3"
-                        align='left'
-                        variant="h3"
-                        color="text.primary"
-                        gutterBottom
-                        >
-                      Alfredo:
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  
+              <Grid container spacing={1} sx={{marginTop: '10px'}}>
+                <Grid item xs={2}>
+                  <Image src='https://cdn-icons-png.flaticon.com/512/24/24810.png'></Image>
                 </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs sx={{border: '1px solid'}}>
+                <Grid item xs={10}>
+                  <Grid container spacing={2} sx={{border:'1px solid #D5CDCD', marginTop: '10px'}}>
+                      
+                    <Grid item xs={12} >
+                      <Box pl='3%' sx={{marginTop:'10px'}}>
+                        <Typography
+                            component="h3"
+                            align='left'
+                            variant="h3"
+                            color="text.primary"
+                            gutterBottom
+                            >
+                            Características:
+                        </Typography>
+                      </Box>
+                    </Grid>
+                    <Maping listing={listing?.characteristics} type='furnished' name='Amoblado' align='center'/>
+                    <Maping listing={listing?.characteristics} type='stratum' name='Estrato'  align='center' />
+                    <Maping listing={listing?.characteristics} type='carParking' name='Parqueadero'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='privateArea' name='Area Privada'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='rooms' name='Habitaciones'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='bicycleParking' name='Bicicletero'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='storage' name='Almacén'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='center'/>
 
-            <Grid container> 
+
+                  </Grid>
+
+
+                </Grid>
+                
+                  
+                  
+              </Grid>
+            </Grid>
+        </Grid>
+          <Grid item xs sx={{border: '1px solid #D5CDCD', marginTop:'10px'}}>
+
+            <Grid container spacing={2}> 
 
               <Grid item xs={12}>
 
-                <Box pl='8%' pt=' 1%'>
+                <Box pl='6%' pt=' 3%'>
                   <Typography
                       component="h3"
                       align='left'
@@ -250,21 +261,17 @@ import { changeBackground } from '../../utilities/changeBackground';
                       color="text.primary"
                       gutterBottom
                       >
-                     Información Adicional:
+                        Información Adicional:
                   
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs>
-               <h1> Alejandro</h1> 
-              </Grid>
-              <Grid item xs>
-                <h1> Alejandro</h1> 
-              </Grid>
-              <Grid item xs>
-                <h1> Alejandro</h1> 
-              </Grid>
-
+              <Maping listing={listing} type='type' name='Tipo' xs={12} align='left'/>
+              <Maping listing={listing} type='address' name='Dirección' xs={12} align='left'/>
+              <Maping listing={listing} type='address2' name='Dirección 2' xs={12} align='left'/>
+              <Maping listing={listing} type='price' name='Precio' xs={12} align='left'/>
+              <Maping listing={listing} type='neighborhood' name='Barrio' xs={12} align='left ' />
+      
             </Grid>
             
                 

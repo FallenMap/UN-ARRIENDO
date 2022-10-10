@@ -158,6 +158,7 @@ listingController.userListingHistory = async (req, res) => {
         res.status(200).json({
             msg:"user post history done",
             listings
+
             });
         }
         catch{
