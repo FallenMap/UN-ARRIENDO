@@ -5,13 +5,14 @@ import Item from './item';
 import Navbar from '../navbar/navbar';
 import  "../../css/ListingDetail.css";
 import {  Box, Container } from '@mui/system';
-import imagen from "../../Images/Logo.png";
 import { changeBackground } from '../../utilities/changeBackground';
 import useAuth from '../../auth/useAuth';
 import { getListing } from '../../controllers/listingActionsController';
 import { Maping } from './maping';
 import Image from 'mui-image';
 import { useParams } from 'react-router-dom';
+import { getUser } from '../../controllers/userActionsController';
+import ErrorProfile from './errorProfile';
 
 
 
@@ -26,14 +27,20 @@ import { useParams } from 'react-router-dom';
     
     const [listing, setlisting] = useState([]);
   
+  
     const auth = useAuth();
     useEffect(()=>{
     getListing(auth,idListing).then(listingResp => setlisting(listingResp));
     },[auth,idListing]);
 
+    const [user,setUser] = useState([]);
 
-   
+    const idUser = listing?.landlord
 
+    useEffect(()=>{
+      getUser(auth,idUser).then(userResp => setUser(userResp));
+      },[auth,idUser]);
+    
     const carouselRef = useRef(null);
     let resetTimeout;
 
@@ -62,6 +69,8 @@ import { useParams } from 'react-router-dom';
         }
       };
 
+      let phoneMessage = user?.phoneNumber
+      if (phoneMessage===undefined) phoneMessage='No disponible'
       
     return (
         <>
@@ -78,7 +87,7 @@ import { useParams } from 'react-router-dom';
                 <Box
                     sx={{
                         bgcolor: "background.paper",
-                        pt: 3,
+                        pt: 4,
                         pb: 1,
                         pr: 1,
                         pl: 10
@@ -86,10 +95,10 @@ import { useParams } from 'react-router-dom';
                     >
                       <Grid container spacing={5}>
                         <Grid item>
-                          <img src={imagen} alt="Logo" style={{maxHeight: '170px', maxWidth: '170px'}}/>
+                          <Image src={"http://localhost:5000/images/profile/"+ user?.photo} alt="Logo" errorIcon={<ErrorProfile/>} style={{maxHeight: '170px', maxWidth: '170px'}}/>
                         </Grid>
                         <Grid item xs>
-                          <Box sx={{pt: 3}}>
+                          <Box>
                             <Grid container>
                               <Grid item xs={12}>
                                 <Typography
@@ -100,7 +109,7 @@ import { useParams } from 'react-router-dom';
                                   color="text.primary"
                                   gutterBottom
                                   >
-                                  Bryan Smith Colorado Lopez
+                                  {user?.firstName} {user?.lastName}
                                 </Typography>
                               </Grid>
                               <Grid item xs={12}>
@@ -112,7 +121,7 @@ import { useParams } from 'react-router-dom';
                                     color="text.primary"
                                     gutterBottom
                                     >
-                                      3217348306
+                                  {phoneMessage}
                                   </Typography>
                               </Grid>
                             </Grid>
@@ -192,7 +201,7 @@ import { useParams } from 'react-router-dom';
 
                     {
                         listing?.photos?.map( (item, i) => 
-                        <Item item={item}/> 
+                        <Item item={item} index={i}/> 
                         )
                     }
 
