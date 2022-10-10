@@ -153,7 +153,7 @@ listingController.userListingHistory = async (req, res) => {
         // console.log(rooms);
         // console.log(studioApartments);
         let listings = [...apartments, ...rooms, ...studioApartments]
-    
+        
         // exit message
         res.status(200).json({
             msg:"user post history done",
