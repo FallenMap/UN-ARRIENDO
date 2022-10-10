@@ -1,4 +1,4 @@
-import { logInAPI, registerUser, updateUser } from "../api/userAPI";
+import { getUserApi, logInAPI, registerUser, updateUser } from "../api/userAPI";
 import { formLogin } from "../adapters/formAdapters";
 import { redirect } from 'react-router-dom';
 
@@ -44,8 +44,8 @@ export const userRegisterHandlerOnSubmit = (event, auth, navigate, role) => {
 export const getUser = async (auth,ID) => {
     let user;
     try{
-       let res = await getUser(ID);
-       user = res.data;
+       let res = await getUserApi(ID);
+       user = res.data.user;
     }catch(err){
         if(err.response.data.isNotLogged){
             auth.logOut();
