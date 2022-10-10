@@ -143,9 +143,10 @@ listingController.ratingListing = async (req, res) => {
     let ratings = 0;
     let length = 0;
     let json = req.body.reviewedByTenants;
-    console.log(req.body.reviewedByTenants);  
-    console.log(req.body.publicationID); 
-    console.log(json);   
+    // debugging
+    //console.log(req.body.reviewedByTenants);  
+    //console.log(req.body.publicationID); 
+    //console.log(json);   
     for (let tenant in json){
         if (json.hasOwnProperty(tenant)) {
             ratings += parseInt(json[tenant],10);
