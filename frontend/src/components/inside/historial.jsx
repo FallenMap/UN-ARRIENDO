@@ -75,7 +75,7 @@ export function Historial() {
                 <Container sx={{ py: 8 }} maxWidth="md">
                   {/* End hero unit */}
                   <Grid container spacing={3}>
-                    {listings.map((listing) => (
+                    {listings?.map((listing) => (
                       <Grid item xs={6}>
                         <Card
                           sx={{

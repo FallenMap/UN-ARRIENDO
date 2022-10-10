@@ -38,7 +38,16 @@ export function MainScreen() {
     getAllListings(auth).then(listingsResp => setListings(listingsResp));
   }, [auth]);
 
-  console.log(listings)
+  let message
+  let buttonMessage
+  if (auth?.user?.type === "Landlord") {
+    message = '¿Listo para publicar?';
+    buttonMessage='Realizar publicación';
+  } else{
+    message= '¡Busca tu arriendo soñado!'
+    buttonMessage = 'Actualiza tus datos'
+  } 
+
   return (
     <>
       <Box>
@@ -53,7 +62,7 @@ export function MainScreen() {
               padding: '10px'
             }}>
               <Box
-                justifItems="center"
+                justifyItems="center"
                 component="img"
                 alt="The house from the offer."
                 src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/01_%C2%BFQu%C3%A9-puedo-hacer-si-mi-gato-est%C3%A1-triste-.png?itok=cOA5aYW-"
@@ -85,7 +94,7 @@ export function MainScreen() {
                   color="text.secondary"
                   paragraph
                 >
-                  ¿Listo para publicar?
+                  {message}
                 </Typography>
                 <Stack
                   sx={{ pt: 4 }}
@@ -94,7 +103,7 @@ export function MainScreen() {
                   justifyContent="center"
                 >
                   <Link to="/ListingRegister" style={{textDecoration:"none"}}>
-                    <Button variant="contained">Realizar publicación</Button>
+                    <Button variant="contained">{buttonMessage}</Button>
                   </Link>
                   <Button variant="outlined">Ver perfil</Button>
                 </Stack>

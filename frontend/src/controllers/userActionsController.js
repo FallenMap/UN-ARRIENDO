@@ -41,6 +41,23 @@ export const userRegisterHandlerOnSubmit = (event, auth, navigate, role) => {
     }).catch(err => console.log(err));
 }
 
+export const getUser = async (auth,ID) => {
+    let user;
+    try{
+       let res = await getUser(ID);
+       user = res.data;
+    }catch(err){
+        if(err.response.data.isNotLogged){
+            auth.logOut();
+        }
+        
+        console.log('Listing get all error: '+err.response.data.error);
+    }
+    
+    return user;
+} 
+
+
 export const userUpdateHandlerOnSubmit = (event, auth) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -62,4 +79,6 @@ export const userUpdateHandlerOnSubmit = (event, auth) => {
         console.log(err)
     
     });
+    
+
 }

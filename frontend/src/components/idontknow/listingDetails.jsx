@@ -15,19 +15,22 @@ import { useParams } from 'react-router-dom';
 
 
 
+
  export function ListingDetails(){
 
     changeBackground('none');
 
-    const id = useParams();
+    const idListing = useParams();
     
     
     
     const [listing, setlisting] = useState([]);
+  
     const auth = useAuth();
     useEffect(()=>{
-    getListing(auth,id).then(listingResp => setlisting(listingResp));
-    },[auth,id]);
+    getListing(auth,idListing).then(listingResp => setlisting(listingResp));
+    },[auth,idListing]);
+
 
    
 
@@ -67,66 +70,99 @@ import { useParams } from 'react-router-dom';
           <Navbar />
         </div>
 
-        <Grid container spacing={2} alignItems="center"  justifyContent="center" backgroundColor="rgba(34, 40, 49, .4)" >
+        <Grid container spacing={2} backgroundColor="rgba(34, 40, 49, .4)" >
 
             <Grid item xs={12}>
-              
-                <Grid container spacing={1} backgroundColor="rgba(89, 82, 96, .3)" justifyContent='right'>
-                    <Grid item xs={6}>
-                    <Box
+              <Grid container backgroundColor="rgba(89, 82, 96, .3)">
+                <Grid item xs>
+                <Box
                     sx={{
                         bgcolor: "background.paper",
-                        pt: 1,
+                        pt: 3,
                         pb: 1,
-                        pr: 10
+                        pr: 1,
+                        pl: 10
                     }}
                     >
-                        <Container maxWidth='sm'>
-                          <Grid container spacing={1}>
-                            <Grid item xs>
-                              <img src={imagen} alt="Logo" style={{maxHeight: '170px', maxWidth: '170px'}}/>
-                            </Grid>
-                            <Grid item xs>
-                            <Typography
-                                component="h1"
-                                variant="h1"
-                                align="left"
-                                color="text.primary"
-                                gutterBottom
-                                >
-                                UN
-                                ARRIENDO
+                      <Grid container spacing={5}>
+                        <Grid item>
+                          <img src={imagen} alt="Logo" style={{maxHeight: '170px', maxWidth: '170px'}}/>
+                        </Grid>
+                        <Grid item xs>
+                          <Box sx={{pt: 3}}>
+                            <Grid container>
+                              <Grid item xs={12}>
+                                <Typography
+                                  component="h2"
+                                  variant="h2"
+                                  align="left"
+                                  fontFamily='Noto Sans'
+                                  color="text.primary"
+                                  gutterBottom
+                                  >
+                                  Bryan Smith Colorado Lopez
                                 </Typography>
+                              </Grid>
+                              <Grid item xs={12}>
+                                <Typography
+                                    component="h2"
+                                    variant="h2"
+                                    align="left"
+                                    fontFamily='Raleway'
+                                    color="text.primary"
+                                    gutterBottom
+                                    >
+                                      3217348306
+                                  </Typography>
+                              </Grid>
                             </Grid>
-                          </Grid>
-                        
-                                
-                               
-                                  
-
-                        </Container>
+                          </Box>
+                          
+                        </Grid>
+                      </Grid>
                     </Box>
-
-
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography
-                        component="h1"
-                        variant="h1"
-                        align="right"
-                        color="text.primary"
-                        gutterBottom
-                        >
-                        UN
-                        ARRIENDO
-                      </Typography>
-                  </Grid>
-
                 </Grid>
-                
+                <Grid item xs>
+                <Box sx={{
+                          bgcolor: "background.paper",
+                          pt: 3,
+                          pb: 1,
 
+                      }}>
+                        <Grid container>
+                          <Grid item xs={12}>
+                          <Typography
+                          component="h1"
+                          variant="h1"
+                          align="center"
+                          fontFamily="Noto Sans"
+                          color="text.primary"
+                          gutterBottom
+                          >
+                          Precio:
+                        </Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                          <Typography
+                          component="h2"
+                          variant="h2"
+                          align="center"
+                          fontFamily='Raleway'
+                          color="text.primary"
+                          gutterBottom
+                          >
+                          ${listing?.price}
+                        </Typography>
+                          </Grid>
+                        </Grid>
+                      
+                        </Box>
+                </Grid>
+
+
+              </Grid>
             </Grid>
-
+               
             <Grid item xs={12}>
 
 
@@ -167,20 +203,21 @@ import { useParams } from 'react-router-dom';
 
 
         </Grid>
-        <Grid container justifyContent='left'>
+        <Grid container justifyContent='"left"'>
           <Grid item xs={8} position='relative' sx={{margin: '20px'}}>
             <Grid item xs={12}   >
                 <Box pl='8%' pt=' 1%' >
                   <Typography
                       component="h3"
-                      align='left'
+                      align="left"
                       variant="h3"
+                      fontFamily='Alkalami'
                       color="text.primary"
                       sx={{borderBottom: '3px solid #D5CDCD'}}
                       gutterBottom
                       
                       >
-                     {listing?.title}
+                      {listing?.title}
                   </Typography>
                 </Box>
             </Grid>
@@ -191,9 +228,10 @@ import { useParams } from 'react-router-dom';
                   <Container sx={{borderBottom:'3px solid #D5CDCD'}}>
                     
                   <Typography
-                      component="body1"
-                      variant="body1"
-                      align='left'
+                      component="h5"
+                      variant="h5"
+                      align="left"
+                      fontFamily="Josefin Sans"
                       fontSize= {20}
                       color="text.primary"
                       gutterBottom
@@ -207,17 +245,18 @@ import { useParams } from 'react-router-dom';
               </Grid>
 
               <Grid container spacing={1} sx={{marginTop: '10px'}}>
-                <Grid item xs={2}>
+                <Grid item xs={3}>
                   <Image src='https://cdn-icons-png.flaticon.com/512/24/24810.png'></Image>
                 </Grid>
-                <Grid item xs={10}>
+                <Grid item xs={9}>
                   <Grid container spacing={2} sx={{border:'1px solid #D5CDCD', marginTop: '10px'}}>
                       
                     <Grid item xs={12} >
-                      <Box pl='3%' sx={{marginTop:'10px'}}>
+                      <Box  sx={{marginTop:'10px', pl:2}}>
                         <Typography
                             component="h3"
-                            align='left'
+                            align="left"
+                            fontFamily="Alkalami"
                             variant="h3"
                             color="text.primary"
                             gutterBottom
@@ -231,7 +270,7 @@ import { useParams } from 'react-router-dom';
                     <Maping listing={listing?.characteristics} type='carParking' name='Parqueadero'  align='center'/>
                     <Maping listing={listing?.characteristics} type='privateArea' name='Area Privada'  align='center'/>
                     <Maping listing={listing?.characteristics} type='rooms' name='Habitaciones'  align='center'/>
-                    <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='center'/>
+                    <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='cente"'/>
                     <Maping listing={listing?.characteristics} type='bicycleParking' name='Bicicletero'  align='center'/>
                     <Maping listing={listing?.characteristics} type='storage' name='Almacén'  align='center'/>
                     <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='center'/>
@@ -256,8 +295,9 @@ import { useParams } from 'react-router-dom';
                 <Box pl='6%' pt=' 3%'>
                   <Typography
                       component="h3"
-                      align='left'
+                      align="left"
                       variant="h3"
+                      fontFamily="Alkalami"
                       color="text.primary"
                       gutterBottom
                       >
@@ -268,9 +308,8 @@ import { useParams } from 'react-router-dom';
               </Grid>
               <Maping listing={listing} type='type' name='Tipo' xs={12} align='left'/>
               <Maping listing={listing} type='address' name='Dirección' xs={12} align='left'/>
-              <Maping listing={listing} type='address2' name='Dirección 2' xs={12} align='left'/>
-              <Maping listing={listing} type='price' name='Precio' xs={12} align='left'/>
-              <Maping listing={listing} type='neighborhood' name='Barrio' xs={12} align='left ' />
+              <Maping listing={listing} type='address2' name='Complemento' xs={12} align='left'/>
+              <Maping listing={listing} type='neighborhood' name='Barrio' xs={12} align='left' />
       
             </Grid>
             
