@@ -1,4 +1,4 @@
-import { createListingAPI, getAllListingsAPI } from "../api/listingAPI";
+import { createListingAPI, getAllListingsAPI, getHistoryListingsAPI, getListingApi } from "../api/listingAPI";
 //import { formAllListings } from "../adapters/formAdapters";
 
 export const listingCreateHandlerOnSubmit = (auth, listing) => {
@@ -22,6 +22,39 @@ export const getAllListings = async (auth) => {
     try{
        let res = await getAllListingsAPI();
        listings = res.data.listings;
+    }catch(err){
+        if(err.response.data.isNotLogged){
+            auth.logOut();
+        }
+        
+        console.log('Listing get all error: '+err.response.data.error);
+    }
+    
+    return listings;
+}  
+
+export const getListing = async (auth,ID) => {
+    let listing;
+    try{
+       let res = await getListingApi(ID);
+       listing = res.data.listing;
+    }catch(err){
+        if(err.response.data.isNotLogged){
+            auth.logOut();
+        }
+        
+        console.log('Listing get all error: '+err.response.data.error);
+    }
+    
+    return listing;
+} 
+
+export const getHistoryListings = async (auth) => {
+    let listings;
+    try{
+       let res = await getHistoryListingsAPI();
+       listings = res.data.listings;
+       console.log(res.data);
     }catch(err){
         if(err.response.data.isNotLogged){
             auth.logOut();
