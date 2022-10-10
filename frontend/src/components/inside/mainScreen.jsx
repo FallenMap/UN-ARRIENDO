@@ -58,7 +58,7 @@ export function MainScreen() {
         <Grid container spacing={3} justifyContent="space-around">
           <Grid item rowGap={10}>
             <Container sx={{
-              marginTop:"10px",
+              marginTop: "10px",
               padding: '10px'
             }}>
               <Box
@@ -100,7 +100,7 @@ export function MainScreen() {
                   sx={{ pt: 4 }}
                   direction="row"
                   spacing={2}
-                  justifyContent="center"
+                  justifyContent
                 >
                   <Link to="/ListingRegister" style={{textDecoration:"none"}}>
                     <Button variant="contained">{buttonMessage}</Button>
@@ -121,69 +121,74 @@ export function MainScreen() {
                 <Container sx={{ py: 8 }} maxWidth="md">
                   {/* End hero unit */}
                   <Grid container spacing={3}>
-                    {listings.map((listing) => (
-                      <Grid item xs={6}>
-                        <Card
-                          sx={{
-                            height: "100%",
-                            display: "flex",
-                            flexDirection: "column",
-                          }}
-                        >
-                          <CardMedia
-                            component="img"
+                    {listings.map((listing) => {
+                      if (listing[formAllListings.activo]) {
+                        return (<Grid item xs={6}>
+                          <Card
+                            elevation={1}
                             sx={{
-                              // 16:9
-                              pt: "2%",
-                              pl: "2%",
-                              pr: "2%",
-                              height: '300px'
+                              height: "100%",
+                              display: "flex",
+                              flexDirection: "column",
                             }}
-                            image={listing[formAllListings.imagenes][0] ? "http://localhost:5000/images/listing/" + listing[formAllListings.imagenes][0] : "https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png"}
-                            alt="first image"
-                          />
-                          <CardContent sx={{ flexGrow: 1 }}>
-                            <Typography
-                              gutterBottom
-                              variant="h5"
-                              component="h2"
-                            >
-                              {listing[formAllListings.titulo]}
-                            </Typography>
-                            <Typography>{listing[formAllListings.descripcion]}</Typography>
-                          </CardContent>
-                          <CardActions>
-                            <Box sx={{ padding: "0" }}>
-                              <Grid container spacing={2}>
-                                <Grid item xs>
-                                  <Box display="flex"
-                                    justifyContent="center"
-                                    alignItems="center">
-                                    <Link to={`/listing/details/${listing[formAllListings.idlisting]}`} style={{textDecoration:"none"}}>
-                                      <Button size="small">Ver más detalles</Button>
-                                    </Link>
-                                  </Box>
+                          >
+                            <CardMedia
+                              component="img"
+                              sx={{
+                                // 16:9
+                                pt: "2%",
+                                pl: "2%",
+                                pr: "2%",
+                                height: '300px'
+                              }}
+                              image={listing[formAllListings.imagenes][0] ? "http://localhost:5000/images/listing/" + listing[formAllListings.imagenes][0] : "https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png"}
+                              alt="first image"
+                            />
+                            <CardContent sx={{ flexGrow: 1 }}>
+                              <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="h2"
+                              >
+                                {listing[formAllListings.titulo]}
+                              </Typography>
+                              <Typography>{listing[formAllListings.descripcion]}</Typography>
+                            </CardContent>
+                            <CardActions>
+                              <Box sx={{ padding: "0" }}>
+                                <Grid container spacing={2}>
+                                  <Grid item xs>
+                                    <Box display="flex"
+                                      justifyContent="center"
+                                      alignItems="center">
+                                      <Link to={`/listing/details/${listing[formAllListings.idlisting]}`} style={{ textDecoration: "none" }}>
+                                        <Button size="small">Ver más detalles</Button>
+                                      </Link>
+                                    </Box>
+                                  </Grid>
+                                  <Grid item xs>
+                                    <Box display="flex"
+                                      justifyContent="center"
+                                      alignItems="center">
+                                      <Button size="small">Contactar</Button>
+                                    </Box>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    <Box display="flex"
+                                      justifyContent="center"
+                                      alignItems="center">
+                                      <HoverRating value={listing[formAllListings.valoracion] || 0} />
+                                    </Box>
+                                  </Grid>
                                 </Grid>
-                                <Grid item xs>
-                                  <Box display="flex"
-                                    justifyContent="center"
-                                    alignItems="center">
-                                    <Button size="small">Contactar</Button>
-                                  </Box>
-                                </Grid>
-                                <Grid item xs={12}>
-                                  <Box display="flex"
-                                    justifyContent="center"
-                                    alignItems="center">
-                                    <HoverRating value={listing[formAllListings.valoracion] || 0} />
-                                  </Box>
-                                </Grid>
-                              </Grid>
-                            </Box>
-                          </CardActions>
-                        </Card>
-                      </Grid>
-                    ))}
+                              </Box>
+                            </CardActions>
+                          </Card>
+                        </Grid>)
+                      }else{
+                        return(<></>)
+                      }
+                    })}
                   </Grid>
                 </Container>
               </main>
