@@ -38,7 +38,6 @@ export function MainScreen() {
     getAllListings(auth).then(listingsResp => setListings(listingsResp));
   }, [auth]);
 
-  console.log(listings)
   return (
     <>
       <Box>
@@ -53,7 +52,7 @@ export function MainScreen() {
               padding: '10px'
             }}>
               <Box
-                justifItems="center"
+                justifyItems="center"
                 component="img"
                 alt="The house from the offer."
                 src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/01_%C2%BFQu%C3%A9-puedo-hacer-si-mi-gato-est%C3%A1-triste-.png?itok=cOA5aYW-"
@@ -91,7 +90,7 @@ export function MainScreen() {
                   sx={{ pt: 4 }}
                   direction="row"
                   spacing={2}
-                  justifyContent="center"
+                  justifyContent
                 >
                   <Link to="/ListingRegister" style={{ textDecoration: "none" }}>
                     <Button variant="contained">Realizar publicación</Button>
@@ -114,8 +113,9 @@ export function MainScreen() {
                   <Grid container spacing={3}>
                     {listings.map((listing) => {
                       if (listing[formAllListings.activo]) {
-                        <Grid item xs={6}>
+                        return (<Grid item xs={6}>
                           <Card
+                            elevation={1}
                             sx={{
                               height: "100%",
                               display: "flex",
@@ -174,7 +174,9 @@ export function MainScreen() {
                               </Box>
                             </CardActions>
                           </Card>
-                        </Grid>
+                        </Grid>)
+                      }else{
+                        return(<></>)
                       }
                     })}
                   </Grid>
