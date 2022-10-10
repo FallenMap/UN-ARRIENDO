@@ -27,3 +27,7 @@ export const registerUser = (userData) => {
 export const updateUser = (userData) => {
     return axios.put(URL+"/user/update", userData);
 }
+
+export const getUserApi = (idUser) => {
+    return axios.get(URL+"/user/get/"+idUser);
+}

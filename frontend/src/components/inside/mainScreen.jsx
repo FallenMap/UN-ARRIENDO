@@ -38,6 +38,16 @@ export function MainScreen() {
     getAllListings(auth).then(listingsResp => setListings(listingsResp));
   }, [auth]);
 
+  let message
+  let buttonMessage
+  if (auth?.user?.type === "Landlord") {
+    message = '¿Listo para publicar?';
+    buttonMessage='Realizar publicación';
+  } else{
+    message= '¡Busca tu arriendo soñado!'
+    buttonMessage = 'Actualiza tus datos'
+  } 
+
   return (
     <>
       <Box>
@@ -84,7 +94,7 @@ export function MainScreen() {
                   color="text.secondary"
                   paragraph
                 >
-                  ¿Listo para publicar?
+                  {message}
                 </Typography>
                 <Stack
                   sx={{ pt: 4 }}
@@ -92,8 +102,8 @@ export function MainScreen() {
                   spacing={2}
                   justifyContent
                 >
-                  <Link to="/ListingRegister" style={{ textDecoration: "none" }}>
-                    <Button variant="contained">Realizar publicación</Button>
+                  <Link to="/ListingRegister" style={{textDecoration:"none"}}>
+                    <Button variant="contained">{buttonMessage}</Button>
                   </Link>
                   <Button variant="outlined">Ver perfil</Button>
                 </Stack>
