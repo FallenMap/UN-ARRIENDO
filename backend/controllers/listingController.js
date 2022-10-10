@@ -140,31 +140,38 @@ listingController.restoreListing = async (req, res) => {
 
 // Function to save a rating of a publication.
 listingController.ratingListing = async (req, res) => {
-    let ratings = 0;
-    let length = 0;
-    let json = req.body.reviewedByTenants;
-    // debugging
-    //console.log(req.body.reviewedByTenants);  
-    //console.log(req.body.publicationID); 
-    //console.log(json);   
-    for (let tenant in json){
-        if (json.hasOwnProperty(tenant)) {
-            ratings += parseInt(json[tenant],10);
-            length += 1;
+    try{
+        let ratings = 0;
+        let length = 0;
+        let json = req.body.reviewedByTenants;
+        // debugging
+        //console.log(req.body.reviewedByTenants);  
+        //console.log(req.body.publicationID); 
+        //console.log(json);   
+        for (let tenant in json){
+            if (json.hasOwnProperty(tenant)) {
+                ratings += parseInt(json[tenant],10);
+                length += 1;
+            }
         }
+
+        let mean = ratings / length;
+
+        try {
+            await Listing.updateOne({ _id: req.body.publicationID }, { $set: { rating: mean, reviewedByTenants: req.body.reviewedByTenants } });
+        } catch (error) {
+            console.log(error);
+        }
+
+        res.status(200).json({
+            msg: "Rating updated!"
+        });
     }
-
-    let mean = ratings / length;
-
-    try {
-        await Listing.updateOne({ _id: req.body.publicationID }, { $set: { rating: mean, reviewedByTenants: req.body.reviewedByTenants } });
-    } catch (error) {
-        console.log(error);
+    catch{
+        res.status(500).json({
+            error:"Algo malo ocurrió cuando intentaba puntuar"
+        });
     }
-
-    res.status(200).json({
-        msg: "Rating updated!"
-    });
 };
 
 // Function to get user post history.
