@@ -102,7 +102,7 @@ export function Historial() {
                                 <Box display="flex"
                                   justifyContent="center"
                                   alignItems="center">
-                                  <Link to={`/listing/details?id=${listing[formAllListings.idlisting]}`} style={{ textDecoration: "none" }}>
+                                  <Link to={`/listing/details/${listing[formAllListings.idlisting]}`} style={{ textDecoration: "none" }}>
                                     <Button size="small">Ver más detalles</Button>
                                   </Link>
                                 </Box>
