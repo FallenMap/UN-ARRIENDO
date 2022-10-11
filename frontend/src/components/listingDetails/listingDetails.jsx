@@ -79,7 +79,7 @@ import { HoverRating } from '../inside/rating';
       
     return (
         <>
-
+        <Container maxWidth="false " sx={{ maxWidth:'3000px'  }}>
         <div className="container">
           <Navbar />
         </div>
@@ -325,7 +325,7 @@ import { HoverRating } from '../inside/rating';
                 
           </Grid>
         </Grid>
-        
+        </Container>
         
         </>
     )

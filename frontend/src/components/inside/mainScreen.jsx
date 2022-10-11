@@ -102,10 +102,19 @@ export function MainScreen() {
                   spacing={2}
                   justifyContent="center"
                 >
-                  <Link to="/ListingRegister" style={{textDecoration:"none"}}>
+
+                  {
+                  auth?.user?.type==='Landlord' ? <Link to="/ListingRegister" style={{textDecoration:"none"}}>
                     <Button variant="contained">{buttonMessage}</Button>
                   </Link>
+                   : 
+                  <Link to="/StudentUpdate" style={{textDecoration:"none"}}>
+                    <Button variant="contained">{buttonMessage}</Button>
+                  </Link> 
+                  }
                   <Button variant="outlined">Ver perfil</Button>
+
+
                 </Stack>
               </Container>
             </Box>
