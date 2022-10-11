@@ -19,7 +19,7 @@ import { formAllDataUser } from "../../adapters/formAdapters";
 
 
 export function RenterRegister() {
-  changeTitle("Landlord Register");
+  changeTitle("Registro de Arrendador");
 
   const auth = useAuth();
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export function RenterRegister() {
         maxWidth: "500px"
       }}>
         <Stack spacing={2}>
-          <TitleRegister title="Renter Register" />
+          <TitleRegister title="Registro de Arrendador" />
           <Container style={{
             maxWidth: "400px",
             margin: "5% auto",
