@@ -14,10 +14,7 @@ const roomSchema = new Schema({
         sharedBathrooms: Number,
         sharedKitchen: Boolean,
         sharedCleaningArea: Boolean,
-        includedServices: {
-            type: Array,
-            of: String
-        },
+        includedServices: Boolean,
         genderSpecific: {
             type: Array,
             of: String
