@@ -3,23 +3,19 @@
 }
 
 .pageTitle{
-    font-size: 5.5vh ;
-    position: relative;
-    left: -3%;
     text-align: center;
-    /*color: #272343;*/
-    background-color: white;
-    color: rgb(0, 0, 0);
-    border: 0.2rem solid white;
-    border-radius: 5rem;
+    font-size: 50px;
+    font-family: "Passion One", cursive;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-weight: 400;
+    color: #ff7;
+    text-shadow: 0 0 30px #fff;
+    border: 0.2rem solid #fff;
+    border-radius: 2rem;
     padding: 0.4em;
-    box-shadow: 0 0 .2rem #fff,
-              0 0 .2rem #fff,
-              0 0 2rem black,
-              0 0 0.8rem black,
-              0 0 2.8rem black,
-              inset 0 0 1.3rem black; 
-
+    box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #ff7, 0 0 0.8rem #ff7,
+      0 0 2.8rem #ff7, inset 0 0 1.3rem #ff7;
+  
 }
 
 .btn{
@@ -27,7 +23,7 @@
     width: 150px;
     height: 30px;
     left: 38%;
-    top: 280%;
+    top: 480%;
     color: black;
     background-color: #FFC312;
 

@@ -67,7 +67,7 @@ export function StudentUpdate() {
               </div>
 
               <div className={styles.loginRegister}>
-                <Link to="/MainScreen">Home</Link>
+                <Link to="/MainScreen">Inicio</Link>
               </div>
 
               

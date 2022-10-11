@@ -1,8 +1,11 @@
+
+
 .titleLeft{
+
     font-size: 40px;
     font-weight: bolder;
     position: relative;
-    color: white;
+    color: #ff7;
     text-shadow: 0px 0px 10px rgb(3, 3, 3);
     left: 20%;
 }

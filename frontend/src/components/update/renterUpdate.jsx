@@ -75,7 +75,7 @@ export function RenterUpdate() {
               </div>
 
               <div className={styles.loginRegister}>
-                <Link to="/MainScreen">Home </Link>
+                <Link to="/MainScreen">Inicio </Link>
               </div>
 
             </form>
