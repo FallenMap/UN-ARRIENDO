@@ -14,7 +14,7 @@ import LoggedRoute from "./components/routes/loggedRoute";
 import PublicRoute from "./components/routes/publicRoute";
 import LandlordRoute from "./components/routes/landlordRoute";
 import TenantRoute from "./components/routes/tenantRoute";
-import { ListingDetails } from "./components/idontknow/listingDetails";
+import { ListingDetails } from "./components/listingDetails/listingDetails";
 import ListingUpdate from "./components/update/listingUpdate/listingUpdate";
 
 export function App() {
