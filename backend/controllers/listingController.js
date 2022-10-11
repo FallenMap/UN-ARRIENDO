@@ -67,22 +67,23 @@ listingController.updateListing = async (req, res) => {
         req.body.photos = arrayPhotos;
     }
 
+
     //updating
     if ((req.body.type).toLowerCase() == "apartment") {
         try {
-            await Apartment.updateOne({ _id: req.body.publicationID }, { $set: { ...req.body } });
+            await Apartment.updateOne({ _id: req.body._id }, { $set: { ...req.body } });
         } catch (error) {
             console.log(error);
         }
     } else if ((req.body.type).toLowerCase() == "room") {
         try {
-            await Room.updateOne({ _id: req.body.publicationID }, { $set: { ...req.body } });
+            await Room.updateOne({ _id: req.body._id }, { $set: { ...req.body } });
         } catch (error) {
             console.log(error);
         }
     } else if ((req.body.type).toLowerCase() == "studioapartment") {
         try {
-            await StudioApartment.updateOne({ _id: req.body.publicationID }, { $set: { ...req.body } });
+            await StudioApartment.updateOne({ _id: req.body._id }, { $set: { ...req.body } });
         } catch (error) {
             console.log(error);
         }

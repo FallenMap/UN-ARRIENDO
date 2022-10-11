@@ -40,7 +40,7 @@ export function MainScreen() {
 
   let message
   let buttonMessage
-  if (auth?.user?.type === "Landlord") {
+  if (auth.user?.type === "Landlord") {
     message = '¿Listo para publicar?';
     buttonMessage='Realizar publicación';
   } else{
@@ -100,7 +100,7 @@ export function MainScreen() {
                   sx={{ pt: 4 }}
                   direction="row"
                   spacing={2}
-                  justifyContent
+                  justifyContent="center"
                 >
                   <Link to="/ListingRegister" style={{textDecoration:"none"}}>
                     <Button variant="contained">{buttonMessage}</Button>
@@ -141,8 +141,13 @@ export function MainScreen() {
                                 pr: "2%",
                                 height: '300px'
                               }}
-                              image={listing[formAllListings.imagenes][0] ? "http://localhost:5000/images/listing/" + listing[formAllListings.imagenes][0] : "https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png"}
+                              src={listing[formAllListings.imagenes][0] ? "http://localhost:5000/images/listing/" + listing[formAllListings.imagenes][0] : "https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png"}
                               alt="first image"
+                              onError={(e)=>{
+                                if(e.target.src===`http://localhost:5000/images/listing/${listing[formAllListings.imagenes][0]}`){
+                                  e.target.src="https://programacion.net/files/article/20161110041116_image-not-found.png";
+                                }
+                              }}
                             />
                             <CardContent sx={{ flexGrow: 1 }}>
                               <Typography

@@ -12,7 +12,7 @@ export default function BinaryRadio(props) {
 
     const controlProps = (item) => {
         return {
-            checked: selectedValue === item,
+            checked: selectedValue.toString() === item,
             onChange: handleChange,
             value: item,
             name: props.name,

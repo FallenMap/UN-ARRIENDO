@@ -1,4 +1,4 @@
-import { createListingAPI, getAllListingsAPI, getHistoryListingsAPI, getListingApi } from "../api/listingAPI";
+import { createListingAPI, getAllListingsAPI, getHistoryListingsAPI, getListingApi, updateListingAPI } from "../api/listingAPI";
 //import { formAllListings } from "../adapters/formAdapters";
 
 export const listingCreateHandlerOnSubmit = (auth, listing) => {
@@ -22,6 +22,7 @@ export const getAllListings = async (auth) => {
     try{
        let res = await getAllListingsAPI();
        listings = res.data.listings;
+       console.log(listings)
     }catch(err){
         if(err.response.data.isNotLogged){
             auth.logOut();
@@ -33,7 +34,7 @@ export const getAllListings = async (auth) => {
     return listings;
 }  
 
-export const getListing = async (auth,ID) => {
+export const getListing = async (auth, ID) => {
     let listing;
     try{
        let res = await getListingApi(ID);
@@ -43,7 +44,7 @@ export const getListing = async (auth,ID) => {
             auth.logOut();
         }
         
-        console.log('Listing get all error: '+err.response.data.error);
+        console.log('Get listing error: '+err.response.data.error);
     }
     
     return listing;
@@ -65,3 +66,17 @@ export const getHistoryListings = async (auth) => {
     
     return listings;
 }  
+
+export const updateListing = async (auth, listing) => {
+    try{
+        await updateListingAPI(listing);
+        return true;
+     }catch(err){
+         if(err.response?.data.isNotLogged){
+             auth.logOut();
+         }
+         console.log('Listing update error: '+err.response?.data.error);
+     }
+     
+     return false;
+}

@@ -14,9 +14,12 @@ import { fieldsFilled } from "../../utilities/fillFieldsUpdate";
 import useAuth from "../../auth/useAuth"
 import { useEffect } from "react";
 import { userUpdateHandlerOnSubmit } from "../../controllers/userActionsController";
+import { changeBackground } from "../../utilities/changeBackground";
 
 export function StudentUpdate() {
-  changeTitle("Update data");
+  changeTitle("Actulizacion estudiante");
+  changeBackground('https://caracoltv.brightspotcdn.com/dims4/default/a881810/2147483647/strip/true/crop/889x500+220+0/resize/1200x675!/quality/90/?url=http%3A%2F%2Fcaracol-brightspot.s3.amazonaws.com%2Ff1%2F0c%2Fe81ace1d411bb8b27f96bd7fcc7c%2Fviejito-01.png');
+  
   const auth = useAuth();
 
   useEffect(() => {

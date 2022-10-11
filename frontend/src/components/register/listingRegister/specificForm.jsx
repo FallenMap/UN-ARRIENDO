@@ -13,9 +13,13 @@ export default function SpecificForm(props) {
 
     return (
         <Container>
-            <Typography variant="h5" gutterBottom>
-                Menciona algunas caracteristicas del inmueble:
-            </Typography>
+            {
+                props.showTitle ? (
+                    <Typography variant="h5" gutterBottom>
+                        Menciona algunas caracteristicas del inmueble:
+                    </Typography>
+                ) : (<></>)
+            }
             <Grid container spacing={2}>
                 <Grid item xs={6} />
                 <Grid item xs={3}>

@@ -13,13 +13,15 @@ import Image from 'mui-image';
 import { useParams } from 'react-router-dom';
 import { getUser } from '../../controllers/userActionsController';
 import ErrorProfile from './errorProfile';
+import { changeTitle } from '../../utilities/changeTitle';
 
 
 
 
  export function ListingDetails(){
 
-    changeBackground('none');
+  changeTitle("Detalles de la publicacion");
+  changeBackground('none');
 
     const idListing = useParams();
     
@@ -30,16 +32,16 @@ import ErrorProfile from './errorProfile';
   
     const auth = useAuth();
     useEffect(()=>{
-    getListing(auth,idListing).then(listingResp => setlisting(listingResp));
-    },[auth,idListing]);
+      getListing(auth, idListing).then(listingResp => setlisting(listingResp));
+    },[auth, idListing]);
 
     const [user,setUser] = useState([]);
 
     const idUser = listing?.landlord
 
     useEffect(()=>{
-      getUser(auth,idUser).then(userResp => setUser(userResp));
-      },[auth,idUser]);
+      getUser(auth, idUser).then(userResp => setUser(userResp));
+      },[auth, idUser]);
     
     const carouselRef = useRef(null);
     let resetTimeout;

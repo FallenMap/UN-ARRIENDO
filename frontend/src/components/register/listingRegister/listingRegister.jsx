@@ -33,9 +33,9 @@ const translateType = {
 function getStepContent(step, formData) {
     switch (step) {
         case 0:
-            return <BasicForm data={formData} />;
+            return <BasicForm data={formData} showTitle showSelectType/>;
         case 1:
-            return <SpecificForm data={formData} />;
+            return <SpecificForm data={formData} showTitle />;
         case 2:
             return <PhotosForm data={formData} />;
         default:
