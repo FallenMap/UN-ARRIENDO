@@ -1,4 +1,4 @@
-import { createListingAPI, getAllListingsAPI, getHistoryListingsAPI, getListingApi, updateListingAPI } from "../api/listingAPI";
+import { createListingAPI, getAllListingsAPI, getHistoryListingsAPI, getListingApi, updateListingAPI, deleteListingAPI } from "../api/listingAPI";
 //import { formAllListings } from "../adapters/formAdapters";
 
 export const listingCreateHandlerOnSubmit = (auth, listing) => {
@@ -76,6 +76,21 @@ export const updateListing = async (auth, listing) => {
              auth.logOut();
          }
          console.log('Listing update error: '+err.response?.data.error);
+     }
+     
+     return false;
+}
+
+export const deleteListing = async (auth, listingID) => {
+    try{
+        // console.log(listingID)
+        await deleteListingAPI(listingID);
+        return true;
+     }catch(err){
+         if(err.response?.data.isNotLogged){
+             auth.logOut();
+         }
+         console.log('Listing delete error: '+err.response?.data.error);
      }
      
      return false;

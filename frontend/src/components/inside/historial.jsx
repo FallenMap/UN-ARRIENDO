@@ -23,7 +23,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
-
+import { deleteListing } from "../../controllers/listingActionsController";
 const theme = createTheme();
 
 export function Historial() {
@@ -38,6 +38,13 @@ export function Historial() {
   useEffect(() => {
     getHistoryListings(auth).then(listingsResp => setListings(listingsResp));
   }, [auth]);
+
+  const handleDelete=(idlisting) =>{
+     // console.log("Funciona")
+     // console.log(idlisting)
+     deleteListing(auth,idlisting);
+     getHistoryListings(auth).then(listingsResp => setListings(listingsResp));
+    }
 
   return (
     <>
@@ -56,8 +63,9 @@ export function Historial() {
               <Container sx={{ py: 8 }} maxWidth="md">
                 {/* End hero unit */}
                 <Grid container spacing={3}>
-                  {listings?.map((listing) => (
-                    <Grid item xs={6}>
+                  {listings?.map((listing) => { 
+                    if (listing[formAllListings.activo]) {
+                    return (<Grid item xs={6}>
                       <Card
                         sx={{
                           height: "100%",
@@ -118,9 +126,11 @@ export function Historial() {
                                   justifyContent="center"
                                   alignItems="center">
                                   <Tooltip title="Delete" placement="right">
-                                    <IconButton>
+                                    <Link to="/Historial" replace>
+                                    <IconButton onClick={() => handleDelete(listing[formAllListings.idlisting])} >
                                       <DeleteIcon />
                                     </IconButton>
+                                    </Link>
                                   </Tooltip>
                                 </Box>
                               </Grid>
@@ -141,8 +151,11 @@ export function Historial() {
                           </Box>
                         </CardActions>
                       </Card>
-                    </Grid>
-                  ))}
+                    </Grid>)
+                    }else{
+                      return(<></>)
+                    }
+                  })}
                 </Grid>
               </Container>
             </main>

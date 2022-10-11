@@ -11,7 +11,7 @@ const organizeDataListing = require('../middlewares/organizeDataListing');
 router.get('/get', validateSession, listingController.getListings);
 router.post('/create', validateSession, upload.listingPhotos, organizeDataListing, listingController.createListing);
 router.post('/update', validateSession, organizeDataListing, listingController.updateListing);
-router.post('/delete', validateSession, listingController.deleteListing);
+router.post('/delete/:listingID', validateSession, listingController.deleteListing);
 router.post('/restore', validateSession, listingController.restoreListing);
 router.post('/rating', validateSession, listingController.ratingListing);
 router.get('/listingHistory', validateSession, listingController.userListingHistory);

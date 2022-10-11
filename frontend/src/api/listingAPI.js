@@ -35,3 +35,8 @@ export const getListingApi = (listingID) => {
 export const updateListingAPI = (listing) => {
     return axios.post(URL+"/listing/update", listing);
 }
+
+export const deleteListingAPI = (listingID) => {
+    // console.log(listingID)
+    return axios.post(URL+"/listing/delete/"+listingID);
+}

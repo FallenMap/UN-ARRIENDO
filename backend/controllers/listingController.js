@@ -99,7 +99,7 @@ listingController.deleteListing = async (req, res) => {
     let found;
     //deleting, set to inactive
     try {
-        const query = await Listing.updateOne({ _id: ObjectId(req.body.listingID) }, {active: false});
+        const query = await Listing.updateOne({ _id: ObjectId(req.params.listingID) }, {active: false});
         found = query.matchedCount;
     } catch (error) {
         console.log(error);
@@ -178,15 +178,7 @@ listingController.ratingListing = async (req, res) => {
 // Function to get user post history.
 listingController.userListingHistory = async (req, res) => {
     try{
-        let apartments = await Apartment.find({ landlord: String(req.session.userID) }).sort({ date: -1});
-        let rooms = await Room.find({ landlord: String(req.session.userID) }).sort({ date : -1});
-        let studioApartments = await StudioApartment.find({ landlord: String(req.session.userID) }).sort({ date : -1});
-    
-        // debugging
-        // console.log(apartments);
-        // console.log(rooms);
-        // console.log(studioApartments);
-        let listings = [...apartments, ...rooms, ...studioApartments]
+        let listings = await Listing.find({ landlord: String(req.session.userID) }).sort({ date: -1});
         
         // exit message
         res.status(200).json({
