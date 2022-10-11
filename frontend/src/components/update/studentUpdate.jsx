@@ -39,7 +39,7 @@ export function StudentUpdate() {
         maxWidth: "500px"
       }}>
         <Stack spacing={2}>
-          <TitleRegister title="Renter Register" />
+          <TitleRegister title="Actulización estudiante" />
           <Container style={{
             maxWidth: "400px",
             margin: "5% auto",
@@ -50,16 +50,17 @@ export function StudentUpdate() {
             <form className="form-horizontal" onSubmit={sumbitHandler}>
 
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.name} placeholder="Enter your Name" title="Your Name" image="fa fa-user fa" type="text" />
+                <FormGroup name={formAllDataUser.name} placeholder="Ingresa tu nombre" title="Nombre" image="fa fa-user fa" type="text" />
               </div>
 
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.lastName} placeholder="Enter your Last Name" title="Your Last Name" image="fa fa-user fa" type="text" />
+                <FormGroup name={formAllDataUser.lastName} placeholder="Ingresa tu apellidos" title="Apellidos" image="fa fa-user fa" type="text" />
               </div>
 
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.email} placeholder="Enter your Email" title="Your Email" image="fa fa-envelope fa" type="text" />
+                <FormGroup name={formAllDataUser.email} placeholder="Ingresa tu correo electrónico" title="Tu correo electrónico" image="fa fa-envelope fa" type="text" />
               </div>
+
 
               <div className={styles.formGroup}>
                 <ButtonRegister loginButton="Actualizar" />
@@ -68,6 +69,8 @@ export function StudentUpdate() {
               <div className={styles.loginRegister}>
                 <Link to="/MainScreen">Home</Link>
               </div>
+
+              
 
             </form>
   </Container>
