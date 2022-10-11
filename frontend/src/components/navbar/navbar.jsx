@@ -50,8 +50,10 @@ function Navbar() {
                             flexGrow: 1
                         }} />
 
-                        <Link to="/ListingRegister" style={{textDecoration:"none"}}><Button variant="outlined">¡Publicar!</Button></Link>
-                        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                        {
+                         auth?.user?.type==="Landlord" ? <Link to="/ListingRegister" style={{textDecoration:"none"}}><Button variant="outlined">¡Publicar!</Button></Link> : ''  
+                        }
+                            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                             <Tooltip title="Account settings">
                                 <IconButton
                                     onClick={handleClick}

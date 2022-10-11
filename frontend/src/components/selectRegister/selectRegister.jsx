@@ -3,9 +3,11 @@ import { changeTitle } from "../../utilities/changeTitle";
 import { ContainerLeft } from "./containerLeft";
 import { ContainerRight } from "./containerRight";
 import { Link } from "react-router-dom";
+import { changeBackground } from "../../utilities/changeBackground";
 
 export function SelectRegister() {
-  changeTitle("Select register");
+  changeTitle("Seleccion");
+  changeBackground('https://ingenieria.bogota.unal.edu.co/images/recursos/noticias/viejito-01.png');
   return (
     <>
     {/* Use for more image warmth */}

@@ -46,7 +46,7 @@ input::-webkit-input-placeholder {
   transform: translate(-50%, 25%);
 
   /*background-color: #fff;*/
-  background-color: rgba(0, 0, 0, 0.8) !important;
+  background-color: rgba(0, 0, 0, 0.7);
 
   /* shadows and rounded borders */
   -moz-border-radius: 2px;

@@ -6,7 +6,7 @@ export function CardHeader(){
         {/* Create Card title */}
         
         <div className= {styles.cardHeader}>
-            <h3>Log In</h3>
+            <h3>Inicio de sesión</h3>
         </div>
 
     </>

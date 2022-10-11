@@ -6,6 +6,11 @@ export function Maping(props){
     if (temp===true) temp= 'Sí'
         else if (temp===false) temp= 'No'
 
+    if (props.type==='storage'){
+      if (temp==='true') temp= 'Sí'
+        else if (temp==='false') temp= 'No'
+    }
+
     if (temp===undefined) temp= 'No disponible'
 
     if (temp==='') temp= 'No aplica.'

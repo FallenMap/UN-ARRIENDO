@@ -4,6 +4,7 @@ export const formLogin = {
 }
 
 export const formAllDataUser = {
+    id: "_id",
     name: "firstName",
     lastName: "lastName",
     email: "email",

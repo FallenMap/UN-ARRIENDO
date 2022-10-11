@@ -14,7 +14,7 @@ import LoggedRoute from "./components/routes/loggedRoute";
 import PublicRoute from "./components/routes/publicRoute";
 import LandlordRoute from "./components/routes/landlordRoute";
 import TenantRoute from "./components/routes/tenantRoute";
-import { ListingDetails } from "./components/idontknow/listingDetails";
+import { ListingDetails } from "./components/listingDetails/listingDetails";
 import ListingUpdate from "./components/update/listingUpdate/listingUpdate";
 
 export function App() {
@@ -39,14 +39,12 @@ export function App() {
             <Route exact path="/RenterRegister" element={<PublicRoute component={<RenterRegister />} />}> </Route>
             <Route path="*" element={<h1>NOT FOUND</h1>} /> {/* HAY QUE HACER UNA PAGINA PARA EL 404 */}
             <Route exact path="/MainScreen" element={<LoggedRoute component={<MainScreen />} />} /> 
-            <Route path='/listing/details/:id' element={<ListingDetails/>}> </Route>
+            <Route path='/listing/details/:id' element={<LoggedRoute component={<ListingDetails/>} />}> </Route>
             <Route path="/RenterUpdate" element={<LandlordRoute component={<RenterUpdate />} />}> </Route>
             <Route path="/StudentUpdate" element={<TenantRoute component={<StudentUpdate />} />}> </Route>
-            <Route exact path="/Historial" element={<LoggedRoute component={<Historial />} />}> </Route>
-            {/*<Route exact path="/Historial" element={<LoggedRoute component={<Historial />} />}> </Route>*/}
-            <Route exact path="/Historial" element={<Historial />}> </Route>
+            <Route exact path="/Historial" element={<LandlordRoute component={ <Historial /> } />}> </Route>
             <Route exact path="/ListingRegister" element={<LandlordRoute component={ <ListingRegister /> } />} />
-            <Route exact path="/listing/update/:id" element={<ListingUpdate />} />
+            <Route exact path="/listing/update/:id" element={<LandlordRoute component={ <ListingUpdate /> } />} />
 
 
           </Routes>

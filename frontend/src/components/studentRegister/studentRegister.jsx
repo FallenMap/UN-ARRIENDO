@@ -19,7 +19,7 @@ import { formAllDataUser } from "../../adapters/formAdapters";
 
 export function StudentRegister() {
 
-  changeTitle("Student Register");
+  changeTitle("Registro de estudiante");
 
   const auth = useAuth();
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export function StudentRegister() {
         <Stack spacing={2}>
 
           {/* Call titleStudent component */}
-          <TitleStudent title="Stundent Register" />
+          <TitleStudent title="Registro de estudiante" />
           <Container style={{
             maxWidth: "400px",
             margin: "5% auto",

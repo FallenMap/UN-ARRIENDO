@@ -8,14 +8,14 @@ const organizeDataListing = require('../middlewares/organizeDataListing');
 //const { validateUpdateListing } = require('../validators/listingValidator');
 
 // Create different routes for each action and call the publicationController functions.
-router.get('/get', listingController.getListings);
-router.post('/create', upload.listingPhotos, organizeDataListing, listingController.createListing);
-router.post('/update', listingController.updateListing);
-router.post('/delete', listingController.deleteListing);
-router.post('/restore', listingController.restoreListing);
-router.post('/rating', listingController.ratingListing);
-router.get('/listingHistory', listingController.userListingHistory);
-router.get('/get/:listingID', listingController.getListing) 
+router.get('/get', validateSession, listingController.getListings);
+router.post('/create', validateSession, upload.listingPhotos, organizeDataListing, listingController.createListing);
+router.post('/update', validateSession, organizeDataListing, listingController.updateListing);
+router.post('/delete/:listingID', validateSession, listingController.deleteListing);
+router.post('/restore', validateSession, listingController.restoreListing);
+router.post('/rating', validateSession, listingController.ratingListing);
+router.get('/listingHistory', validateSession, listingController.userListingHistory);
+router.get('/get/:listingID', validateSession, listingController.getListing) 
 
 module.exports = router;
 

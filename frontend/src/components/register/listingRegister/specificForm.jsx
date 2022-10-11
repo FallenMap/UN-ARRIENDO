@@ -1,21 +1,36 @@
-import { Container, Typography, MenuItem, Select, FormControl, InputLabel, Box, Grid, Divider } from '@mui/material'
+import { Container, Typography, MenuItem, Select, FormControl, InputLabel, Box, Grid, Divider, TextField } from '@mui/material'
 import BinaryRadio from './binaryRadio';
 import { React, useState } from 'react'
 import { formAllListings } from '../../../adapters/formAdapters';
 
 export default function SpecificForm(props) {
     const [stratum, setStratum] = useState(undefined);
+    const [bathNumber, setBath] = useState(undefined);
+    const [roomNumber, setRoom] = useState(undefined);
 
-    const handleChange = (event) => {
+
+    const handleChangeStratum = (event,name) => {
         setStratum(event.target.value);
+    };
+
+    const handleChangeBath = (event,name) => {
+        setBath(event.target.value);
+    };
+
+    const handleChangeRoom = (event,name) => {
+        setRoom(event.target.value);
     };
 
 
     return (
         <Container>
-            <Typography variant="h5" gutterBottom>
-                Menciona algunas caracteristicas del inmueble:
-            </Typography>
+            {
+                props.showTitle ? (
+                    <Typography variant="h5" gutterBottom>
+                        Menciona algunas caracteristicas del inmueble:
+                    </Typography>
+                ) : (<></>)
+            }
             <Grid container spacing={2}>
                 <Grid item xs={6} />
                 <Grid item xs={3}>
@@ -50,9 +65,10 @@ export default function SpecificForm(props) {
                     </Typography>
                 </Grid>
                 <BinaryRadio name={formAllListings.mascotas} startValue={props.data.get(formAllListings.mascotas) || ''} />
+            
             </Grid>
             <br></br>
-            <Divider>Otras cosas</Divider>
+            <Divider>Otros detalles</Divider>
             <br></br>
             <Box sx={{ minWidth: 120, marginTop:"15px" }}>
                 <FormControl fullWidth required>
@@ -62,7 +78,7 @@ export default function SpecificForm(props) {
                         id="stratum-simple-select"
                         value={stratum || props.data.get(formAllListings.estrato) || ''}
                         label="Estrato"
-                        onChange={handleChange}
+                        onChange={handleChangeStratum}
                         name={formAllListings.estrato}
                     >
                         <MenuItem value={1}>1</MenuItem>
@@ -74,6 +90,8 @@ export default function SpecificForm(props) {
                     </Select>
                 </FormControl>
             </Box>
+        
         </Container>
+        
     )
 }

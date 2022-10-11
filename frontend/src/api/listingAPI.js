@@ -24,6 +24,19 @@ export const getHistoryListingsAPI = () => {
 }
 
 export const getListingApi = (listingID) => {
-    const tuMama = listingID['id']
-    return axios.get(URL+"/listing/get/"+tuMama);
+    if(typeof listingID==='object'){
+        const id = listingID['id']
+        return axios.get(URL+"/listing/get/"+id);
+    }else{
+        return axios.get(URL+"/listing/get/"+listingID);
+    }
+}
+
+export const updateListingAPI = (listing) => {
+    return axios.post(URL+"/listing/update", listing);
+}
+
+export const deleteListingAPI = (listingID) => {
+    // console.log(listingID)
+    return axios.post(URL+"/listing/delete/"+listingID);
 }

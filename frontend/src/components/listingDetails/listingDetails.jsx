@@ -13,13 +13,16 @@ import Image from 'mui-image';
 import { useParams } from 'react-router-dom';
 import { getUser } from '../../controllers/userActionsController';
 import ErrorProfile from './errorProfile';
+import { changeTitle } from '../../utilities/changeTitle';
+import { HoverRating } from '../inside/rating';
 
 
 
 
  export function ListingDetails(){
 
-    changeBackground('none');
+  changeTitle("Detalles de la publicacion");
+  changeBackground('none');
 
     const idListing = useParams();
     
@@ -30,16 +33,16 @@ import ErrorProfile from './errorProfile';
   
     const auth = useAuth();
     useEffect(()=>{
-    getListing(auth,idListing).then(listingResp => setlisting(listingResp));
-    },[auth,idListing]);
+      getListing(auth, idListing).then(listingResp => setlisting(listingResp));
+    },[auth, idListing]);
 
     const [user,setUser] = useState([]);
 
     const idUser = listing?.landlord
 
     useEffect(()=>{
-      getUser(auth,idUser).then(userResp => setUser(userResp));
-      },[auth,idUser]);
+      getUser(auth, idUser).then(userResp => setUser(userResp));
+      },[auth, idUser]);
     
     const carouselRef = useRef(null);
     let resetTimeout;
@@ -50,6 +53,8 @@ import ErrorProfile from './errorProfile';
           carouselRef.current.goTo(0);
         }
       };
+
+      console.log(auth)
 
       const breakPoints = [
         { width: 1, itemsToShow: 1 },
@@ -74,7 +79,7 @@ import ErrorProfile from './errorProfile';
       
     return (
         <>
-
+        <Container maxWidth="false " sx={{ maxWidth:'3000px'  }}>
         <div className="container">
           <Navbar />
         </div>
@@ -140,19 +145,23 @@ import ErrorProfile from './errorProfile';
                       }}>
                         <Grid container>
                           <Grid item xs={12}>
-                            <Box sx={{pt:5}}>
-                              <Typography
-                            component="h2"
-                            variant="h2"
-                            align="center"
-                            fontFamily='Noto Sans'
-                            color="text.primary"
-                            gutterBottom
-                            >
-                            ${listing?.price}
-                          </Typography>
-                            </Box>
-                          
+                          <Typography
+                          component="h1"
+                          variant="h1"
+                          align="center"
+                          fontFamily="Noto Sans"
+                          color="text.primary"
+                          gutterBottom
+                          >
+                          ${listing?.price}
+                        </Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                          <Box display="flex"
+                                      justifyContent="center"
+                                      alignItems="center">
+                                      <HoverRating value={listing?.rating} size="large" auth={auth}/>
+                          </Box>
                           </Grid>
                         </Grid>
                       
@@ -181,7 +190,7 @@ import ErrorProfile from './errorProfile';
                     onNextEnd={({ index }) => {
 
                         clearTimeout(resetTimeout)
-                        if (index + 1 === listing[0].photos.length) {
+                        if (index + 1 === listing?.photos.length) {
                         resetTimeout = setTimeout(() => {
                             carouselRef.current.goTo(0)
                         }, 6000) 
@@ -316,7 +325,7 @@ import ErrorProfile from './errorProfile';
                 
           </Grid>
         </Grid>
-        
+        </Container>
         
         </>
     )

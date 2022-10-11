@@ -69,7 +69,7 @@ margin-right: 5px;
     animation: flicker 1.5s infinite alternate;
     position: relative;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.801);
+    background-color: rgba(0, 0, 0, 0.6);
     top: 35%;
     padding-top: 2rem;
     padding-bottom: 2rem;

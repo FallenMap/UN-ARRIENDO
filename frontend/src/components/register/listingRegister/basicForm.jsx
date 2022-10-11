@@ -17,20 +17,31 @@ export default function BasicForm(props) {
 
     return (
         <Container>
-            <Typography variant="h5" gutterBottom>
-                ¿Qué vas a publicar?
-            </Typography>
+            {
+                props.showTitle ? (
+                    <Typography variant="h5" gutterBottom>
+                        ¿Qué vas a publicar?
+                    </Typography>
+                ) : (<></>)
+            }
             <Grid container spacing={4}>
-                <Grid item xs={12}>
-                    <FormControl fullWidth variant="standard">
-                        <InputLabel>Elige un tipo de inmueble:</InputLabel>
-                        <Select name={formAllListings.tipo} onChange={handlerChangeType} value={postType || props.data.get(formAllListings.tipo) || ''}>
-                            <MenuItem value="Apartaestudio">Apartaestudio</MenuItem>
-                            <MenuItem value="Apartamento">Apartamento</MenuItem>
-                            <MenuItem value="Habitación">Habitación</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
+                {
+                    props.showSelectType ? (
+                        <Grid item xs={12}>
+                            <FormControl fullWidth variant="standard">
+                                <InputLabel>Elige un tipo de inmueble:</InputLabel>
+                                <Select name={formAllListings.tipo} onChange={handlerChangeType} value={postType || props.data.get(formAllListings.tipo) || ''}>
+                                    <MenuItem value="Apartaestudio">Apartaestudio</MenuItem>
+                                    <MenuItem value="Apartamento">Apartamento</MenuItem>
+                                    <MenuItem value="Habitación">Habitación</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    ) : (
+                        <></>
+                    )
+                }
+
                 <Grid item xs={12}>
                     <TextField
                         required
@@ -97,6 +108,7 @@ export default function BasicForm(props) {
                             id='outlined-adorment-amount'
                             startAdornment={<InputAdornment position='start'>$</InputAdornment>}
                             label="Precio"
+                            type="number"
                             name={formAllListings.precio}
                             defaultValue={props.data.get(formAllListings.precio) || ""}
                         />

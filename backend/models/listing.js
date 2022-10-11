@@ -24,10 +24,7 @@ const listingSchema = new mongoose.Schema({
         carParking: Boolean,
         bicycleParking: Boolean,
         storage: String,
-        communalAreas: {
-            type: Array,
-            of: String
-        }
+        communalAreas: String
     },
     photos: {
         type: Array,
@@ -37,10 +34,7 @@ const listingSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    reviewedByTenants: {
-        type: Array,
-        of: mongoose.SchemaTypes.Mixed
-    },
+    reviewedByTenants:  mongoose.SchemaTypes.Mixed,
     date: {
         type: Date,
         default: Date.now

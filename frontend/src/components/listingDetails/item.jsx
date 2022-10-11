@@ -1,5 +1,5 @@
 import Image from 'mui-image'
-import ErrorImage from './error'
+import ErrorImage from './errorCarousel'
 
 export default function Item(props){
   return(
