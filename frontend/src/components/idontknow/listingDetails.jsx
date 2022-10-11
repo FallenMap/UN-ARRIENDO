@@ -140,28 +140,19 @@ import ErrorProfile from './errorProfile';
                       }}>
                         <Grid container>
                           <Grid item xs={12}>
-                          <Typography
-                          component="h1"
-                          variant="h1"
-                          align="center"
-                          fontFamily="Noto Sans"
-                          color="text.primary"
-                          gutterBottom
-                          >
-                          Precio:
-                        </Typography>
-                          </Grid>
-                          <Grid item xs={12}>
-                          <Typography
-                          component="h2"
-                          variant="h2"
-                          align="center"
-                          fontFamily='Raleway'
-                          color="text.primary"
-                          gutterBottom
-                          >
-                          ${listing?.price}
-                        </Typography>
+                            <Box sx={{pt:5}}>
+                              <Typography
+                            component="h2"
+                            variant="h2"
+                            align="center"
+                            fontFamily='Noto Sans'
+                            color="text.primary"
+                            gutterBottom
+                            >
+                            ${listing?.price}
+                          </Typography>
+                            </Box>
+                          
                           </Grid>
                         </Grid>
                       
