@@ -5,9 +5,20 @@ import { formAllListings } from '../../../adapters/formAdapters';
 
 export default function SpecificForm(props) {
     const [stratum, setStratum] = useState(undefined);
+    const [bathNumber, setBath] = useState(undefined);
+    const [roomNumber, setRoom] = useState(undefined);
 
-    const handleChange = (event) => {
+
+    const handleChangeStratum = (event,name) => {
         setStratum(event.target.value);
+    };
+
+    const handleChangeBath = (event,name) => {
+        setBath(event.target.value);
+    };
+
+    const handleChangeRoom = (event,name) => {
+        setRoom(event.target.value);
     };
 
 
@@ -79,7 +90,6 @@ export default function SpecificForm(props) {
                         id="privateArea-pub"
                         name={formAllListings.areaPrivada}
                         label="Area Privada"
-                        type="number"
                         fullWidth
                         autoComplete="family-name"
                         variant="standard"
@@ -114,7 +124,7 @@ export default function SpecificForm(props) {
                         id="stratum-simple-select"
                         value={stratum || props.data.get(formAllListings.estrato) || ''}
                         label="Estrato"
-                        onChange={handleChange}
+                        onChange={handleChangeStratum}
                         name={formAllListings.estrato}
                     >
                         <MenuItem value={1}>1</MenuItem>
@@ -132,9 +142,9 @@ export default function SpecificForm(props) {
                     <Select
                         labelId="bathrooms-simple-select-label"
                         id="bathrooms-simple-select"
-                        value={props.data.get(formAllListings.banoPrivado)}
+                        value={ bathNumber ||props.data.get(formAllListings.banoPrivado)}
                         label="Numero de baños privados"
-                        onChange={handleChange}
+                        onChange={handleChangeBath}
                         name={formAllListings.banoPrivado}
                     >
                         <MenuItem value={1}>1</MenuItem>
@@ -152,10 +162,10 @@ export default function SpecificForm(props) {
                     <Select
                         labelId="rooms-simple-select-label"
                         id="rooms-simple-select"
-                        value={ props.data.get(formAllListings.habitaciones) || ''}
+                        value={ roomNumber || props.data.get(formAllListings.habitaciones) || ''}
                         label="Número de habitaciones"
-                        onChange={handleChange}
-                        name={formAllListings.habitacion}
+                        onChange={handleChangeRoom}
+                        name={formAllListings.habitaciones}
                     >
                         <MenuItem value={1}>1</MenuItem>
                         <MenuItem value={2}>2</MenuItem>
