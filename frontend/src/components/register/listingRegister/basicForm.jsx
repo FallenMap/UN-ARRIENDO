@@ -108,6 +108,7 @@ export default function BasicForm(props) {
                             id='outlined-adorment-amount'
                             startAdornment={<InputAdornment position='start'>$</InputAdornment>}
                             label="Precio"
+                            type="number"
                             name={formAllListings.precio}
                             defaultValue={props.data.get(formAllListings.precio) || ""}
                         />

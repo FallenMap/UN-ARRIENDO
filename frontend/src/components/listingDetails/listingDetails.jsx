@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom';
 import { getUser } from '../../controllers/userActionsController';
 import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
+import { HoverRating } from '../inside/rating';
 
 
 
@@ -52,6 +53,8 @@ import { changeTitle } from '../../utilities/changeTitle';
           carouselRef.current.goTo(0);
         }
       };
+
+      console.log(auth)
 
       const breakPoints = [
         { width: 1, itemsToShow: 1 },
@@ -150,20 +153,15 @@ import { changeTitle } from '../../utilities/changeTitle';
                           color="text.primary"
                           gutterBottom
                           >
-                          Precio:
+                          ${listing?.price}
                         </Typography>
                           </Grid>
                           <Grid item xs={12}>
-                          <Typography
-                          component="h2"
-                          variant="h2"
-                          align="center"
-                          fontFamily='Raleway'
-                          color="text.primary"
-                          gutterBottom
-                          >
-                          ${listing?.price}
-                        </Typography>
+                          <Box display="flex"
+                                      justifyContent="center"
+                                      alignItems="center">
+                                      <HoverRating value={listing?.rating} size="large" auth={auth}/>
+                          </Box>
                           </Grid>
                         </Grid>
                       
@@ -192,7 +190,7 @@ import { changeTitle } from '../../utilities/changeTitle';
                     onNextEnd={({ index }) => {
 
                         clearTimeout(resetTimeout)
-                        if (index + 1 === listing[0].photos.length) {
+                        if (index + 1 === listing?.photos.length) {
                         resetTimeout = setTimeout(() => {
                             carouselRef.current.goTo(0)
                         }, 6000) 

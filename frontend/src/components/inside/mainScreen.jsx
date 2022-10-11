@@ -182,7 +182,7 @@ export function MainScreen() {
                                     <Box display="flex"
                                       justifyContent="center"
                                       alignItems="center">
-                                      <HoverRating value={listing[formAllListings.valoracion] || 0} />
+                                      <HoverRating value={listing[formAllListings.valoracion] || 0} auth={auth} />
                                     </Box>
                                   </Grid>
                                 </Grid>

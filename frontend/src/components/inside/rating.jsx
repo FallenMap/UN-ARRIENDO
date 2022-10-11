@@ -13,13 +13,20 @@ export function HoverRating(props) {
         },
       }}
     >
-      <Rating
+      {props.auth?.user?.type==='Landlord'? <Rating
         name="simple-controlled"
         value={value}
+        size= {props?.size}
         onChange={(event, newValue) => {
           setValue(newValue);
-        }}
-      />
+        }} readOnly/> :  <Rating
+      name="simple-controlled"
+      value={value}
+      size= {props?.size}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+    /> }
     </Box>
   );
 }
