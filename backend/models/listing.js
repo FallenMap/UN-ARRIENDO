@@ -24,10 +24,7 @@ const listingSchema = new mongoose.Schema({
         carParking: Boolean,
         bicycleParking: Boolean,
         storage: String,
-        communalAreas: {
-            type: Array,
-            of: String
-        }
+        communalAreas: String
     },
     photos: {
         type: Array,
