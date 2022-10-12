@@ -16,13 +16,12 @@ export function HoverRating(props) {
       }else{
         //Show an error message
       }
-      
+
     })
     .catch(err => {
       console.log("Rating component error "+err);
     });
   }
-
   return (
     <Box
       sx={{
@@ -42,7 +41,7 @@ export function HoverRating(props) {
       value={value}
       size= {props?.size}
       onChange={(event, newValue) => {
-        setValue(newValue);
+        handlerSubmitRatingUpdate(newValue);
       }}
     /> }
     </Box>
