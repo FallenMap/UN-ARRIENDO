@@ -4,6 +4,7 @@ import Rating from "@mui/material/Rating";
 
 export function HoverRating(props) {
   const [value, setValue] = React.useState(props.value);
+  let cont = 0;
 
   return (
     <Box
@@ -20,13 +21,14 @@ export function HoverRating(props) {
         onChange={(event, newValue) => {
           setValue(newValue);
         }} readOnly/> :  <Rating
-      name="simple-controlled"
-      value={value}
-      size= {props?.size}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
-    /> }
+        name="simple-controlled"
+        value={value}
+        size= {props?.size}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+  
+      /> }
     </Box>
   );
 }

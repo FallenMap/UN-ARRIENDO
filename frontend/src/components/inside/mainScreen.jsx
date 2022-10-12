@@ -21,6 +21,7 @@ import { getAllListings } from "../../controllers/listingActionsController";
 import { useState } from "react";
 import { useEffect } from "react";
 import { formAllListings } from "../../adapters/formAdapters";
+import CustomizedDialogs from "./contact";
 
 
 
@@ -184,7 +185,7 @@ export function MainScreen() {
                                     <Box display="flex"
                                       justifyContent="center"
                                       alignItems="center">
-                                      <Button size="small">Contactar</Button>
+                                      <CustomizedDialogs listing={listing}/>
                                     </Box>
                                   </Grid>
                                   <Grid item xs={12}>

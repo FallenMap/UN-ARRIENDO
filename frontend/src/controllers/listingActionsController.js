@@ -22,7 +22,6 @@ export const getAllListings = async (auth) => {
     try{
        let res = await getAllListingsAPI();
        listings = res.data.listings;
-       console.log(listings)
     }catch(err){
         if(err.response.data.isNotLogged){
             auth.logOut();
@@ -55,7 +54,6 @@ export const getHistoryListings = async (auth) => {
     try{
        let res = await getHistoryListingsAPI();
        listings = res.data.listings;
-       console.log(res.data);
     }catch(err){
         if(err.response.data.isNotLogged){
             auth.logOut();
