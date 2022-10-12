@@ -118,7 +118,7 @@ export function Historial() {
                                 <Box display="flex"
                                   justifyContent="center"
                                   alignItems="right">
-                                  <HoverRating value={listing[formAllListings.valoracion] || 0} />
+                                  <HoverRating idListing={listing[formAllListings.idlisting]} reviewedByTenants={listing[formAllListings.valoradoEstudiantes]} value={listing[formAllListings.valoracion] || 0} />
                                 </Box>
                               </Grid>
                               <Grid item xs={6}>

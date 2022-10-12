@@ -15,6 +15,7 @@ import { getUser } from '../../controllers/userActionsController';
 import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
+import { formAllListings } from '../../adapters/formAdapters';
 
 
 
@@ -28,7 +29,7 @@ import { HoverRating } from '../inside/rating';
     
     
     
-    const [listing, setlisting] = useState([]);
+    const [listing, setlisting] = useState(undefined);
   
   
     const auth = useAuth();
@@ -160,7 +161,10 @@ import { HoverRating } from '../inside/rating';
                           <Box display="flex"
                                       justifyContent="center"
                                       alignItems="center">
-                                      <HoverRating value={listing?.rating} size="large" auth={auth}/>
+                                        {
+                                          listing ? (<HoverRating idListing={listing[formAllListings.idlisting]} reviewedByTenants={listing[formAllListings.valoradoEstudiantes]} value={listing[formAllListings.valoracion] || 0} size="large"/>):(<></>)
+                                        }
+                                      
                           </Box>
                           </Grid>
                         </Grid>

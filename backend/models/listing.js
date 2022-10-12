@@ -34,7 +34,10 @@ const listingSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    reviewedByTenants:  mongoose.SchemaTypes.Mixed,
+    reviewedByTenants:  {
+        type: mongoose.SchemaTypes.Mixed,
+        default: {"-1":-1}
+    },
     date: {
         type: Date,
         default: Date.now
@@ -43,7 +46,7 @@ const listingSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     }
-}, { discriminatorKey: 'type' });
+}, { discriminatorKey: 'type' }, {minimize: false});
 
 
 module.exports = mongoose.model('Listing', listingSchema);
