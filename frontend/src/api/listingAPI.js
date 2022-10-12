@@ -40,3 +40,8 @@ export const deleteListingAPI = (listingID) => {
     // console.log(listingID)
     return axios.post(URL+"/listing/delete/"+listingID);
 }
+
+export const updateRatingListingAPI = (ratingBody) => {
+    // console.log(listingID)
+    return axios.post(URL+"/listing/rating/", ratingBody);
+}

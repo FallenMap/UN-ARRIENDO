@@ -150,7 +150,7 @@ listingController.ratingListing = async (req, res) => {
         //console.log(req.body.publicationID); 
         //console.log(json);   
         for (let tenant in json){
-            if (json.hasOwnProperty(tenant)) {
+            if (json.hasOwnProperty(tenant) && tenant!=-1) {
                 ratings += parseInt(json[tenant],10);
                 length += 1;
             }
@@ -159,13 +159,14 @@ listingController.ratingListing = async (req, res) => {
         let mean = ratings / length;
 
         try {
-            await Listing.updateOne({ _id: req.body.publicationID }, { $set: { rating: mean, reviewedByTenants: req.body.reviewedByTenants } });
+            await Listing.updateOne({ _id: req.body._id }, { $set: { rating: mean, reviewedByTenants: req.body.reviewedByTenants } });
         } catch (error) {
             console.log(error);
         }
 
         res.status(200).json({
-            msg: "Rating updated!"
+            msg: "Rating updated!",
+            average: mean
         });
     }
     catch{

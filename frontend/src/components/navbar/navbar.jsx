@@ -8,6 +8,7 @@ import { Logout, History, Person } from '@mui/icons-material';
 import useAuth from '../../auth/useAuth';
 import { logOutAPI } from "../../api/userAPI";
 import { changeBackground } from '../../utilities/changeBackground';
+import { formAllDataUser } from '../../adapters/formAdapters';
 
 
 function Navbar() {
@@ -51,7 +52,7 @@ function Navbar() {
                         }} />
 
                         {
-                         auth?.user?.type==="Landlord" ? <Link to="/ListingRegister" style={{textDecoration:"none"}}><Button variant="outlined">¡Publicar!</Button></Link> : ''  
+                         auth?.user?.type==="Landlord" ? <Link to="/ListingRegister" style={{textDecoration:"none"}}><Button variant="outlined">¡Publicar!</Button></Link> : <></>  
                         }
                             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                             <Tooltip title="Account settings">
@@ -63,7 +64,7 @@ function Navbar() {
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
                                 >
-                                    <Avatar sx={{ width: 32, height: 32 }} src={`http://localhost:5000/images/profile/prueba.jpeg`} />
+                                    <Avatar sx={{ width: 32, height: 32 }} src={`http://localhost:5000/images/profile/${auth.user?.[formAllDataUser.link]}`} />
                                 </IconButton>
                             </Tooltip>
                         </Box>

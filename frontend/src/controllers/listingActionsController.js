@@ -1,4 +1,5 @@
-import { createListingAPI, getAllListingsAPI, getHistoryListingsAPI, getListingApi, updateListingAPI, deleteListingAPI } from "../api/listingAPI";
+import { formAllListings } from "../adapters/formAdapters";
+import { createListingAPI, getAllListingsAPI, getHistoryListingsAPI, getListingApi, updateListingAPI, deleteListingAPI, updateRatingListingAPI } from "../api/listingAPI";
 //import { formAllListings } from "../adapters/formAdapters";
 
 export const listingCreateHandlerOnSubmit = (auth, listing) => {
@@ -92,4 +93,22 @@ export const deleteListing = async (auth, listingID) => {
      }
      
      return false;
+}
+
+export const updateRatingListing = async (auth, value, idlisting, ratingJSON) => {
+    try{
+        let body = {};
+        body[formAllListings.idlisting] = idlisting;
+        ratingJSON[auth.user?._id] = value;
+        body[formAllListings.valoradoEstudiantes] = ratingJSON;
+        let result = await updateRatingListingAPI(body);
+        return result.data.average;
+     }catch(err){
+         if(err.response?.data.isNotLogged){
+             auth.logOut();
+         }
+         console.log(err,'Listing update rating error: '+err.response?.data.error);
+     }
+     
+     return undefined;
 }
