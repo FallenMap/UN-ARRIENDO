@@ -29,7 +29,7 @@ const translateType = {
     3: "Room"
 }
 
-const translateCleaning = {
+/*const translateCleaning = {
     1: "Private",
     2: "Communal"
 }
@@ -37,7 +37,7 @@ const translateCleaning = {
 const translateKitchen = {
     1: "Open",
     2: "Closed"
-}
+}*/
 
 function getStepContent(step, formData) {
     switch (step) {
@@ -77,8 +77,8 @@ export default function ListingRegister() {
 
         if (steps.length - 1 === activeStep) {
             formData.set(formAllListings.tipo, translateType[formData.get(formAllListings.tipo)]);
-            formData.set(formAllListings.cocina, translateKitchen[formData.get(formAllListings.cocina)]);
-            formData.set(formAllListings.areaLimpieza, translateCleaning[formData.get(formAllListings.areaLimpieza)]);
+            /*formData.set(formAllListings.cocina, translateKitchen[formData.get(formAllListings.cocina)]);
+            formData.set(formAllListings.areaLimpieza, translateCleaning[formData.get(formAllListings.areaLimpieza)]);*/
             showSuccessText = listingCreateHandlerOnSubmit(auth, formData);
         }
 
