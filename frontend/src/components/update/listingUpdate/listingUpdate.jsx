@@ -13,7 +13,7 @@ import SpecificForm from '../../register/listingRegister/specificForm';
 
 const theme = createTheme();
 
-const translateCleaning = {
+/*const translateCleaning = {
     1: "Private",
     2: "Communal"
 }
@@ -21,7 +21,7 @@ const translateCleaning = {
 const translateKitchen = {
     1: "Open",
     2: "Closed"
-}
+}*/
 
 export default function ListingUpdate() {
 
@@ -44,8 +44,8 @@ export default function ListingUpdate() {
             listing.set(entry[0], entry[1]);
         }
 
-        listing.set(formAllListings.cocina, translateKitchen[listing.get(formAllListings.cocina)]);
-        listing.set(formAllListings.areaLimpieza, translateCleaning[listing.get(formAllListings.areaLimpieza)]);
+        /*listing.set(formAllListings.cocina, translateKitchen[listing.get(formAllListings.cocina)]);
+        listing.set(formAllListings.areaLimpieza, translateCleaning[listing.get(formAllListings.areaLimpieza)]);*/
 
         for (let entry of listing.entries()) {
             listingJSON[entry[0]] = entry[1];
