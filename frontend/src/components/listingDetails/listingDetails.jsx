@@ -100,8 +100,10 @@ import { formAllListings } from '../../adapters/formAdapters';
                     }}
                     >
                       <Grid container spacing={5}>
-                        <Grid item>
+                        <Grid item xs>
+                        <Box sx={{pl:4, pb:2}}>
                           <Image src={"http://localhost:5000/images/profile/"+ user?.photo} alt="Logo" errorIcon={<ErrorProfile/>} style={{maxHeight: '170px', maxWidth: '170px'}}/>
+                        </Box>
                         </Grid>
                         <Grid item xs>
                           <Box>
