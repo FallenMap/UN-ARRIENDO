@@ -170,7 +170,7 @@ export default function SpecificForm(props) {
                 </FormControl>
             </Box>
             {
-                getAdditionalInformation(props.data.get(formAllListings.tipo))
+                /*getAdditionalInformation(props.data.get(formAllListings.tipo))*/
             }
         </Container>
         
