@@ -61,11 +61,15 @@ export default function ListingUpdate() {
             }).catch(console.log("Un error ha ocurrido al actulizar los datos de la publicacion"));
 
     }
+    let idTimeout;
 
     const redirectWithTime = () => {
-        setTimeout(() => {
-            navigate(-1)
-        }, 5000)
+        if(!idTimeout){
+            idTimeout = setTimeout(() => {
+                navigate(-1)
+            }, 5000);
+        }
+        
     }
 
 

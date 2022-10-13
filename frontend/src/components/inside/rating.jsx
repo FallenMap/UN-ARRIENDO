@@ -9,8 +9,7 @@ import { getListing, updateRatingListing } from "../../controllers/listingAction
 
 export function HoverRating(props) {
   const auth = useAuth();
-
-  const [ value, setValue ] = React.useState(props.reviewedByTenants[auth.user?.id] || 0);
+  const [ value, setValue ] = React.useState(props.reviewedByTenants[auth.user?._id] || 0);
   const[ average, setAverage ] = React.useState(0)
 
   
