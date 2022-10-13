@@ -18,7 +18,6 @@ const listingSchema = new mongoose.Schema({
         furnished: Boolean,
         stratum: Number,
         privateArea: Number,
-        rooms: Number,
         privateBathrooms: Number,
         petFriendly: Boolean,
         carParking: Boolean,

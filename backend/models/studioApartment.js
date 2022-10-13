@@ -9,7 +9,8 @@ const studioApartmentSchema = new Schema({
         cleaningArea: {
             type: String,
             enum: ['Private', 'Communal']
-        }
+        },
+        rooms: Number
     }
 });
 

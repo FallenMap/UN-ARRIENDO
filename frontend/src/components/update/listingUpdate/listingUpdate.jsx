@@ -13,6 +13,16 @@ import SpecificForm from '../../register/listingRegister/specificForm';
 
 const theme = createTheme();
 
+const translateCleaning = {
+    1: "Private",
+    2: "Communal"
+}
+
+const translateKitchen = {
+    1: "Open",
+    2: "Closed"
+}
+
 export default function ListingUpdate() {
 
     changeTitle("Actualizacion de la publicación");
@@ -33,6 +43,9 @@ export default function ListingUpdate() {
         for(let entry of tempFormData.entries()){
             listing.set(entry[0], entry[1]);
         }
+
+        listing.set(formAllListings.cocina, translateKitchen[listing.get(formAllListings.cocina)]);
+        listing.set(formAllListings.areaLimpieza, translateCleaning[listing.get(formAllListings.areaLimpieza)]);
 
         for (let entry of listing.entries()) {
             listingJSON[entry[0]] = entry[1];
@@ -57,7 +70,6 @@ export default function ListingUpdate() {
 
 
     if (!(auth.user?.[formAllDataUser.id] === listing?.get([formAllListings.iduser]))) {
-        console.log("pta")
         navigate(-1);
     }
 

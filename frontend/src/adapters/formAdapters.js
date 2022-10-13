@@ -56,4 +56,7 @@ export const formAllListings = {
     valoracion: "rating",
     activo: "active",
     valoradoEstudiantes: "reviewedByTenants",
+    areaLimpieza: "cleaningArea",
+    numeroBanos: "privateBathrooms",
+    cocina: "kitchen",
 }

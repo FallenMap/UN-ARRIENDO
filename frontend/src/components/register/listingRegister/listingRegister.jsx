@@ -17,7 +17,6 @@ import SpecificForm from './specificForm';
 import { Link } from 'react-router-dom';
 import { listingCreateHandlerOnSubmit } from '../../../controllers/listingActionsController';
 import { formAllListings } from '../../../adapters/formAdapters';
-import { normalize } from '../../../utilities/normalizeString';
 import useAuth from '../../../auth/useAuth';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
@@ -25,9 +24,19 @@ const steps = ['Datos basicos', 'Datos especificos', 'Fotos'];
 const theme = createTheme();
 
 const translateType = {
-    "Apartamento": "Apartment",
-    "Apartaestudio": "StudioApartment",
-    "Habitacion": "Room"
+    2: "Apartment",
+    1: "StudioApartment",
+    3: "Room"
+}
+
+const translateCleaning = {
+    1: "Private",
+    2: "Communal"
+}
+
+const translateKitchen = {
+    1: "Open",
+    2: "Closed"
 }
 
 function getStepContent(step, formData) {
@@ -46,7 +55,6 @@ function getStepContent(step, formData) {
 export default function ListingRegister() {
     const [activeStep, setActiveStep] = useState(0);
     const [formData, setFormData] = useState(new FormData());
-
     const auth = useAuth();
 
     const handleAnotherRegister = () => {
@@ -68,8 +76,9 @@ export default function ListingRegister() {
         }
 
         if (steps.length - 1 === activeStep) {
-            let newType = translateType[normalize(formData.get(formAllListings.tipo))];
-            formData.set(formAllListings.tipo, newType);
+            formData.set(formAllListings.tipo, translateType[formData.get(formAllListings.tipo)]);
+            formData.set(formAllListings.cocina, translateKitchen[formData.get(formAllListings.cocina)]);
+            formData.set(formAllListings.areaLimpieza, translateCleaning[formData.get(formAllListings.areaLimpieza)]);
             showSuccessText = listingCreateHandlerOnSubmit(auth, formData);
         }
 

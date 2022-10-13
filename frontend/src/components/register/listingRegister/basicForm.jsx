@@ -31,9 +31,9 @@ export default function BasicForm(props) {
                             <FormControl fullWidth variant="standard">
                                 <InputLabel>Elige un tipo de inmueble:</InputLabel>
                                 <Select name={formAllListings.tipo} onChange={handlerChangeType} value={postType || props.data.get(formAllListings.tipo) || ''}>
-                                    <MenuItem value="Apartaestudio">Apartaestudio</MenuItem>
-                                    <MenuItem value="Apartamento">Apartamento</MenuItem>
-                                    <MenuItem value="Habitación">Habitación</MenuItem>
+                                    <MenuItem value={1}>Apartaestudio</MenuItem>
+                                    <MenuItem value={2}>Apartamento</MenuItem>
+                                    <MenuItem value={3}>Habitación</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>

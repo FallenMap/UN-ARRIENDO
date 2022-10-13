@@ -9,7 +9,8 @@ const apartmentSchema = new Schema({
         kitchen: {
             type: String,
             enum: ['Open', 'Closed']
-        }
+        }, 
+        rooms: Number
     }
 });
 
