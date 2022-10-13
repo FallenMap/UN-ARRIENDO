@@ -84,6 +84,11 @@ export function Historial() {
                           }}
                           image={"http://localhost:5000/images/listing/" + listing[formAllListings.imagenes][0]}
                           alt="random"
+                          onError={(e)=>{
+                            if(e.target.src===`http://localhost:5000/images/listing/${listing[formAllListings.imagenes][0]}`){
+                              e.target.src="https://programacion.net/files/article/20161110041116_image-not-found.png";
+                            }
+                          }}
                         />
                         <CardContent sx={{ flexGrow: 1 }}>
                           <Typography
