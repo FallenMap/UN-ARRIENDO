@@ -2,26 +2,32 @@ import styles from "../../css/SelectRegister.module.css";
 import { changeTitle } from "../../utilities/changeTitle";
 import { ContainerLeft } from "./containerLeft";
 import { ContainerRight } from "./containerRight";
+import { Link } from "react-router-dom";
+import { changeBackground } from "../../utilities/changeBackground";
 
 export function SelectRegister() {
-  changeTitle("Select register");
+  changeTitle("Seleccion");
+  changeBackground('https://ingenieria.bogota.unal.edu.co/images/recursos/noticias/viejito-01.png');
   return (
     <>
     {/* Use for more image warmth */}
-    <div class={styles.color}>
+    <div className={styles.color}>
     
     {/* Use background image */}
-    <div class={styles.backgroundPage}> 
+    <div className={styles.backgroundPage}> 
     
       {/* Create class for use of grid css */}
-      <div class= {styles.wrapped}>
+      <div className= {styles.wrapped}>
 
         {/* Create page title with styles and use of grid css */}
-        <div class={styles.containerCenter}>
-            <h1 class={styles.pageTitle}> Selecciona tu registro </h1>
+        <div className={styles.containerCenter}>
+            <h1 className={styles.pageTitle}> Selecciona tu registro </h1>
+            <Link to="/">
+              <button className={styles.btn}> Volver</button>
+            </Link>
           </div>
           
-        <div class={styles.containerLeft}>
+        <div className={styles.containerLeft}>
 
           {/* Call containerLeft componet */}
           <ContainerLeft/>
@@ -29,7 +35,7 @@ export function SelectRegister() {
         </div>
 
 
-        <div class={styles.containerRight}>
+        <div className={styles.containerRight}>
 
           {/* Call containerRight component */}
           <ContainerRight/>

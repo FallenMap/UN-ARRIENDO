@@ -1,5 +1,6 @@
-import { logInAPI, registerUser, updateUser } from "../api/userAPI";
+import { getUserApi, logInAPI, registerUser, updateUser } from "../api/userAPI";
 import { formLogin } from "../adapters/formAdapters";
+import { redirect } from 'react-router-dom';
 
 
 export const userLoginHandlerOnSubmit = (event, auth, navigate) => {
@@ -15,25 +16,47 @@ export const userLoginHandlerOnSubmit = (event, auth, navigate) => {
     }
 
     logInAPI(body).then(res => {
+        console.log(res);
         document.getElementById("error-text-login").innerText = "";
-        auth.logIn(res.data.data);
+
         /* the first data is property of axios response, the second is property of backend response*/
-        navigate("/MainScreen");
-    }).catch(e => {
-        document.getElementById("error-text-login").innerText = e.response.data.error;
-        console.log("Something bad happened...\n" + e);
+        auth.logIn(res.data.data);
+        
+        redirect("/MainScreen");
+    }).catch(err => {
+        document.getElementById("error-text-login").innerText = err.response.data.error;
+        console.log("Something bad happened...\n" + err);
     });
 }
 
 export const userRegisterHandlerOnSubmit = (event, auth, navigate, role) => {
     event.preventDefault();
+    
     const formData = new FormData(event.currentTarget);
     formData.append("role", role);
+
     registerUser(formData).then(res => {
         auth.logIn(res.data.data);
         navigate("/MainScreen");
-    }).catch(e => console.log(e));
+    }).catch(err => console.log(err));
 }
+
+export const getUser = async (auth,ID) => {
+    let user;
+    try{
+       let res = await getUserApi(ID);
+       user = res.data.user;
+    }catch(err){
+        if(err.response.data.isNotLogged){
+            auth.logOut();
+        }
+        
+        console.log('Listing get all error: '+err.response.data.error);
+    }
+    
+    return user;
+} 
+
 
 export const userUpdateHandlerOnSubmit = (event, auth) => {
     event.preventDefault();
@@ -49,5 +72,13 @@ export const userUpdateHandlerOnSubmit = (event, auth) => {
     updateUser(body).then(res => {
         auth.updateData(body);
         window.alert("Datos Actualizados!!");
-    }).catch(e => console.log(e));
+    }).catch(err => {
+        if(err.response.data.isNotLogged){
+            auth.logOut();
+        }
+        console.log(err)
+    
+    });
+    
+
 }

@@ -3,7 +3,7 @@ import styles from "../../css/studentRegister.module.css";
 import { ButtonRegister } from "../renterRegister/buttonRegister";
 import { FormGroup } from "../renterRegister/formGroup";
 import { LinksPage } from "../renterRegister/linksPage";
-import { ListGenre } from "../renterRegister/selectGenre";
+import { ListGender } from "../renterRegister/selectGender";
 import { TitleStudent } from "./titleStudent";
 import ButtonUploadPhoto from "../renterRegister/buttonUploadPhoto";
 import {userRegisterHandlerOnSubmit} from "../../controllers/userActionsController";
@@ -19,7 +19,7 @@ import { formAllDataUser } from "../../adapters/formAdapters";
 
 export function StudentRegister() {
 
-  changeTitle("Student Register");
+  changeTitle("Registro de estudiante");
 
   const auth = useAuth();
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export function StudentRegister() {
         <Stack spacing={2}>
 
           {/* Call titleStudent component */}
-          <TitleStudent title="Stundent Register" />
+          <TitleStudent title="Registro de estudiante" />
           <Container style={{
             maxWidth: "400px",
             margin: "5% auto",
@@ -51,42 +51,42 @@ export function StudentRegister() {
               <div className={styles.formGroup}>
 
                 {/* Call FormGroup compontent with its own arguments of name*/}
-                <FormGroup name={formAllDataUser.name} placeholder="Enter your Name" title="Your Name" image="fa fa-user fa" type="text" />
+                <FormGroup name={formAllDataUser.name} placeholder="Ingresa tu nombre" title="Nombre" image="fa fa-user fa" type="text" />
 
               </div>
 
               <div className={styles.formGroup}>
 
                 {/* Call FormGroup compontent with its own arguments of LastName*/}
-                <FormGroup name={formAllDataUser.lastName} placeholder="Enter your Last Name" title="Your Last Name" image="fa fa-user fa" type="text" />
+                <FormGroup name={formAllDataUser.lastName} placeholder="Ingresa tu apellidos" title="Apellidos" image="fa fa-user fa" type="text" />
 
               </div>
 
               <div className={styles.formGroup}>
 
                 {/* Call FormGroup compontent with its own arguments of email*/}
-                <FormGroup name={formAllDataUser.email} placeholder="Enter your Email" title="Your Email" image="fa fa-envelope fa" type="text" />
+                <FormGroup name={formAllDataUser.email} placeholder="Ingresa tu correo electrónico" title="Tu correo electrónico" image="fa fa-envelope fa" type="text" />
 
               </div>
 
               <div className={styles.formGroup}>
 
                 {/* Call FormGroup compontent with its own arguments of username*/}
-                <FormGroup name={formAllDataUser.username} placeholder="Enter your Username" title="Username" image="fa fa-users fa" type="text" />
+                <FormGroup name={formAllDataUser.username} placeholder="Ingresa tu usuario" title="Usuario" image="fa fa-users fa" type="text" />
 
               </div>
 
               <div className={styles.formGroup}>
 
-                {/* Call ListGenre component */}
-                <ListGenre />
+                {/* Call ListGender component */}
+                <ListGender />
 
               </div>
 
               <div className={styles.formGroup}>
 
                 {/* Call FormGroup compontent with its own arguments of password*/}
-                <FormGroup name={formAllDataUser.password} placeholder="Enter your password" title="Password" image="fa fa-lock fa" type="password" />
+                <FormGroup name={formAllDataUser.password} placeholder="Ingresa tu contraseña" title="Contraseña" image="fa fa-lock fa" type="password" />
 
               </div>
 
@@ -100,14 +100,14 @@ export function StudentRegister() {
               <div className={styles.formGroup}>
 
                 {/* Call ButtonRegister component with one argument */}
-                <ButtonRegister loginButton="Register" />
+                <ButtonRegister loginButton="Registrar" />
 
               </div>
 
               <div className={styles.loginRegister}>
                 
                 {/* Create redirect text to login */}
-                <Link to="/">Login</Link>
+                <Link to="/">Regresar</Link>
                 
               </div>
 

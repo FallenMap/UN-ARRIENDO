@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&family=Playfair+Display&family=Raleway:ital,wght@1,500;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&family=Noto+Sans:ital,wght@1,900&family=Playfair+Display&family=Raleway:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&family=Noto+Sans:ital,wght@1,900&family=Playfair+Display&family=Raleway:ital,wght@1,500&family=Roboto+Mono:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkalami&family=Josefin+Sans:ital@1&family=Noto+Sans:ital,wght@1,900&family=Playfair+Display&family=Raleway:ital,wght@1,500&family=Roboto+Mono:wght@700&display=swap');
+
+@font-face {
+    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Playfair Display', serif;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+    font-family: 'Alkalami', serif;
+  }
+  
+
+.rec-dot_active {
+    background-color: var(--white) !important;
+    box-shadow: 0 0 1px 3px var(--white) !important;
+}
+.rec-dot:focus,
+.rec-dot:hover {
+    border-radius: 50%;
+    box-shadow: 0 0 1px 3px var(--white) !important;
+}
+.rec-dot_active:focus,
+.rec-dot_active:hover {
+    background-color: var(--white) !important;
+    box-shadow: 0 0 1px 3px var(--white) !important;
+}
+
+.rec-arrow {
+    margin: 30px;
+    background-color: var(--white) !important;
+    transition: all 0.3s ease;
+    font-size: 2rem !important;
+    color: black !important;
+
+   
+}
+
+.rec.rec-arrow {
+    border-radius: 40%;
+}
+
+.rec.rec-arrow:hover {
+    border-radius: 50%;
+}
+

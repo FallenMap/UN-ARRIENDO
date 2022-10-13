@@ -20,10 +20,10 @@ export function CardBody() {
       <form onSubmit={sumbitHandler}>
 
         {/* Call Textbox component */}
-        <TextBox Name="Username" />
+        <TextBox Name="Usuario" />
 
         {/* Call Passwordbox component */}
-        <PasswordBox Name="Password" />
+        <PasswordBox Name="Contraseña" />
 
         {/* Call Checkbox component */}
         <CheckBox />

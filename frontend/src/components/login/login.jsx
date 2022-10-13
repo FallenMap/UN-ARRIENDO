@@ -2,9 +2,11 @@ import { Card } from "./card";
 import styles from "../../css/logIn.module.css";
 import imagen from "../../Images/Logo.png";
 import { changeTitle } from "../../utilities/changeTitle";
+import { changeBackground } from "../../utilities/changeBackground";
 
 export function Login() {
   changeTitle("Login");
+  changeBackground('https://upload.wikimedia.org/wikipedia/commons/7/73/Plaza_Che%2C_Bogot%C3%A1.jpg');
   return (
     <>
       
@@ -27,13 +29,16 @@ export function Login() {
           {/* Call the card component */}
           <div className="d-flex justify-content-center h-100">
             <Card />
+
           </div>
 
           {/* Create page icon with styles. */}
 
           <div className={styles.logo}>
               <img src={imagen} alt="Logo" />
+
           </div>
+
 
 
         </div>       

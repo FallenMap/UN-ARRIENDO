@@ -4,7 +4,7 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const fs = require('fs');
-const { body, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 
 const DoNotSendThisData = ['password'];
 
@@ -13,51 +13,57 @@ const userController = {};
 
 // Function to register a new user, we must validate the information given by the frontend.
 userController.createUser = async (req, res) => {
-    // Change the password given by frontend to the encrypted password
-    req.body.password = await bcrypt.hash(req.body.password, 8);
+    
+    try {
+        // Change the password given by frontend to the encrypted password
+        req.body.password = await bcrypt.hash(req.body.password, 8);
 
-    // Adds the uploaded photo filename (inside /public/userPhotos/) to request body before saving on DB (if it exists)
-    if (!req.file) {
-        req.body.photo = '';
-    } else {
-        req.body.photo = path.win32.basename(req.file.path);
-    }
-
-    let user;
-
-    // Verify the user type and use the respective schema
-    console.log({ ...req.body });
-    if ((req.body.role).toLowerCase() == "landlord") {
-        user = new Landlord({ ...req.body });
-        await user.save();
-    } else if (req.body.role == "tenant") {
-        user = new Tenant({ ...req.body });
-        await user.save();
-    }
-
-    const data = {};
-
-    for (let i in user.toJSON()) {
-        if (DoNotSendThisData.indexOf(i) == -1) {
-            data[i] = user.toJSON()[i];
+        // Adds the uploaded photo filename (inside /public/userPhotos/) to request body before saving on DB (if it exists)
+        if (!req.file) {
+            req.body.photo = '';
+        } else {
+            req.body.photo = path.win32.basename(req.file.path);
         }
+
+        let user;
+
+        // Verify the user type and use the respective schema
+        console.log({ ...req.body });
+        if ((req.body.role).toLowerCase() == "landlord") {
+            user = new Landlord({ ...req.body });
+            await user.save();
+        } else if (req.body.role == "tenant") {
+            user = new Tenant({ ...req.body });
+            await user.save();
+        }
+
+        const data = {};
+
+        for (let i in user.toJSON()) {
+            if (DoNotSendThisData.indexOf(i) == -1) {
+                data[i] = user.toJSON()[i];
+            }
+        }
+
+        req.session.userLogin = true;
+        req.session.userID = user._id;
+        req.session.userRole = user.type;
+
+
+        res.status(200).json({
+            msg: "User created",
+            data: data
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ ////////////////////////////////////////////////////////////////////////////////////////
+            error: "Error de creacion"
+        });
     }
 
-    req.session.userLogin = true;
-    req.session.userID = user._id;
-    req.session.userRole = user.type;
-
-
-    res.status(200).json({
-        msg: "User created",
-        data: data
-    });
 };
 
 userController.updateUser = async (req, res) => {
-    //Updating the user
-    //const current = await User.findOne({_id:req.session.userID});
-    //console.log(current);
 
     if (req.file) {
         req.body.photo = path.win32.basename(req.file.path);
@@ -91,88 +97,6 @@ userController.updateUser = async (req, res) => {
     res.status(200).json({
         msg: "Updated!"
     });
-
-    /*
-    if((req.session.userRole).toLowerCase() == "landlord"){
-        try{            
-            // if new photo, add new filename to request body and deletes previous one
-            const current = await User.findOne({_id:req.session.userID});
-            if (!req.file) {
-                req.body.photo = current.photo;
-            }else{        
-                req.body.photo = path.win32.basename(req.file.path);
-                fs.unlink(path.join(__dirname, '../public/userPhotos/', current.photo), (err) => {
-                    if (err) {
-                      console.error(err)
-                      return
-                    }                  
-                    //file removed
-                  })
-            }
-            
-            // update user landlord
-            req.body.password = await bcrypt.hash(req.body.password, 8);
-            await Landlord.updateOne({_id:req.session.userID}, {
-                firstName:              req.body.firstName,
-                lastName:               req.body.lastName,
-                email:                  req.body.email,
-                user:                   req.body.user,
-                gender:                 req.body.gender,
-                password:               req.body.password,
-                birthDate:              req.body.birthDate,
-                description:            req.body.description,
-                socialMediaHandles:     req.body.socialMediaHandles,
-                businessHours:          req.body.businessHours,
-                photo:                  req.body.photo});
-        // exit message
-        res.status(200).json({
-        msg:"Update landlord done"
-        });
-        } catch{
-            res.status(404).json({
-                error:"user or email already in use landlord",
-            });
-        }
-    }else{
-        try{
-            // if new photo, add new filename to request body and deletes previous one
-            const current = await User.findOne({_id:req.session.userID});
-            if (!req.file) {
-                req.body.photo = current.photo;
-            }else{        
-                req.body.photo = path.win32.basename(req.file.path);
-                fs.unlink(path.join(__dirname, '../public/userPhotos/', current.photo), (err) => {
-                    if (err) {
-                      console.error(err)
-                      return
-                    }                  
-                    //file removed
-                  })
-            }
-            // update user tenant
-            req.body.password = await bcrypt.hash(req.body.password, 8);
-            await Tenant.updateOne({_id:req.session.userID}, {
-                firstName:              req.body.firstName,
-                lastName:               req.body.lastName,
-                email:                  req.body.email,
-                user:                   req.body.user,
-                gender:                 req.body.gender,
-                password:               req.body.password,
-                birthDate:              req.body.birthDate,
-                description:            req.body.description,
-                degree:                 req.body.degree,
-                cityBirth:              req.body.cityBirth,
-                photo:                  req.body.photo});
-        // exit message
-        res.status(200).json({
-        msg:"Update tenant done"
-        });
-        } catch{
-            res.status(404).json({
-                error:"user or email already in use tenant",
-            });
-        }
-    }*/
 };
 
 
@@ -181,7 +105,6 @@ userController.loginUser = async (req, res) => {
     let user, query, data;
     //Prints the data sent by the user on the console.
     //console.log("---------------\nloginUserFunctionBodyRequest\n"+JSON.stringify(req.body)+"\n---------------");
-
     const error = validationResult(req);
     if (!error.isEmpty()) {
         query = {
@@ -255,6 +178,23 @@ userController.logoutUser = (req, res) => {
     } else {
         res.status(400).json({
             error: "There is no open session"
+        });
+    }
+}
+
+userController.getUser = async (req, res) => {
+    try{
+        //console.log(req.params.userPubID)
+        let userPublication = await User.findOne({ _id: req.params.userPubID});
+        // exit message
+        res.status(200).json({
+            msg:"Get user Information done",
+            user: userPublication
+            });
+    }
+    catch{
+        res.status(500).json({
+            error:"Something bad happened..."
         });
     }
 }

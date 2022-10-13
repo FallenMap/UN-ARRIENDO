@@ -14,9 +14,12 @@ import { fieldsFilled } from "../../utilities/fillFieldsUpdate";
 import useAuth from "../../auth/useAuth"
 import { useEffect } from "react";
 import { userUpdateHandlerOnSubmit } from "../../controllers/userActionsController";
+import { changeBackground } from "../../utilities/changeBackground";
 
 export function StudentUpdate() {
-  changeTitle("Update data");
+  changeTitle("Actulizacion estudiante");
+  changeBackground('https://caracoltv.brightspotcdn.com/dims4/default/a881810/2147483647/strip/true/crop/889x500+220+0/resize/1200x675!/quality/90/?url=http%3A%2F%2Fcaracol-brightspot.s3.amazonaws.com%2Ff1%2F0c%2Fe81ace1d411bb8b27f96bd7fcc7c%2Fviejito-01.png');
+  
   const auth = useAuth();
 
   useEffect(() => {
@@ -36,7 +39,7 @@ export function StudentUpdate() {
         maxWidth: "500px"
       }}>
         <Stack spacing={2}>
-          <TitleRegister title="Renter Register" />
+          <TitleRegister title="Actulización estudiante" />
           <Container style={{
             maxWidth: "400px",
             margin: "5% auto",
@@ -47,24 +50,27 @@ export function StudentUpdate() {
             <form className="form-horizontal" onSubmit={sumbitHandler}>
 
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.name} placeholder="Enter your Name" title="Your Name" image="fa fa-user fa" type="text" />
+                <FormGroup name={formAllDataUser.name} placeholder="Ingresa tu nombre" title="Nombre" image="fa fa-user fa" type="text" />
               </div>
 
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.lastName} placeholder="Enter your Last Name" title="Your Last Name" image="fa fa-user fa" type="text" />
+                <FormGroup name={formAllDataUser.lastName} placeholder="Ingresa tu apellidos" title="Apellidos" image="fa fa-user fa" type="text" />
               </div>
 
               <div className={styles.formGroup}>
-                <FormGroup name={formAllDataUser.email} placeholder="Enter your Email" title="Your Email" image="fa fa-envelope fa" type="text" />
+                <FormGroup name={formAllDataUser.email} placeholder="Ingresa tu correo electrónico" title="Tu correo electrónico" image="fa fa-envelope fa" type="text" />
               </div>
+
 
               <div className={styles.formGroup}>
                 <ButtonRegister loginButton="Actualizar" />
               </div>
 
               <div className={styles.loginRegister}>
-                <Link to="/MainScreen">Home</Link>
+                <Link to="/MainScreen">Inicio</Link>
               </div>
+
+              
 
             </form>
   </Container>

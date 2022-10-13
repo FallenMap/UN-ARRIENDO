@@ -11,19 +11,23 @@ const URL = "http://localhost:5000";
     What the function returns
         -
 */
-export const logInAPI = async (userData) => {
+export const logInAPI = (userData) => {
     return axios.post(URL+"/user/login", userData);
 }
 
-export const logOutAPI = async () => {
+export const logOutAPI = () => {
     return axios.post(URL+"/user/logout");
 
 }
 
-export const registerUser = async (userData) => {
+export const registerUser = (userData) => {
     return axios.post(URL+"/user/register", userData);
 };
 
-export const updateUser = async (userData) => {
+export const updateUser = (userData) => {
     return axios.put(URL+"/user/update", userData);
+}
+
+export const getUserApi = (idUser) => {
+    return axios.get(URL+"/user/get/"+idUser);
 }

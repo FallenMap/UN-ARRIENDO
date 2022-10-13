@@ -6,7 +6,7 @@ export function Description(){
 
             {/* Create title of this register section */}
             <label htmlFor="description" className="cols-sm-2 control-label">
-                Your description
+                Tu descripción
             </label>
 
             <div className="cols-sm-10">

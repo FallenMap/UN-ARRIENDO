@@ -13,13 +13,16 @@
 
 html,body{
 /*background-image: url('https://www.xtrafondos.com/descargar.php?id=3593&resolucion=3840x2160');*/
-background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/73/Plaza_Che%2C_Bogot%C3%A1.jpg");
-background-position: center center;
+/*background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/73/Plaza_Che%2C_Bogot%C3%A1.jpg");*/
+background-color: #F2F5F9 !important;
 background-size: cover;
 background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: center;
 height: 100%;
 font-family: 'Numans', sans-serif;
 }
+
 
 
 .container{
@@ -35,8 +38,8 @@ font-family: 'Numans', sans-serif;
   position: relative;
   max-height: 200px;
   max-width: 200px;
-  left: 45%;
-  top: 120%;
+  left: 80%;
+  top: 30%;
 }
 
 
@@ -66,10 +69,10 @@ margin-right: 5px;
     animation: flicker 1.5s infinite alternate;
     position: relative;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.801);
-    top: 40%;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 35%;
     padding-top: 2rem;
-    padding-bottom: 60px;
+    padding-bottom: 2rem;
     font-family: "Monoton",sans-serif;
     font-size: 60px;
     color: #ff7;
