@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const { validationResult } = require('express-validator');
 
-const DoNotSendThisData = ['password'];
+const doNotSendThisData = ['password'];
 
 // Create an object that save all controller functions.
 const userController = {};
@@ -28,7 +28,14 @@ userController.createUser = async (req, res) => {
         let user;
 
         // Verify the user type and use the respective schema
-        console.log({ ...req.body });
+        //console.log(...req.body);
+
+        req.body.reviews = [];
+
+        if(req.body.socialMediaHandles){
+            req.body.socialMediaHandles = JSON.parse(req.body.socialMediaHandles);
+        }
+        
         if ((req.body.role).toLowerCase() == "landlord") {
             user = new Landlord({ ...req.body });
             await user.save();
@@ -40,7 +47,7 @@ userController.createUser = async (req, res) => {
         const data = {};
 
         for (let i in user.toJSON()) {
-            if (DoNotSendThisData.indexOf(i) == -1) {
+            if (doNotSendThisData.indexOf(i) == -1) {
                 data[i] = user.toJSON()[i];
             }
         }
@@ -149,7 +156,7 @@ userController.loginUser = async (req, res) => {
             req.session.userRole = user.type;
             data = {};
             for (let i in user.toJSON()) {
-                if (DoNotSendThisData.indexOf(i) == -1) {
+                if (doNotSendThisData.indexOf(i) == -1) {
                     data[i] = user.toJSON()[i];
                 }
             }

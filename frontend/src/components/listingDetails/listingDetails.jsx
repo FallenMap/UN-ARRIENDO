@@ -55,8 +55,6 @@ import { formAllListings } from '../../adapters/formAdapters';
         }
       };
 
-      console.log(auth)
-
       const breakPoints = [
         { width: 1, itemsToShow: 1 },
         { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },

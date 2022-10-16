@@ -30,6 +30,8 @@ listingController.createListing = async (req, res) => {
     // Adding the user that created the listing:V
     req.body.landlord = req.session.userID;
 
+    req.body.comments = [];
+
     if (type.toLowerCase() == "apartment") {
 
         publication = new Apartment({ ...req.body});
