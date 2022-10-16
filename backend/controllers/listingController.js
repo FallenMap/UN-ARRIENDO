@@ -232,7 +232,7 @@ listingController.getListing = async (req, res) => {
     }
 }
 
-// Function to save a rating of a publication.
+// Function to save a comment of a publication.
 listingController.commentListing = async (req, res) => {
     try {
         await Listing.updateOne({ _id: req.body._id }, { $set: {comments: req.body.comments } });

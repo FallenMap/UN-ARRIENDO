@@ -205,6 +205,20 @@ userController.getUser = async (req, res) => {
         });
     }
 }
+// Function to save a review of a user.
+userController.reviewUser = async (req, res) => {
+    try {
+        await User.updateOne({ _id: req.body._id }, { $set: {reviews: req.body.reviews } });
+    } catch{
+        res.status(500).json({
+            error:"Algo malo ocurrió cuando intentaba reseñar"
+        });
+    }
+    res.status(200).json({
+        msg: "user review updated!",
+        reviews: req.body.reviews
+    });
+};
 
 module.exports = { userController };
 
