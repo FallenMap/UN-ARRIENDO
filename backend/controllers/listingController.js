@@ -232,4 +232,18 @@ listingController.getListing = async (req, res) => {
     }
 }
 
+// Function to save a rating of a publication.
+listingController.commentListing = async (req, res) => {
+    try {
+        await Listing.updateOne({ _id: req.body._id }, { $set: {comments: req.body.comments } });
+    } catch{
+        res.status(500).json({
+            error:"Algo malo ocurrió cuando intentaba comentar"
+        });
+    }
+    res.status(200).json({
+        msg: "Listing comment updated!",
+        comments: req.body.comments
+    });
+};
 module.exports = { listingController };
