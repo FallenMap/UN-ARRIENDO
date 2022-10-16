@@ -215,8 +215,7 @@ userController.reviewUser = async (req, res) => {
         });
     }
     res.status(200).json({
-        msg: "user review updated!",
-        reviews: req.body.reviews
+        msg: "user review updated!"
     });
 };
 

@@ -242,8 +242,7 @@ listingController.commentListing = async (req, res) => {
         });
     }
     res.status(200).json({
-        msg: "Listing comment updated!",
-        comments: req.body.comments
+        msg: "Listing comment updated!"
     });
 };
 module.exports = { listingController };
