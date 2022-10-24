@@ -31,3 +31,7 @@ export const updateUser = (userData) => {
 export const getUserApi = (idUser) => {
     return axios.get(URL+"/user/get/"+idUser);
 }
+
+export const getProfileAPI = (idUser) => {
+    return axios.get(URL+"/user/profile/"+idUser);
+}

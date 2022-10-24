@@ -20,6 +20,7 @@ export const formAllDataUser = {
     socialMedia: "socialMediaHandles",
     availableHours: "businessHours",
     phone: "phoneNumber",
+    tipo: "type",
 }
 
 export const formAllListings = {

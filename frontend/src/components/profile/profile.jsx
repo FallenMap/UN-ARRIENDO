@@ -1,181 +1,195 @@
-import React from 'react';
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Container, Divider, Grid, Paper, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Avatar, Box, CircularProgress, Container, Divider, Grid, Paper, Typography } from '@mui/material';
 import Navbar from '../navbar/navbar';
 import Comment from './comment';
+import { formAllListings, formAllDataUser } from '../../adapters/formAdapters';
+import ListingBlock from '../generic/listingBlock';
+import useAuth from '../../auth/useAuth';
+import { changeBackground } from '../../utilities/changeBackground';
+import { changeTitle } from '../../utilities/changeTitle';
+import { useParams } from 'react-router-dom';
+import { getUserProfile } from '../../controllers/userActionsController';
+import { capitalize } from '../../utilities/normalizeString';
+import { calculateAge } from '../../utilities/generalTools';
+import CommentForm from './commentForm';
+import Image from 'mui-image';
+
+
+
 
 export default function Profile() {
-    const test = [{}, {}];
+    const [profile, setProfile] = useState(undefined);
+    const { id } = useParams();
+
+    changeBackground('none');
+
+    const auth = useAuth();
+
+    useEffect(() => {
+        getUserProfile(auth, id)
+            .then(userProfile => {
+                changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`)
+                setProfile(userProfile);
+            });
+    }, [id, auth]);
+
+    const test = [{}, {}]
     return (
-        <>
-            <Navbar />
-            <Container maxWidth="md" sx={{ marginTop: "20px" }}>
-                <Paper sx={{ padding: "10px"}}>
+        <><Navbar />
+            <Container maxWidth="md" sx={{ marginTop: "20px", marginBottom: "50px" }}>
+                <Paper sx={{ padding: "10px" }}>
                     <Box sx={{ marginTop: "20px" }}>
-                        <Grid container spacing={1}>
+                        {!!profile ? (
+                            <Grid container spacing={1}>
+                                <Grid item xs={6}>
+                                    <Box display="flex" alignItems="center" justifyContent="center">
+                                        <Avatar sx={{
+                                            width: "150px",
+                                            height: "150px"
+                                        }}
+                                            onError={() => { return }} // to fix
+                                            src={`http://localhost:5000/images/profile/${profile?.[formAllDataUser.link]}`}
+                                        ></Avatar>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs>
+                                    <Box sx={{ marginTop: "20px" }}>
+                                        <Typography variant='h6'>
+                                            {profile?.[formAllDataUser.name] && profile?.[formAllDataUser.lastName] ? `${capitalize(profile[formAllDataUser.name])} ${capitalize(profile[formAllDataUser.lastName])}` : "Sin nombre"}
+                                        </Typography>
+                                        <Typography variant='inherit'>
+                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? "Arrendador" : "Estudiante"}
+                                        </Typography>
+                                        <Typography variant='inherit'>
+                                            {profile?.[formAllDataUser.birthDate] ? `${calculateAge(profile[formAllDataUser.birthDate])} años` : "?? Años"}
+                                        </Typography>
+                                        <Typography variant='inherit'>
+                                            666 publicaciones :o
+                                        </Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Box sx={{ marginTop: "20px" }}>
+                                        <Divider sx={{ width: "100%" }} />
+                                    </Box>
+                                </Grid>
 
-                            <Grid item xs={6}>
-                                <Box display="flex" alignItems="center" justifyContent="center">
-                                    <Avatar sx={{
-                                        width: "150px",
-                                        height: "150px"
-                                    }}></Avatar>
-                                </Box>
-                            </Grid>
-                            <Grid item xs>
-                                <Box sx={{ marginTop: "20px" }}>
-                                    <Typography variant='h6'>
-                                        Jhonatan Steven Rodriguez Ibañez
-                                    </Typography>
-                                    <Typography variant='inherit'>
-                                        Arrendador
-                                    </Typography>
-                                    <Typography variant='inherit'>
-                                        19 años
-                                    </Typography>
-                                    <Typography variant='inherit'>
-                                        666 publicaciones :o
-                                    </Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Box sx={{ marginTop: "20px" }}>
-                                    <Divider sx={{ width: "100%" }} />
-                                </Box>
-                            </Grid>
+
+                                <Grid item xs={12}>
+
+                                    <Box sx={{
+                                        marginTop: "15px",
+                                        padding: "20px"
+                                    }}>
+                                        <Typography variant='overline'>
+                                            {profile?.[formAllDataUser.description] ? profile[formAllDataUser.description] : "Vaya... Parece que no hay nada por aqui :("}
+                                        </Typography>
+                                    </Box>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Box sx={{ margin: "20px 0px" }}>
+                                        <Divider sx={{ width: "100%" }} />
+                                    </Box>
+                                </Grid>
+
+                                {
+                                    profile?.[formAllDataUser.tipo] === "Landlord" ?
+                                        (<>
+                                            <Grid item xs={12}>
+                                                <Box sx={{
+                                                    padding: "0px 20px"
+                                                }}>
+                                                    {profile?.listings.length > 0 ? (
+                                                        <>
+                                                            <Typography variant='h5'>
+                                                                Actividad reciente
+                                                            </Typography>
+                                                            <Grid container spacing={3}>
+                                                                {profile?.listings.map((listing) => {
+                                                                    if (listing[formAllListings.activo]) {
+                                                                        return (
+                                                                            <Grid item xs={6}>
+                                                                                <ListingBlock listing={listing} />
+                                                                            </Grid>
+                                                                        )
+                                                                    } else {
+                                                                        return (<></>)
+                                                                    }
+                                                                })}
+                                                            </Grid>
+                                                        </>) : (<>
+                                                            
+                                                                <Grid container spacing={3}>
+                                                                    <Grid item xs={12}>
+                                                                        <Box display="flex" alignItems="center" justifyContent="center">
+                                                                            <Image 
+                                                                                src='https://cdn-icons-png.flaticon.com/512/1058/1058677.png?w=360'
+                                                                                height="30%"
+                                                                                width="30%"
+                                                                                fit='cover'    
+                                                                            />
+                                                                        </Box>
+                                                                    </Grid>
+                                                                    <Grid item xs={12}>
+                                                                        <Box display="flex" alignItems="center" justifyContent="center">
+                                                                        <Typography variant='h5'>
+                                                                            El usuario no tiene publicaciones recientes
+                                                                        </Typography>
+                                                                        </Box>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            
+                                                        </>)}
+                                                </Box>
+                                            </Grid>
 
 
-                            <Grid item xs={12}>
+                                            <Grid item xs={12}>
+                                                <Box sx={{ margin: "30px 0px" }}>
+                                                    <Divider sx={{ width: "100%" }} />
+                                                </Box>
+                                            </Grid>
+                                        </>) : (<></>)
 
-                                <Box sx={{
-                                    marginTop: "15px",
-                                    padding: "20px"
-                                }}>
-                                    <Typography variant='overline'>
-                                        But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete
-                                    </Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Box sx={{ margin: "20px 0px" }}>
-                                    <Divider sx={{ width: "100%" }} />
-                                </Box>
-                            </Grid>
+                                }
 
-                            <Grid item xs={12}>
-                                <Container maxWidth="md">
-                                    <Grid container spacing={4}>
-
-                                        <Grid item key={1} xs={12} sm={6} md={4}>
-
-                                            <Card
-                                                sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                                            >
-                                                <CardMedia
-                                                    component="img"
-                                                    sx={{
-                                                        // 16:9
-                                                        pt: '56.25%',
-                                                    }}
-                                                    image="https://source.unsplash.com/random"
-                                                    alt="random"
-                                                />
-                                                <CardContent sx={{ flexGrow: 1 }}>
-                                                    <Typography gutterBottom variant="h5" component="h2">
-                                                        Heading
-                                                    </Typography>
-                                                    <Typography>
-                                                        This is a media card. You can use this section to describe the
-                                                        content.
-                                                    </Typography>
-                                                </CardContent>
-                                                <CardActions>
-                                                    <Button size="small">View</Button>
-                                                    <Button size="small">Edit</Button>
-                                                </CardActions>
-                                            </Card>
-
+                                <Grid item xs={12}>
+                                    <Grid container spacing={5} sx={{ marginBottom: "20px" }}>
+                                        <Grid item xs={12}>
+                                            <Box sx={{
+                                                padding: "20px",
+                                            }}>
+                                                <CommentForm />
+                                                <Typography>
+                                                    Aun no funciona, está en progreso :v
+                                                </Typography>
+                                            </Box>
                                         </Grid>
-                                        <Grid item key={1} xs={12} sm={6} md={4}>
-
-                                            <Card
-                                                sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                                            >
-                                                <CardMedia
-                                                    component="img"
-                                                    sx={{
-                                                        // 16:9
-                                                        pt: '56.25%',
-                                                    }}
-                                                    image="https://source.unsplash.com/random"
-                                                    alt="random"
-                                                />
-                                                <CardContent sx={{ flexGrow: 1 }}>
-                                                    <Typography gutterBottom variant="h5" component="h2">
-                                                        Heading
-                                                    </Typography>
-                                                    <Typography>
-                                                        This is a media card. You can use this section to describe the
-                                                        content.
-                                                    </Typography>
-                                                </CardContent>
-                                                <CardActions>
-                                                    <Button size="small">View</Button>
-                                                    <Button size="small">Edit</Button>
-                                                </CardActions>
-                                            </Card>
-
-                                        </Grid>
-                                        <Grid item key={1} xs={12} sm={6} md={4}>
-
-                                            <Card
-                                                sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                                            >
-                                                <CardMedia
-                                                    component="img"
-                                                    sx={{
-                                                        // 16:9
-                                                        pt: '56.25%',
-                                                    }}
-                                                    image="https://source.unsplash.com/random"
-                                                    alt="random"
-                                                />
-                                                <CardContent sx={{ flexGrow: 1 }}>
-                                                    <Typography gutterBottom variant="h5" component="h2">
-                                                        Heading
-                                                    </Typography>
-                                                    <Typography>
-                                                        This is a media card. You can use this section to describe the
-                                                        content.
-                                                    </Typography>
-                                                </CardContent>
-                                                <CardActions>
-                                                    <Button size="small">View</Button>
-                                                    <Button size="small">Edit</Button>
-                                                </CardActions>
-                                            </Card>
-
-                                        </Grid>
-
+                                        {
+                                            test.map(elem => {
+                                                return (
+                                                    <Grid item xs={12}>
+                                                        <Comment></Comment>
+                                                    </Grid>)
+                                            })
+                                        }
                                     </Grid>
-                                </Container>
-                            </Grid>
-
-
-                            <Grid item xs={12}>
-                                <Box sx={{ margin: "30px 0px" }}>
-                                    <Divider sx={{ width: "100%" }} />
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Grid container spacing={5}>
-                                    {
-                                        test.map(elem => {
-                                            return (<Grid item xs={12}><Comment></Comment></Grid>)
-                                        })
-                                    }
                                 </Grid>
                             </Grid>
-                        </Grid>
+                        ) : (
+                            <>
+                                <Box display="flex" alignItems="center" justifyContent="center" sx={{
+                                    margin: "20px 0px"
+                                }}>
+                                    <CircularProgress />
+
+                                    <Typography variant='h5'>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;Cargando...
+                                    </Typography>
+                                </Box>
+                            </>
+                        )}
                     </Box>
                 </Paper>
             </Container>

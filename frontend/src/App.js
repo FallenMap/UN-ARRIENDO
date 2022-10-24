@@ -48,7 +48,7 @@ export function App() {
             <Route exact path="/listing/update/:id" element={<LandlordRoute component={ <ListingUpdate /> } />} />
 
             {/*Testing routes*/}
-            <Route exact path="/profile/:user" element={<Profile></Profile>} />
+            <Route exact path="/profile/:id" element={<Profile></Profile>} />
 
           </Routes>
 

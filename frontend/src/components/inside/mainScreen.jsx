@@ -3,17 +3,12 @@ import { changeTitle } from "../../utilities/changeTitle";
 import { changeBackground } from "../../utilities/changeBackground.js";
 import * as React from "react";
 import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { HoverRating } from "./rating";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import useAuth from "../../auth/useAuth";
@@ -21,7 +16,7 @@ import { getAllListings } from "../../controllers/listingActionsController";
 import { useState } from "react";
 import { useEffect } from "react";
 import { formAllListings } from "../../adapters/formAdapters";
-import CustomizedDialogs from "./contact";
+import ListingBlock from "../generic/listingBlock";
 
 
 
@@ -43,11 +38,11 @@ export function MainScreen() {
   let buttonMessage
   if (auth.user?.type === "Landlord") {
     message = '¿Listo para publicar?';
-    buttonMessage='Realizar publicación';
-  } else{
-    message= '¡Busca tu arriendo soñado!'
+    buttonMessage = 'Realizar publicación';
+  } else {
+    message = '¡Busca tu arriendo soñado!'
     buttonMessage = 'Actualiza tus datos'
-  } 
+  }
 
   return (
     <>
@@ -105,13 +100,13 @@ export function MainScreen() {
                 >
 
                   {
-                  auth?.user?.type==='Landlord' ? <Link to="/ListingRegister" style={{textDecoration:"none"}}>
-                    <Button variant="contained">{buttonMessage}</Button>
-                  </Link>
-                   : 
-                  <Link to="/StudentUpdate" style={{textDecoration:"none"}}>
-                    <Button variant="contained">{buttonMessage}</Button>
-                  </Link> 
+                    auth?.user?.type === 'Landlord' ? <Link to="/ListingRegister" style={{ textDecoration: "none" }}>
+                      <Button variant="contained">{buttonMessage}</Button>
+                    </Link>
+                      :
+                      <Link to="/StudentUpdate" style={{ textDecoration: "none" }}>
+                        <Button variant="contained">{buttonMessage}</Button>
+                      </Link>
                   }
                   <Button variant="outlined">Ver perfil</Button>
 
@@ -133,75 +128,13 @@ export function MainScreen() {
                   <Grid container spacing={3}>
                     {listings.map((listing) => {
                       if (listing[formAllListings.activo]) {
-                        return (<Grid item xs={6}>
-                          <Card
-                            elevation={1}
-                            sx={{
-                              height: "100%",
-                              display: "flex",
-                              flexDirection: "column",
-                            }}
-                          >
-                            <CardMedia
-                              component="img"
-                              sx={{
-                                // 16:9
-                                pt: "2%",
-                                pl: "2%",
-                                pr: "2%",
-                                height: '300px'
-                              }}
-                              src={listing[formAllListings.imagenes][0] ? "http://localhost:5000/images/listing/" + listing[formAllListings.imagenes][0] : "https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png"}
-                              alt="first image"
-                              onError={(e)=>{
-                                if(e.target.src===`http://localhost:5000/images/listing/${listing[formAllListings.imagenes][0]}`){
-                                  e.target.src="https://programacion.net/files/article/20161110041116_image-not-found.png";
-                                }
-                              }}
-                            />
-                            <CardContent sx={{ flexGrow: 1 }}>
-                              <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="h2"
-                              >
-                                {listing[formAllListings.titulo]}
-                              </Typography>
-                              <Typography>{listing[formAllListings.descripcion]}</Typography>
-                            </CardContent>
-                            <CardActions>
-                              <Box sx={{ padding: "0" }}>
-                                <Grid container spacing={2}>
-                                  <Grid item xs>
-                                    <Box display="flex"
-                                      justifyContent="center"
-                                      alignItems="center">
-                                      <Link to={`/listing/details/${listing[formAllListings.idlisting]}`} style={{ textDecoration: "none" }}>
-                                        <Button size="small">Ver más detalles</Button>
-                                      </Link>
-                                    </Box>
-                                  </Grid>
-                                  <Grid item xs>
-                                    <Box display="flex"
-                                      justifyContent="center"
-                                      alignItems="center">
-                                      <CustomizedDialogs listing={listing}/>
-                                    </Box>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <Box display="flex"
-                                      justifyContent="center"
-                                      alignItems="center">
-                                      <HoverRating idListing={listing[formAllListings.idlisting]} reviewedByTenants={listing[formAllListings.valoradoEstudiantes]} value={listing[formAllListings.valoracion] || 0} />
-                                    </Box>
-                                  </Grid>
-                                </Grid>
-                              </Box>
-                            </CardActions>
-                          </Card>
-                        </Grid>)
-                      }else{
-                        return(<></>)
+                        return (
+                          <Grid item xs={6}>
+                            <ListingBlock listing={listing} />
+                          </Grid>
+                        )
+                      } else {
+                        return (<></>)
                       }
                     })}
                   </Grid>

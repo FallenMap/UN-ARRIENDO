@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const fs = require('fs');
 const { validationResult } = require('express-validator');
+const Listing = require('../models/listing');
 
 const doNotSendThisData = ['password'];
 
@@ -218,6 +219,31 @@ userController.reviewUser = async (req, res) => {
         msg: "user review updated!"
     });
 };
+
+userController.getUserProfile = async(req, res) => {
+    let data, listings, profile;
+    try{
+        data = await User.findById(req.params.id);
+        if(data.type=="Landlord"){
+            listings = await Listing.find({ landlord: String(req.params.id) }).sort({ date: -1}).limit(3);
+            profile = {...(data._doc), listings: [...listings]}
+        }else{
+            profile= {...(data._doc)}
+        }
+    }catch{
+        console.log("Something happends when the user load a profile");
+        res.status(500).json({
+            error:"No se pudo cargar el perfil del usuario"
+        });
+    }
+    console.log(profile);
+    res.status(200).json({
+            msg:"Perfil recuperado exitosamente",
+            profile: profile
+    });
+
+
+}
 
 module.exports = { userController };
 
