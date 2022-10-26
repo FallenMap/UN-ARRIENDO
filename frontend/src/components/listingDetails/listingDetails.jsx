@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
-import { Avatar, Grid, Typography} from '@mui/material'
+import {Grid, Typography} from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
 import  "../../css/ListingDetail.css";
@@ -10,13 +10,13 @@ import useAuth from '../../auth/useAuth';
 import { getListing } from '../../controllers/listingActionsController';
 import { Maping } from './maping';
 import Image from 'mui-image';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getUser } from '../../controllers/userActionsController';
 import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
 import { formAllListings } from '../../adapters/formAdapters';
-import UserIcon from '../../Images/usuario.png'
+
 import Comment from '../profile/comment';
 
 
