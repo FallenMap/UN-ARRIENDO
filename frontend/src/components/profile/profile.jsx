@@ -170,7 +170,12 @@ export default function Profile() {
                                             test.map(elem => {
                                                 return (
                                                     <Grid item xs={12}>
-                                                        <Comment></Comment>
+                                                              <Container maxWidth="md">
+                                                                <Paper elevation={2}>
+                                                                <Comment></Comment>
+                                                                </Paper>
+                                                                </Container>
+                                                        
                                                     </Grid>)
                                             })
                                         }

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
-import { Grid, Typography} from '@mui/material'
+import { Avatar, Grid, Typography} from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
 import  "../../css/ListingDetail.css";
@@ -16,6 +16,8 @@ import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
 import { formAllListings } from '../../adapters/formAdapters';
+import UserIcon from '../../Images/usuario.png'
+import Comment from '../profile/comment';
 
 
 
@@ -327,6 +329,62 @@ import { formAllListings } from '../../adapters/formAdapters';
             </Grid>
             
                 
+          </Grid>
+          <Grid item xs={12} sx={{border: '1px solid #D5CDCD', marginTop:'15px'}}>
+            <Grid container>
+              <Grid item xs={6}>
+                <Box pl='6%' pt=' 3%'>
+                    <Typography
+                        component="h3"
+                        align="left"
+                        variant="h3"
+                        fontFamily="Alkalami"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                          Reseñas de la publicación:
+                    
+                    </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={6}>
+                <Box pl='6%' pt=' 3%'>
+                    <Typography
+                        component="h3"
+                        align="left"
+                        variant="h3"
+                        fontFamily="Alkalami"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                          Información Adicional:
+                    
+                    </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={12} sx={{border: '1px solid #D5CDCD', marginLeft: '15px', marginRight:'15px', marginBottom:'15px'}}>
+                <Grid container>
+                
+                <Grid item xs={6}>
+                    <Box sx={{ marginTop: '30px', padding: "5px 25px" }}>
+                      <Comment/>
+                    </Box>
+                  </Grid>
+                  
+                  <Grid item xs={6}>
+                    <Box sx={{ marginTop: '30px', padding: "5px 25px" }}>
+                      <Comment/>
+                    </Box>
+                  </Grid>
+
+
+
+
+                </Grid>
+
+                
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
         </Container>

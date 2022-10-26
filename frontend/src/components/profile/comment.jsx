@@ -1,11 +1,11 @@
-import { Avatar, Box, Container, Grid, Paper, Typography } from '@mui/material'
+import { Avatar, Box, Container, Grid, IconButton, Paper, Tooltip, Typography } from '@mui/material'
 import React from 'react'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Comment() {
   return (
     <>
-      <Container maxWidth="md">
-        <Paper elevation={2}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Box sx={{ padding: "5px 25px" }}>
@@ -13,11 +13,24 @@ export default function Comment() {
                   <Grid item xs={1}>
                     <Avatar sx={{ width: "50px", height: "50px" }}></Avatar>
                   </Grid>
-                  <Grid item xs={11}>
+                  <Grid item xs={9}>
                     <Typography>Miguel Angel Puentes</Typography>
-                    <Typography variant='body2'>11/10/2022</Typography>
+                    <Typography variant='body2'>11/10/2022</Typography>                    
+                  </Grid>
+                  <Grid item xs={2}>  
+                    <Tooltip title="Edit" placement="right">
+                      <IconButton>
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete" placement="right">
+                      <IconButton>
+                          <DeleteIcon />
+                      </IconButton>
+                    </Tooltip> 
                   </Grid>
                 </Grid>
+                
               </Box>
             </Grid>
             <Grid item xs={12}>
@@ -27,9 +40,8 @@ export default function Comment() {
                 </Typography>
               </Box>
             </Grid>
+            
           </Grid>
-        </Paper>
-      </Container>
     </>
   )
 }
