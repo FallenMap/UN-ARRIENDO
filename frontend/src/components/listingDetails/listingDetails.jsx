@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
-import {Grid, Typography} from '@mui/material'
+import {Grid, Paper, Typography} from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
 import  "../../css/ListingDetail.css";
@@ -89,91 +89,71 @@ import Comment from '../profile/comment';
 
             <Grid item xs={12}>
               <Grid container backgroundColor="rgba(89, 82, 96, .3)">
-                <Grid item xs>
-                <Box
-                    sx={{
-                        bgcolor: "background.paper",
-                        pt: 4,
-                        pb: 1,
-                        pr: 1,
-                        pl: 10
-                    }}
-                    >
-                      <Grid container spacing={5}>
-                        <Grid item xs>
-                        <Box sx={{pl:4, pb:2}}>
-                        <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
-                            <Image src={"http://localhost:5000/images/profile/"+ user?.photo} alt="Logo" errorIcon={<ErrorProfile/>} style={{maxHeight: '170px', maxWidth: '170px'}}/>
-                        </Link>
-                        </Box>
-                        </Grid>
-                        <Grid item xs>
-                          <Box>
-                            <Grid container>
-                              <Grid item xs={12}>
-                                <Typography
-                                  component="h2"
-                                  variant="h2"
+                <Grid item xs={5}>
+                  <Container>
+                  <Grid container>
+                    <Grid item xs={4} sx={{marginTop:'10px'}}>
+                      <Box sx={{pl:4, pb:2}}>
+                          <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
+                              <Image src={"http://localhost:5000/images/profile/"+ user?.photo} alt="Logo" errorIcon={<ErrorProfile/>} style={{maxHeight: '170px', maxWidth: '170px'}}/>
+                          </Link>
+                      </Box>
+                    </Grid>
+                    <Grid item xs container direction="column" sx={{marginTop: '40px'}}>
+                         <Typography
+                                  component="h3"
+                                  variant="h3"
                                   align="left"
                                   fontFamily='Noto Sans'
                                   color="text.primary"
                                   gutterBottom
                                   >
                                   {user?.firstName} {user?.lastName} {user?.idUser}
-                                </Typography>
-                              </Grid>
-                              <Grid item xs={12}>
-                                <Typography
-                                    component="h2"
-                                    variant="h2"
+                          </Typography>
+                          <Typography
+                                    component="h3"
+                                    variant="h3"
                                     align="left"
                                     fontFamily='Raleway'
                                     color="text.primary"
                                     gutterBottom
                                     >
                                   {phoneMessage}
-                                  </Typography>
-                              </Grid>
-                            </Grid>
-                          </Box>
-                          
-                        </Grid>
-                      </Grid>
-                    </Box>
-                </Grid>
-                <Grid item xs>
-                <Box sx={{
-                          bgcolor: "background.paper",
-                          pt: 3,
-                          pb: 1,
+                          </Typography>
+                    </Grid>
 
-                      }}>
-                        <Grid container>
-                          <Grid item xs={12}>
-                          <Typography
-                          component="h1"
-                          variant="h1"
-                          align="center"
+                  </Grid>
+                  
+                  </Container>
+                </Grid>
+                <Grid item xs container sx={{marginRight:'50px',marginTop:'40px'}}>
+                    <Container>
+
+                      
+                      <Grid item xs = {12} sx={{marginRight: '20px'}}>
+                        <Typography
+                          component="h3"
+                          variant="h3"
+                          align="right"
                           fontFamily="Noto Sans"
                           color="text.primary"
                           gutterBottom
                           >
                           ${listing?.price}
                         </Typography>
-                          </Grid>
-                          <Grid item xs={12}>
-                          <Box display="flex"
-                                      justifyContent="center"
-                                      alignItems="center">
-                                        {
-                                          listing ? (<HoverRating idListing={listing[formAllListings.idlisting]} reviewedByTenants={listing[formAllListings.valoradoEstudiantes]} value={listing[formAllListings.valoracion] || 0} size="large"/>):(<></>)
-                                        }
-                                      
-                          </Box>
-                          </Grid>
-                        </Grid>
-                      
-                        </Box>
+                      </Grid>
+                      <Grid item xs = {12}>
+                      <Box display="flex"
+                           justifyContent="right"
+                           alignItems="right">
+                            {
+                             listing ? (<HoverRating idListing={listing[formAllListings.idlisting]} reviewedByTenants={listing[formAllListings.valoradoEstudiantes]} value={listing[formAllListings.valoracion] || 0} size="large"/>):(<></>)
+                            }         
+                      </Box>
+
+                      </Grid>
+
+                    </Container>
                 </Grid>
 
 
