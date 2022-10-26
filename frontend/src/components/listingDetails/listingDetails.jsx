@@ -16,6 +16,7 @@ import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
 import { formAllListings } from '../../adapters/formAdapters';
+import { Link } from "react-router-dom";
 
 
 
@@ -100,7 +101,9 @@ import { formAllListings } from '../../adapters/formAdapters';
                       <Grid container spacing={5}>
                         <Grid item xs>
                         <Box sx={{pl:4, pb:2}}>
-                          <Image src={"http://localhost:5000/images/profile/"+ user?.photo} alt="Logo" errorIcon={<ErrorProfile/>} style={{maxHeight: '170px', maxWidth: '170px'}}/>
+                        <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
+                            <Image src={"http://localhost:5000/images/profile/"+ user?.photo} alt="Logo" errorIcon={<ErrorProfile/>} style={{maxHeight: '170px', maxWidth: '170px'}}/>
+                        </Link>
                         </Box>
                         </Grid>
                         <Grid item xs>
@@ -115,7 +118,7 @@ import { formAllListings } from '../../adapters/formAdapters';
                                   color="text.primary"
                                   gutterBottom
                                   >
-                                  {user?.firstName} {user?.lastName}
+                                  {user?.firstName} {user?.lastName} {user?.idUser}
                                 </Typography>
                               </Grid>
                               <Grid item xs={12}>

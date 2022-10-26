@@ -64,7 +64,7 @@ export default function Profile() {
                                             {profile?.[formAllDataUser.birthDate] ? `${calculateAge(profile[formAllDataUser.birthDate])} años` : "?? Años"}
                                         </Typography>
                                         <Typography variant='inherit'>
-                                            666 publicaciones :o
+                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? profile?.listings.length+" publicaciones" : "Estudiante sin publicaciones"}
                                         </Typography>
                                     </Box>
                                 </Grid>

@@ -15,7 +15,7 @@ import useAuth from "../../auth/useAuth";
 import { getAllListings } from "../../controllers/listingActionsController";
 import { useState } from "react";
 import { useEffect } from "react";
-import { formAllListings } from "../../adapters/formAdapters";
+import { formAllListings  } from "../../adapters/formAdapters";
 import ListingBlock from "../generic/listingBlock";
 
 
@@ -30,9 +30,14 @@ export function MainScreen() {
 
   const auth = useAuth();
 
+
+
+
   useEffect(() => {
     getAllListings(auth).then(listingsResp => setListings(listingsResp));
   }, [auth]);
+
+
 
   let message
   let buttonMessage
@@ -108,7 +113,9 @@ export function MainScreen() {
                         <Button variant="contained">{buttonMessage}</Button>
                       </Link>
                   }
-                  <Button variant="outlined">Ver perfil</Button>
+                  
+                    <Button variant="outlined">Ver perfil</Button>
+                 
 
 
                 </Stack>
