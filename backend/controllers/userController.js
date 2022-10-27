@@ -270,8 +270,17 @@ userController.getUserProfile = async(req, res) => {
         }else{
             profile= {...(data._doc)}
         }
+
+        // moves the review by current user (if it exists) to the front of the array, so that its easier to reach the edit and delete buttons in frontend, same logic could be moved to front ent
+        let fromIndex = profile.reviews.findIndex(i => i.idUser == req.session.userID);        
+        if(fromIndex!==-1){
+            let currentUserReview = profile.reviews[fromIndex];
+            profile.reviews.splice(fromIndex, 1);
+            profile.reviews.splice(0, 0, currentUserReview);
+        }
+
     }catch{
-        console.log("Something happends when the user load a profile");
+        console.log("Something happened when the user load a profile");
         res.status(500).json({
             error:"No se pudo cargar el perfil del usuario"
         });

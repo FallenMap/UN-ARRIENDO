@@ -220,6 +220,15 @@ listingController.getListing = async (req, res) => {
         // console.log(req.params.listingID)
         let getListing = await Listing.findOne({ _id: req.params.listingID});
         // exit message
+
+        // moves the comment by current user (if it exists) to the front of the array, so that its easier to reach the edit and delete buttons in frontend, same logic could be moved to front ent
+        let fromIndex = getListing.comments.findIndex(i => i.idUser == req.session.userID);        
+        if(fromIndex!==-1){
+            let currentUserComment = getListing.comments[fromIndex];
+            getListing.comments.splice(fromIndex, 1);
+            getListing.comments.splice(0, 0, currentUserComment);
+        }
+
         res.status(200).json({
             msg:"Get listing Information done",
             listing: getListing
