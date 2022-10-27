@@ -15,6 +15,8 @@ router.post('/delete/:listingID', validateSession, listingController.deleteListi
 router.post('/restore', validateSession, listingController.restoreListing);
 router.post('/rating', validateSession, listingController.ratingListing);
 router.post('/comment', validateSession, listingController.commentListing);
+router.put('/commentUpdate', validateSession, listingController.updateListingComment);
+router.post('/commentDelete', validateSession, listingController.deleteListingComment);
 router.get('/listingHistory', validateSession, listingController.userListingHistory);
 router.get('/get/:listingID', validateSession, listingController.getListing) 
 

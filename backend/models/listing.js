@@ -9,7 +9,10 @@ const commentSchema = new mongoose.Schema({
         default: Date.now
     },
     content: String,
-    idUser: ObjectId
+    idUser: {
+        type: ObjectId,
+        required: true
+    }
 })
 
 // We define the base listing scheme

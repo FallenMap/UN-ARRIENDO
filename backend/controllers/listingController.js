@@ -232,17 +232,58 @@ listingController.getListing = async (req, res) => {
     }
 }
 
+
 // Function to save a comment of a publication.
 listingController.commentListing = async (req, res) => {
     try {
-        await Listing.updateOne({ _id: req.body._id }, { $set: {comments: req.body.comments } });
+        // adds the current user id to the comment object
+        req.body.comments.idUser = req.session.userID;
+        // update the (commented) listing document if the document exists (theres a document with the commented listing id) and there's no comments by the current user (no entry on comments array with idUser equal to current user id)
+        // push operation to not override other users comments
+        // the commentListing method works with both non existant, existant but empty and existant and non empty comments array. some older listing documents do not have the empty array of the new createListing method
+        await Listing.updateOne({ $and: [ { _id: ObjectId(req.body._id) }, { "comments.idUser": { $ne: ObjectId(req.session.userID) } } ] }, { $push: { comments: req.body.comments } });
     } catch{
         res.status(500).json({
             error:"Algo malo ocurrió cuando intentaba comentar"
         });
     }
     res.status(200).json({
+        msg: "Listing comment created!"
+    });
+};
+
+// Function to update a comment of a publication.
+listingController.updateListingComment = async (req, res) => {
+    try {
+        // adds the current user id to the comments object
+        req.body.comments.idUser = req.session.userID;
+        // update the (commented) listing document, updating the comments made by the commenting user (comment.idUser == session.userID)
+        // check existance of comments field, some older listing documents do not have the empty array of the new createListing method (this is only to avoid crashes)
+        await Listing.updateOne({ $and: [ { _id: ObjectId(req.body._id) }, { comments: { $exists: true} } ] }, { $set: { "comments.$[comment]": req.body.comments } }, { arrayFilters: [ { "comment.idUser": ObjectId(req.session.userID) } ] });
+    } catch{
+        res.status(500).json({
+            error:"Algo malo ocurrió cuando intentaba actualizar el comentario"
+        });
+    }
+    res.status(200).json({
         msg: "Listing comment updated!"
     });
 };
+
+// Function to delete a comment of a publication.
+listingController.deleteListingComment = async (req, res) => {
+    try {
+        // update the (commented) listing document, deleting the comment made by the commenting user (comment.idUser == session.userID)
+        // check existance of comments field, some older listing documents do not have the empty array of the new createListing method (this is only to avoid crashes)
+        await Listing.updateOne({ $and: [ { _id: ObjectId(req.body._id) }, { comments: {$exists: true}}] }, { $pull: { comments: { idUser: ObjectId(req.session.userID) } } });
+    } catch{
+        res.status(500).json({
+            error:"Algo malo ocurrió cuando intentaba borrar el comentario"
+        });
+    }
+    res.status(200).json({
+        msg: "Listing comment deleted!"
+    });
+};
+
 module.exports = { listingController };
