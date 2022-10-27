@@ -10,8 +10,9 @@ const { validateRegisterUser/*, validationUpdateUser*/ } = require('../validator
 router.post('/register', upload.userPhoto, validateRegisterUser,userController.createUser)
     .post('/login', logInValidations, userController.loginUser)
     .post('/logout', userController.logoutUser) 
-    .post('/review',validateSession, userController.reviewUser) 
-    .put('/reviewUpdate',validateSession, userController.updateUserReview)
+    .post('/review', validateSession, userController.reviewUser) 
+    .put('/reviewUpdate', validateSession, userController.updateUserReview)
+    .post('/reviewDelete', validateSession, userController.deleteUserReview)
     .get('/get/:userPubID', userController.getUser) 
     .put('/update', validateSession, /*validationUpdateUser,*/ upload.userPhoto, userController.updateUser)
     .get('/profile/:id', validateSession, userController.getUserProfile);
