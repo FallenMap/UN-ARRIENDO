@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const { validationResult } = require('express-validator');
 const Listing = require('../models/listing');
+const { ObjectId } = require('mongodb');
 
 const doNotSendThisData = ['password'];
 
@@ -209,7 +210,11 @@ userController.getUser = async (req, res) => {
 // Function to save a review of a user.
 userController.reviewUser = async (req, res) => {
     try {
-        await User.updateOne({ _id: req.body._id }, { $set: {reviews: req.body.reviews } });
+        // adds the current user id to the review object
+        req.body.reviews.idUser = req.session.userID;
+        // update the (reviewed) user document if the document exists (theres a document with the reviewed user id) and there's no review by the current user (no entry on reviews array with idUser equal to current user id)
+        // push operation to not override other users reviews
+        await User.updateOne({ $and: [{_id: ObjectId(req.body._id)}, {"reviews.idUser": {"$ne": ObjectId(req.session.userID)}}] }, { $push: { "reviews": req.body.reviews } });
     } catch{
         res.status(500).json({
             error:"Algo malo ocurrió cuando intentaba reseñar"

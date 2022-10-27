@@ -9,7 +9,10 @@ const reviewSchema = new mongoose.Schema({
         default: Date.now
     },
     content: String,
-    idUser: ObjectId
+    idUser: {
+        type: ObjectId,
+        required: true
+    }
 });
 
 // We define the base scheme (can be seen as the father scheme)
