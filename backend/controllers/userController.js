@@ -214,10 +214,29 @@ userController.reviewUser = async (req, res) => {
         req.body.reviews.idUser = req.session.userID;
         // update the (reviewed) user document if the document exists (theres a document with the reviewed user id) and there's no review by the current user (no entry on reviews array with idUser equal to current user id)
         // push operation to not override other users reviews
+        // the reviewUser method works with both non existant, existant but empty and existant and non empty reviews array. some older user documents do not have the empty array of the new createUser method
         await User.updateOne({ $and: [{_id: ObjectId(req.body._id)}, {"reviews.idUser": {"$ne": ObjectId(req.session.userID)}}] }, { $push: { "reviews": req.body.reviews } });
     } catch{
         res.status(500).json({
             error:"Algo malo ocurrió cuando intentaba reseñar"
+        });
+    }
+    res.status(200).json({
+        msg: "user review created!"
+    });
+};
+
+// Function to update a review of a user.
+userController.updateUserReview = async (req, res) => {
+    try {
+        // adds the current user id to the review object
+        req.body.reviews.idUser = req.session.userID;
+        // update the (reviewed) user document, updating the review made by the reviewing user (review.idUser == session.userID)
+        // check existance of reviews field, some older user documents do not have the empty array of the new createUser method (this is only to avoid crashes)
+        await User.updateOne({ $and: [{_id: ObjectId(req.body._id)}, {"reviews": {"$exists": true}}] }, { $set: { "reviews.$[review]": req.body.reviews } }, { arrayFilters: [ { "review.idUser": ObjectId(req.session.userID)}]});
+    } catch{
+        res.status(500).json({
+            error:"Algo malo ocurrió cuando intentaba actualizar la reseña"
         });
     }
     res.status(200).json({

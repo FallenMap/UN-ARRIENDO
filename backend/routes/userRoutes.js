@@ -11,6 +11,7 @@ router.post('/register', upload.userPhoto, validateRegisterUser,userController.c
     .post('/login', logInValidations, userController.loginUser)
     .post('/logout', userController.logoutUser) 
     .post('/review',validateSession, userController.reviewUser) 
+    .put('/reviewUpdate',validateSession, userController.updateUserReview)
     .get('/get/:userPubID', userController.getUser) 
     .put('/update', validateSession, /*validationUpdateUser,*/ upload.userPhoto, userController.updateUser)
     .get('/profile/:id', validateSession, userController.getUserProfile);
