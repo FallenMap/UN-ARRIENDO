@@ -2,38 +2,64 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, Box, CircularProgress, Container, Divider, Grid, Paper, Typography } from '@mui/material';
 import Navbar from '../navbar/navbar';
 import Comment from './comment';
+import useAuth from '../../auth/useAuth';
 import { formAllListings, formAllDataUser } from '../../adapters/formAdapters';
 import ListingBlock from '../generic/listingBlock';
-import useAuth from '../../auth/useAuth';
 import { changeBackground } from '../../utilities/changeBackground';
 import { changeTitle } from '../../utilities/changeTitle';
 import { useParams } from 'react-router-dom';
 import { getUserProfile } from '../../controllers/userActionsController';
 import { capitalize } from '../../utilities/normalizeString';
-import { calculateAge } from '../../utilities/generalTools';
+import { calculateAge, findUserInReviews, sortCommentsProfileByDate } from '../../utilities/generalTools';
 import CommentForm from './commentForm';
 import Image from 'mui-image';
+import { createComment } from '../../controllers/commentController';
 
 
 
 
 export default function Profile() {
     const [profile, setProfile] = useState(undefined);
+    const [comments, setComments] = useState([]);
     const { id } = useParams();
-
-    changeBackground('none');
-
     const auth = useAuth();
 
-    useEffect(() => {
-        getUserProfile(auth, id)
-            .then(userProfile => {
-                changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`)
-                setProfile(userProfile);
-            });
-    }, [id, auth]);
+    // Send comment logic -----
+    const handleOnSubmitComment = (event) => {
+        event.preventDefault()
 
-    const test = [{}, {}]
+        let formData = new FormData(document.querySelector('form')), review = {}, body = {};
+        review['content'] = formData.get('content');
+        review["firstNameUser"] = auth.user?.[formAllDataUser.name];
+        review["lastNameUser"] = auth.user?.[formAllDataUser.lastName];
+        body['reviews'] = { ...review };
+        body['idProfile'] = id;
+
+        createComment(auth, body)
+            .then(res => {
+                if (res.comment) {
+                    document.querySelector('form').reset();
+                    setComments([...comments, res.comment]);
+                } else {
+                    console.log(res.msg);
+                }
+
+            })
+
+    }
+
+    changeBackground('none');
+    useEffect(() => {
+        if(!profile){
+            getUserProfile(auth, id)
+            .then(userProfile => {
+                changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`);
+                setProfile(userProfile);
+                setComments(userProfile.reviews);
+            });
+        }
+    }, [id, auth, profile]);
+
     return (
         <><Navbar />
             <Container maxWidth="md" sx={{ marginTop: "20px", marginBottom: "50px" }}>
@@ -47,7 +73,6 @@ export default function Profile() {
                                             width: "150px",
                                             height: "150px"
                                         }}
-                                            onError={() => { return }} // to fix
                                             src={`http://localhost:5000/images/profile/${profile?.[formAllDataUser.link]}`}
                                         ></Avatar>
                                     </Box>
@@ -64,7 +89,7 @@ export default function Profile() {
                                             {profile?.[formAllDataUser.birthDate] ? `${calculateAge(profile[formAllDataUser.birthDate])} años` : "?? Años"}
                                         </Typography>
                                         <Typography variant='inherit'>
-                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? profile?.listings.length+" publicaciones" : "Estudiante sin publicaciones"}
+                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? profile?.listingAmount + " publicaciones" : ""}
                                         </Typography>
                                     </Box>
                                 </Grid>
@@ -103,7 +128,7 @@ export default function Profile() {
                                                     {profile?.listings.length > 0 ? (
                                                         <>
                                                             <Typography variant='h5'>
-                                                                Actividad reciente
+                                                                Ultimas publicaciones
                                                             </Typography>
                                                             <Grid container spacing={3}>
                                                                 {profile?.listings.map((listing) => {
@@ -119,27 +144,27 @@ export default function Profile() {
                                                                 })}
                                                             </Grid>
                                                         </>) : (<>
-                                                            
-                                                                <Grid container spacing={3}>
-                                                                    <Grid item xs={12}>
-                                                                        <Box display="flex" alignItems="center" justifyContent="center">
-                                                                            <Image 
-                                                                                src='https://cdn-icons-png.flaticon.com/512/1058/1058677.png?w=360'
-                                                                                height="30%"
-                                                                                width="30%"
-                                                                                fit='cover'    
-                                                                            />
-                                                                        </Box>
-                                                                    </Grid>
-                                                                    <Grid item xs={12}>
-                                                                        <Box display="flex" alignItems="center" justifyContent="center">
+
+                                                            <Grid container spacing={3}>
+                                                                <Grid item xs={12}>
+                                                                    <Box display="flex" alignItems="center" justifyContent="center">
+                                                                        <Image
+                                                                            src='https://cdn-icons-png.flaticon.com/512/1058/1058677.png?w=360'
+                                                                            height="30%"
+                                                                            width="30%"
+                                                                            fit='cover'
+                                                                        />
+                                                                    </Box>
+                                                                </Grid>
+                                                                <Grid item xs={12}>
+                                                                    <Box display="flex" alignItems="center" justifyContent="center">
                                                                         <Typography variant='h5'>
                                                                             El usuario no tiene publicaciones recientes
                                                                         </Typography>
-                                                                        </Box>
-                                                                    </Grid>
+                                                                    </Box>
                                                                 </Grid>
-                                                            
+                                                            </Grid>
+
                                                         </>)}
                                                 </Box>
                                             </Grid>
@@ -160,24 +185,45 @@ export default function Profile() {
                                             <Box sx={{
                                                 padding: "20px",
                                             }}>
-                                                <CommentForm />
-                                                <Typography>
-                                                    Aun no funciona, está en progreso :v
-                                                </Typography>
+                                                <form onSubmit={handleOnSubmitComment}>
+                                                    <CommentForm name="content" label="Hazle saber a esta persona lo que opinas" commentExist={findUserInReviews(comments, auth.user?.[formAllDataUser.id])} sameProfile={id === auth.user?.[formAllDataUser.id]} />
+                                                </form>
                                             </Box>
                                         </Grid>
                                         {
-                                            test.map(elem => {
-                                                return (
-                                                    <Grid item xs={12}>
-                                                              <Container maxWidth="md">
+                                            comments.length > 0 ? (
+                                                sortCommentsProfileByDate(comments, auth.user?.[formAllDataUser.id]).map(review => {
+                                                    return (
+                                                        <Grid item xs={12}>
+                                                            <Container maxWidth="md">
                                                                 <Paper elevation={2}>
-                                                                <Comment></Comment>
+                                                                    <Comment id={review._id} date={review.date} content={review.content} user={`${review.firstNameUser} ${review.lastNameUser}`} showTools={review.idUser===auth.user?.[formAllDataUser.id]}/>
                                                                 </Paper>
-                                                                </Container>
-                                                        
-                                                    </Grid>)
-                                            })
+                                                            </Container>
+                                                        </Grid>)
+                                                })) : (
+                                                <>
+                                                    <Grid container spacing={3}>
+                                                        <Grid item xs={12}>
+                                                            <Box display="flex" alignItems="center" justifyContent="center">
+                                                                <Image
+                                                                    src='https://cdn-icons-png.flaticon.com/512/35/35816.png'
+                                                                    height="30%"
+                                                                    width="30%"
+                                                                    fit='cover'
+                                                                />
+                                                            </Box>
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Box display="flex" alignItems="center" justifyContent="center">
+                                                                <Typography variant='h5'>
+                                                                    Este usuario no tiene comentarios aun.
+                                                                </Typography>
+                                                            </Box>
+                                                        </Grid>
+                                                    </Grid>
+                                                </>
+                                            )
                                         }
                                     </Grid>
                                 </Grid>

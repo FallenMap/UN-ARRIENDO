@@ -35,3 +35,7 @@ export const getUserApi = (idUser) => {
 export const getProfileAPI = (idUser) => {
     return axios.get(URL+"/user/profile/"+idUser);
 }
+
+export const setReviewProfileAPI = (body) => {
+    return axios.post(URL+"/user/review/", body);
+}

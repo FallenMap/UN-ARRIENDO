@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
-import {Grid, Paper, Typography} from '@mui/material'
+import {Grid, Typography} from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
 import  "../../css/ListingDetail.css";
