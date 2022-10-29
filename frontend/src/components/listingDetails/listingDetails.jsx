@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
-import {Grid, Paper, Typography} from '@mui/material'
+import {Button, Grid, Typography} from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
 import  "../../css/ListingDetail.css";
@@ -11,12 +11,11 @@ import { getListing } from '../../controllers/listingActionsController';
 import { Maping } from './maping';
 import Image from 'mui-image';
 import { Link, useParams } from 'react-router-dom';
-import { getUser } from '../../controllers/userActionsController';
+import { getUser, getUserProfile } from '../../controllers/userActionsController';
 import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
 import { formAllListings } from '../../adapters/formAdapters';
-
 import Comment from '../profile/comment';
 
 
@@ -56,6 +55,7 @@ import Comment from '../profile/comment';
           carouselRef.current.goTo(0);
         }
       };
+
 
       const breakPoints = [
         { width: 1, itemsToShow: 1 },
@@ -267,10 +267,9 @@ import Comment from '../profile/comment';
                     <Maping listing={listing?.characteristics} type='carParking' name='Parqueadero'  align='center'/>
                     <Maping listing={listing?.characteristics} type='privateArea' name='Area Privada'  align='center'/>
                     <Maping listing={listing?.characteristics} type='rooms' name='Habitaciones'  align='center'/>
-                    <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='cente"'/>
+                    <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='center"'/>
                     <Maping listing={listing?.characteristics} type='bicycleParking' name='Bicicletero'  align='center'/>
                     <Maping listing={listing?.characteristics} type='storage' name='Almacén'  align='center'/>
-                    <Maping listing={listing?.characteristics} type='privateBathrooms' name='Baños privados'  align='center'/>
 
 
                   </Grid>
@@ -315,49 +314,44 @@ import Comment from '../profile/comment';
           <Grid item xs={12} sx={{border: '1px solid #D5CDCD', marginTop:'15px'}}>
             <Grid container>
               <Grid item xs={6}>
-                <Box pl='6%' pt=' 3%'>
-                    <Typography
-                        component="h3"
-                        align="left"
-                        variant="h3"
-                        fontFamily="Alkalami"
-                        color="text.primary"
-                        gutterBottom
-                        >
-                          Reseñas de la publicación:
-                    
-                    </Typography>
-                </Box>
+                <Container>
+                  <Box pl='6%' pt=' 3%'>
+                      <Typography
+                          component="h3"
+                          align="left"
+                          variant="h3"
+                          fontFamily="Alkalami"
+                          color="text.primary"
+                          gutterBottom
+                          >
+                            Reseñas de la publicación:
+                      
+                      </Typography>
+                  </Box>
+                </Container>
               </Grid>
-              <Grid item xs={6}>
-                <Box pl='6%' pt=' 3%'>
-                    <Typography
-                        component="h3"
-                        align="left"
-                        variant="h3"
-                        fontFamily="Alkalami"
-                        color="text.primary"
-                        gutterBottom
-                        >
-                          Información Adicional:
-                    
-                    </Typography>
+              <Grid item xs={6} >
+                <Container>
+                <Box pr='3%' pt=' 3%' display="flex" justifyContent="flex-end">
+                      <Link to="/StudentUpdate" style={{ textDecoration: "none" }}>
+                        <Button variant="contained">Realizar comentario</Button>
+                      </Link>
                 </Box>
+                </Container>
               </Grid>
               <Grid item xs={12} sx={{border: '1px solid #D5CDCD', marginLeft: '15px', marginRight:'15px', marginBottom:'15px'}}>
                 <Grid container>
+
+                  {listing?.comments?.map( (item, i) => 
+                        <Grid item xs={6}>
+                        <Box sx={{ marginTop: '30px', padding: "5px 25px" }}>
+                          <Comment text={item.content} userName = {item.firstNameUser} lastName= {item.lastNameUser} date={item.date} />
+                        </Box>
+                        </Grid>
+                        ) }
                 
-                <Grid item xs={6}>
-                    <Box sx={{ marginTop: '30px', padding: "5px 25px" }}>
-                      <Comment/>
-                    </Box>
-                  </Grid>
+                
                   
-                  <Grid item xs={6}>
-                    <Box sx={{ marginTop: '30px', padding: "5px 25px" }}>
-                      <Comment/>
-                    </Box>
-                  </Grid>
 
 
 

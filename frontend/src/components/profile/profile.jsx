@@ -33,6 +33,8 @@ export default function Profile() {
             });
     }, [id, auth]);
 
+    console.log(profile)
+
     const test = [{}, {}]
     return (
         <><Navbar />
@@ -167,7 +169,7 @@ export default function Profile() {
                                             </Box>
                                         </Grid>
                                         {
-                                            test.map(elem => {
+                                            profile?.reviews.map(elem => {
                                                 return (
                                                     <Grid item xs={12}>
                                                               <Container maxWidth="md">
