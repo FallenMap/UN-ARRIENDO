@@ -93,6 +93,7 @@ export default function Comment(props) {
               </Grid>
               <Grid item xs={9}>
                 <Typography>{capitalize(`${props.firstName} ${props.lastName}`)}</Typography>
+                <Typography variant='body2'>{user?.type === "Landlord" ? "Arrendador" : "Estudiante"}</Typography>
                 <Typography variant='body2'>{props.date}</Typography>
               </Grid>
               {props.showTools ? (<Grid item xs={2}>
