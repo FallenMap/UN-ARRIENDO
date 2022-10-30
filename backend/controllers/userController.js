@@ -253,7 +253,7 @@ userController.updateUserReview = async (req, res) => {
         });
     }
     res.status(200).json({
-        msg: "user review updated!"
+        msg: "Se ha actualizado correctamente tu comentario!"
     });
 };
 
