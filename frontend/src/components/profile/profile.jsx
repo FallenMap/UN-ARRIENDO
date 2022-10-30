@@ -49,7 +49,6 @@ export default function Profile() {
 
     changeBackground('none');
     useEffect(() => {
-        if (!profile) {
             getUserProfile(auth, id)
                 .then(userProfile => {
                     changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`);
@@ -57,7 +56,6 @@ export default function Profile() {
                     setComments(userProfile.reviews);
 
                 });
-        }
     }, [id, auth, profile]);
 
     return (

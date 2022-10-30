@@ -7,6 +7,7 @@ import { deleteComment, updateComment } from '../../controllers/commentControlle
 import useAuth from '../../auth/useAuth';
 import { capitalize } from '../../utilities/normalizeString';
 import { getUser } from '../../controllers/userActionsController';
+import { Link } from 'react-router-dom';
 const validate = (data) => {
   const errors = {};
   if (!data.content) {
@@ -70,6 +71,7 @@ export default function Comment(props) {
   const [user,setUser] = useState([]);
   useEffect(()=>{
     getUser(auth, props.idUser).then(userResp => setUser(userResp));
+    window.scroll(0,0)
     },[auth, props.idUser]);
 
   const handleChange = ({ target }) => {
@@ -85,7 +87,9 @@ export default function Comment(props) {
           <Box sx={{ padding: "5px 25px" }}>
             <Grid container>
               <Grid item xs={1}>
+              <Link to={'/profile/' + props.idUser} style={{textDecoration:"none"}}>
                 <Avatar src={"http://localhost:5000/images/profile/"+ user?.photo} sx={{ width: "50px", height: "50px" } }></Avatar>
+              </Link>
               </Grid>
               <Grid item xs={9}>
                 <Typography>{capitalize(`${props.firstName} ${props.lastName}`)}</Typography>

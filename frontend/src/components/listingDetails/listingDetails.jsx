@@ -45,6 +45,7 @@ import {Chair} from '@mui/icons-material';
 
     useEffect(()=>{
       getUser(auth, idUser).then(userResp => setUser(userResp));
+      window.scroll(0,0)
       },[auth, idUser]);
     
     const carouselRef = useRef(null);
