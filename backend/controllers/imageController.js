@@ -17,7 +17,7 @@ module.exports.getImageProfile = (req, res) => {
         })
 
         readStream?.on('error', (err) => {
-            res.end(err);
+            res.end(err.message);
         })
     } catch (err) {
         res.end(err+"\nNo se encontró la imagen en el servidor.");
@@ -40,7 +40,7 @@ module.exports.getImageProfileById = async (req, res) => {
         })
 
         readStream?.on('error', (err) => {
-            res.end(err);
+            res.end(err.message);
         })
     } catch (err) {
         res.end(err+"\nNo se encontró la imagen en el servidor.");
@@ -61,7 +61,7 @@ module.exports.getImageListing = (req, res) => {
         })
 
         readStream?.on('error', (err) => {
-            res.end(err);
+            res.end(err.message);
         })
     } catch (err) {
         res.end(err+"\nNo se encontró la imagen en el servidor.");
