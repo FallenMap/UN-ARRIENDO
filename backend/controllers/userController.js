@@ -243,8 +243,10 @@ userController.updateUserReview = async (req, res) => {
         req.body.reviews.idUser = req.session.userID;
         // update the (reviewed) user document, updating the review made by the reviewing user (review.idUser == session.userID)
         // check existance of reviews field, some older user documents do not have the empty array of the new createUser method (this is only to avoid crashes)
-        await User.updateOne({ $and: [ { _id: ObjectId(req.body._id) }, { reviews: { $exists: true} } ] }, { $set: { "reviews.$[review]": req.body.reviews } }, { arrayFilters: [ { "review.idUser": ObjectId(req.session.userID) } ] });
-    } catch{
+        let result = await User.updateOne({ _id: ObjectId(req.body.idProfile), reviews: { $exists: true}, "reviews.idUser":req.body.reviews.idUser }, { $set: { "reviews.$[review]": req.body.reviews } }, { arrayFilters: [ { "review.idUser": ObjectId(req.session.userID) } ] });
+        console.log(result);
+    } catch(err){
+        console.log(err);
         return res.status(500).json({
             error:"Algo malo ocurrió cuando intentaba actualizar la reseña"
         });
@@ -259,7 +261,7 @@ userController.deleteUserReview = async (req, res) => {
     try {
         // update the (reviewed) user document, deleting the review made by the reviewing user (review.idUser == session.userID)
         // check existance of reviews field, some older user documents do not have the empty array of the new createUser method (this is only to avoid crashes)
-        await User.updateOne({ $and: [ { _id: ObjectId(req.body._id) }, { reviews: {$exists: true}}] }, { $pull: { reviews: { idUser: ObjectId(req.session.userID) } } });
+        await User.updateOne({ $and: [ { _id: ObjectId(req.body.idProfile) }, { reviews: {$exists: true}}] }, { $pull: { reviews: { idUser: ObjectId(req.session.userID) } } });
     } catch{
         return res.status(500).json({
             error:"Algo malo ocurrió cuando intentaba borrar la reseña"

@@ -39,3 +39,12 @@ export const getProfileAPI = (idUser) => {
 export const setReviewProfileAPI = (body) => {
     return axios.post(URL+"/user/review/", body);
 }
+
+export const deleteReviewProfileAPI = (body) => {
+    return axios.post(URL+"/user/reviewDelete/", body);
+}
+
+export const updateReviewProfileAPI = (body) => {
+    return axios.put(URL+"/user/reviewUpdate/", body);
+}
+

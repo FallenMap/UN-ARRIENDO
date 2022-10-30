@@ -21,11 +21,7 @@ export const sortCommentsProfileByDate = (reviews, id=-1) => {
         for(let i = 0; i<reviews.length; i++){
             if(reviews[i].idUser === id){
                 userComment=reviews[i];
-                if(i===0){
-                    reviews.splice(0,1);
-                }else{
-                    reviews.splice(i);
-                }
+                reviews.splice(i,1);
                 break;
             }
         }
