@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from "@mui/material";
 
 export function Maping(props){
-    let temp = props?.listing?.[props?.type];
+    let temp = props.listing?.[props.type];
 
     if (temp===true) temp= 'Sí'
         else if (temp===false) temp= 'No'
@@ -23,6 +23,7 @@ export function Maping(props){
     return(
         <Grid item xs ={props.xs} >
             <Box pl='6%' sx={{marginTop:'10px'}}>
+            {props.icon}
             <Typography
                   component="h4"
                   variant="h4"

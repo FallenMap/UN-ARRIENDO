@@ -17,6 +17,7 @@ import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
 import { formAllListings } from '../../adapters/formAdapters';
 import Comment from '../profile/comment';
+import {Chair} from '@mui/icons-material';
 
 
 
@@ -262,7 +263,7 @@ import Comment from '../profile/comment';
                         </Typography>
                       </Box>
                     </Grid>
-                    <Maping listing={listing?.characteristics} type='furnished' name='Amoblado' align='center'/>
+                    <Maping listing={listing?.characteristics} icon={<Chair/>} type='furnished' name='Amoblado' align='center'/>
                     <Maping listing={listing?.characteristics} type='stratum' name='Estrato'  align='center' />
                     <Maping listing={listing?.characteristics} type='carParking' name='Parqueadero'  align='center'/>
                     <Maping listing={listing?.characteristics} type='privateArea' name='Area Privada'  align='center'/>
