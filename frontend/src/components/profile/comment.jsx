@@ -1,12 +1,11 @@
 import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, TextField, Tooltip, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useParams } from 'react-router-dom';
 import { deleteComment, updateComment } from '../../controllers/commentController';
 import useAuth from '../../auth/useAuth';
 import { capitalize } from '../../utilities/normalizeString';
-import { getUser } from '../../controllers/userActionsController';
 import { Link } from 'react-router-dom';
 const validate = (data) => {
   const errors = {};
@@ -68,11 +67,6 @@ export default function Comment(props) {
         setEditMode(false);
       });
   }
-  const [user,setUser] = useState([]);
-  useEffect(()=>{
-    getUser(auth, props.idUser).then(userResp => setUser(userResp));
-    window.scroll(0,0)
-    },[auth, props.idUser]);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -88,12 +82,11 @@ export default function Comment(props) {
             <Grid container>
               <Grid item xs={1}>
               <Link to={'/profile/' + props.idUser} style={{textDecoration:"none"}}>
-                <Avatar src={"http://localhost:5000/images/profile/"+ user?.photo} sx={{ width: "50px", height: "50px" } }></Avatar>
+                <Avatar src={"http://localhost:5000/images/profile/id/"+ props.idUser} sx={{ width: "50px", height: "50px" } }></Avatar>
               </Link>
               </Grid>
               <Grid item xs={9}>
                 <Typography>{capitalize(`${props.firstName} ${props.lastName}`)}</Typography>
-                <Typography variant='body2'>{user?.type === "Landlord" ? "Arrendador" : "Estudiante"}</Typography>
                 <Typography variant='body2'>{props.date}</Typography>
               </Grid>
               {props.showTools ? (<Grid item xs={2}>

@@ -44,7 +44,6 @@ export default function Profile() {
                 }
 
             })
-
     }
 
     changeBackground('none');
@@ -54,9 +53,8 @@ export default function Profile() {
                     changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`);
                     setProfile(userProfile);
                     setComments(userProfile.reviews);
-
                 });
-    }, [id, auth, profile]);
+    }, [id, auth]);
 
     return (
         <><Navbar />
