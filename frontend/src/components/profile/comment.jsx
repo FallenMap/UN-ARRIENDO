@@ -59,6 +59,7 @@ export default function Comment(props) {
         for (let i = 0; i < props.comments.length; i++) {
           if (props.comments[i]._id === idComment) {
             props.comments[i].content = control.content;
+            props.comments[i].date = new Date();
           }
           copyComments.push(props.comments[i]);
         }
