@@ -15,28 +15,32 @@ export const calculateAge = (bornDate) => {
 
 export const sortCommentsProfileByDate = (reviews, id=-1) => {
     // Puede ser optimizado
-
-    let userComment;
+    let newReviews = [...reviews];
+    let userComment, flag = false;
     if(id!==-1){
-        for(let i = 0; i<reviews.length; i++){
-            if(reviews[i].idUser === id){
-                userComment=reviews[i];
-                reviews.splice(i,1);
+        for(let i = 0; i<newReviews.length; i++){
+            if(newReviews[i] && newReviews[i].idUser === id){
+                userComment=newReviews[i];
+                flag=true;
+                newReviews.splice(i,1);
                 break;
             }
         }
     }
 
-    reviews.sort((a, b)=> new Date(a['date']) - new Date(b['date']));
-    reviews.unshift(userComment);
+    newReviews.sort((a, b)=> new Date(a['date']) - new Date(b['date']));
+    if(flag){
+        newReviews.unshift(userComment);
+    }
+    
 
-    return reviews;
+    return newReviews;
 }
 
 export const findUserInReviews = (reviews, id) => {
-    let flag = false;
-    for(let i = 0; i<reviews.length; i++){
-        if(reviews[i].idUser===id){
+    let flag = false, newReviews = [...reviews];
+    for(let i = 0; i<newReviews.length; i++){
+        if(newReviews[i] && newReviews[i].idUser===id){
             flag = true;
             break;
         }

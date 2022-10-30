@@ -20,14 +20,13 @@ import { createComment } from '../../controllers/commentController';
 
 export default function Profile() {
     const [profile, setProfile] = useState(undefined);
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState(undefined);
     const { id } = useParams();
     const auth = useAuth();
 
     // Send comment logic -----
     const handleOnSubmitComment = (event) => {
-        event.preventDefault()
-
+        event.preventDefault();
         let formData = new FormData(document.querySelector('form')), review = {}, body = {};
         review['content'] = formData.get('content');
         review["firstNameUser"] = auth.user?.[formAllDataUser.name];
@@ -50,13 +49,14 @@ export default function Profile() {
 
     changeBackground('none');
     useEffect(() => {
-        if(!profile){
+        if (!profile) {
             getUserProfile(auth, id)
-            .then(userProfile => {
-                changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`);
-                setProfile(userProfile);
-                setComments(userProfile.reviews);
-            });
+                .then(userProfile => {
+                    changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`);
+                    setProfile(userProfile);
+                    setComments(userProfile.reviews);
+
+                });
         }
     }, [id, auth, profile]);
 
@@ -185,19 +185,19 @@ export default function Profile() {
                                             <Box sx={{
                                                 padding: "20px",
                                             }}>
-                                                <form onSubmit={handleOnSubmitComment}>
-                                                    <CommentForm name="content" label="Hazle saber a esta persona lo que opinas" commentExist={findUserInReviews(comments, auth.user?.[formAllDataUser.id])} sameProfile={id === auth.user?.[formAllDataUser.id]} />
+                                                <form onSubmit={(e) => { handleOnSubmitComment(e) }}>
+                                                    <CommentForm name="content" label="Hazle saber a esta persona lo que opinas" commentExist={comments.length > 0 ? (findUserInReviews(comments, auth.user?.[formAllDataUser.id])) : (false)} sameProfile={id === auth.user?.[formAllDataUser.id]} />
                                                 </form>
                                             </Box>
                                         </Grid>
                                         {
-                                            comments.length > 0 ? (
+                                            comments && comments.length > 0 ? (
                                                 sortCommentsProfileByDate(comments, auth.user?.[formAllDataUser.id]).map(review => {
                                                     return (
                                                         <Grid item xs={12}>
                                                             <Container maxWidth="md">
                                                                 <Paper elevation={2}>
-                                                                    <Comment id={review._id} date={review.date} comments={comments} setComments={setComments} content={review.content} user={`${review.firstNameUser} ${review.lastNameUser}`} showTools={review.idUser===auth.user?.[formAllDataUser.id]}/>
+                                                                    <Comment id={review._id} date={review.date} comments={comments} setComments={setComments} content={review.content} firstName={review.firstNameUser} lastName={review.lastNameUser} showTools={review.idUser === auth.user?.[formAllDataUser.id]} />
                                                                 </Paper>
                                                             </Container>
                                                         </Grid>)

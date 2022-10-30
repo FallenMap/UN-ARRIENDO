@@ -5,10 +5,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useParams } from 'react-router-dom';
 import { deleteComment, updateComment } from '../../controllers/commentController';
 import useAuth from '../../auth/useAuth';
+import { capitalize } from '../../utilities/normalizeString';
 
 const validate = (data) => {
   const errors = {};
-  if(!data.content){
+  if (!data.content) {
     errors.content = "Este campo no puede estar vacio"
   }
 
@@ -17,7 +18,7 @@ const validate = (data) => {
 
 export default function Comment(props) {
   const [editMode, setEditMode] = useState(false);
-  const [control, setControl] = useState({errors:{}});
+  const [control, setControl] = useState({ errors: {} });
   const [open, setOpen] = useState(false);
   const { id } = useParams();
   const auth = useAuth();
@@ -27,7 +28,7 @@ export default function Comment(props) {
       let body = { idProfile: id };
       deleteComment(auth, body)
         .then(msg => {
-          const filteredComments = props.comments.filter(comment => comment._id !==idComment);
+          const filteredComments = props.comments.filter(comment => comment._id !== idComment);
           props.setComments(filteredComments)
           console.log(msg)
         });
@@ -37,37 +38,39 @@ export default function Comment(props) {
 
   const handleSubmitUpdateComment = (event, idComment) => {
     event.preventDefault();
-    const {errors, ...data} = control;
+    const { errors, ...data } = control;
     const result = validate(data);
-    if(Object.keys(result).length>0){
-      return setControl({...control, errors: result});
+    if (Object.keys(result).length > 0) {
+      return setControl({ ...control, errors: result });
     }
     let review = {
       _id: idComment,
-      content: control.content
+      content: control.content,
+      firstNameUser: props.firstName,
+      lastNameUser: props.lastName
     };
     let body = {
       idProfile: id,
-      reviews:review
+      reviews: review
     };
     updateComment(auth, body)
-    .then(msg => {
-      const copyComments = [];
-      for(let i = 0; i<props.comments.length; i++){
-        if(props.comments[i]._id===idComment){
-          props.comments[i].content = control.content;
+      .then(msg => {
+        const copyComments = [];
+        for (let i = 0; i < props.comments.length; i++) {
+          if (props.comments[i]._id === idComment) {
+            props.comments[i].content = control.content;
+          }
+          copyComments.push(props.comments[i]);
         }
-        copyComments.push(props.comments[i]);
-      }
-      window.alert(msg);
-      props.setComments(copyComments);
-      setEditMode(false);
-    });
+        window.alert(msg);
+        props.setComments(copyComments);
+        setEditMode(false);
+      });
   }
 
-  const handleChange = ({target}) => {
-    const {name, value} = target;
-    setControl({...control, [name]: value});
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setControl({ ...control, [name]: value });
   }
 
 
@@ -81,7 +84,7 @@ export default function Comment(props) {
                 <Avatar sx={{ width: "50px", height: "50px" }}></Avatar>
               </Grid>
               <Grid item xs={9}>
-                <Typography>{props.user}</Typography>
+                <Typography>{capitalize(`${props.firstName} ${props.lastName}`)}</Typography>
                 <Typography variant='body2'>{props.date}</Typography>
               </Grid>
               {props.showTools ? (<Grid item xs={2}>
@@ -133,7 +136,7 @@ export default function Comment(props) {
             {
               editMode ? (
                 <>
-                  <TextField onChange={handleChange} name="content" defaultValue={props.content} fullWidth />
+                  <TextField onChange={(e) => handleChange(e)} name="content" defaultValue={props.content} fullWidth />
                   {control.errors.content && <p style={{ color: "red" }}>{`*${control.errors.content}`}</p>}
                   <Box sx={{
                     float: "right",
