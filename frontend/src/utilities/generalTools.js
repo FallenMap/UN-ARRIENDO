@@ -28,7 +28,7 @@ export const sortCommentsProfileByDate = (reviews, id=-1) => {
         }
     }
 
-    newReviews.sort((a, b)=> new Date(a['date']) - new Date(b['date']));
+    newReviews.sort((a, b)=> new Date(b['date']) - new Date(a['date']) );
     if(flag){
         newReviews.unshift(userComment);
     }
