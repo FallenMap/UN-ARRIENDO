@@ -48,3 +48,8 @@ export const findUserInReviews = (reviews, id) => {
     
     return flag;
 }
+
+export const localDate = (date) => {
+    let d = new Date(date);
+    return d.toLocaleDateString() + ' ' + d.toTimeString().substring(0, d.toTimeString().indexOf("GMT"));
+}
