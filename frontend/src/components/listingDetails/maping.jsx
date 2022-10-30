@@ -23,19 +23,19 @@ export function Maping(props){
     return(
         <Grid item xs ={props.xs} >
             <Box pl='6%' sx={{marginTop:'10px'}}>
-            {props.icon}
+            
             <Typography
-                  component="h4"
-                  variant="h4"
+                  component="h6"
+                  variant="h6"
                   fontFamily='Raleway'
                   align="center"
                   color="text.primary"
                   gutterBottom
                 >
-                  {props?.name}:
+                  {props.icon}&nbsp;&nbsp;{props?.name}
                 </Typography>
                 <Typography
-                  variant="h5"
+                  variant="subtitle"
                   align="center"
                   fontFamily='Josefin Sans'
                   color="text.secondary"
