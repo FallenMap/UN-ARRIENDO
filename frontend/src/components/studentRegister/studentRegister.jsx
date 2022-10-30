@@ -90,6 +90,13 @@ export function StudentRegister() {
 
               </div>
 
+              <div className={styles.formGroup}>
+
+                {/* Call FormGroup compontent with its own arguments of password with type different for security*/}
+                <FormGroup name={formAllDataUser.birthDate} title="Nacimiento" image="fa fa-birthday-cake" type="date" />
+
+              </div>
+              
               <div className={styles.formGrup}>
 
                 {/* Call ButtonUploadPhoto component with it own photo */}
