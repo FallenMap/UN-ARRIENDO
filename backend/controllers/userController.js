@@ -279,7 +279,7 @@ userController.getUserProfile = async(req, res) => {
         data = await User.findById(req.params.id);
         data.reviews = data.reviews.filter(review => review!=undefined);
         if(data.type=="Landlord"){
-            listings = await Listing.find({ landlord: String(req.params.id) }).sort({ date: -1});
+            listings = await Listing.find({ landlord: String(req.params.id), active: { $gte: true } }).sort({ date: -1});
             count = listings.length;
             listings.splice(2);
             profile = {...(data._doc), listings: [...listings], listingAmount: count}

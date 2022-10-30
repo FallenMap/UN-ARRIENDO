@@ -104,7 +104,7 @@ export function RenterRegister() {
               <div className={styles.formGroup}>
 
                 {/* Call FormGroup compontent with its own arguments of password with type different for security*/}
-                <FormGroup name={formAllDataUser.birthDate} placeholder="Ingresa tu fecha de nacimiento" title="Nacimiento" image="fa fa-birthday-cake" type="date" />
+                <FormGroup name={formAllDataUser.birthDate} title="Nacimiento" image="fa fa-birthday-cake" type="date" />
 
               </div>
 
