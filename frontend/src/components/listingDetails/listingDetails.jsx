@@ -11,7 +11,7 @@ import { getListing } from '../../controllers/listingActionsController';
 import { Maping } from './maping';
 import Image from 'mui-image';
 import { Link, useParams } from 'react-router-dom';
-import { getUser, getUserProfile } from '../../controllers/userActionsController';
+import { getUser } from '../../controllers/userActionsController';
 import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
