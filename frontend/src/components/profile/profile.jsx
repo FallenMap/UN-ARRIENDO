@@ -10,7 +10,7 @@ import { changeTitle } from '../../utilities/changeTitle';
 import { useParams } from 'react-router-dom';
 import { getUserProfile } from '../../controllers/userActionsController';
 import { capitalize } from '../../utilities/normalizeString';
-import { calculateAge, findUserInReviews, sortCommentsProfileByDate } from '../../utilities/generalTools';
+import { calculateAge, findUserInReviews, sortCommentsProfileByDate, localDate} from '../../utilities/generalTools';
 import CommentForm from './commentForm';
 import Image from 'mui-image';
 import { createComment } from '../../controllers/commentController';
@@ -49,7 +49,6 @@ export default function Profile() {
 
     changeBackground('none');
     useEffect(() => {
-        if (!profile) {
             getUserProfile(auth, id)
                 .then(userProfile => {
                     changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`);
@@ -57,7 +56,6 @@ export default function Profile() {
                     setComments(userProfile.reviews);
 
                 });
-        }
     }, [id, auth, profile]);
 
     return (
@@ -197,7 +195,8 @@ export default function Profile() {
                                                         <Grid item xs={12}>
                                                             <Container maxWidth="md">
                                                                 <Paper elevation={2}>
-                                                                    <Comment id={review._id} date={review.date} comments={comments} setComments={setComments} content={review.content} firstName={review.firstNameUser} lastName={review.lastNameUser} showTools={review.idUser === auth.user?.[formAllDataUser.id]} />
+                                                    
+                                                                    <Comment id={review._id} idUser={review.idUser} date={localDate(review.date)} comments={comments} setComments={setComments} content={review.content} firstName={review.firstNameUser} lastName={review.lastNameUser} showTools={review.idUser === auth.user?.[formAllDataUser.id]} />
                                                                 </Paper>
                                                             </Container>
                                                         </Grid>)

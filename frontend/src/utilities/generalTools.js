@@ -28,7 +28,7 @@ export const sortCommentsProfileByDate = (reviews, id=-1) => {
         }
     }
 
-    newReviews.sort((a, b)=> new Date(a['date']) - new Date(b['date']));
+    newReviews.sort((a, b)=> new Date(b['date']) - new Date(a['date']) );
     if(flag){
         newReviews.unshift(userComment);
     }
@@ -47,4 +47,9 @@ export const findUserInReviews = (reviews, id) => {
     }
     
     return flag;
+}
+
+export const localDate = (date) => {
+    let d = new Date(date);
+    return d.toLocaleDateString() + ' ' + d.toTimeString().substring(0, d.toTimeString().indexOf("GMT"));
 }

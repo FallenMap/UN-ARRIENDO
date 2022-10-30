@@ -113,9 +113,9 @@ export function MainScreen() {
                         <Button variant="contained">{buttonMessage}</Button>
                       </Link>
                   }
-                  
+                  <Link to={`/profile/${auth?.user?._id}`} style={{ textDecoration: "none" }}>
                     <Button variant="outlined">Ver perfil</Button>
-                 
+                  </Link>
 
 
                 </Stack>

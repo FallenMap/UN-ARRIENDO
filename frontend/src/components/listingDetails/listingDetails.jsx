@@ -12,7 +12,7 @@ import { Maping } from './maping';
 import { capitalize } from '../../utilities/normalizeString';
 import Image from 'mui-image';
 import { Link, useParams } from 'react-router-dom';
-import { getUser, getUserProfile } from '../../controllers/userActionsController';
+import { getUser } from '../../controllers/userActionsController';
 import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
@@ -38,9 +38,10 @@ export function ListingDetails() {
 
   let idUser = listing?.landlord
 
-  useEffect(() => {
-    getUser(auth, idUser).then(userResp => setUser(userResp));
-  }, [auth, idUser]);
+    useEffect(()=>{
+      getUser(auth, idUser).then(userResp => setUser(userResp));
+      window.scroll(0,0)
+      },[auth, idUser]);
 
   const carouselRef = useRef(null);
   let resetTimeout;

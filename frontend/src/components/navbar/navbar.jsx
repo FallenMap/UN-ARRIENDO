@@ -4,7 +4,7 @@ import styles from "../../css/renterRegister.module.css";
 import { useState } from 'react'
 import { AppBar, Container, Box, Toolbar, Typography, Avatar,
         Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip, Button } from '@mui/material';
-import { Logout, History, Person } from '@mui/icons-material';
+import { Logout, History, Person, Create} from '@mui/icons-material';
 import useAuth from '../../auth/useAuth';
 import { logOutAPI } from "../../api/userAPI";
 import { changeBackground } from '../../utilities/changeBackground';
@@ -104,11 +104,21 @@ function Navbar() {
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
+
+                            {<Link to={`/profile/${auth?.user?._id}`} style={{textDecoration:"none"}}>
+                                <MenuItem>
+                                    <ListItemIcon>
+                                    <Person fontSize='medium' />
+                                    </ListItemIcon>
+                                    Perfil
+                                </MenuItem>
+                            </Link>}
+
                             {auth.isLogged() &&
                                 <Link to={auth.user?.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"} style={{textDecoration:"none"}}>
                                     <MenuItem>
                                         <ListItemIcon>
-                                        <Person fontSize='medium' />
+                                        <Create fontSize='medium' />
                                         </ListItemIcon> Actualizar datos
                                     </MenuItem>
                                 </Link>
@@ -118,6 +128,7 @@ function Navbar() {
                             <Divider style={{
                                 width: "100%"
                             }} />
+
                             {auth.user?.type === "Landlord" && <Link to="/Historial" style={{textDecoration:"none"}}>
                                 <MenuItem>
                                     <ListItemIcon>
