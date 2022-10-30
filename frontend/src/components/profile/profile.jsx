@@ -198,7 +198,7 @@ export default function Profile() {
                                                             <Container maxWidth="md">
                                                                 <Paper elevation={2}>
                                                     
-                                                                    <Comment id={review._id} date={localDate(review.date)} comments={comments} setComments={setComments} content={review.content} firstName={review.firstNameUser} lastName={review.lastNameUser} showTools={review.idUser === auth.user?.[formAllDataUser.id]} />
+                                                                    <Comment id={review._id} idUser={review.idUser} date={localDate(review.date)} comments={comments} setComments={setComments} content={review.content} firstName={review.firstNameUser} lastName={review.lastNameUser} showTools={review.idUser === auth.user?.[formAllDataUser.id]} />
                                                                 </Paper>
                                                             </Container>
                                                         </Grid>)

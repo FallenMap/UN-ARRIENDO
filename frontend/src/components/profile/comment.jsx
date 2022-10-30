@@ -1,12 +1,12 @@
 import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, TextField, Tooltip, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useParams } from 'react-router-dom';
 import { deleteComment, updateComment } from '../../controllers/commentController';
 import useAuth from '../../auth/useAuth';
 import { capitalize } from '../../utilities/normalizeString';
-
+import { getUser } from '../../controllers/userActionsController';
 const validate = (data) => {
   const errors = {};
   if (!data.content) {
@@ -67,6 +67,10 @@ export default function Comment(props) {
         setEditMode(false);
       });
   }
+  const [user,setUser] = useState([]);
+  useEffect(()=>{
+    getUser(auth, props.idUser).then(userResp => setUser(userResp));
+    },[auth, props.idUser]);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -81,7 +85,7 @@ export default function Comment(props) {
           <Box sx={{ padding: "5px 25px" }}>
             <Grid container>
               <Grid item xs={1}>
-                <Avatar sx={{ width: "50px", height: "50px" }}></Avatar>
+                <Avatar src={"http://localhost:5000/images/profile/"+ user?.photo} sx={{ width: "50px", height: "50px" } }></Avatar>
               </Grid>
               <Grid item xs={9}>
                 <Typography>{capitalize(`${props.firstName} ${props.lastName}`)}</Typography>
