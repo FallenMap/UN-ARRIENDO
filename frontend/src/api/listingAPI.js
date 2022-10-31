@@ -45,3 +45,15 @@ export const updateRatingListingAPI = (ratingBody) => {
     // console.log(listingID)
     return axios.post(URL+"/listing/rating/", ratingBody);
 }
+
+export const setCommentListingAPI = (body) => {
+    return axios.post(URL+"/listing/comment/", body);
+}
+
+export const deleteCommentListingAPI = (body) => {
+    return axios.post(URL+"/listing/commentDelete/", body);
+}
+
+export const updateCommentListingAPI = (body) => {
+    return axios.put(URL+"/listing/commentUpdate/", body);
+}

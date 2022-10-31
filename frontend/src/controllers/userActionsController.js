@@ -1,4 +1,4 @@
-import { getUserApi, logInAPI, registerUser, updateUser } from "../api/userAPI";
+import { getUserApi, logInAPI, registerUser, updateUser, getProfileAPI } from "../api/userAPI";
 import { formLogin } from "../adapters/formAdapters";
 import { redirect } from 'react-router-dom';
 
@@ -41,7 +41,7 @@ export const userRegisterHandlerOnSubmit = (event, auth, navigate, role) => {
     }).catch(err => console.log(err));
 }
 
-export const getUser = async (auth,ID) => {
+export const getUser = async (auth, ID) => {
     let user;
     try{
        let res = await getUserApi(ID);
@@ -51,7 +51,7 @@ export const getUser = async (auth,ID) => {
             auth.logOut();
         }
         
-        console.log('Listing get all error: '+err.response.data.error);
+        console.log('User get error: '+err.response.data.error);
     }
     
     return user;
@@ -82,3 +82,19 @@ export const userUpdateHandlerOnSubmit = (event, auth) => {
     
 
 }
+
+export const getUserProfile = async (auth, ID) => {
+    let profile;
+    try{
+       let res = await getProfileAPI(ID);
+       profile = res.data.profile;
+    }catch(err){
+        if(err.response.data.isNotLogged){
+            auth.logOut();
+        }
+        
+        console.log('User get error: '+err.response.data.error);
+    }
+    
+    return profile;
+} 

@@ -31,3 +31,20 @@ export const updateUser = (userData) => {
 export const getUserApi = (idUser) => {
     return axios.get(URL+"/user/get/"+idUser);
 }
+
+export const getProfileAPI = (idUser) => {
+    return axios.get(URL+"/user/profile/"+idUser);
+}
+
+export const setReviewProfileAPI = (body) => {
+    return axios.post(URL+"/user/review/", body);
+}
+
+export const deleteReviewProfileAPI = (body) => {
+    return axios.post(URL+"/user/reviewDelete/", body);
+}
+
+export const updateReviewProfileAPI = (body) => {
+    return axios.put(URL+"/user/reviewUpdate/", body);
+}
+

@@ -16,6 +16,7 @@ import LandlordRoute from "./components/routes/landlordRoute";
 import TenantRoute from "./components/routes/tenantRoute";
 import { ListingDetails } from "./components/listingDetails/listingDetails";
 import ListingUpdate from "./components/update/listingUpdate/listingUpdate";
+import Profile from "./components/profile/profile";
 
 export function App() {
 
@@ -45,7 +46,7 @@ export function App() {
             <Route exact path="/Historial" element={<LandlordRoute component={ <Historial /> } />}> </Route>
             <Route exact path="/ListingRegister" element={<LandlordRoute component={ <ListingRegister /> } />} />
             <Route exact path="/listing/update/:id" element={<LandlordRoute component={ <ListingUpdate /> } />} />
-
+            <Route exact path="/profile/:id" element={<LoggedRoute component={<Profile/>} />} />
 
           </Routes>
 

@@ -1,6 +1,20 @@
 const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
+const commentSchema = new mongoose.Schema({
+    firstNameUser: String,
+    lastNameUser: String,
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    content: String,
+    idUser: {
+        type: ObjectId,
+        required: true
+    }
+})
+
 // We define the base listing scheme
 const listingSchema = new mongoose.Schema({
     title: String,
@@ -37,6 +51,7 @@ const listingSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.Mixed,
         default: {"-1":-1}
     },
+    comments: [commentSchema],
     date: {
         type: Date,
         default: Date.now

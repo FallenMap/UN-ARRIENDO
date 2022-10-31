@@ -82,7 +82,16 @@ export function StudentRegister() {
                 <ListGender />
 
               </div>
+              <div className={styles.formGroup}>
 
+                <label htmlFor="description" className="cols-sm-2 control-label">
+                Tu descripción
+                </label>
+                <textarea name={formAllDataUser.description} id="description" title="Descripción" placeholder=" Ingresa tu descripción" cols="30" rows="3" style={{
+                    width:"100%"
+                }}></textarea>
+                
+              </div>
               <div className={styles.formGroup}>
 
                 {/* Call FormGroup compontent with its own arguments of password*/}
@@ -90,6 +99,13 @@ export function StudentRegister() {
 
               </div>
 
+              <div className={styles.formGroup}>
+
+                {/* Call FormGroup compontent with its own arguments of password with type different for security*/}
+                <FormGroup name={formAllDataUser.birthDate} title="Nacimiento" image="fa fa-birthday-cake" type="date" />
+
+              </div>
+              
               <div className={styles.formGrup}>
 
                 {/* Call ButtonUploadPhoto component with it own photo */}
