@@ -48,7 +48,7 @@ export default function Profile() {
         body['reviews'] = { ...review };
         body['idProfile'] = id;
 
-        createComment(auth, body)
+        createComment(auth, body, true)
             .then(res => {
                 if (res.comment) {
                     document.querySelector('form').reset();
@@ -223,7 +223,6 @@ export default function Profile() {
                                                         <Grid item xs={12} key={review._id}>
                                                             <Container maxWidth="md">
                                                                 <Paper elevation={2}>
-
                                                                     <Comment isProfile={true} id={review._id} idUser={review.idUser} date={localDate(review.date)} comments={comments} setComments={setComments} content={review.content} firstName={review.firstNameUser} lastName={review.lastNameUser} showTools={review.idUser === auth.user?.[formAllDataUser.id]} />
                                                                 </Paper>
                                                             </Container>

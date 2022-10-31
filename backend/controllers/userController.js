@@ -218,7 +218,7 @@ userController.reviewUser = async (req, res) => {
         // update the (reviewed) user document if the document exists (theres a document with the reviewed user id) and there's no review by the current user (no entry on reviews array with idUser equal to current user id)
         // push operation to not override other users reviews
         // the reviewUser method works with both non existant, existant but empty and existant and non empty reviews array. some older user documents do not have the empty array of the new createUser method
-        await User.updateOne({ $and: { _id: ObjectId(req.body.idProfile), reviews: { $exists: false } } }, { $set: { "reviews": [] } });
+        await User.updateOne({ $and: [{ _id: ObjectId(req.body.idProfile), reviews: { $exists: false } }] }, { $set: { "reviews": [] } });
         await User.updateOne({ $and: [{ _id: ObjectId(req.body.idProfile) }, { "reviews.idUser": { $ne: ObjectId(req.session.userID) } }] }, { $push: { reviews: req.body.reviews } });
         let user = await User.findOne({ _id: ObjectId(req.body.idProfile) });
         review = user.reviews.pop();
