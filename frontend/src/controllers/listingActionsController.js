@@ -99,7 +99,14 @@ export const updateRatingListing = async (auth, value, idlisting, ratingJSON) =>
     try{
         let body = {};
         body[formAllListings.idlisting] = idlisting;
-        ratingJSON[auth.user?._id] = value;
+        
+        if(value){
+            ratingJSON[auth.user?._id] = value;
+        }else{
+            delete ratingJSON[auth.user?._id];
+        }
+
+
         body[formAllListings.valoradoEstudiantes] = ratingJSON;
         let result = await updateRatingListingAPI(body);
         return result.data.average;

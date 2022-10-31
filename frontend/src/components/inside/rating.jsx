@@ -32,8 +32,6 @@ export function HoverRating(props) {
       console.log("Rating component error "+err);
     });
   } 
-    const labels = Math.round(average*10)/10;
-
   return (
     <Box
       sx={{
@@ -57,7 +55,7 @@ export function HoverRating(props) {
           readOnly
         />
         {value !== null && (
-          <Box sx={{ ml: 2}}>({labels})</Box>
+          <Box sx={{ ml: 2}}>({Math.round(average*10)/10})</Box>
         )}
       </Box>  :  
         <Box
@@ -78,7 +76,7 @@ export function HoverRating(props) {
           }}
         />
         {value !== null && (
-          <Box sx={{ ml: 2, pb:1.8}}>({labels})</Box>
+          <Box sx={{ ml: 2, pb:1.8}}>({Math.round(average*10)/10})</Box>
         )}
       </Box> }
 
