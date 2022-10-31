@@ -41,7 +41,10 @@ export default function Comment(props) {
           setOpen(false);
         });
 
+    }else{
+      setOpen(false);
     }
+
   };
 
   const handleSubmitUpdateComment = (event, idComment) => {
