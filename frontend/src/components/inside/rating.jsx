@@ -32,7 +32,7 @@ export function HoverRating(props) {
       console.log("Rating component error "+err);
     });
   } 
-    const labels = average
+    const labels = Math.round(average*10)/10;
 
   return (
     <Box
