@@ -5,7 +5,12 @@ export default function CommentForm(props) {
 
     return (
         <>
-            <TextField name={props.name} multiline fullWidth label={props.label} disabled={props.commentExist || props.sameProfile} />
+            <TextField onChange={(e) => {props.onChange(e)}} name={props.name} multiline fullWidth label={props.label} disabled={props.commentExist || props.sameProfile} />
+            {!(props.commentExist || props.sameProfile) && props.control.errors.content ? (
+                <Typography color='red'>{props.control.errors.content}</Typography>
+            ) : (
+                <></>
+            )}
             {props.sameProfile ? (<Typography color='red'>
                 {props.msgYourSelf}
             </Typography>) : props.commentExist ? (<Typography color='red'>

@@ -7,6 +7,7 @@ import { deleteComment, updateComment } from '../../controllers/commentControlle
 import useAuth from '../../auth/useAuth';
 import { capitalize } from '../../utilities/normalizeString';
 import { Link } from 'react-router-dom';
+
 const validate = (data) => {
   const errors = {};
   if (!data.content) {

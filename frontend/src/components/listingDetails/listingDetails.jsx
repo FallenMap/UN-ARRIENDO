@@ -23,6 +23,15 @@ import CommentForm from '../profile/commentForm';
 import { findUserInReviews, localDate, sortCommentsProfileByDate } from '../../utilities/generalTools';
 import { createComment } from '../../controllers/commentController';
 
+const validate = (data) => {
+  const errors = {};
+  if (!data.content) {
+    errors.content = "*Este campo no puede estar vacio"
+  }
+
+  return errors;
+}
+
 
 export function ListingDetails() {
   changeTitle("Detalles de la publicacion");
@@ -31,6 +40,7 @@ export function ListingDetails() {
   const [widthScreen, setWidthScreen] = useState(window.innerWidth);
   const { id } = useParams();
   const [user, setUser] = useState(undefined);
+  const [control, setControl] = useState({ errors: {} });
   const [listing, setlisting] = useState(undefined);
   const [comments, setComments] = useState(undefined);
   const auth = useAuth();
@@ -38,6 +48,11 @@ export function ListingDetails() {
   // Send comment logic -----
   const handleOnSubmitComment = (event) => {
     event.preventDefault();
+    const { errors, ...data } = control;
+    const result = validate(data);
+    if (Object.keys(result).length > 0) {
+      return setControl({ ...control, errors: result });
+    }
     let formData = new FormData(document.querySelector('form')), comment = {}, body = {};
     comment['content'] = formData.get('content');
     comment["firstNameUser"] = auth.user?.[formAllDataUser.name];
@@ -55,6 +70,11 @@ export function ListingDetails() {
         }
 
       })
+  }
+
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setControl({ ...control, [name]: value });
   }
 
   useEffect(() => {
@@ -365,7 +385,7 @@ export function ListingDetails() {
                           </Box>
                         </Container>
                       </Grid>
-                      <Grid item xs={12} sx={{mb:"30px"}}>
+                      <Grid item xs={12} sx={{ mb: "30px" }}>
                         <Container>
                           <Box display="flex" alignItems="center" justifyContent="center">
                             <Divider sx={{ width: "95%", mb: "20px" }} />
@@ -373,6 +393,8 @@ export function ListingDetails() {
                           <Box>
                             <form onSubmit={(e) => { handleOnSubmitComment(e) }}>
                               <CommentForm
+                                onChange={handleChange}
+                                control={control}
                                 name="content"
                                 label="Hazle saber a esta persona lo que opinas"
                                 commentExist={comments.length > 0 ?
@@ -386,23 +408,23 @@ export function ListingDetails() {
                         </Container>
 
                       </Grid>
-                      
+
                       {
                         comments && comments.length > 0 ? (
-                        <Grid container spacing={5} sx={{ marginBottom: "20px" }}>
-                          {sortCommentsProfileByDate(comments, auth.user?.[formAllDataUser.id]).map(comment => {
-                            return (
-                              <Grid key={comment._id} item xs={12}>
-                                <Container maxWidth="md">
-                                  <Paper elevation={2}>
-                                    <Comment isProfile={false} id={comment._id} idUser={comment.idUser} date={localDate(comment.date)} comments={comments} setComments={setComments} content={comment.content} firstName={comment.firstNameUser} lastName={comment.lastNameUser} showTools={comment.idUser === auth.user?.[formAllDataUser.id]} />
-                                  </Paper>
-                                </Container>
-                              </Grid>)
-                          })}
+                          <Grid container spacing={5} sx={{ marginBottom: "20px" }}>
+                            {sortCommentsProfileByDate(comments, auth.user?.[formAllDataUser.id]).map(comment => {
+                              return (
+                                <Grid key={comment._id} item xs={12}>
+                                  <Container maxWidth="md">
+                                    <Paper elevation={2}>
+                                      <Comment isProfile={false} id={comment._id} idUser={comment.idUser} date={localDate(comment.date)} comments={comments} setComments={setComments} content={comment.content} firstName={comment.firstNameUser} lastName={comment.lastNameUser} showTools={comment.idUser === auth.user?.[formAllDataUser.id]} />
+                                    </Paper>
+                                  </Container>
+                                </Grid>)
+                            })}
                           </Grid>) : (
                           <>
-                            <Grid container spacing={3} sx={{mb:"30px"}}>
+                            <Grid container spacing={3} sx={{ mb: "30px" }}>
                               <Grid item xs={12}>
                                 <Box display="flex" alignItems="center" justifyContent="center">
                                   <Image
