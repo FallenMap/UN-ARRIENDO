@@ -52,7 +52,7 @@ export function HoverRating(props) {
       >
         <Rating
           name="hover-feedback"
-          value={value}
+          value={Math.round(value*10)/10}
           precision={0.5}
           readOnly
         />
@@ -70,7 +70,7 @@ export function HoverRating(props) {
       >
         <Rating
           name="hover-feedback"
-          value={value}
+          value={Math.round(value*10)/10}
           precision={0.5}
           onChange={(event, newValue) => {
             setValue(newValue);
