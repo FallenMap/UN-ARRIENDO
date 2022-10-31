@@ -29,7 +29,7 @@ const translateType = {
     3: "Room"
 }
 
-/*const translateCleaning = {
+const translateCleaning = {
     1: "Private",
     2: "Communal"
 }
@@ -37,7 +37,7 @@ const translateType = {
 const translateKitchen = {
     1: "Open",
     2: "Closed"
-}*/
+}
 
 function getStepContent(step, formData) {
     switch (step) {
@@ -77,8 +77,8 @@ export default function ListingRegister() {
 
         if (steps.length - 1 === activeStep) {
             formData.set(formAllListings.tipo, translateType[formData.get(formAllListings.tipo)]);
-            /*formData.set(formAllListings.cocina, translateKitchen[formData.get(formAllListings.cocina)]);
-            formData.set(formAllListings.areaLimpieza, translateCleaning[formData.get(formAllListings.areaLimpieza)]);*/
+            formData.set(formAllListings.cocina, translateKitchen[formData.get(formAllListings.cocina)]);
+            formData.set(formAllListings.areaLimpieza, translateCleaning[formData.get(formAllListings.areaLimpieza)]);
             showSuccessText = listingCreateHandlerOnSubmit(auth, formData);
         }
 
@@ -86,6 +86,15 @@ export default function ListingRegister() {
     };
 
     const handleBack = () => {
+        let tempFormData = new FormData(document.querySelector('form'));
+
+        for (const pair of tempFormData.entries()) {
+            if ([...formData.keys()].indexOf(pair[0]) === -1) {
+                formData.append(pair[0], pair[1]);
+            } else if (pair[0] !== "files") {
+                formData.set(pair[0], pair[1]);
+            }
+        }
         setActiveStep(activeStep - 1);
     };
 

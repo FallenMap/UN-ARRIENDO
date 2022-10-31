@@ -71,6 +71,8 @@ listingController.updateListing = async (req, res) => {
 
 
     //updating
+    delete req.body.comments;
+    delete req.body.reviewedByTenants;
     if ((req.body.type).toLowerCase() == "apartment") {
         try {
             await Apartment.updateOne({ _id: req.body._id }, { $set: { ...req.body } });
