@@ -10,7 +10,7 @@ import { changeTitle } from '../../utilities/changeTitle';
 import { useParams } from 'react-router-dom';
 import { getUserProfile } from '../../controllers/userActionsController';
 import { capitalize } from '../../utilities/normalizeString';
-import { calculateAge, findUserInReviews, sortCommentsProfileByDate, localDate} from '../../utilities/generalTools';
+import { calculateAge, findUserInReviews, sortCommentsProfileByDate, localDate } from '../../utilities/generalTools';
 import CommentForm from './commentForm';
 import Image from 'mui-image';
 import { createComment } from '../../controllers/commentController';
@@ -48,12 +48,13 @@ export default function Profile() {
 
     changeBackground('none');
     useEffect(() => {
-            getUserProfile(auth, id)
-                .then(userProfile => {
-                    changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`);
-                    setProfile(userProfile);
-                    setComments(userProfile.reviews);
-                });
+        window.scroll(0, 0);
+        getUserProfile(auth, id)
+            .then(userProfile => {
+                changeTitle(`Perfil - ${userProfile[formAllDataUser.username]}`);
+                setProfile(userProfile);
+                setComments(userProfile.reviews);
+            });
     }, [id, auth]);
 
     return (
@@ -182,7 +183,15 @@ export default function Profile() {
                                                 padding: "20px",
                                             }}>
                                                 <form onSubmit={(e) => { handleOnSubmitComment(e) }}>
-                                                    <CommentForm name="content" label="Hazle saber a esta persona lo que opinas" commentExist={comments.length > 0 ? (findUserInReviews(comments, auth.user?.[formAllDataUser.id])) : (false)} sameProfile={id === auth.user?.[formAllDataUser.id]} />
+                                                    <CommentForm 
+                                                        name="content" 
+                                                        label="Hazle saber a esta persona lo que opinas" 
+                                                        commentExist= {comments.length > 0 ? 
+                                                            (findUserInReviews(comments, auth.user?.[formAllDataUser.id])) : (false)
+                                                        } 
+                                                        sameProfile={id === auth.user?.[formAllDataUser.id]}
+                                                        msgOnce="Solo puedes comentar el perfil una vez."
+                                                        msgYourSelf="No puedes comentar tu propio perfil." />
                                                 </form>
                                             </Box>
                                         </Grid>
@@ -193,8 +202,8 @@ export default function Profile() {
                                                         <Grid item xs={12}>
                                                             <Container maxWidth="md">
                                                                 <Paper elevation={2}>
-                                                    
-                                                                    <Comment id={review._id} idUser={review.idUser} date={localDate(review.date)} comments={comments} setComments={setComments} content={review.content} firstName={review.firstNameUser} lastName={review.lastNameUser} showTools={review.idUser === auth.user?.[formAllDataUser.id]} />
+
+                                                                    <Comment isProfile={true} id={review._id} idUser={review.idUser} date={localDate(review.date)} comments={comments} setComments={setComments} content={review.content} firstName={review.firstNameUser} lastName={review.lastNameUser} showTools={review.idUser === auth.user?.[formAllDataUser.id]} />
                                                                 </Paper>
                                                             </Container>
                                                         </Grid>)

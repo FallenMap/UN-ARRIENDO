@@ -15,7 +15,7 @@ const userController = {};
 
 // Function to register a new user, we must validate the information given by the frontend.
 userController.createUser = async (req, res) => {
-    
+
     try {
         // Change the password given by frontend to the encrypted password
         req.body.password = await bcrypt.hash(req.body.password, 8);
@@ -34,10 +34,10 @@ userController.createUser = async (req, res) => {
 
         req.body.reviews = [];
 
-        if(req.body.socialMediaHandles){
+        if (req.body.socialMediaHandles) {
             req.body.socialMediaHandles = JSON.parse(req.body.socialMediaHandles);
         }
-        
+
         if ((req.body.role).toLowerCase() == "landlord") {
             user = new Landlord({ ...req.body });
             await user.save();
@@ -134,7 +134,7 @@ userController.loginUser = async (req, res) => {
 
     try {
         user = await User.findOne(query);
-        
+
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -192,18 +192,18 @@ userController.logoutUser = (req, res) => {
 }
 
 userController.getUser = async (req, res) => {
-    try{
+    try {
         //console.log(req.params.userPubID)
-        let userPublication = await User.findOne({ _id: req.params.userPubID});
+        let userPublication = await User.findOne({ _id: req.params.userPubID });
         // exit message
         res.status(200).json({
-            msg:"Get user Information done",
+            msg: "Get user Information done",
             user: userPublication
-            });
+        });
     }
-    catch{
+    catch {
         res.status(500).json({
-            error:"Something bad happened..."
+            error: "Something bad happened..."
         });
     }
 }
@@ -211,29 +211,29 @@ userController.getUser = async (req, res) => {
 userController.reviewUser = async (req, res) => {
     let review;
     try {
-        
+
         // adds the current user id to the review object
         req.body.reviews.idUser = req.session.userID;
-        
+
         // update the (reviewed) user document if the document exists (theres a document with the reviewed user id) and there's no review by the current user (no entry on reviews array with idUser equal to current user id)
         // push operation to not override other users reviews
         // the reviewUser method works with both non existant, existant but empty and existant and non empty reviews array. some older user documents do not have the empty array of the new createUser method
-        await User.updateOne({_id: ObjectID(req.body.idProfile), reviews:{$exists:false}}, {$set:{"reviews":[]}});
-        await User.updateOne({ $and: [ { _id: ObjectId(req.body.idProfile) }, { "reviews.idUser": { $ne: ObjectId(req.session.userID) } } ] }, { $push: { reviews: req.body.reviews } });
-        let user = await User.findOne({_id: ObjectId(req.body.idProfile)});
+        await User.updateOne({ $and: { _id: ObjectId(req.body.idProfile), reviews: { $exists: false } } }, { $set: { "reviews": [] } });
+        await User.updateOne({ $and: [{ _id: ObjectId(req.body.idProfile) }, { "reviews.idUser": { $ne: ObjectId(req.session.userID) } }] }, { $push: { reviews: req.body.reviews } });
+        let user = await User.findOne({ _id: ObjectId(req.body.idProfile) });
         review = user.reviews.pop();
-        while(review.idUser!=req.session.userID && user.reviews.length>0){
+        while (review.idUser != req.session.userID && user.reviews.length > 0) {
             review = user.reviews.pop();
         }
-    } catch (err){
+    } catch (err) {
         console.log(err);
         return res.status(500).json({
-            error:"Algo malo ocurrió cuando intentaba reseñar"
+            error: "Algo malo ocurrió cuando intentaba reseñar"
         });
     }
     res.status(200).json({
         msg: "user review created!",
-        comment : review
+        comment: review
     });
 };
 
@@ -244,16 +244,14 @@ userController.updateUserReview = async (req, res) => {
         req.body.reviews.idUser = req.session.userID;
         // update the (reviewed) user document, updating the review made by the reviewing user (review.idUser == session.userID)
         // check existance of reviews field, some older user documents do not have the empty array of the new createUser method (this is only to avoid crashes)
-        let result = await User.updateOne({ _id: ObjectId(req.body.idProfile), reviews: { $exists: true}, "reviews.idUser":req.body.reviews.idUser }, { $set: { "reviews.$[review]": req.body.reviews } }, { arrayFilters: [ { "review.idUser": ObjectId(req.session.userID) } ] });
-        console.log(result);
-    } catch(err){
-        console.log(err);
+        let result = await User.updateOne({ _id: ObjectId(req.body.idProfile), reviews: { $exists: true }, "reviews.idUser": req.body.reviews.idUser }, { $set: { "reviews.$[review]": req.body.reviews } }, { arrayFilters: [{ "review.idUser": ObjectId(req.session.userID) }] });
+    } catch (err) {
         return res.status(500).json({
-            error:"Algo malo ocurrió cuando intentaba actualizar la reseña"
+            error: "Algo malo ocurrió cuando intentaba actualizar la reseña"
         });
     }
     res.status(200).json({
-        msg: "Se ha actualizado correctamente tu comentario!"
+        msg: "¡Se ha actualizado correctamente tu comentario!"
     });
 };
 
@@ -262,10 +260,10 @@ userController.deleteUserReview = async (req, res) => {
     try {
         // update the (reviewed) user document, deleting the review made by the reviewing user (review.idUser == session.userID)
         // check existance of reviews field, some older user documents do not have the empty array of the new createUser method (this is only to avoid crashes)
-        await User.updateOne({ $and: [ { _id: ObjectId(req.body.idProfile) }, { reviews: {$exists: true}}] }, { $pull: { reviews: { idUser: ObjectId(req.session.userID) } } });
-    } catch{
+        await User.updateOne({ $and: [{ _id: ObjectId(req.body.idProfile) }, { reviews: { $exists: true } }] }, { $pull: { reviews: { idUser: ObjectId(req.session.userID) } } });
+    } catch {
         return res.status(500).json({
-            error:"Algo malo ocurrió cuando intentaba borrar la reseña"
+            error: "Algo malo ocurrió cuando intentaba borrar la reseña"
         });
     }
     res.status(200).json({
@@ -273,18 +271,18 @@ userController.deleteUserReview = async (req, res) => {
     });
 };
 
-userController.getUserProfile = async(req, res) => {
+userController.getUserProfile = async (req, res) => {
     let data, listings, profile, count;
-    try{
+    try {
         data = await User.findById(req.params.id);
-        data.reviews = data.reviews.filter(review => review!=undefined);
-        if(data.type=="Landlord"){
-            listings = await Listing.find({ landlord: String(req.params.id), active: { $gte: true } }).sort({ date: -1});
+        data.reviews = data.reviews.filter(review => review != undefined);
+        if (data.type == "Landlord") {
+            listings = await Listing.find({ landlord: String(req.params.id), active: { $gte: true } }).sort({ date: -1 });
             count = listings.length;
             listings.splice(2);
-            profile = {...(data._doc), listings: [...listings], listingAmount: count}
-        }else{
-            profile= {...(data._doc)}
+            profile = { ...(data._doc), listings: [...listings], listingAmount: count }
+        } else {
+            profile = { ...(data._doc) }
         }
 
         // moves the review by current user (if it exists) to the front of the array, so that its easier to reach the edit and delete buttons in frontend, same logic could be moved to front ent
@@ -295,15 +293,15 @@ userController.getUserProfile = async(req, res) => {
             profile.reviews.splice(0, 0, currentUserReview);
         }*/
 
-    }catch{
+    } catch {
         console.log("Something happened when the user load a profile");
         return res.status(500).json({
-            error:"No se pudo cargar el perfil del usuario"
+            error: "No se pudo cargar el perfil del usuario"
         });
     }
     res.status(200).json({
-            msg:"Perfil recuperado exitosamente",
-            profile: profile
+        msg: "Perfil recuperado exitosamente",
+        profile: profile
     });
 
 

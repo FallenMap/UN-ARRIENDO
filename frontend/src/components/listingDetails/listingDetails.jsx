@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
-import { Button, Grid, Typography, Paper, Avatar, Divider, CircularProgress } from '@mui/material'
+import { Grid, Typography, Paper, Avatar, Divider, CircularProgress } from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
 import "../../css/ListingDetail.css";
@@ -13,13 +13,15 @@ import { capitalize } from '../../utilities/normalizeString';
 import Image from 'mui-image';
 import { Link, useParams } from 'react-router-dom';
 import { getUser } from '../../controllers/userActionsController';
-import ErrorProfile from './errorProfile';
+//import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
-import { formAllListings } from '../../adapters/formAdapters';
+import { formAllDataUser, formAllListings } from '../../adapters/formAdapters';
 import Comment from '../profile/comment';
 import { AddRoad, Bathtub, Bed, Chair, CropSquare, HolidayVillage, Inventory, Layers, LocalParking, More, PedalBike, Villa, } from '@mui/icons-material';
 import CommentForm from '../profile/commentForm';
+import { findUserInReviews, localDate, sortCommentsProfileByDate } from '../../utilities/generalTools';
+import { createComment } from '../../controllers/commentController';
 
 
 export function ListingDetails() {
@@ -27,21 +29,45 @@ export function ListingDetails() {
   changeBackground('none');
 
   const [widthScreen, setWidthScreen] = useState(window.innerWidth);
-  const idListing = useParams();
-  const [user, setUser] = useState([]);
+  const { id } = useParams();
+  const [user, setUser] = useState(undefined);
   const [listing, setlisting] = useState(undefined);
+  const [comments, setComments] = useState(undefined);
   const auth = useAuth();
 
-  useEffect(() => {
-    getListing(auth, idListing).then(listingResp => setlisting(listingResp));
-  }, [auth, idListing]);
+  // Send comment logic -----
+  const handleOnSubmitComment = (event) => {
+    event.preventDefault();
+    let formData = new FormData(document.querySelector('form')), comment = {}, body = {};
+    comment['content'] = formData.get('content');
+    comment["firstNameUser"] = auth.user?.[formAllDataUser.name];
+    comment["lastNameUser"] = auth.user?.[formAllDataUser.lastName];
+    body['comments'] = { ...comment };
+    body['idListing'] = id;
 
-  let idUser = listing?.landlord
+    createComment(auth, body, false)
+      .then(res => {
+        if (res.comment) {
+          document.querySelector('form').reset();
+          setComments([...comments, res.comment]);
+        } else {
+          console.log(res.msg);
+        }
+
+      })
+  }
 
   useEffect(() => {
-    getUser(auth, idUser).then(userResp => setUser(userResp));
-    window.scroll(0, 0)
-  }, [auth, idUser]);
+    window.scroll(0, 0);
+    getListing(auth, id)
+      .then(listingResp => {
+        getUser(auth, listingResp.landlord).then(userResp => {
+          setUser(userResp)
+          setlisting(listingResp)
+          setComments(listingResp.comments);
+        });
+      });
+  }, [auth, id]);
 
   const carouselRef = useRef(null);
   let resetTimeout;
@@ -100,7 +126,7 @@ export function ListingDetails() {
                             justifyContent="center"
                             sx={{ verticalAlign: "middle", height: "100%" }}
                           >
-                            <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
+                            <Link to={`/profile/${user._id}`} style={{ color: "black" }}>
                               <Avatar
                                 src={"http://localhost:5000/images/profile/" + user?.photo}
                                 sx={{
@@ -112,7 +138,7 @@ export function ListingDetails() {
                           </Box>
                         </Grid>
                         <Grid item xs={12} sm={5} md={5}>
-                          <Link to={`/profile/${idUser}`} style={{ textDecoration: "none" }}>
+                          <Link to={`/profile/${user._id}`} style={{ textDecoration: "none" }}>
                             <Typography
                               component="h5"
                               variant="h5"
@@ -339,30 +365,65 @@ export function ListingDetails() {
                           </Box>
                         </Container>
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sx={{mb:"30px"}}>
                         <Container>
                           <Box display="flex" alignItems="center" justifyContent="center">
                             <Divider sx={{ width: "95%", mb: "20px" }} />
                           </Box>
                           <Box>
-                            <form>
-                              <CommentForm />
+                            <form onSubmit={(e) => { handleOnSubmitComment(e) }}>
+                              <CommentForm
+                                name="content"
+                                label="Hazle saber a esta persona lo que opinas"
+                                commentExist={comments.length > 0 ?
+                                  (findUserInReviews(comments, auth.user?.[formAllDataUser.id])) : (false)
+                                }
+                                sameProfile={user._id === auth.user?.[formAllDataUser.id]}
+                                msgOnce="Solo puedes comentar la publicación una vez."
+                                msgYourSelf="No puedes comentar tu propia publicacion." />
                             </form>
                           </Box>
                         </Container>
 
                       </Grid>
-                      <Grid item xs={12} sx={{ marginLeft: '15px', marginRight: '15px', marginBottom: '15px' }}>
-                        <Grid container>
-                          {listing?.comments?.map((item, i) =>
-                            <Grid item xs={12} sm={6} md={6}>
-                              <Box sx={{ marginTop: '30px', padding: "5px 25px" }}>
-                                <Comment text={item.content} userName={item.firstNameUser} lastName={item.lastNameUser} date={item.date} />
-                              </Box>
+                      
+                      {
+                        comments && comments.length > 0 ? (
+                        <Grid container spacing={5} sx={{ marginBottom: "20px" }}>
+                          {sortCommentsProfileByDate(comments, auth.user?.[formAllDataUser.id]).map(comment => {
+                            return (
+                              <Grid item xs={12}>
+                                <Container maxWidth="md">
+                                  <Paper elevation={2}>
+                                    <Comment isProfile={false} id={comment._id} idUser={comment.idUser} date={localDate(comment.date)} comments={comments} setComments={setComments} content={comment.content} firstName={comment.firstNameUser} lastName={comment.lastNameUser} showTools={comment.idUser === auth.user?.[formAllDataUser.id]} />
+                                  </Paper>
+                                </Container>
+                              </Grid>)
+                          })}
+                          </Grid>) : (
+                          <>
+                            <Grid container spacing={3} sx={{mb:"30px"}}>
+                              <Grid item xs={12}>
+                                <Box display="flex" alignItems="center" justifyContent="center">
+                                  <Image
+                                    src='https://cdn-icons-png.flaticon.com/512/35/35816.png'
+                                    height="15%"
+                                    width="15%"
+                                    fit='cover'
+                                  />
+                                </Box>
+                              </Grid>
+                              <Grid item xs={12}>
+                                <Box display="flex" alignItems="center" justifyContent="center">
+                                  <Typography variant='h5'>
+                                    Esta publicacion no tiene comentarios aun.
+                                  </Typography>
+                                </Box>
+                              </Grid>
                             </Grid>
-                          )}
-                        </Grid>
-                      </Grid>
+                          </>
+                        )
+                      }
                     </Grid>
                   </Grid>
                 </Grid>

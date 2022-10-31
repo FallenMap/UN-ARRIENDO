@@ -25,15 +25,22 @@ export default function Comment(props) {
 
   const handleClose = (action, idComment) => {
     if (action) {
-      let body = { idProfile: id };
-      deleteComment(auth, body)
+      let body;
+      if (props.isProfile) {
+        body = { idProfile: id };
+      } else {
+        body = { idListing: id };
+      }
+      deleteComment(auth, body, props.isProfile)
         .then(msg => {
           const filteredComments = props.comments.filter(comment => comment._id !== idComment);
           props.setComments(filteredComments)
+          //console temp
           console.log(msg)
+          setOpen(false);
         });
+
     }
-    setOpen(false);
   };
 
   const handleSubmitUpdateComment = (event, idComment) => {
@@ -43,17 +50,31 @@ export default function Comment(props) {
     if (Object.keys(result).length > 0) {
       return setControl({ ...control, errors: result });
     }
-    let review = {
-      _id: idComment,
-      content: control.content,
-      firstNameUser: props.firstName,
-      lastNameUser: props.lastName
-    };
-    let body = {
-      idProfile: id,
-      reviews: review
-    };
-    updateComment(auth, body)
+    let body;
+    if (props.isProfile) {
+      let review = {
+        _id: idComment,
+        content: control.content,
+        firstNameUser: props.firstName,
+        lastNameUser: props.lastName
+      };
+      body = {
+        idProfile: id,
+        reviews: review
+      };
+    } else {
+      let comment = {
+        _id: idComment,
+        content: control.content,
+        firstNameUser: props.firstName,
+        lastNameUser: props.lastName
+      };
+      body = {
+        idListing: id,
+        comments: comment
+      };
+    }
+    updateComment(auth, body, props.isProfile)
       .then(msg => {
         const copyComments = [];
         for (let i = 0; i < props.comments.length; i++) {
@@ -67,6 +88,7 @@ export default function Comment(props) {
         props.setComments(copyComments);
         setEditMode(false);
       });
+
   }
 
   const handleChange = ({ target }) => {
@@ -82,12 +104,14 @@ export default function Comment(props) {
           <Box sx={{ padding: "5px 25px" }}>
             <Grid container>
               <Grid item xs={1}>
-              <Link to={'/profile/' + props.idUser} style={{textDecoration:"none"}}>
-                <Avatar src={"http://localhost:5000/images/profile/id/"+ props.idUser} sx={{ width: "50px", height: "50px" } }></Avatar>
-              </Link>
+                <Link to={'/profile/' + props.idUser} style={{ textDecoration: "none" }}>
+                  <Avatar src={"http://localhost:5000/images/profile/id/" + props.idUser} sx={{ width: "50px", height: "50px" }}></Avatar>
+                </Link>
               </Grid>
               <Grid item xs={9}>
-                <Typography>{capitalize(`${props.firstName} ${props.lastName}`)}</Typography>
+                <Link to={'/profile/' + props.idUser} style={{ textDecoration: "none", color:"black"}}>
+                  <Typography>{capitalize(`${props.firstName} ${props.lastName}`)}</Typography>
+                </Link>
                 <Typography variant='body2'>{props.date}</Typography>
               </Grid>
               {props.showTools ? (<Grid item xs={2}>

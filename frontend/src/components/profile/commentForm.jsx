@@ -7,9 +7,9 @@ export default function CommentForm(props) {
         <>
             <TextField name={props.name} multiline fullWidth label={props.label} disabled={props.commentExist || props.sameProfile} />
             {props.sameProfile ? (<Typography color='red'>
-                No puedes comentar tu propio perfil.
+                {props.msgYourSelf}
             </Typography>) : props.commentExist ? (<Typography color='red'>
-                Solo puedes comentar el perfil una vez.
+                {props.msgOnce}
             </Typography>) : (<></>)}
             <Box sx={{
                 float: "right",
