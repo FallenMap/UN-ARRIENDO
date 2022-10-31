@@ -112,7 +112,7 @@ export function ListingDetails() {
       <Navbar />
       <Container sx={{ marginTop: "20px", marginBottom: "50px" }}>
         <Paper sx={{ padding: "10px" }}>
-          {listing ? (
+          {listing && user ? (
             <>
               <Container sx={{ padding: "10px" }}>
                 <Grid container spacing={2}>
