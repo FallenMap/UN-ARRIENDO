@@ -251,7 +251,7 @@ export function ListingDetails() {
                   margin: "20px 0px"
                 }} />
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sx={8} md={8} >
+                  <Grid item xs={12} sm={8} md={8} >
                     <Grid container spacing={2}>
                       <Grid item xs={12} sx={{ padding: "0px 10px" }}>
                         <Container sx={{ borderBottom: '3px solid #D5CDCD' }}>
@@ -277,7 +277,7 @@ export function ListingDetails() {
                         </Container>
                       </Grid>
 
-                      <Grid item sx={12}>
+                      <Grid item xs={12}>
                         <Grid container spacing={2} sx={{ marginTop: '10px' }}>
                           {widthScreen < 900 ? (<></>) : (
                             <Grid item sm={4} md={4}>
@@ -392,7 +392,7 @@ export function ListingDetails() {
                         <Grid container spacing={5} sx={{ marginBottom: "20px" }}>
                           {sortCommentsProfileByDate(comments, auth.user?.[formAllDataUser.id]).map(comment => {
                             return (
-                              <Grid item xs={12}>
+                              <Grid key={comment._id} item xs={12}>
                                 <Container maxWidth="md">
                                   <Paper elevation={2}>
                                     <Comment isProfile={false} id={comment._id} idUser={comment.idUser} date={localDate(comment.date)} comments={comments} setComments={setComments} content={comment.content} firstName={comment.firstNameUser} lastName={comment.lastNameUser} showTools={comment.idUser === auth.user?.[formAllDataUser.id]} />

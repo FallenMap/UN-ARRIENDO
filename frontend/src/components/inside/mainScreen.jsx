@@ -136,7 +136,7 @@ export function MainScreen() {
                     {listings.map((listing) => {
                       if (listing[formAllListings.activo]) {
                         return (
-                          <Grid item xs={6}>
+                          <Grid key={listing._id} item xs={6}>
                             <ListingBlock listing={listing} />
                           </Grid>
                         )

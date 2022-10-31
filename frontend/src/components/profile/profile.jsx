@@ -199,7 +199,7 @@ export default function Profile() {
                                             comments && comments.length > 0 ? (
                                                 sortCommentsProfileByDate(comments, auth.user?.[formAllDataUser.id]).map(review => {
                                                     return (
-                                                        <Grid item xs={12}>
+                                                        <Grid item xs={12} key={review._id}>
                                                             <Container maxWidth="md">
                                                                 <Paper elevation={2}>
 

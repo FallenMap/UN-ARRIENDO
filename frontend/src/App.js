@@ -46,8 +46,6 @@ export function App() {
             <Route exact path="/Historial" element={<LandlordRoute component={ <Historial /> } />}> </Route>
             <Route exact path="/ListingRegister" element={<LandlordRoute component={ <ListingRegister /> } />} />
             <Route exact path="/listing/update/:id" element={<LandlordRoute component={ <ListingUpdate /> } />} />
-
-            {/*Testing routes*/}
             <Route exact path="/profile/:id" element={<LoggedRoute component={<Profile/>} />} />
 
           </Routes>
