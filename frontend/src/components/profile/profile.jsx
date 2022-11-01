@@ -105,7 +105,7 @@ export default function Profile() {
                                             {profile?.[formAllDataUser.birthDate] ? `${calculateAge(profile[formAllDataUser.birthDate])} años` : "?? Años"}
                                         </Typography>
                                         <Typography variant='inherit'>
-                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? profile?.listingAmount + " publicaciones" : ""}
+                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? (profile?.listingAmount !== 1 ? profile?.listingAmount  + " publicaciones" : profile?.listingAmount + "publicación") : ("")}
                                         </Typography>
                                     </Box>
                                 </Grid>
