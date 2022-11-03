@@ -118,7 +118,8 @@ export default function Comment(props) {
                 </Link>
                 <Typography variant='body2'>{props.date}</Typography>
               </Grid>
-              {props.showTools ? (<Grid item xs={2}>
+              {props.showTools ? (
+              <Grid item xs={2}>
                 <Tooltip title="Edit" placement="right">
                   <IconButton onClick={(e) => {
                     e.preventDefault();
@@ -156,7 +157,9 @@ export default function Comment(props) {
                     </Button>
                   </DialogActions>
                 </Dialog>
-              </Grid>) : (<></>)}
+              </Grid>) : (
+                <></>
+              )}
 
             </Grid>
 

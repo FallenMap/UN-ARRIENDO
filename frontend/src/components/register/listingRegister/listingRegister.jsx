@@ -39,14 +39,57 @@ const translateKitchen = {
     2: "Closed"
 }
 
-function getStepContent(step, formData) {
+
+const validate = (data) => {
+    const errors = {};
+    if (!data[formAllListings.tipo]) {
+        errors[formAllListings.tipo] = "*Tienes que seleccionar una opcion"
+    }else{
+        delete errors[formAllListings.tipo];
+    }
+
+    if(!data[formAllListings.titulo]){
+        errors[formAllListings.titulo] = "*Este campo no puede estar vacio"
+    }else{
+        delete errors[formAllListings.titulo];
+    }
+
+    if(!data[formAllListings.descripcion]){
+        errors[formAllListings.descripcion] = "*Este campo no puede estar vacio"
+    }else{
+        delete errors[formAllListings.descripcion];
+    }
+
+    if(!data[formAllListings.direccion]){
+        errors[formAllListings.direccion] = "*Este campo no puede estar vacio"
+    }else{
+        delete errors[formAllListings.direccion];
+    }
+
+    if(!data[formAllListings.barrio]){
+        errors[formAllListings.barrio] = "*Este campo no puede estar vacio"
+    }else{
+        delete errors[formAllListings.barrio];
+    }
+
+    if(!data[formAllListings.precio]){
+        errors[formAllListings.precio] = "*Este campo no puede estar vacio"
+    }else{
+        delete errors[formAllListings.precio];
+    }
+
+
+    return errors;
+}
+
+function getStepContent(step, formData, handleChange, control) {
     switch (step) {
         case 0:
-            return <BasicForm data={formData} showTitle showSelectType/>;
+            return <BasicForm control={control} handleChange={handleChange} data={formData} showTitle showSelectType />;
         case 1:
-            return <SpecificForm data={formData} showTitle />;
+            return <SpecificForm control={control} handleChange={handleChange} data={formData} showTitle />;
         case 2:
-            return <PhotosForm data={formData} />;
+            return <PhotosForm control={control} handleChange={handleChange} data={formData} />;
         default:
             throw new Error('Unknown step');
     }
@@ -55,6 +98,7 @@ function getStepContent(step, formData) {
 export default function ListingRegister() {
     const [activeStep, setActiveStep] = useState(0);
     const [formData, setFormData] = useState(new FormData());
+    const [control, setControl] = useState({ errors: {} })
     const auth = useAuth();
 
     const handleAnotherRegister = () => {
@@ -65,6 +109,13 @@ export default function ListingRegister() {
     let showSuccessText = true;
 
     const handleNext = () => {
+        const { errors, ...data } = control;
+        const result = validate(data);
+        if (Object.keys(result).length > 0) {
+            return setControl({ ...control, errors: result });
+        }else{
+            setControl({ ...control, errors: result });
+        }
         let tempFormData = new FormData(document.querySelector('form'));
 
         for (const pair of tempFormData.entries()) {
@@ -84,6 +135,12 @@ export default function ListingRegister() {
 
         setActiveStep(activeStep + 1);
     };
+
+    const handleChange = ({ target }) => {
+        const { name, value } = target;
+        setControl({ ...control, [name]: value });
+    }
+
 
     const handleBack = () => {
         let tempFormData = new FormData(document.querySelector('form'));
@@ -152,7 +209,7 @@ export default function ListingRegister() {
                             </Box>
                         ) : (
                             <form>
-                                {getStepContent(activeStep, formData)}
+                                {getStepContent(activeStep, formData, handleChange, control)}
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                     {activeStep !== 0 && (
                                         <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

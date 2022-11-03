@@ -39,7 +39,6 @@ export default function SpecificForm(props) {
 
         switch (type) {
             case "1":
-                console.log(props.data.get(formAllListings.areaLimpieza));
                 return (
                 <><Box sx={{ minWidth: 120, marginTop:"15px" }}>
                     <FormControl fullWidth required>
@@ -64,7 +63,6 @@ export default function SpecificForm(props) {
                 </Box></>
             );
             case "2":
-                console.log(props.data.get(formAllListings.cocina));
                 return (<><Box sx={{ minWidth: 120, marginTop:"15px" }}>
                     <FormControl fullWidth required>
                     <InputLabel id="cleaning-simple-select-label">Cocina</InputLabel>
