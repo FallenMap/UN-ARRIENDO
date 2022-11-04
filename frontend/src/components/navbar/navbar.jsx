@@ -9,6 +9,7 @@ import useAuth from '../../auth/useAuth';
 import { logOutAPI } from "../../api/userAPI";
 import { changeBackground } from '../../utilities/changeBackground';
 import { formAllDataUser } from '../../adapters/formAdapters';
+import { URL_BACKEND } from '../../constantes';
 
 
 function Navbar() {

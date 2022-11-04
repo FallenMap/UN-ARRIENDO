@@ -17,6 +17,7 @@ import Image from 'mui-image';
 import ErrorProfile from '../listingDetails/errorProfile';
 import { Box } from '@mui/system';
 import { Link } from "react-router-dom";
+import { URL_BACKEND } from '../../constantes';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {

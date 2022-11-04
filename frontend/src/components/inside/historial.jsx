@@ -26,7 +26,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { deleteListing } from "../../controllers/listingActionsController";
 import CustomizedDialogs from "./contact";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import { URL_BACKEND, URL_PRODUCCION } from "../../constantes";
+import { URL_BACKEND } from "../../constantes";
 const theme = createTheme();
 
 export function Historial() {

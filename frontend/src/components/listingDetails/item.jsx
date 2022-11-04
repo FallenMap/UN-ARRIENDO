@@ -1,4 +1,5 @@
 import Image from 'mui-image'
+import { URL_BACKEND } from '../../constantes'
 import ErrorImage from './errorCarousel'
 
 export default function Item(props){

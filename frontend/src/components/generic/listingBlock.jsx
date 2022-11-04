@@ -8,6 +8,7 @@ import { HoverRating } from "../inside/rating";
 import { formAllListings } from '../../adapters/formAdapters';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { URL_BACKEND } from '../../constantes';
 
 export default function ListingBlock(props) {
     return (

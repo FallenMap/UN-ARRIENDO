@@ -22,6 +22,7 @@ import { AddRoad, Bathtub, Bed, Chair, CropSquare, HolidayVillage, Inventory, La
 import CommentForm from '../profile/commentForm';
 import { findUserInReviews, localDate, sortCommentsProfileByDate } from '../../utilities/generalTools';
 import { createComment } from '../../controllers/commentController';
+import { URL_BACKEND } from '../../constantes';
 
 const validate = (data) => {
   const errors = {};
