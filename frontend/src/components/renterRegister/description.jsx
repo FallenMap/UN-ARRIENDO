@@ -1,6 +1,6 @@
 import {formAllDataUser} from "../../adapters/formAdapters";
 
-export function Description(){
+export function Description(props){
     return(
         <div>
 
@@ -14,10 +14,10 @@ export function Description(){
                 <div className="input-group">
 
                 {/* Create a textarea for enter the user description */}
-                <textarea name={formAllDataUser.description} id="description" cols="30" rows="3" style={{
+                <textarea name={formAllDataUser.description} onChange={props.handleChange} id="description" cols="30" rows="3" style={{
                     width:"100%"
                 }}></textarea>
-
+                {props.errors?.[formAllDataUser.description] && <p style={{ color: "red" }}>{`${props.errors?.[formAllDataUser.description]}`}</p>}
                 </div>
             </div>
         </div>

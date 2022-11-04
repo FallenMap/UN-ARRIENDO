@@ -15,13 +15,18 @@ const theme = createTheme();
 
 const translateCleaning = {
     1: "Private",
-    2: "Communal"
+    2: "Communal",
+    "Private" : 1,
+    "Communal" : 2
 }
 
 const translateKitchen = {
     1: "Open",
-    2: "Closed"
+    2: "Closed",
+    "Open": 1,
+    "Closed":2
 }
+
 
 export default function ListingUpdate() {
 
@@ -88,7 +93,13 @@ export default function ListingUpdate() {
                 Object.keys(listing).forEach(key => {
                     if (key === formAllListings.caracteristicas) {
                         Object.keys(listing[key]).forEach(caract => {
-                            formData.append(caract, listing[key][caract]);
+                            if(caract===formAllListings.areaLimpieza){
+                                formData.append(caract, translateCleaning[listing[key][caract]]);
+                            }else if(caract===formAllListings.cocina){
+                                formData.append(caract, translateKitchen[listing[key][caract]]);
+                            }else{
+                                formData.append(caract, listing[key][caract]);
+                            }
                         });
                     } else if (key !== formAllListings.imagenes) {
                         formData.append(key, listing[key])

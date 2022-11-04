@@ -19,9 +19,10 @@ export function FormGroup(props){
                     </span>
 
                     {/* Call TextForm component with its own arguments */}
-                    <TextForm name={props.name} title={props.title} placeholder={props.placeholder} type={props.type}/>
+                    <TextForm handleChange={props.handleChange} errors={props.errors} name={props.name} title={props.title} placeholder={props.placeholder} type={props.type}/>
                     
                   </div>
+                  {props.errors?.[props.name] && <p style={{ color: "red" }}>{`${props.errors?.[props.name]}`}</p>}
                 </div>
         </div>
     );

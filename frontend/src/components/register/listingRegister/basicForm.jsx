@@ -41,7 +41,7 @@ export default function BasicForm(props) {
                                     <MenuItem value={3}>Habitación</MenuItem>
                                 </Select>
                             </FormControl>
-                            {props.control.errors?.[formAllListings.tipo] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.tipo]}`}</p>}
+                            {props.control?.errors?.[formAllListings.tipo] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.tipo]}`}</p>}
                         </Grid>
                     ) : (
                         <></>
@@ -59,7 +59,7 @@ export default function BasicForm(props) {
                         defaultValue={props.data.get(formAllListings.titulo) || ""}
                         onChange={props.handleChange}
                     />
-                    {props.control.errors?.[formAllListings.titulo] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.titulo]}`}</p>}
+                    {props.control?.errors?.[formAllListings.titulo] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.titulo]}`}</p>}
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
@@ -74,7 +74,7 @@ export default function BasicForm(props) {
                         onChange={props.handleChange}
                         defaultValue={props.data.get(formAllListings.descripcion) || ""}
                     />
-                    {props.control.errors?.[formAllListings.descripcion] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.descripcion]}`}</p>}
+                    {props.control?.errors?.[formAllListings.descripcion] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.descripcion]}`}</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -88,7 +88,7 @@ export default function BasicForm(props) {
                         defaultValue={props.data.get(formAllListings.direccion) || ""}
                         onChange={props.handleChange}
                     />
-                    {props.control.errors?.[formAllListings.direccion] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.direccion]}`}</p>}
+                    {props.control?.errors?.[formAllListings.direccion] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.direccion]}`}</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -113,7 +113,7 @@ export default function BasicForm(props) {
                         defaultValue={props.data.get(formAllListings.barrio) || ""}
                         onChange={props.handleChange}
                     />
-                    {props.control.errors?.[formAllListings.barrio] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.barrio]}`}</p>}
+                    {props.control?.errors?.[formAllListings.barrio] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.barrio]}`}</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <FormControl>
@@ -128,7 +128,7 @@ export default function BasicForm(props) {
                             onChange={props.handleChange}
                         />
                     </FormControl>
-                    {props.control.errors?.[formAllListings.precio] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.precio]}`}</p>}
+                    {props.control?.errors?.[formAllListings.precio] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.precio]}`}</p>}
                 </Grid>
             </Grid>
         </Container>
