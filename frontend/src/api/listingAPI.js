@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-const URL = "https://backend-unarriendo.herokuapp.com/";
+const URL = "https://backend-unarriendo.herokuapp.com";
 
 /*
     Description
