@@ -5,7 +5,10 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
-
+const FileStore = require('session-file-store')(session);
+const fileStoreOptions={
+  path: process.env.SESSION_PATH || './sessions',
+};
 
 
 require('dotenv').config();
@@ -30,13 +33,14 @@ app.set('trust proxy', 1);
 
 //Initialize the session
 app.use(session({
+  store: new FileStore(fileStoreOptions),
   secret: process.env.SECRET, 
   saveUninitialized: true, 
   resave: false,
   unset: 'destroy',
   cookie: {
-    secure:true,
-    maxAge:60000,
+    secure: true,
+    maxAge: 3600000,
     sameSite: 'Lax'
   }
 }));
