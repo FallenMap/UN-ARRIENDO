@@ -18,7 +18,9 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 //Configure the cors for request from frontend
-app.use(cors());
+app.use(cors({
+  credentials:false
+}));
 
 //Initialize the session
 app.use(session({
