@@ -20,7 +20,8 @@ app.use(morgan('tiny'));
 //Configure the cors for request from frontend
 app.use(cors({
   origin: [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://frontend-unarriendo.herokuapp.com/'
   ],
   credentials: true,
   exposedHeaders: ['set-cookie']
