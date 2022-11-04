@@ -16,12 +16,12 @@ app.use(bodyParser.json());
 
 //Configure the morgan library to view requests.
 app.use(morgan('tiny'));
+app.use(cors());
 
 //Configure the cors for request from frontend
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "https://frontend-unarriendo.herokuapp.com/");
   res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
-  app.use(cors());
   next();
 });
 
