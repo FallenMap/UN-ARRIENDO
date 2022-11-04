@@ -27,10 +27,14 @@ app.use(cors({
 }));
 
 //Initialize the session
+app.set('trust proxy', 1);
 app.use(session({
   secret: process.env.SECRET, 
-  saveUninitialized: false, 
-  resave: false
+  saveUninitialized: true, 
+  resave: false,
+  cookie: {
+    secure:(process.env.NODE_ENV && process.env.NODE_ENV == 'production') ? true : false
+  }
 }));
 
 //Set up default mongoose connection, uses URI on .env file
