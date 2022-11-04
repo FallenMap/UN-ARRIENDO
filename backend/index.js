@@ -22,9 +22,7 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'https://frontend-unarriendo.herokuapp.com/'
-  ],
-  credentials: true,
-  exposedHeaders: ['set-cookie']
+  ]
 }));
 
 //Initialize the session
