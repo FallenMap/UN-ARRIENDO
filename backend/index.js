@@ -22,7 +22,7 @@ app.use(morgan('tiny'));
 
 //Configure the cors for request from frontend
 app.use(cors({
-  origin: "https://frontend-unarriendo.herokuapp.com",
+  origin: ["https://frontend-unarriendo.herokuapp.com"],
   preflightContinue: false,
   methods: "GET, HEAD, PUT, PATH, POST, DELETE",
   credentials: true,
@@ -35,13 +35,12 @@ app.set('trust proxy', 1);
 app.use(session({
   store: new FileStore(fileStoreOptions),
   secret: process.env.SECRET, 
-  saveUninitialized: true, 
+  saveUninitialized: false, 
   resave: false,
-  unset: 'destroy',
   cookie: {
     secure: true,
     maxAge: 3600000,
-    sameSite: 'Lax'
+    httpOnly: false
   }
 }));
 
