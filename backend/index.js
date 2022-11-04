@@ -16,7 +16,13 @@ app.use(bodyParser.json());
 
 //Configure the morgan library to view requests.
 app.use(morgan('tiny'));
-app.use(cors());
+app.use(cors({
+  origin: "https://frontend-unarriendo.herokuapp.com/",
+  preflightContinue: true,
+  methods: "GET, HEAD, PUT, PATH, POST, DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204
+}));
 
 //Configure the cors for request from frontend
 app.use((req, res, next) => {
