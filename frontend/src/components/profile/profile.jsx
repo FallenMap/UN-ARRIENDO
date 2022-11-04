@@ -14,6 +14,7 @@ import { calculateAge, findUserInReviews, sortCommentsProfileByDate, localDate }
 import CommentForm from './commentForm';
 import Image from 'mui-image';
 import { createComment } from '../../controllers/commentController';
+import { URL_BACKEND } from '../../constantes';
 
 const validate = (data) => {
     const errors = {};
@@ -89,7 +90,7 @@ export default function Profile() {
                                             width: "150px",
                                             height: "150px"
                                         }}
-                                            src={`http://localhost:5000/images/profile/${profile?.[formAllDataUser.link]}`}
+                                            src={`${URL_BACKEND}/images/profile/${profile?.[formAllDataUser.link]}`}
                                         ></Avatar>
                                     </Box>
                                 </Grid>

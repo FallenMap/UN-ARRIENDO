@@ -148,7 +148,7 @@ export function ListingDetails() {
                           >
                             <Link to={`/profile/${user._id}`} style={{ color: "black" }}>
                               <Avatar
-                                src={"http://localhost:5000/images/profile/" + user?.photo}
+                                src={`${URL_BACKEND}/images/profile/` + user?.photo}
                                 sx={{
                                   height: 100,
                                   width: 100
