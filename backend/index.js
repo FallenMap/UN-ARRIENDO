@@ -26,14 +26,18 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-//Initialize the session
 app.set('trust proxy', 1);
+
+//Initialize the session
 app.use(session({
   secret: process.env.SECRET, 
   saveUninitialized: true, 
   resave: false,
+  unset: 'destroy',
   cookie: {
-    secure:(process.env.NODE_ENV && process.env.NODE_ENV == 'production') ? true : false
+    secure:true,
+    maxAge:60000,
+    sameSite: 'Lax'
   }
 }));
 
