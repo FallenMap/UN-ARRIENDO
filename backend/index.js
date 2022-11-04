@@ -18,12 +18,7 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 //Configure the cors for request from frontend
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", req.header('origin'));
-  res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
-  app.use(cors());
-  next();
-});
+app.use(cors());
 
 //Initialize the session
 app.use(session({
