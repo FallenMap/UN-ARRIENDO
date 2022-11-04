@@ -18,9 +18,12 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 //Configure the cors for request from frontend
-app.use(cors({
-  credentials:false
-}));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://frontend-unarriendo.herokuapp.com/");
+  res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+  app.use(cors());
+  next();
+});
 
 //Initialize the session
 app.use(session({
