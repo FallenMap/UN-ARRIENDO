@@ -10,6 +10,7 @@ export function TextForm(props){
                     name= {props.name}
                     id={props.name}
                       placeholder={props.placeholder }
+                    onChange={(e) => {props.handleChange(e)}}
                     />
                     
         </div>

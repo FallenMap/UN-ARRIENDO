@@ -21,7 +21,6 @@ export default function SpecificForm(props) {
     };
 
     const handleChangeKitchen = (event) => {
-        console.log(event.target.value, "TARGET")
         setKitchen(event.target.value)
     };
 
@@ -39,7 +38,6 @@ export default function SpecificForm(props) {
 
         switch (type) {
             case "1":
-                console.log(props.data.get(formAllListings.areaLimpieza));
                 return (
                 <><Box sx={{ minWidth: 120, marginTop:"15px" }}>
                     <FormControl fullWidth required>
@@ -47,43 +45,52 @@ export default function SpecificForm(props) {
                         <Select
                             labelId="cleaning-simple-select-label"
                             id="cleaning-simple-select"
-                            value={cleaningArea || (props.data.get(formAllListings.areaLimpieza) === "Private" ? 1 : props.data.get(formAllListings.areaLimpieza) === "Communal" ? 2 : undefined) || ''}
+                            value={cleaningArea || props.data.get(formAllListings.areaLimpieza) || ''}
                             label="Area de limpieza"
-                            onChange={(e) => {handleChangeCleaningArea(e)}}
+                            onChange={(e) => {
+                                handleChangeCleaningArea(e);
+                                props.handleChange(e);
+                            }}
                             name={formAllListings.areaLimpieza}
                         >
                             <MenuItem value={1}>Privada</MenuItem>
                             <MenuItem value={2}>Comunal</MenuItem>
                         </Select>
                     </FormControl>
+                    {props.control?.errors?.[formAllListings.areaLimpieza] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.areaLimpieza]}`}</p>}
                 </Box>
                 <Box sx={{ minWidth: 120, marginTop:"15px" }}>
                     <FormControl fullWidth required>
-                        <TextField name={formAllListings.habitaciones} defaultValue={props.data.get(formAllListings.habitaciones) || ""} label="Numero de habitaciones" type="number" inputProps={{ min: 1, max: 5 }} />
+                        <TextField onChange={props.handleChange} name={formAllListings.habitaciones} defaultValue={props.data.get(formAllListings.habitaciones) || ""} label="Numero de habitaciones" type="number" inputProps={{ min: 1, max: 5 }} />
+                        {props.control?.errors?.[formAllListings.habitaciones] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.habitaciones]}`}</p>}
                     </FormControl>
                 </Box></>
             );
             case "2":
-                console.log(props.data.get(formAllListings.cocina));
                 return (<><Box sx={{ minWidth: 120, marginTop:"15px" }}>
                     <FormControl fullWidth required>
-                    <InputLabel id="cleaning-simple-select-label">Cocina</InputLabel>
+                    <InputLabel id="kitchen-simple-select-label">Cocina</InputLabel>
                         <Select
-                            labelId="cleaning-simple-select-label"
-                            id="cleaning-simple-select"
-                            value={kitchen || (props.data.get(formAllListings.cocina)==="Open" ? 1 : props.data.get(formAllListings.cocina)==="Closed" ? 2 : undefined) || ''}
-                            label="Area de limpieza"
-                            onChange={(e)=>{handleChangeKitchen(e)}}
+                            labelId="kitchen-simple-select-label"
+                            id="kitchen-simple-select"
+                            value={kitchen || props.data.get(formAllListings.cocina) || ''}
+                            label="Cocina"
+                            onChange={(e)=>{
+                                handleChangeKitchen(e)
+                                props.handleChange(e);
+                            }}
                             name={formAllListings.cocina}
                         >
                             <MenuItem value={1}>Abierta</MenuItem>
                             <MenuItem value={2}>Cerrada</MenuItem>
                         </Select>
                     </FormControl>
+                    {props.control?.errors?.[formAllListings.cocina] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.cocina]}`}</p>}
                 </Box>
                 <Box sx={{ minWidth: 120, marginTop:"15px" }}>
                     <FormControl fullWidth required>
-                        <TextField name={formAllListings.habitaciones} defaultValue={props.data.get(formAllListings.habitaciones) || ""} label="Numero de habitaciones" type="number" inputProps={{ min: 1, max: 5 }} />
+                        <TextField onChange={props.handleChange} name={formAllListings.habitaciones} defaultValue={props.data.get(formAllListings.habitaciones) || ""} label="Numero de habitaciones" type="number" inputProps={{ min: 1, max: 5 }} />
+                        {props.control?.errors?.[formAllListings.habitaciones] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.habitaciones]}`}</p>}
                     </FormControl>
                 </Box></>);
             case "3":
@@ -124,26 +131,26 @@ export default function SpecificForm(props) {
                         ¿Está amoblado?
                     </Typography>
                 </Grid>
-                <BinaryRadio name={formAllListings.amoblado} startValue={props.data.get(formAllListings.amoblado) || ''}  />
+                <BinaryRadio handleChange={props.handleChange} name={formAllListings.amoblado} startValue={props.data.get(formAllListings.amoblado) || ''}  />
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom>
                         ¿Tiene parqueadero?
                     </Typography>
                 </Grid>
-                <BinaryRadio name={formAllListings.parqueadero} startValue={props.data.get(formAllListings.parqueadero) || ''}  />
+                <BinaryRadio handleChange={props.handleChange} name={formAllListings.parqueadero} startValue={props.data.get(formAllListings.parqueadero) || ''}  />
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom>
                         ¿Es Pet-Friendly?
                     </Typography>
                 </Grid>
-                <BinaryRadio name={formAllListings.mascotas} startValue={props.data.get(formAllListings.mascotas) || ''} />
+                <BinaryRadio handleChange={props.handleChange} name={formAllListings.mascotas} startValue={props.data.get(formAllListings.mascotas) || ''} />
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom>
                         ¿Tiene bicicletero?
                     </Typography>
                 </Grid>
-                <BinaryRadio name={formAllListings.bicicletero} startValue={props.data.get(formAllListings.bicicletero) || ''} />
-            
+                <BinaryRadio handleChange={props.handleChange} name={formAllListings.bicicletero} startValue={props.data.get(formAllListings.bicicletero) || ''} />
+                {props.control?.errors?.['binaryOptionsError'] && <p style={{ color: "red" }}>{`${props.control.errors?.['binaryOptionsError']}`}</p>}
             </Grid>
             <br></br>
             <Divider>Otros detalles</Divider>
@@ -156,7 +163,10 @@ export default function SpecificForm(props) {
                         id="stratum-simple-select"
                         value={stratum || ''}
                         label="Estrato"
-                        onChange={handleChangeStratum}
+                        onChange={(e)=>{
+                            handleChangeStratum(e);
+                            props.handleChange(e);
+                        }}
                         name={formAllListings.estrato}
                     >
                         <MenuItem value={1}>1</MenuItem>
@@ -167,10 +177,12 @@ export default function SpecificForm(props) {
                         <MenuItem value={6}>6</MenuItem>
                     </Select>
                 </FormControl>
+                {props.control?.errors?.[formAllListings.estrato] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.estrato]}`}</p>}
             </Box>
             <Box sx={{ minWidth: 120, marginTop:"15px" }}>
                 <FormControl fullWidth required>
-                    <TextField name={formAllListings.numeroBanos} defaultValue={props.data.get(formAllListings.numeroBanos) || ""} label="Numero de baños" type="number" inputProps={{ min: 1, max: 5 }} />
+                    <TextField onChange={props.handleChange} name={formAllListings.numeroBanos} defaultValue={props.data.get(formAllListings.numeroBanos) || ""} label="Numero de baños" type="number" inputProps={{ min: 1, max: 5 }} />
+                    {props.control?.errors?.[formAllListings.numeroBanos] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.numeroBanos]}`}</p>}
                 </FormControl>
             </Box>
             {
