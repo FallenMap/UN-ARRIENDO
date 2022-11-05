@@ -38,11 +38,10 @@ app.use(session({
   saveUninitialized: false, 
   resave: false,
   cookie: {
-    secure: false,
+    secure: true,
     maxAge: 3600000,
     httpOnly: false,
     sameSite: 'none',
-    domain: (process.env.NODE_ENV && process.env.NODE_ENV==="production") ? "https://frontend-unarriendo.herokuapp.com" : "http://localhost:3000"
   }
 }));
 
