@@ -24,7 +24,7 @@ export const userLoginHandlerOnSubmit = (event, auth, navigate) => {
         
         redirect("/MainScreen");
     }).catch(err => {
-        document.getElementById("error-text-login").innerText = err.response.data.error;
+        document.getElementById("error-text-login").innerText = err.response.data?.error;
         console.log("Something bad happened...\n" + err);
     });
 }
@@ -47,11 +47,11 @@ export const getUser = async (auth, ID) => {
        let res = await getUserApi(ID);
        user = res.data.user;
     }catch(err){
-        if(err.response.data.isNotLogged){
+        if(err.response.data?.isNotLogged){
             auth.logOut();
         }
         
-        console.log('User get error: '+err.response.data.error);
+        console.log('User get error: '+err.response.data?.error);
     }
     
     return user;
@@ -73,7 +73,7 @@ export const userUpdateHandlerOnSubmit = (event, auth) => {
         auth.updateData(body);
         window.alert("Datos Actualizados!!");
     }).catch(err => {
-        if(err.response.data.isNotLogged){
+        if(err.response.data?.isNotLogged){
             auth.logOut();
         }
         console.log(err)
@@ -89,11 +89,11 @@ export const getUserProfile = async (auth, ID) => {
        let res = await getProfileAPI(ID);
        profile = res.data.profile;
     }catch(err){
-        if(err.response.data.isNotLogged){
+        if(err.response.data?.isNotLogged){
             auth.logOut();
         }
         
-        console.log('User get error: '+err.response.data.error);
+        console.log('User get error: '+err.response.data?.error);
     }
     
     return profile;

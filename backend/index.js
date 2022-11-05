@@ -5,10 +5,8 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
-const FileStore = require('session-file-store')(session);
-const fileStoreOptions={
-  path: process.env.SESSION_PATH || './sessions',
-};
+const MongoStore = require('connect-mongo');
+const path = require('path');
 
 
 require('dotenv').config();
@@ -22,25 +20,27 @@ app.use(morgan('tiny'));
 
 //Configure the cors for request from frontend
 app.use(cors({
-  origin: ["https://frontend-unarriendo.herokuapp.com"],
-  preflightContinue: false,
+  origin: ["https://frontend-unarriendo.herokuapp.com", "http://localhost:3000"],
+  preflightContinue: true,
   methods: "GET, HEAD, PUT, PATH, POST, DELETE",
   credentials: true,
   optionsSuccessStatus: 200
 }));
 
-app.set('trust proxy', 1);
+if(process.env.NODE_ENV && process.env.NODE_ENV==="production"){
+  app.set('trust proxy', 1);
+}
 
 //Initialize the session
 app.use(session({
-  store: new FileStore(fileStoreOptions),
+  store: MongoStore.create({mongoUrl: process.env.CONNECTION_URI}),
   secret: process.env.SECRET, 
   saveUninitialized: false, 
   resave: false,
   cookie: {
-    secure: true,
+    secure: (process.env.NODE_ENV && process.env.NODE_ENV==="production") ? true : false,
     maxAge: 3600000,
-    httpOnly: false
+    httpOnly: false,
   }
 }));
 
