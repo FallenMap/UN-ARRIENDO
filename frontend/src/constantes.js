@@ -1,1 +1,1 @@
-export const URL_BACKEND = 'https://backend-unarriendo.herokuapp.com';
+export const URL_BACKEND = 'https://un-arriendo-production.up.railway.app';

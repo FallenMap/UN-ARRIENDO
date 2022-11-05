@@ -35,8 +35,8 @@ if(process.env.NODE_ENV && process.env.NODE_ENV==="production"){
 app.use(session({
   store: MongoStore.create({mongoUrl: process.env.CONNECTION_URI}),
   secret: process.env.SECRET, 
-  saveUninitialized: true, 
-  resave: true,
+  saveUninitialized: false, 
+  resave: false,
   cookie: {
     secure: (process.env.NODE_ENV && process.env.NODE_ENV==="production") ? true : false,
     maxAge: 3600000,
