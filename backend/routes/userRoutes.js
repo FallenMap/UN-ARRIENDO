@@ -15,6 +15,7 @@ router.post('/register', upload.userPhoto, validateRegisterUser,userController.c
     .post('/reviewDelete', validateSession, userController.deleteUserReview)
     .get('/get/:userPubID', userController.getUser) 
     .put('/update', validateSession, /*validationUpdateUser,*/ upload.userPhoto, userController.updateUser)
-    .get('/profile/:id', validateSession, userController.getUserProfile);
+    .get('/profile/:id', validateSession, userController.getUserProfile)
+    .get('/find', validateSession, userController.find);
 
 module.exports = router;
