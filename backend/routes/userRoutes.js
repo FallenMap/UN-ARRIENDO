@@ -16,6 +16,6 @@ router.post('/register', upload.userPhoto, validateRegisterUser,userController.c
     .get('/get/:userPubID', userController.getUser) 
     .put('/update', validateSession, /*validationUpdateUser,*/ upload.userPhoto, userController.updateUser)
     .get('/profile/:id', validateSession, userController.getUserProfile)
-    .get('/find', validateSession, userController.find);
+    .get('/find/:value', validateSession, userController.find);
 
 module.exports = router;
