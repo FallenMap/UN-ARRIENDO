@@ -29,7 +29,7 @@ function Navbar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     let foundUsers;
-    let foundListings;
+    //let foundListings;
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };

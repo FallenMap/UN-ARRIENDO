@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
-import { Button, Grid, Typography, Paper, Avatar, Divider, CircularProgress } from '@mui/material'
+import { Grid, Typography, Paper, Avatar, Divider, CircularProgress } from '@mui/material'
 import Item from './item';
 import Navbar from '../navbar/navbar';
 import "../../css/ListingDetail.css";
@@ -13,10 +13,10 @@ import { capitalize } from '../../utilities/normalizeString';
 import Image from 'mui-image';
 import { Link, useParams } from 'react-router-dom';
 import { getUser } from '../../controllers/userActionsController';
-import ErrorProfile from './errorProfile';
+//import ErrorProfile from './errorProfile';
 import { changeTitle } from '../../utilities/changeTitle';
 import { HoverRating } from '../inside/rating';
-import { formAllListings } from '../../adapters/formAdapters';
+import { formAllDataUser, formAllListings } from '../../adapters/formAdapters';
 import Comment from '../profile/comment';
 import { AddRoad, Bathtub, Bed, Chair, CropSquare, HolidayVillage, Inventory, Layers, LocalParking, More, PedalBike, Villa, } from '@mui/icons-material';
 import CommentForm from '../profile/commentForm';
@@ -43,6 +43,7 @@ export function ListingDetails() {
   const [user, setUser] = useState(undefined);
   const [control, setControl] = useState({ errors: {} });
   const [listing, setlisting] = useState(undefined);
+  const [comments, setComments] = useState(undefined);
   const auth = useAuth();
 
   // Send comment logic -----
@@ -60,7 +61,17 @@ export function ListingDetails() {
     body['comments'] = { ...comment };
     body['idListing'] = id;
 
-  let idUser = listing?.landlord
+    createComment(auth, body, false)
+      .then(res => {
+        if (res.comment) {
+          document.querySelector('form').reset();
+          setComments([...comments, res.comment]);
+        } else {
+          console.log(res.msg);
+        }
+
+      })
+  }
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -68,9 +79,16 @@ export function ListingDetails() {
   }
 
   useEffect(() => {
-    getUser(auth, idUser).then(userResp => setUser(userResp));
-    window.scroll(0, 0)
-  }, [auth, idUser]);
+    window.scroll(0, 0);
+    getListing(auth, id)
+      .then(listingResp => {
+        getUser(auth, listingResp.landlord).then(userResp => {
+          setUser(userResp)
+          setlisting(listingResp)
+          setComments(listingResp.comments);
+        });
+      });
+  }, [auth, id]);
 
   const carouselRef = useRef(null);
   let resetTimeout;
@@ -129,7 +147,7 @@ export function ListingDetails() {
                             justifyContent="center"
                             sx={{ verticalAlign: "middle", height: "100%" }}
                           >
-                            <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
+                            <Link to={`/profile/${user._id}`} style={{ color: "black" }}>
                               <Avatar
                                 src={`${URL_BACKEND}/images/profile/` + user?.photo}
                                 sx={{
@@ -141,7 +159,7 @@ export function ListingDetails() {
                           </Box>
                         </Grid>
                         <Grid item xs={12} sm={5} md={5}>
-                          <Link to={`/profile/${idUser}`} style={{ textDecoration: "none" }}>
+                          <Link to={`/profile/${user._id}`} style={{ textDecoration: "none" }}>
                             <Typography
                               component="h5"
                               variant="h5"
@@ -254,7 +272,7 @@ export function ListingDetails() {
                   margin: "20px 0px"
                 }} />
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sx={8} md={8} >
+                  <Grid item xs={12} sm={8} md={8} >
                     <Grid container spacing={2}>
                       <Grid item xs={12} sx={{ padding: "0px 10px" }}>
                         <Container sx={{ borderBottom: '3px solid #D5CDCD' }}>
@@ -280,7 +298,7 @@ export function ListingDetails() {
                         </Container>
                       </Grid>
 
-                      <Grid item sx={12}>
+                      <Grid item xs={12}>
                         <Grid container spacing={2} sx={{ marginTop: '10px' }}>
                           {widthScreen < 900 ? (<></>) : (
                             <Grid item sm={4} md={4}>
@@ -428,9 +446,9 @@ export function ListingDetails() {
                                 </Box>
                               </Grid>
                             </Grid>
-                          )}
-                        </Grid>
-                      </Grid>
+                          </>
+                        )
+                      }
                     </Grid>
                   </Grid>
                 </Grid>
