@@ -1,1 +1,1 @@
-export const URL_BACKEND = 'http://localhost:5000';
+export const URL_BACKEND = 'https://backend-unarriendo.herokuapp.com' || 'http://localhost:5000';
