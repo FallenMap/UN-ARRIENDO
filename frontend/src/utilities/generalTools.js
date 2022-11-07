@@ -1,7 +1,9 @@
 export const calculateAge = (bornDate) => {
     let actualDate = new Date(), age;
     bornDate = new Date(bornDate);
-    if (actualDate.getMonth() >= bornDate.getMonth()) {
+    if (actualDate.getMonth() > bornDate.getMonth()) {
+        age = actualDate.getFullYear() - bornDate.getFullYear();
+    } else if(actualDate.getMonth() === bornDate.getMonth()) {
         if (actualDate.getDate() >= bornDate.getDate()) {
             age = actualDate.getFullYear() - bornDate.getFullYear();
         } else {
@@ -9,6 +11,9 @@ export const calculateAge = (bornDate) => {
         }
     } else {
         age = actualDate.getFullYear() - bornDate.getFullYear() - 1;
+    }
+    if(age<0){
+        age=0;
     }
     return age;
 }
