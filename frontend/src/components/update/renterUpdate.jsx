@@ -9,7 +9,6 @@ import { changeTitle } from "../../utilities/changeTitle";
 
 import { Stack } from "@mui/material";
 import { Container } from "@mui/system";
-import ButtonUploadPhoto from "../renterRegister/buttonUploadPhoto";
 import { formAllDataUser } from "../../adapters/formAdapters";
 import { fieldsFilled } from "../../utilities/fillFieldsUpdate";
 import useAuth from "../../auth/useAuth";

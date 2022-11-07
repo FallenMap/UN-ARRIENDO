@@ -60,7 +60,16 @@ export function StudentUpdate() {
               <div className={styles.formGroup}>
                 <FormGroup name={formAllDataUser.email} placeholder="Ingresa tu correo electrónico" title="Tu correo electrónico" image="fa fa-envelope fa" type="text" />
               </div>
+              <div className={styles.formGroup}>
 
+                <label htmlFor="description" className="cols-sm-2 control-label">
+                Tu descripción
+                </label>
+                <textarea name={formAllDataUser.description} id="description" title="Descripción" placeholder=" Ingresa tu descripción" cols="30" rows="3" style={{
+                    width:"100%"
+                }}></textarea>
+                
+              </div>
 
               <div className={styles.formGroup}>
                 <ButtonRegister loginButton="Actualizar" />

@@ -15,18 +15,32 @@ import CommentForm from './commentForm';
 import Image from 'mui-image';
 import { createComment } from '../../controllers/commentController';
 
+const validate = (data) => {
+    const errors = {};
+    if (!data.content) {
+        errors.content = "*Este campo no puede estar vacio"
+    }
+
+    return errors;
+}
 
 
 
 export default function Profile() {
     const [profile, setProfile] = useState(undefined);
     const [comments, setComments] = useState(undefined);
+    const [control, setControl] = useState({ errors: {} });
     const { id } = useParams();
     const auth = useAuth();
 
     // Send comment logic -----
     const handleOnSubmitComment = (event) => {
         event.preventDefault();
+        const { errors, ...data } = control;
+        const result = validate(data);
+        if (Object.keys(result).length > 0) {
+            return setControl({ ...control, errors: result });
+        }
         let formData = new FormData(document.querySelector('form')), review = {}, body = {};
         review['content'] = formData.get('content');
         review["firstNameUser"] = auth.user?.[formAllDataUser.name];
@@ -34,7 +48,7 @@ export default function Profile() {
         body['reviews'] = { ...review };
         body['idProfile'] = id;
 
-        createComment(auth, body)
+        createComment(auth, body, true)
             .then(res => {
                 if (res.comment) {
                     document.querySelector('form').reset();
@@ -44,6 +58,11 @@ export default function Profile() {
                 }
 
             })
+    }
+
+    const handleChange = ({ target }) => {
+        const { name, value } = target;
+        setControl({ ...control, [name]: value });
     }
 
     changeBackground('none');
@@ -86,7 +105,7 @@ export default function Profile() {
                                             {profile?.[formAllDataUser.birthDate] ? `${calculateAge(profile[formAllDataUser.birthDate])} años` : "?? Años"}
                                         </Typography>
                                         <Typography variant='inherit'>
-                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? profile?.listingAmount + " publicaciones" : ""}
+                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? (profile?.listingAmount !== 1 ? profile?.listingAmount  + " publicaciones" : profile?.listingAmount + "publicación") : ("")}
                                         </Typography>
                                     </Box>
                                 </Grid>
@@ -131,7 +150,7 @@ export default function Profile() {
                                                                 {profile?.listings.map((listing) => {
                                                                     if (listing[formAllListings.activo]) {
                                                                         return (
-                                                                            <Grid item xs={6}>
+                                                                            <Grid item xs={6} key={listing[formAllListings.idlisting]}>
                                                                                 <ListingBlock listing={listing} />
                                                                             </Grid>
                                                                         )
@@ -183,12 +202,14 @@ export default function Profile() {
                                                 padding: "20px",
                                             }}>
                                                 <form onSubmit={(e) => { handleOnSubmitComment(e) }}>
-                                                    <CommentForm 
-                                                        name="content" 
-                                                        label="Hazle saber a esta persona lo que opinas" 
-                                                        commentExist= {comments.length > 0 ? 
+                                                    <CommentForm
+                                                        onChange={handleChange}
+                                                        control={control}
+                                                        name="content"
+                                                        label="Hazle saber a esta persona lo que opinas"
+                                                        commentExist={comments.length > 0 ?
                                                             (findUserInReviews(comments, auth.user?.[formAllDataUser.id])) : (false)
-                                                        } 
+                                                        }
                                                         sameProfile={id === auth.user?.[formAllDataUser.id]}
                                                         msgOnce="Solo puedes comentar el perfil una vez."
                                                         msgYourSelf="No puedes comentar tu propio perfil." />
@@ -202,7 +223,6 @@ export default function Profile() {
                                                         <Grid item xs={12} key={review._id}>
                                                             <Container maxWidth="md">
                                                                 <Paper elevation={2}>
-
                                                                     <Comment isProfile={true} id={review._id} idUser={review.idUser} date={localDate(review.date)} comments={comments} setComments={setComments} content={review.content} firstName={review.firstNameUser} lastName={review.lastNameUser} showTools={review.idUser === auth.user?.[formAllDataUser.id]} />
                                                                 </Paper>
                                                             </Container>
@@ -214,8 +234,8 @@ export default function Profile() {
                                                             <Box display="flex" alignItems="center" justifyContent="center">
                                                                 <Image
                                                                     src='https://cdn-icons-png.flaticon.com/512/35/35816.png'
-                                                                    height="30%"
-                                                                    width="30%"
+                                                                    height="15%"
+                                                                    width="15%"
                                                                     fit='cover'
                                                                 />
                                                             </Box>

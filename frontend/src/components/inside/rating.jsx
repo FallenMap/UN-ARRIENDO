@@ -32,8 +32,6 @@ export function HoverRating(props) {
       console.log("Rating component error "+err);
     });
   } 
-    const labels = average
-
   return (
     <Box
       sx={{
@@ -52,12 +50,12 @@ export function HoverRating(props) {
       >
         <Rating
           name="hover-feedback"
-          value={value}
-          precision={0.5}
+          value={Math.round(value*10)/10}
+          precision={1}
           readOnly
         />
         {value !== null && (
-          <Box sx={{ ml: 2}}>({labels})</Box>
+          <Box sx={{ ml: 2}}>({Math.round(average*10)/10})</Box>
         )}
       </Box>  :  
         <Box
@@ -70,15 +68,15 @@ export function HoverRating(props) {
       >
         <Rating
           name="hover-feedback"
-          value={value}
-          precision={0.5}
+          value={Math.round(value*10)/10}
+          precision={1}
           onChange={(event, newValue) => {
             setValue(newValue);
             handlerSubmitRatingUpdate(newValue)
           }}
         />
         {value !== null && (
-          <Box sx={{ ml: 2, pb:1.8}}>({labels})</Box>
+          <Box sx={{ ml: 2, pb:1.8}}>({Math.round(average*10)/10})</Box>
         )}
       </Box> }
 

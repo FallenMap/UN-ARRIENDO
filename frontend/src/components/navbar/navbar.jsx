@@ -6,7 +6,7 @@ import { AppBar, Container, Box, Toolbar, Typography, Avatar,
         Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip, Button } from '@mui/material';
 import { Logout, History, Person, Create} from '@mui/icons-material';
 import useAuth from '../../auth/useAuth';
-import { logOutAPI } from "../../api/userAPI";
+import { logOutAPI, searchAPI} from "../../api/userAPI";
 import { changeBackground } from '../../utilities/changeBackground';
 import { formAllDataUser } from '../../adapters/formAdapters';
 
@@ -27,7 +27,8 @@ function Navbar() {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-
+    let foundUsers;
+    let foundListings;
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -35,6 +36,17 @@ function Navbar() {
         setAnchorEl(null);
     };
 
+    const search = () => {
+        let input = document.getElementById('value').value
+        searchAPI(input).then(res => {
+            let foundUsers = res.data.users;
+            let foundListings = res.data.listings;
+            console.log(foundUsers)
+            console.log(foundListings)
+        }).catch(e => {
+            console.log("Something bad happened while search" + e);
+        });
+    };
 
     return (
         <div>
@@ -45,12 +57,18 @@ function Navbar() {
                     <Toolbar>
                         <Typography className={styles.title}>
                             UN-ARRIENDO
+                            {foundUsers}
                         </Typography>
                         <Link to="/MainScreen" style={{textDecoration:"none"}}><Button variant="outlined" sx={{marginLeft:"20px"}}> Inicio </Button></Link>
                         <Box sx={{
                             flexGrow: 1
                         }} />
-
+                        
+                        <Box sx={{
+                            flexGrow: 0.1
+                        }}>
+                        <input placeholder="Realiza una busqueda" title="value" id="value" onKeyUp={search} image="fa fa-user fa" type="text" />
+                        </Box>
                         {
                          auth?.user?.type==="Landlord" ? <Link to="/ListingRegister" style={{textDecoration:"none"}}><Button variant="outlined">¡Publicar!</Button></Link> : <></>  
                         }

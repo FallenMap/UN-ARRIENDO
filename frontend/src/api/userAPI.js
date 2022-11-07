@@ -48,3 +48,7 @@ export const updateReviewProfileAPI = (body) => {
     return axios.put(URL+"/user/reviewUpdate/", body);
 }
 
+export const searchAPI = (value) => {
+    return axios.get(URL+"/user/find/"+value);
+}
+

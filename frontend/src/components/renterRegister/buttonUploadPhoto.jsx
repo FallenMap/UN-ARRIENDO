@@ -20,7 +20,7 @@ export default function ButtonUploadPhoto(props) {
                 <CameraAltIcon />
                  
                  {/* Create input type image for upload */}
-                <input name={props.name} hidden accept="image/*" multiple type="file" />
+                <input name={props.name} onChange={props.handleChange} hidden accept="image/*" multiple type="file" />
 
             </Button>
         </>

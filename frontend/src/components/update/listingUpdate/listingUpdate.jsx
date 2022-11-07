@@ -13,15 +13,20 @@ import SpecificForm from '../../register/listingRegister/specificForm';
 
 const theme = createTheme();
 
-/*const translateCleaning = {
+const translateCleaning = {
     1: "Private",
-    2: "Communal"
+    2: "Communal",
+    "Private" : 1,
+    "Communal" : 2
 }
 
 const translateKitchen = {
     1: "Open",
-    2: "Closed"
-}*/
+    2: "Closed",
+    "Open": 1,
+    "Closed":2
+}
+
 
 export default function ListingUpdate() {
 
@@ -39,13 +44,13 @@ export default function ListingUpdate() {
     const handlerSubmitUpdate = (event) => {
         let listingJSON = {};
         let tempFormData = new FormData(document.querySelector('form'));
-        
-        for(let entry of tempFormData.entries()){
+
+        for (let entry of tempFormData.entries()) {
             listing.set(entry[0], entry[1]);
         }
 
-        /*listing.set(formAllListings.cocina, translateKitchen[listing.get(formAllListings.cocina)]);
-        listing.set(formAllListings.areaLimpieza, translateCleaning[listing.get(formAllListings.areaLimpieza)]);*/
+        listing.set(formAllListings.cocina, translateKitchen[listing.get(formAllListings.cocina)]);
+        listing.set(formAllListings.areaLimpieza, translateCleaning[listing.get(formAllListings.areaLimpieza)]);
 
         for (let entry of listing.entries()) {
             listingJSON[entry[0]] = entry[1];
@@ -56,7 +61,7 @@ export default function ListingUpdate() {
                 setSent(success);
                 setOpen(!success)
                 if (!success) {
-                    window.scroll(0, -100);
+                    window.scroll(0, 0);
                 }
             }).catch(console.log("Un error ha ocurrido al actulizar los datos de la publicacion"));
 
@@ -64,12 +69,12 @@ export default function ListingUpdate() {
     let idTimeout;
 
     const redirectWithTime = () => {
-        if(!idTimeout){
+        if (!idTimeout) {
             idTimeout = setTimeout(() => {
-                navigate(-1)
+                navigate(-2)
             }, 5000);
         }
-        
+
     }
 
 
@@ -88,7 +93,13 @@ export default function ListingUpdate() {
                 Object.keys(listing).forEach(key => {
                     if (key === formAllListings.caracteristicas) {
                         Object.keys(listing[key]).forEach(caract => {
-                            formData.append(caract, listing[key][caract]);
+                            if(caract===formAllListings.areaLimpieza){
+                                formData.append(caract, translateCleaning[listing[key][caract]]);
+                            }else if(caract===formAllListings.cocina){
+                                formData.append(caract, translateKitchen[listing[key][caract]]);
+                            }else{
+                                formData.append(caract, listing[key][caract]);
+                            }
                         });
                     } else if (key !== formAllListings.imagenes) {
                         formData.append(key, listing[key])

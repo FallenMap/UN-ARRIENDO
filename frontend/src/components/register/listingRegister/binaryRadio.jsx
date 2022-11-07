@@ -13,7 +13,10 @@ export default function BinaryRadio(props) {
     const controlProps = (item) => {
         return {
             checked: selectedValue.toString() === item,
-            onChange: handleChange,
+            onChange: (e)=>{
+                handleChange(e);
+                props.handleChange?.(e);
+            },
             value: item,
             name: props.name,
             inputProps: { 'aria-label': item }
