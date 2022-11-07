@@ -37,12 +37,7 @@ app.use(session({
   secret: process.env.SECRET, 
   saveUninitialized: false, 
   resave: false,
-  cookie: {
-    secure: (process.env.NODE_ENV && process.env.NODE_ENV==="production") ? true : false,
-    maxAge: 3600000,
-    httpOnly: false,
-    sameSite: 'none',
-  }
+  
 }));
 
 //Set up default mongoose connection, uses URI on .env file
@@ -58,6 +53,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use('/user', require('./routes/userRoutes'));
 app.use('/listing', require('./routes/listingRoutes'));
 app.use('/images', require('./routes/imagesRoutes'));
+app.use('/map', require('./routes/mapRoutes'));
 
 //app.use(express.static('public'));
 

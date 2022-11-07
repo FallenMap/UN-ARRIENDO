@@ -402,6 +402,8 @@ export function ListingDetails() {
                                   (findUserInReviews(comments, auth.user?.[formAllDataUser.id])) : (false)
                                 }
                                 sameProfile={user._id === auth.user?.[formAllDataUser.id]}
+                                sameRole={user?.[formAllDataUser.tipo] === auth.user?.[formAllDataUser.tipo]}
+                                msgLandlord="No puedes comentar publicaciones de otros arrendadores"
                                 msgOnce="Solo puedes comentar la publicación una vez."
                                 msgYourSelf="No puedes comentar tu propia publicacion." />
                             </form>

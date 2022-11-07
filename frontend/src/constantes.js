@@ -1,1 +1,1 @@
-export const URL_BACKEND = 'https://un-arriendo-production.up.railway.app';
+export const URL_BACKEND = 'http://localhost:5000';

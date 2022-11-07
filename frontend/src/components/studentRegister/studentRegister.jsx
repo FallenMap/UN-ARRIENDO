@@ -38,14 +38,6 @@ const validate = (data) => {
     delete errors[formAllDataUser.lastName];
   }
 
-  if (!data[formAllDataUser.lastName]) {
-    errors[formAllDataUser.lastName] = "*Este campo no puede estar vacio";
-  } else if (/\d/.test(data[formAllDataUser.lastName])) {
-    errors[formAllDataUser.lastName] = "*Este campo no puede contener numeros";
-  } else {
-    delete errors[formAllDataUser.lastName];
-  }
-
   if (!data[formAllDataUser.email]) {
     errors[formAllDataUser.email] = "*Este campo no puede estar vacio";
   } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/.test(data[formAllDataUser.email])) {
@@ -54,13 +46,6 @@ const validate = (data) => {
     delete errors[formAllDataUser.email];
   }
 
-  if (!data[formAllDataUser.phone]) {
-    errors[formAllDataUser.phone] = "*Este campo no puede estar vacio";
-  } else if (!/3[0-9]{9}/.test(data[formAllDataUser.phone])) {
-    errors[formAllDataUser.phone] = "*El numero ingresado no es valido. Recuerde que debe tener una longitud minima de 10 numeros y debe empezar por 3.";
-  } else {
-    delete errors[formAllDataUser.phone];
-  }
 
   if (!data[formAllDataUser.username]) {
     errors[formAllDataUser.username] = "*Este campo no puede estar vacio";
