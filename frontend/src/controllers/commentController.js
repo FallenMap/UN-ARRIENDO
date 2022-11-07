@@ -14,11 +14,11 @@ export const createComment = async (auth, body, isProfile) => {
         comment = res.data.comment;
         msg = res.data.msg;
     } catch (err) {
-        if (err.response.data.isNotLogged) {
+        if (err.response.data?.isNotLogged) {
             auth.logOut();
         }
-        msg = err.response.data.error;
-        console.log('Create comment error: ' + err.response.data.error);
+        msg = err.response.data?.error;
+        console.log('Create comment error: ' + err.response.data?.error);
     }
 
     return { msg, comment };
@@ -35,11 +35,11 @@ export const deleteComment = async (auth, body, isProfile) => {
 
         msg = res.data.msg;
     } catch (err) {
-        if (err.response.data.isNotLogged) {
+        if (err.response.data?.isNotLogged) {
             auth.logOut();
         }
-        msg = err.response.data.error;
-        console.log('Delete comment error: ' + err.response.data.error);
+        msg = err.response.data?.error;
+        console.log('Delete comment error: ' + err.response.data?.error);
     }
 
     return msg;
@@ -56,11 +56,11 @@ export const updateComment = async (auth, body, isProfile) => {
         }
         msg = res.data.msg;
     } catch (err) {
-        if (err.response.data.isNotLogged) {
+        if (err.response.data?.isNotLogged) {
             auth.logOut();
         }
-        msg = err.response.data.error;
-        console.log('Update comment error: ' + err.response.data.error);
+        msg = err.response.data?.error;
+        console.log('Update comment error: ' + err.response.data?.error);
     }
 
     return msg;

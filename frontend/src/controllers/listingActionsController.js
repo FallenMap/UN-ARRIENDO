@@ -9,11 +9,11 @@ export const listingCreateHandlerOnSubmit = (auth, listing) => {
         return true;
     })
     .catch(err => {
-        if(err.response.data.isNotLogged){
+        if(err.response.data?.isNotLogged){
             auth.logOut();
         }
         
-        console.log('Listing create error: '+err.response.data.error);
+        console.log('Listing create error: '+err.response.data?.error);
         return false;
     });
 }   
@@ -24,11 +24,11 @@ export const getAllListings = async (auth) => {
        let res = await getAllListingsAPI();
        listings = res.data.listings;
     }catch(err){
-        if(err.response.data.isNotLogged){
+        if(err.response.data?.isNotLogged){
             auth.logOut();
         }
         
-        console.log('Listing get all error: '+err.response.data.error);
+        console.log('Listing get all error: '+err.response.data?.error);
     }
     
     return listings;
@@ -40,11 +40,11 @@ export const getListing = async (auth, ID) => {
        let res = await getListingApi(ID);
        listing = res.data.listing;
     }catch(err){
-        if(err.response.data.isNotLogged){
+        if(err.response.data?.isNotLogged){
             auth.logOut();
         }
         
-        console.log('Get listing error: '+err.response.data.error);
+        console.log('Get listing error: '+err.response.data?.error);
     }
     
     return listing;
@@ -56,11 +56,11 @@ export const getHistoryListings = async (auth) => {
        let res = await getHistoryListingsAPI();
        listings = res.data.listings;
     }catch(err){
-        if(err.response.data.isNotLogged){
+        if(err.response.data?.isNotLogged){
             auth.logOut();
         }
         
-        console.log('Listing get all error: '+err.response.data.error);
+        console.log('Listing get all error: '+err.response.data?.error);
     }
     
     return listings;
@@ -71,7 +71,7 @@ export const updateListing = async (auth, listing) => {
         await updateListingAPI(listing);
         return true;
      }catch(err){
-         if(err.response?.data.isNotLogged){
+         if(err.response?.data?.isNotLogged){
              auth.logOut();
          }
          console.log('Listing update error: '+err.response?.data.error);

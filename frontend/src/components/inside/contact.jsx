@@ -17,6 +17,7 @@ import Image from 'mui-image';
 import ErrorProfile from '../listingDetails/errorProfile';
 import { Box } from '@mui/system';
 import { Link } from "react-router-dom";
+import { URL_BACKEND } from '../../constantes';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -94,7 +95,7 @@ export default function CustomizedDialogs(props) {
         <DialogContent dividers>
           <Box sx={{pl:4, pb:2}}>
           <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
-          <Image src={"http://localhost:5000/images/profile/"+ user?.photo} alt="Logo" errorIcon={<ErrorProfile/>} style={{maxHeight: '170px', maxWidth: '170px'}}/>
+          <Image src={`${URL_BACKEND}/images/profile/`+ user?.photo} alt="Logo" errorIcon={<ErrorProfile/>} style={{maxHeight: '170px', maxWidth: '170px'}}/>
           </Link>
           </Box>
                     <Typography gutterBottom>

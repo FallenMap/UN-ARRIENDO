@@ -7,6 +7,7 @@ import { deleteComment, updateComment } from '../../controllers/commentControlle
 import useAuth from '../../auth/useAuth';
 import { capitalize } from '../../utilities/normalizeString';
 import { Link } from 'react-router-dom';
+import { URL_BACKEND } from '../../constantes';
 
 const validate = (data) => {
   const errors = {};
@@ -109,7 +110,7 @@ export default function Comment(props) {
             <Grid container>
               <Grid item xs={1}>
                 <Link to={'/profile/' + props.idUser} style={{ textDecoration: "none" }}>
-                  <Avatar src={"http://localhost:5000/images/profile/id/" + props.idUser} sx={{ width: "50px", height: "50px" }}></Avatar>
+                  <Avatar src={`${URL_BACKEND}/images/profile/id/` + props.idUser} sx={{ width: "50px", height: "50px" }}></Avatar>
                 </Link>
               </Grid>
               <Grid item xs={9}>

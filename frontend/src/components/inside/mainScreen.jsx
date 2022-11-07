@@ -15,8 +15,9 @@ import useAuth from "../../auth/useAuth";
 import { getAllListings } from "../../controllers/listingActionsController";
 import { useState } from "react";
 import { useEffect } from "react";
-import { formAllListings  } from "../../adapters/formAdapters";
+import { formAllListings } from "../../adapters/formAdapters";
 import ListingBlock from "../generic/listingBlock";
+import MapView from "../map/mapView";
 
 
 
@@ -57,18 +58,25 @@ export function MainScreen() {
         </div>
 
         <Grid container spacing={3} justifyContent="space-around">
-          <Grid item rowGap={10}>
-            <Container sx={{
-              marginTop: "10px",
-              padding: '10px'
-            }}>
-              <Box
-                justifyItems="center"
-                component="img"
-                alt="The house from the offer."
-                src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/01_%C2%BFQu%C3%A9-puedo-hacer-si-mi-gato-est%C3%A1-triste-.png?itok=cOA5aYW-"
-              />
-            </Container>
+          <Grid item xs={12}>
+            <Box display='flex'
+              justifyContent='center'
+              alignItems='center'
+              sx={{
+                marginTop: "10px",
+                padding: '10px',
+                height:"400px",
+              }}>
+              <Container style={{
+                height:"100%",
+                minHeight:"200px", 
+                maxHeight:"400px", 
+                minWidth:"200px", 
+                maxWidth:"600px",
+                }}>
+                <MapView />
+              </Container>
+            </Box>
           </Grid>
 
           <Grid item xs={12}>

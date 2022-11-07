@@ -20,6 +20,9 @@ import { formAllListings } from '../../adapters/formAdapters';
 import Comment from '../profile/comment';
 import { AddRoad, Bathtub, Bed, Chair, CropSquare, HolidayVillage, Inventory, Layers, LocalParking, More, PedalBike, Villa, } from '@mui/icons-material';
 import CommentForm from '../profile/commentForm';
+import { findUserInReviews, localDate, sortCommentsProfileByDate } from '../../utilities/generalTools';
+import { createComment } from '../../controllers/commentController';
+import { URL_BACKEND } from '../../constantes';
 
 const validate = (data) => {
   const errors = {};
@@ -128,7 +131,7 @@ export function ListingDetails() {
                           >
                             <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
                               <Avatar
-                                src={"http://localhost:5000/images/profile/" + user?.photo}
+                                src={`${URL_BACKEND}/images/profile/` + user?.photo}
                                 sx={{
                                   height: 100,
                                   width: 100
@@ -381,6 +384,8 @@ export function ListingDetails() {
                                   (findUserInReviews(comments, auth.user?.[formAllDataUser.id])) : (false)
                                 }
                                 sameProfile={user._id === auth.user?.[formAllDataUser.id]}
+                                sameRole={user?.[formAllDataUser.tipo] === auth.user?.[formAllDataUser.tipo]}
+                                msgLandlord="No puedes comentar publicaciones de otros arrendadores"
                                 msgOnce="Solo puedes comentar la publicación una vez."
                                 msgYourSelf="No puedes comentar tu propia publicacion." />
                             </form>

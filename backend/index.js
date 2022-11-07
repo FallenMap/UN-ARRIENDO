@@ -5,7 +5,8 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
-
+const MongoStore = require('connect-mongo');
+const path = require('path');
 
 
 require('dotenv').config();
@@ -19,18 +20,24 @@ app.use(morgan('tiny'));
 
 //Configure the cors for request from frontend
 app.use(cors({
-  origin: [
-    'http://localhost:3000'
-  ],
+  origin: ["https://frontend-unarriendo.herokuapp.com", "http://localhost:3000"],
+  preflightContinue: true,
+  methods: "GET, HEAD, PUT, PATH, POST, DELETE",
   credentials: true,
-  exposedHeaders: ['set-cookie']
+  optionsSuccessStatus: 200
 }));
+
+if(process.env.NODE_ENV && process.env.NODE_ENV==="production"){
+  app.set('trust proxy', 1);
+}
 
 //Initialize the session
 app.use(session({
+  store: MongoStore.create({mongoUrl: process.env.CONNECTION_URI}),
   secret: process.env.SECRET, 
   saveUninitialized: false, 
-  resave: false
+  resave: false,
+  
 }));
 
 //Set up default mongoose connection, uses URI on .env file
@@ -46,6 +53,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use('/user', require('./routes/userRoutes'));
 app.use('/listing', require('./routes/listingRoutes'));
 app.use('/images', require('./routes/imagesRoutes'));
+app.use('/map', require('./routes/mapRoutes'));
 
 //app.use(express.static('public'));
 

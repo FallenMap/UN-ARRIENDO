@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { URL_BACKEND } from '../constantes';
 axios.defaults.withCredentials = true;
 
-const URL = "http://localhost:5000";
+const URL = URL_BACKEND;
 
 /*
     Description

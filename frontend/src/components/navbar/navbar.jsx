@@ -9,6 +9,7 @@ import useAuth from '../../auth/useAuth';
 import { logOutAPI, searchAPI} from "../../api/userAPI";
 import { changeBackground } from '../../utilities/changeBackground';
 import { formAllDataUser } from '../../adapters/formAdapters';
+import { URL_BACKEND } from '../../constantes';
 
 
 function Navbar() {
@@ -82,7 +83,7 @@ function Navbar() {
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
                                 >
-                                    <Avatar sx={{ width: 32, height: 32 }} src={`http://localhost:5000/images/profile/${auth.user?.[formAllDataUser.link]}`} />
+                                    <Avatar sx={{ width: 32, height: 32 }} src={`${URL_BACKEND}/images/profile/${auth.user?.[formAllDataUser.link]}`} />
                                 </IconButton>
                             </Tooltip>
                         </Box>

@@ -26,6 +26,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { deleteListing } from "../../controllers/listingActionsController";
 import CustomizedDialogs from "./contact";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { URL_BACKEND } from "../../constantes";
 const theme = createTheme();
 
 export function Historial() {
@@ -89,14 +90,14 @@ export function Historial() {
                                 height: "300px",
                               }}
                               image={
-                                "http://localhost:5000/images/listing/" +
+                                `${URL_BACKEND}/images/listing/` +
                                 listing[formAllListings.imagenes][0]
                               }
                               alt="random"
                               onError={(e) => {
                                 if (
                                   e.target.src ===
-                                  `http://localhost:5000/images/listing/${
+                                  `${URL_BACKEND}/images/listing/${
                                     listing[formAllListings.imagenes][0]
                                   }`
                                 ) {

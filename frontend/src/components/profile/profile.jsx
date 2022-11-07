@@ -14,6 +14,7 @@ import { calculateAge, findUserInReviews, sortCommentsProfileByDate, localDate }
 import CommentForm from './commentForm';
 import Image from 'mui-image';
 import { createComment } from '../../controllers/commentController';
+import { URL_BACKEND } from '../../constantes';
 
 const validate = (data) => {
     const errors = {};
@@ -89,7 +90,7 @@ export default function Profile() {
                                             width: "150px",
                                             height: "150px"
                                         }}
-                                            src={`http://localhost:5000/images/profile/${profile?.[formAllDataUser.link]}`}
+                                            src={`${URL_BACKEND}/images/profile/${profile?.[formAllDataUser.link]}`}
                                         ></Avatar>
                                     </Box>
                                 </Grid>
@@ -105,7 +106,7 @@ export default function Profile() {
                                             {profile?.[formAllDataUser.birthDate] ? `${calculateAge(profile[formAllDataUser.birthDate])} años` : "?? Años"}
                                         </Typography>
                                         <Typography variant='inherit'>
-                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? (profile?.listingAmount !== 1 ? profile?.listingAmount  + " publicaciones" : profile?.listingAmount + "publicación") : ("")}
+                                            {profile?.[formAllDataUser.tipo] === "Landlord" ? (profile?.listingAmount !== 1 ? profile?.listingAmount  + " publicaciones" : profile?.listingAmount + " publicación") : ("")}
                                         </Typography>
                                     </Box>
                                 </Grid>
@@ -211,6 +212,8 @@ export default function Profile() {
                                                             (findUserInReviews(comments, auth.user?.[formAllDataUser.id])) : (false)
                                                         }
                                                         sameProfile={id === auth.user?.[formAllDataUser.id]}
+                                                        sameRole={profile?.[formAllDataUser.tipo] === auth.user?.[formAllDataUser.tipo]}
+                                                        msgLandlord="No puedes comentar perfiles de otros arrendadores"
                                                         msgOnce="Solo puedes comentar el perfil una vez."
                                                         msgYourSelf="No puedes comentar tu propio perfil." />
                                                 </form>
