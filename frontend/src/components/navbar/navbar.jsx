@@ -2,11 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styles from "../../css/renterRegister.module.css";
 import { useState } from 'react'
-import { AppBar, Container, Box, Toolbar, Typography, Avatar,
-        Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip, Button } from '@mui/material';
-import { Logout, History, Person, Create} from '@mui/icons-material';
+import {
+    AppBar, Container, Box, Toolbar, Typography, Avatar,
+    Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip, Button, Paper, InputBase
+} from '@mui/material';
+import { Logout, History, Person, Create, Search } from '@mui/icons-material';
 import useAuth from '../../auth/useAuth';
-import { logOutAPI, searchAPI} from "../../api/userAPI";
+import { logOutAPI, searchAPI } from "../../api/userAPI";
 import { changeBackground } from '../../utilities/changeBackground';
 import { formAllDataUser } from '../../adapters/formAdapters';
 import { URL_BACKEND } from '../../constantes';
@@ -19,7 +21,7 @@ function Navbar() {
     const logoutHandler = (e) => {
         logOutAPI().then(res => {
             auth.logOut();
-            changeBackground( "url('https://upload.wikimedia.org/wikipedia/commons/7/73/Plaza_Che%2C_Bogot%C3%A1.jpg')");
+            changeBackground("url('https://upload.wikimedia.org/wikipedia/commons/7/73/Plaza_Che%2C_Bogot%C3%A1.jpg')");
         }).catch(e => {
             console.log("Something bad happened while logging out..." + e);
             auth.logOut();
@@ -60,20 +62,35 @@ function Navbar() {
                             UN-ARRIENDO
                             {foundUsers}
                         </Typography>
-                        <Link to="/MainScreen" style={{textDecoration:"none"}}><Button variant="outlined" sx={{marginLeft:"20px"}}> Inicio </Button></Link>
+                        <Link to="/MainScreen" style={{ textDecoration: "none" }}><Button variant="outlined" sx={{ marginLeft: "20px" }}> Inicio </Button></Link>
                         <Box sx={{
                             flexGrow: 1
                         }} />
-                        
+
                         <Box sx={{
                             flexGrow: 0.1
                         }}>
-                        <input placeholder="Realiza una busqueda" title="value" id="value" onKeyUp={search} image="fa fa-user fa" type="text" />
+                            <Paper
+                                component="form"
+                                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300, height: 30 }}
+                            >
+                                <InputBase
+                                    sx={{ ml: 1, flex: 1 }}
+                                    placeholder="Realiza una busqueda"
+                                    inputProps={{ 'aria-label': 'Realiza una busqueda' }}
+                                    onSubmit={e=>{
+                                        e.preventDefault()
+                                    }}
+                                />
+                                <IconButton onClick={()=>console.log("a")} type="button" sx={{ p: '10px' }} aria-label="search">
+                                    <Search />
+                                </IconButton>
+                            </Paper>
                         </Box>
                         {
-                         auth?.user?.type==="Landlord" ? <Link to="/ListingRegister" style={{textDecoration:"none"}}><Button variant="outlined">¡Publicar!</Button></Link> : <></>  
+                            auth?.user?.type === "Landlord" ? <Link to="/ListingRegister" style={{ textDecoration: "none" }}><Button variant="outlined">¡Publicar!</Button></Link> : <></>
                         }
-                            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                             <Tooltip title="Account settings">
                                 <IconButton
                                     onClick={handleClick}
@@ -124,20 +141,20 @@ function Navbar() {
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
 
-                            {<Link to={`/profile/${auth?.user?._id}`} style={{textDecoration:"none"}}>
+                            {<Link to={`/profile/${auth?.user?._id}`} style={{ textDecoration: "none" }}>
                                 <MenuItem>
                                     <ListItemIcon>
-                                    <Person fontSize='medium' />
+                                        <Person fontSize='medium' />
                                     </ListItemIcon>
                                     Perfil
                                 </MenuItem>
                             </Link>}
 
                             {auth.isLogged() &&
-                                <Link to={auth.user?.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"} style={{textDecoration:"none"}}>
+                                <Link to={auth.user?.type === "Landlord" ? "/RenterUpdate" : "/StudentUpdate"} style={{ textDecoration: "none" }}>
                                     <MenuItem>
                                         <ListItemIcon>
-                                        <Create fontSize='medium' />
+                                            <Create fontSize='medium' />
                                         </ListItemIcon> Actualizar datos
                                     </MenuItem>
                                 </Link>
@@ -148,7 +165,7 @@ function Navbar() {
                                 width: "100%"
                             }} />
 
-                            {auth.user?.type === "Landlord" && <Link to="/Historial" style={{textDecoration:"none"}}>
+                            {auth.user?.type === "Landlord" && <Link to="/Historial" style={{ textDecoration: "none" }}>
                                 <MenuItem>
                                     <ListItemIcon>
                                         <History fontSize='medium' />
