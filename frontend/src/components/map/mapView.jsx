@@ -1,4 +1,4 @@
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { Marker } from 'mapbox-gl';
 import React, { useLayoutEffect, useRef } from 'react'
 
 export default function MapView() {
@@ -11,10 +11,15 @@ export default function MapView() {
             center: [-74.08311251974894, 4.635978001561783], // starting position [lng, lat]
             zoom: 13, // starting zoom
         }); 
+        
+        
     }, [containerMap])
+
+    
 
     return (
         <div ref={containerMap} style={{width:"100%", height:"100%"}}>
+
         </div>
     )
 }
