@@ -75,12 +75,15 @@ function Navbar() {
                                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300, height: 30 }}
                             >
                                 <InputBase
+                                    id="value"
                                     sx={{ ml: 1, flex: 1 }}
                                     placeholder="Realiza una busqueda"
                                     inputProps={{ 'aria-label': 'Realiza una busqueda' }}
                                     onSubmit={e=>{
                                         e.preventDefault()
                                     }}
+                                    onKeyUp={search}
+                                    type="text"
                                 />
                                 <IconButton onClick={()=>console.log("a")} type="button" sx={{ p: '10px' }} aria-label="search">
                                     <Search />
