@@ -27,6 +27,7 @@ import { deleteListing } from "../../controllers/listingActionsController";
 import CustomizedDialogs from "./contact";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { URL_BACKEND } from "../../constantes";
+import { Fragment } from "react";
 const theme = createTheme();
 
 export function Historial() {
@@ -60,9 +61,11 @@ export function Historial() {
         setOpenByIdListing(initialOpenObject);
         setListings(listingsResp)
       });
+    }else{
+      openByIdListing[idlisting] = false;
+      setOpenByIdListing({ ...openByIdListing });
     }
-    openByIdListing[idlisting] = false;
-    setOpenByIdListing({ ...openByIdListing });
+    
   };
 
   return (
@@ -259,7 +262,7 @@ export function Historial() {
                         </Grid>
                       );
                     } else {
-                      return <></>;
+                      return <Fragment key={listing[formAllListings.idlisting]}></Fragment>;
                     }
                   })}
                 </Grid>

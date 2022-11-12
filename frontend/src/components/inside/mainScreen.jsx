@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { formAllListings } from "../../adapters/formAdapters";
 import ListingBlock from "../generic/listingBlock";
 import MapView from "../map/mapView";
+import { Fragment } from "react";
 
 
 
@@ -149,7 +150,7 @@ export function MainScreen() {
                           </Grid>
                         )
                       } else {
-                        return (<></>)
+                        return (<Fragment key={listing._id}></Fragment>)
                       }
                     })}
                   </Grid>
