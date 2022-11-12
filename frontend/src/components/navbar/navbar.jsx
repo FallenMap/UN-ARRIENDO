@@ -12,7 +12,6 @@ import { logOutAPI, searchAPI } from "../../api/userAPI";
 import { changeBackground } from '../../utilities/changeBackground';
 import { formAllDataUser } from '../../adapters/formAdapters';
 import { URL_BACKEND } from '../../constantes';
-import { useEffect } from "react";
 import {UserResult, ListingResult} from "./dataResult";
 
 

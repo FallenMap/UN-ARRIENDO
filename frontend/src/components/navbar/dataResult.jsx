@@ -27,7 +27,7 @@ export function ListingResult(props) {
        <Link to={`/listing/details/${props.data._id}`} style={{ color: "black" }}>
        <div className={styles.dataItem}> 
        {/* <Avatar sx={{ width: "35px",height: "35px" }} variant="rounded"><AssignmentIcon /></Avatar> */}
-       <Avatar sx={{width: "35px",height: "35px"}} variant="square" src={`${URL_BACKEND}/images/profile/`+ props.data?.photo}><AssignmentIcon /></Avatar>
+       <Avatar sx={{width: "35px",height: "35px"}} variant="square" src={`${URL_BACKEND}/images/listing/`+ props.data?.photos[0]}><AssignmentIcon /></Avatar>
        <Typography pl="10px">
         {props.data?.title}
        </Typography>
