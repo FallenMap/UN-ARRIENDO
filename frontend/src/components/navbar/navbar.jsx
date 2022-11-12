@@ -48,8 +48,6 @@ function Navbar() {
             searchAPI(input).then(res => {
                 setFoundUsers(res.data.users);
                 setFoundListings(res.data.listings);
-                FoundUsers.map((data)=>{return console.log(data) })
-                FoundListings.map((data)=>{return console.log(data) })
         }).catch(e => {
             console.log("Something bad happened while search" + e);
         });

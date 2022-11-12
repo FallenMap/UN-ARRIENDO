@@ -36,10 +36,17 @@ export function Historial() {
 
   const auth = useAuth();
 
-  const [open, setOpen] = useState(false);
+  const [openByIdListing, setOpenByIdListing] = useState({});
 
   useEffect(() => {
-    getHistoryListings(auth).then((listingsResp) => setListings(listingsResp));
+    getHistoryListings(auth).then((listingsResp) => {
+      let initialOpenObject = {};
+      listingsResp.forEach(listing => {
+        initialOpenObject[listing[formAllListings.idlisting]] = false;
+      });
+      setOpenByIdListing(initialOpenObject);
+      setListings(listingsResp)
+    });
   }, [auth]);
 
   const handleDelete = (action, idlisting) => {
@@ -49,7 +56,8 @@ export function Historial() {
         setListings(listingsResp)
       );
     }
-    setOpen(false);
+    openByIdListing[idlisting] = false;
+    setOpenByIdListing({...openByIdListing});
   };
 
   return (
@@ -72,7 +80,7 @@ export function Historial() {
                   {listings?.map((listing) => {
                     if (listing[formAllListings.activo]) {
                       return (
-                        <Grid item xs={6}>
+                        <Grid item xs={6} key={listing[formAllListings.idlisting]}>
                           <Card
                             sx={{
                               height: "100%",
@@ -177,13 +185,19 @@ export function Historial() {
                                       alignItems="center"
                                     >
                                       <Tooltip title="Delete" placement="right">
-                                        <IconButton onClick={(e) => { e.preventDefault(); setOpen(true);}}>
+                                        <IconButton onClick={(e) => { 
+                                          e.preventDefault();
+                                          openByIdListing[listing[formAllListings.idlisting]] = true; 
+                                          setOpenByIdListing({...openByIdListing});
+                                          }}>
                                           <DeleteIcon />
                                         </IconButton>
                                       </Tooltip>
                                       <Dialog
-                                        open={open}
-                                        onClose={() => {handleDelete(false, listing[formAllListings.idlisting]);}}
+                                        open={openByIdListing[listing[formAllListings.idlisting]]}
+                                        onClose={() => {
+                                          handleDelete(false, listing[formAllListings.idlisting]);
+                                        }}
                                         aria-labelledby="alert-dialog-title"
                                         aria-describedby="alert-dialog-description"
                                       >
@@ -198,11 +212,15 @@ export function Historial() {
                                           </DialogContentText>
                                         </DialogContent>
                                         <DialogActions>
-                                          <Button variant="outlined" onClick={() => { handleDelete(false, listing[formAllListings.idlisting]); }}>
+                                          <Button variant="outlined" onClick={() => {
+                                              handleDelete(false, listing[formAllListings.idlisting]); 
+                                            }}>
                                             Cancelar
                                           </Button>
                                           <Button
-                                            onClick={() => {handleDelete(true, listing[formAllListings.idlisting]);}}
+                                            onClick={() => {
+                                              handleDelete(true, listing[formAllListings.idlisting]);
+                                            }}
                                             style={{backgroundColor: "red",color: "white",}}
                                             autoFocus
                                           >
