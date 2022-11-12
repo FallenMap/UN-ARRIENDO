@@ -42,19 +42,24 @@ function Navbar() {
         setAnchorEl(null);
     };
 
-    useEffect(() => { 
-        // console.log(FoundUsers)
-        // console.log(FoundListings)
-      }, [FoundUsers, FoundListings]);
 
     const search = () => {
         let input = document.getElementById('value').value
-        searchAPI(input).then(res => {
-            setFoundUsers(res.data.users);
-            setFoundListings(res.data.listings);
+        if(input!==""){
+            searchAPI(input).then(res => {
+                setFoundUsers(res.data.users);
+                setFoundListings(res.data.listings);
+                FoundUsers.map((data)=>{return console.log(data) })
+                FoundListings.map((data)=>{return console.log(data) })
         }).catch(e => {
             console.log("Something bad happened while search" + e);
         });
+        }else{
+            setFoundUsers([]);
+            setFoundListings([]);
+        }
+
+
     };
 
     return (
@@ -94,9 +99,13 @@ function Navbar() {
                                     <Search />
                                 </IconButton>
                             </Paper>
+
+
+                        </Box>
+                        <div id='dataResult' className={styles.dataResult} >
                             {FoundUsers.map((data)=>{return <UserResult key={data?._id} data={data} /> })}
                             {FoundListings.map((data)=>{return <ListingResult key={data?._id} data={data} /> })}
-                        </Box>
+                        </div>
                         {
                             auth?.user?.type === "Landlord" ? <Link to="/ListingRegister" style={{ textDecoration: "none" }}><Button variant="outlined">¡Publicar!</Button></Link> : <></>
                         }
@@ -192,9 +201,14 @@ function Navbar() {
                                 </MenuItem>
                             }
                         </Menu>
+
                     </Toolbar>
+
                 </Container>
-            </AppBar>
+
+
+            </AppBar>        
+
             <Toolbar />
         </div>
     )

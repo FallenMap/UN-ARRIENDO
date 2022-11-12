@@ -50,6 +50,6 @@ export const updateReviewProfileAPI = (body) => {
 }
 
 export const searchAPI = (value) => {
-    return axios.get(URL+"/user/find/"+value);
+    return  axios.get(URL+"/user/find/"+value);
 }
 
