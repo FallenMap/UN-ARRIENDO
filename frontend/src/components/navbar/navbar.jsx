@@ -103,7 +103,7 @@ function Navbar() {
                         </Box>
                         <div id='dataResult' className={styles.dataResult} >
                             {FoundUsers.map((data)=>{return <UserResult key={data?._id} data={data} /> })}
-                            {FoundListings.map((data)=>{return <ListingResult key={data?._id} data={data} /> })}
+                            {FoundListings.map((data)=>{if (data?.active){return <ListingResult key={data?._id} data={data} /> } else {return ""}})}
                         </div>
                         {
                             auth?.user?.type === "Landlord" ? <Link to="/ListingRegister" style={{ textDecoration: "none" }}><Button variant="outlined">¡Publicar!</Button></Link> : <></>
