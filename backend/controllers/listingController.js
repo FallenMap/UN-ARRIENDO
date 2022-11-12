@@ -306,4 +306,32 @@ listingController.deleteListingComment = async (req, res) => {
     });
 };
 
+// Function to filter publications.
+listingController.filterListing = async (req, res) => {
+    try {
+        let conditions = {};
+        if (String(req.body.type) != "undefined"){conditions.type = req.body.type}
+        if (String(req.body.price) != "undefined"){conditions.price = req.body.price}
+        if (String(req.body.stratum) != "undefined"){conditions.stratum = req.body.stratum}
+        if (String(req.body.petFriendly) != "undefined"){conditions.petFriendly = req.body.petFriendly}
+        if (String(req.body.carParking) != "undefined"){conditions.carParking = req.body.carParking}
+        
+        console.log(conditions);
+
+        let getListing = "funciona";
+        if (JSON.stringify(conditions) =='{}'){getListing = await Listing.find().sort({ date: -1 });}
+        else {getListing = await Listing.find(conditions).sort({ date: -1 });}
+        
+        res.status(200).json({
+            msg: "Se han filtrado las publicaciones correctamente!",
+            listings: getListing
+        });
+
+    } catch {
+        return res.status(500).json({
+            error: "Algo malo ocurrió cuando intentaba filtrar"
+        });
+    }
+};
+
 module.exports = { listingController };

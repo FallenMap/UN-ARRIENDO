@@ -18,7 +18,8 @@ router.post('/comment', validateSession, listingController.commentListing);
 router.put('/commentUpdate', validateSession, listingController.updateListingComment);
 router.post('/commentDelete', validateSession, listingController.deleteListingComment);
 router.get('/listingHistory', validateSession, listingController.userListingHistory);
-router.get('/get/:listingID', validateSession, listingController.getListing) 
+router.get('/get/:listingID', validateSession, listingController.getListing);
+router.get('/filter', validateSession, listingController.filterListing);
 
 module.exports = router;
 

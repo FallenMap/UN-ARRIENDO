@@ -12,11 +12,15 @@ import { logOutAPI, searchAPI } from "../../api/userAPI";
 import { changeBackground } from '../../utilities/changeBackground';
 import { formAllDataUser } from '../../adapters/formAdapters';
 import { URL_BACKEND } from '../../constantes';
+import { useEffect } from "react";
+import {UserResult, ListingResult} from "./dataResult";
 
 
 function Navbar() {
 
     const auth = useAuth();
+    let [FoundUsers, setFoundUsers] = useState([]);
+    let [FoundListings, setFoundListings] = useState([]);
 
     const logoutHandler = (e) => {
         logOutAPI().then(res => {
@@ -30,8 +34,7 @@ function Navbar() {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    let foundUsers;
-    //let foundListings;
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -39,13 +42,16 @@ function Navbar() {
         setAnchorEl(null);
     };
 
+    useEffect(() => { 
+        // console.log(FoundUsers)
+        // console.log(FoundListings)
+      }, [FoundUsers, FoundListings]);
+
     const search = () => {
         let input = document.getElementById('value').value
         searchAPI(input).then(res => {
-            let foundUsers = res.data.users;
-            let foundListings = res.data.listings;
-            console.log(foundUsers)
-            console.log(foundListings)
+            setFoundUsers(res.data.users);
+            setFoundListings(res.data.listings);
         }).catch(e => {
             console.log("Something bad happened while search" + e);
         });
@@ -60,8 +66,7 @@ function Navbar() {
                     <Toolbar>
                         <Typography className={styles.title}>
                             UN-ARRIENDO
-                            {foundUsers}
-                        </Typography>
+                        </Typography> 
                         <Link to="/MainScreen" style={{ textDecoration: "none" }}><Button variant="outlined" sx={{ marginLeft: "20px" }}> Inicio </Button></Link>
                         <Box sx={{
                             flexGrow: 1
@@ -89,6 +94,8 @@ function Navbar() {
                                     <Search />
                                 </IconButton>
                             </Paper>
+                            {FoundUsers.map((data)=>{return <UserResult key={data?._id} data={data} /> })}
+                            {FoundListings.map((data)=>{return <ListingResult key={data?._id} data={data} /> })}
                         </Box>
                         {
                             auth?.user?.type === "Landlord" ? <Link to="/ListingRegister" style={{ textDecoration: "none" }}><Button variant="outlined">¡Publicar!</Button></Link> : <></>
