@@ -20,6 +20,7 @@ router.post('/commentDelete', validateSession, listingController.deleteListingCo
 router.get('/listingHistory', validateSession, listingController.userListingHistory);
 router.get('/get/:listingID', validateSession, listingController.getListing);
 router.get('/filter', validateSession, listingController.filterListing);
+router.get('/search', validateSession, listingController.searchListings);
 
 module.exports = router;
 
