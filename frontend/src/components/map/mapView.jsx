@@ -1,7 +1,7 @@
 import mapboxgl, { Marker } from 'mapbox-gl';
 import React, { useLayoutEffect, useRef } from 'react'
 
-export default function MapView() {
+export default function MapView({lisitingMarkers}) {
     const containerMap = useRef();
 
     useLayoutEffect(() => {
