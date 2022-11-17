@@ -20,7 +20,7 @@ export default function MapView({ listings }) {
                 'data': {
                     'type': 'FeatureCollection',
                     'features': listings.map(listing => {
-                        if (listing.location) {
+                        if (listing.location && listing.active) {
                             let imgSrc = listing[formAllListings.imagenes][0] ? `${URL_BACKEND}/images/listing/` + listing[formAllListings.imagenes][0] : "https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png"
                             let icon = listing[formAllListings.tipo] === 'Room' ? 'bedroom' : 'building'
                             return {
