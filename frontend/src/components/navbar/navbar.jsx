@@ -102,7 +102,7 @@ function Navbar() {
 
 
 
-                        <div ref={anchorRef}>
+                        <div ref={anchorRef} style={{marginRight: 10}}>
                             <Box sx={{
                                 flexGrow: 0.1
                             }}>

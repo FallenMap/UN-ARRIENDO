@@ -6,6 +6,8 @@ import Container from '@mui/material/Container';
 import { formAllListings } from '../../../adapters/formAdapters';
 import { InputLabel, MenuItem, Select, FormControl, OutlinedInput, InputAdornment } from '@mui/material';
 import { useState } from 'react';
+import { API_KEY_MAPBOX } from '../../../constantes';
+import { AddressAutofill } from '@mapbox/search-js-react';
 
 
 export default function BasicForm(props) {
@@ -33,9 +35,9 @@ export default function BasicForm(props) {
                                 <Select name={formAllListings.tipo} onChange={(e) => {
                                     handlerChangeType(e)
                                     props.handleChange(e);
-                                    }} 
+                                }}
                                     value={postType || props.data.get(formAllListings.tipo) || ''}
-                                    >
+                                >
                                     <MenuItem value={1}>Apartaestudio</MenuItem>
                                     <MenuItem value={2}>Apartamento</MenuItem>
                                     <MenuItem value={3}>Habitación</MenuItem>
@@ -77,17 +79,22 @@ export default function BasicForm(props) {
                     {props.control?.errors?.[formAllListings.descripcion] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.descripcion]}`}</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="address1-pub"
-                        name={formAllListings.direccion}
-                        label="Dirección"
-                        fullWidth
-                        autoComplete="shipping address-line1"
-                        variant="standard"
-                        defaultValue={props.data.get(formAllListings.direccion) || ""}
-                        onChange={props.handleChange}
-                    />
+                    <AddressAutofill accessToken={API_KEY_MAPBOX} options={{
+                        country:'CO',
+                        language:'es'
+                    }}>
+                        <TextField
+                            required
+                            id="address1-pub"
+                            name={formAllListings.direccion}
+                            label="Dirección"
+                            fullWidth
+                            autoComplete="address-line1"
+                            variant="standard"
+                            defaultValue={props.data.get(formAllListings.direccion) || ""}
+                            onChange={props.handleChange}
+                        />
+                    </AddressAutofill>
                     {props.control?.errors?.[formAllListings.direccion] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.direccion]}`}</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -96,7 +103,7 @@ export default function BasicForm(props) {
                         name={formAllListings.complemento}
                         label="Complemento de la dirección"
                         fullWidth
-                        autoComplete="shipping address-line2"
+                        autoComplete="address-line2"
                         variant="standard"
                         defaultValue={props.data.get(formAllListings.complemento) || ""}
                     />

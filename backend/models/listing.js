@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
+const fetch = require("node-fetch");
 
 const commentSchema = new mongoose.Schema({
     firstNameUser: String,
@@ -47,9 +48,9 @@ const listingSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    reviewedByTenants:  {
+    reviewedByTenants: {
         type: mongoose.SchemaTypes.Mixed,
-        default: {"-1":-1}
+        default: { "-1": -1 }
     },
     comments: [commentSchema],
     date: {
@@ -59,8 +60,19 @@ const listingSchema = new mongoose.Schema({
     active: {
         type: Boolean,
         default: true
+    },
+    location: {
+        type: {
+            type: String, // Don't do `{ location: { type: String } }`
+            enum: ['Point'], // 'location.type' must be 'Point'
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            index: '2dsphere'
+        },
+        formattedAddress: String
     }
-}, { discriminatorKey: 'type' }, {minimize: false});
-
+}, { discriminatorKey: 'type' }, { minimize: false });
 
 module.exports = mongoose.model('Listing', listingSchema);

@@ -6,6 +6,29 @@ const StudioApartment = require('../models/studioApartment');
 const { ObjectId } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
+const fetch = require("node-fetch");
+const geocoder = require('../helpers/geocodingHelper');
+
+async function getLocation(address) {
+    if (!address || address.length < 3) {
+        console.log("The address string is too short. Enter at least three symbols");
+        return;
+    }
+
+    const dataResult = await geocoder.geocode({
+        address: address,
+        countryCode: 'co',
+        limit: 5
+    });
+
+    let location = {
+        type: 'Point',
+        coordinates: [dataResult[0].longitude, dataResult[0].latitude],
+        formattedAddress: dataResult[0].formattedAddress
+    };
+
+    return location;
+}
 
 // Create an object that save all controller functions.
 const listingController = {};
@@ -29,6 +52,12 @@ listingController.createListing = async (req, res) => {
 
     // Adding the user that created the listing:V
     req.body.landlord = req.session.userID;
+
+    // Adding the location  of the listing
+    req.body.location = await getLocation(req.body.address);
+
+    // Limits
+    // -74.20917701530674 4.508183089398315 -73.97403898269468 4.83571738439052
 
     req.body.comments = [];
 
@@ -158,8 +187,8 @@ listingController.ratingListing = async (req, res) => {
             }
         }
 
-        if(length<1){
-            length=1;
+        if (length < 1) {
+            length = 1;
         }
         let mean = (ratings / length);
 
@@ -310,18 +339,18 @@ listingController.deleteListingComment = async (req, res) => {
 listingController.filterListing = async (req, res) => {
     try {
         let conditions = {};
-        if (String(req.body.type) != "undefined"){conditions.type = req.body.type}
-        if (String(req.body.price) != "undefined"){conditions.price = req.body.price}
-        if (String(req.body.stratum) != "undefined"){conditions.stratum = req.body.stratum}
-        if (String(req.body.petFriendly) != "undefined"){conditions.petFriendly = req.body.petFriendly}
-        if (String(req.body.carParking) != "undefined"){conditions.carParking = req.body.carParking}
-        
+        if (String(req.body.type) != "undefined") { conditions.type = req.body.type }
+        if (String(req.body.price) != "undefined") { conditions.price = req.body.price }
+        if (String(req.body.stratum) != "undefined") { conditions.stratum = req.body.stratum }
+        if (String(req.body.petFriendly) != "undefined") { conditions.petFriendly = req.body.petFriendly }
+        if (String(req.body.carParking) != "undefined") { conditions.carParking = req.body.carParking }
+
         console.log(conditions);
 
         let getListing = "funciona";
-        if (JSON.stringify(conditions) =='{}'){getListing = await Listing.find().sort({ date: -1 });}
-        else {getListing = await Listing.find(conditions).sort({ date: -1 });}
-        
+        if (JSON.stringify(conditions) == '{}') { getListing = await Listing.find().sort({ date: -1 }); }
+        else { getListing = await Listing.find(conditions).sort({ date: -1 }); }
+
         res.status(200).json({
             msg: "Se han filtrado las publicaciones correctamente!",
             listings: getListing
@@ -393,7 +422,7 @@ listingController.searchListings = async (req, res) => {
 
         //define a set with characteristics from the model depending of type, to change url query params into valid mongo query. ej: ?stratum=2 > { "characteristics.stratum" : 2 }
         let characteristicsSet;
-        const ranges = new Set(['priceMin','priceMax','roomsMin','roomsMax','bathroomsMin','bathroomsMax','ratingMin','ratingMax']);
+        const ranges = new Set(['priceMin', 'priceMax', 'roomsMin', 'roomsMax', 'bathroomsMin', 'bathroomsMax', 'ratingMin', 'ratingMax']);
 
 
         switch (String(req.query.type)) {
@@ -418,11 +447,11 @@ listingController.searchListings = async (req, res) => {
         for (const [param, value] of Object.entries(req.query)) {
             //console.log(param);
             if ((param === 'title') || (param === 'description') || (param === 'neighborhood')) {   // casi insensitive text search using regex for title, description and neighborhood fields
-                filter[param] = {$regex : String(value), $options : 'i'};
+                filter[param] = { $regex: String(value), $options: 'i' };
             } else if (characteristicsSet.has(param)) {     // exact match for fields in the characteristics set, depending on listing type
-                filter["characteristics."+param] = value;
+                filter["characteristics." + param] = value;
             } else if (ranges.has(param)) {     // range match between min and max for fields price, rooms and (private) bathrooms
-                switch(param) {
+                switch (param) {
                     case 'priceMin':
                         if (filter.price === undefined) { filter.price = {} }
                         filter.price.$gte = parseInt(value);
@@ -462,15 +491,15 @@ listingController.searchListings = async (req, res) => {
                 //console.log(param+' missed');
                 continue;
             } else {        // exact match for fields that are model attributes
-                filter[param] = value;                
+                filter[param] = value;
             }
-          }
+        }
 
         console.log(filter);
 
         let result = await Listing.find(filter).sort({ date: -1 });
 
-        
+
         res.status(200).json({
             msg: "Se han filtrado las publicaciones correctamente!",
             count: result.length,

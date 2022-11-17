@@ -75,7 +75,7 @@ export function MainScreen() {
                 minWidth:"200px", 
                 maxWidth:"600px",
                 }}>
-                <MapView />
+                <MapView listings={listings} />
               </Container>
             </Box>
           </Grid>
