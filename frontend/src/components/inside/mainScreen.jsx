@@ -19,6 +19,7 @@ import { formAllListings } from "../../adapters/formAdapters";
 import ListingBlock from "../generic/listingBlock";
 import MapView from "../map/mapView";
 import { Fragment } from "react";
+import { ListingsFilter } from "./listingsFilter";
 
 
 
@@ -130,7 +131,13 @@ export function MainScreen() {
                 </Stack>
               </Container>
             </Box>
+
+            <Container sx={{ pt: 8 }} maxWidth="md">
+              <ListingsFilter/>
+            </Container>
+            
           </Grid>
+          
 
           <Grid item xs>
             {" "}
@@ -139,7 +146,7 @@ export function MainScreen() {
               <CssBaseline />
               <main>
                 {/* Hero unit */}
-                <Container sx={{ py: 8 }} maxWidth="md">
+                <Container sx={{ pt: 0, pb: 8 }} maxWidth="md">
                   {/* End hero unit */}
                   <Grid container spacing={3}>
                     {listings.map((listing) => {
