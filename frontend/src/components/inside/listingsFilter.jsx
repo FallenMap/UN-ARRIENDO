@@ -14,17 +14,17 @@ import TextField from '@mui/material/TextField';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-
+import {  filterAPI } from "../../api/userAPI";
 import { Radio, Switch,MenuItem, Select } from '@mui/material';
 
     
 export  function ListingsFilter() {
 
   const [state, setState] = React.useState({
-    pet: false,
-    furniture: false,
-    park: false,
-    bici: false
+    petFriendly: false,
+    furnished: false,
+    carParking: false,
+    bicycleParking: false
   });
 
   const handleChangeSwitch = (event) => {
@@ -35,7 +35,7 @@ export  function ListingsFilter() {
   };
 
 
-    const [value, setValue] = React.useState('apartment',"room","studioApartment");
+    const [value, setValue] = React.useState("All");
    
 
     const handleChangeRadio = (event) => {
@@ -45,11 +45,11 @@ export  function ListingsFilter() {
 
 
     const [values, setValues] = React.useState({
-        lowAmount: "",
-        upperAmount:"",
-        rooms:"",
-        bathrooms:"",
-        stratum:""
+        priceMin: "",
+        priceMax:"",
+        roomsMin:"",
+        bathroomsMin:"",
+        stratum:"Todos"
 
         });
 
@@ -69,7 +69,29 @@ export  function ListingsFilter() {
       setOpen(false);
     }
   };
+  
+  const applyFilter = (event, reason) => {
+      let props = {};
+      if (values.priceMin !== ""){ props.priceMin = values.priceMin}
+      if (values.priceMax !== ""){ props.priceMax = values.priceMax}
+      if (values.roomsMin !== ""){ props.roomsMin = values.roomsMin}
+      if (values.bathroomsMin !== ""){ props.bathroomsMin = values.bathroomsMin}
+      if (values.stratum !== "Todos"){ props.stratum = values.stratum}
+      if (state.petFriendly !== false){ props.petFriendly = state.petFriendly}
+      if (state.furnished !== false){ props.furnished = state.furnished}
+      if (state.carParking !== false){ props.carParking = state.carParking}
+      if (state.bicycleParking !== false){ props.bicycleParking = state.bicycleParking}
+      if (value !== "All"){ props.type = value}
+      filterAPI(props).then(res => {
+        console.log(res)
+    }).catch(e => {
+        console.log("Something bad happened while search" + e);
+    });
 
+    if (reason !== 'backdropClick') {
+      setOpen(false);
+    }
+  };
   return (
     <div>
       <Button color='primary' variant="contained" size='medium' onClick={handleClickOpen}>Filtrar</Button>
@@ -82,9 +104,9 @@ export  function ListingsFilter() {
             
                 <InputLabel htmlFor="outlined-adornment-amount">Precio</InputLabel>
                     <OutlinedInput
-                        id="lowAmount"
-                        value={values.lowAmount}
-                        onChange={handleChangeAmount('lowAmount')}
+                        id="priceMin"
+                        value={values.priceMin}
+                        onChange={handleChangeAmount('priceMin')}
                         startAdornment={<InputAdornment position="start">$</InputAdornment>}
                         label="Amount"
                         />
@@ -98,9 +120,9 @@ export  function ListingsFilter() {
             
             <InputLabel htmlFor="outlined-adornment-amount">Precio</InputLabel>
                 <OutlinedInput
-                    id="upperAmount"
-                    value={values.upperAmount}
-                    onChange={handleChangeAmount('upperAmount')}
+                    id="priceMax"
+                    value={values.priceMax}
+                    onChange={handleChangeAmount('priceMax')}
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     label="Amount"
                     />
@@ -108,9 +130,9 @@ export  function ListingsFilter() {
 
             <FormControl sx={{  width: '25ch', m:1 }}>
                 <TextField
-                        id="rooms"
-                        value={values.rooms}
-                        onChange={handleChangeAmount('rooms')}
+                        id="roomsMin"
+                        value={values.roomsMin}
+                        onChange={handleChangeAmount('roomsMin')}
                         label="Habitaciones"
                         type="number"
                         inputProps={{ min: 1, max: 10 }}
@@ -124,9 +146,9 @@ export  function ListingsFilter() {
             </Typography>
             <FormControl sx={{ m:1, width: '25ch' }}>
                 <TextField
-                        id="bathrooms"
-                        value={values.bathrooms}
-                        onChange={handleChangeAmount('bathrooms')}
+                        id="bathroomsMin"
+                        value={values.bathroomsMin}
+                        onChange={handleChangeAmount('bathroomsMin')}
                         label="Baños"
                         type="number"
                         inputProps={{ min: 1, max: 5 }}
@@ -144,19 +166,20 @@ export  function ListingsFilter() {
                     name="row-radio-buttons-group"
                     value={value}
                     onChange={handleChangeRadio}
-                    defaultValue="null"
+                    defaultValue="all"
                 >
-                    <FormControlLabel value="room"  control={<Radio />} label="Habitación" sx={{ color: 'black' }}   />
-                    <FormControlLabel value="studioApartment"  control={<Radio />} label="Apartaestudio" sx={{ color: 'black' }} />
-                    <FormControlLabel value="apartment"  control={<Radio />} label="Apartamento" sx={{ color: 'black' }} />
+                    <FormControlLabel value="Room"  control={<Radio />} label="Habitación" sx={{ color: 'black' }}   />
+                    <FormControlLabel value="StudioApartment"  control={<Radio />} label="Apartaestudio" sx={{ color: 'black' }} />
+                    <FormControlLabel value="Apartment"  control={<Radio />} label="Apartamento" sx={{ color: 'black' }} />
+                    <FormControlLabel value="All"  control={<Radio />} label="Todos" sx={{ color: 'black' }} />
                 </RadioGroup>
             </FormControl>
 
             <FormControl>
-            <FormLabel id="petTitle" sx={{ fontSize:"90%", mb:1 }}>Pet Friendly</FormLabel>
-              <Switch   checked={state.pet}
+            <FormLabel id="petFriendlyTitle" sx={{ fontSize:"90%", mb:1 }}>Pet Friendly</FormLabel>
+              <Switch   checked={state.petFriendly}
               onChange={handleChangeSwitch}
-              name="pet"
+              name="petFriendly"
               inputProps={{ 'aria-label': 'controlled' }}/>
             </FormControl>
             <Typography sx={{  margin:"auto" }} >
@@ -164,10 +187,10 @@ export  function ListingsFilter() {
           </Typography>
 
             <FormControl>
-            <FormLabel id="petTitle" sx={{ fontSize:"90%", mb:1 }}>Amoblado</FormLabel>
-              <Switch   checked={state.furniture}
+            <FormLabel id="furnishedTitle" sx={{ fontSize:"90%", mb:1 }}>Amoblado</FormLabel>
+              <Switch   checked={state.furnished}
               onChange={handleChangeSwitch}
-              name="furniture"
+              name="furnished"
               inputProps={{ 'aria-label': 'controlled' }}/>
             </FormControl>
             <Typography sx={{  margin:"auto" }} >
@@ -176,9 +199,9 @@ export  function ListingsFilter() {
 
             <FormControl>
             <FormLabel id="petTitle" sx={{ fontSize:"90%", mb:1 }}>Parqueadero</FormLabel>
-              <Switch   checked={state.park}
+              <Switch   checked={state.carParking}
               onChange={handleChangeSwitch}
-              name="park"
+              name="carParking"
               inputProps={{ 'aria-label': 'controlled' }}/>
             </FormControl>
 
@@ -188,9 +211,9 @@ export  function ListingsFilter() {
 
             <FormControl>
             <FormLabel id="petTitle" sx={{ fontSize:"90%", mb:1 }}>Bicicletero</FormLabel>
-              <Switch   checked={state.bici}
+              <Switch   checked={state.bicycleParking}
               onChange={handleChangeSwitch}
-              name="bici"
+              name="bicycleParking"
               inputProps={{ 'aria-label': 'controlled' }}/>
             </FormControl>
 
@@ -204,6 +227,7 @@ export  function ListingsFilter() {
                         name="stratum"
                         onChange={handleChangeAmount('stratum')}
                     >
+                        <MenuItem value={"Todos"}>Todos</MenuItem>
                         <MenuItem value={1}>1</MenuItem>
                         <MenuItem value={2}>2</MenuItem>
                         <MenuItem value={3}>3</MenuItem>
@@ -217,7 +241,7 @@ export  function ListingsFilter() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleClose}>Aceptar</Button>
+          <Button onClick={applyFilter}>Aceptar</Button>
         </DialogActions>
       </Dialog>
     </div>

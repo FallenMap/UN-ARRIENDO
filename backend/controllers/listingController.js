@@ -436,7 +436,7 @@ listingController.searchListings = async (req, res) => {
                 characteristicsSet = new Set(Object.keys(Apartment.schema.tree.characteristics));
                 break;
             case "Room":
-                characteristicsSet = new Set(Room.schema.tree.characteristics);
+                characteristicsSet = new Set(Object.keys(Room.schema.tree.characteristics));
                 break;
             default:
                 throw 'error generating characteristics set';
