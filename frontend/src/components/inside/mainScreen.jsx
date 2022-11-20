@@ -133,7 +133,7 @@ export function MainScreen() {
             </Box>
 
             <Container sx={{ pt: 8 }} maxWidth="md">
-              <ListingsFilter/>
+              <ListingsFilter setListings = {setListings}/>
             </Container>
             
           </Grid>

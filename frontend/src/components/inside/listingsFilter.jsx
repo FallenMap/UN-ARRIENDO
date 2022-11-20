@@ -18,7 +18,7 @@ import {  filterAPI } from "../../api/userAPI";
 import { Radio, Switch,MenuItem, Select } from '@mui/material';
 
     
-export  function ListingsFilter() {
+export  function ListingsFilter({setListings}) {
 
   const [state, setState] = React.useState({
     petFriendly: false,
@@ -83,7 +83,7 @@ export  function ListingsFilter() {
       if (state.bicycleParking !== false){ props.bicycleParking = state.bicycleParking}
       if (value !== "All"){ props.type = value}
       filterAPI(props).then(res => {
-        console.log(res)
+        setListings(res.data.listings)
     }).catch(e => {
         console.log("Something bad happened while search" + e);
     });
