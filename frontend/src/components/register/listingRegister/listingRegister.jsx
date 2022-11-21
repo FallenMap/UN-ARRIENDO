@@ -62,7 +62,16 @@ const validate = (data, activeStep) => {
 
     if (!data[formAllListings.direccion]) {
         errors[formAllListings.direccion] = "*Este campo no puede estar vacio"
-    } else {
+    } else if (!((data[formAllListings.direccion].toLowerCase().split(' ').includes('avenida') || 
+               data[formAllListings.direccion].toLowerCase().split(' ').includes('calle') ||
+               data[formAllListings.direccion].toLowerCase().split(' ').includes('carrera') ||
+               data[formAllListings.direccion].toLowerCase().split(' ').includes('transversal') ||
+               data[formAllListings.direccion].toLowerCase().split(' ').includes('diagonal')) &&
+               /[0-9]+/.test(data[formAllListings.direccion]))){
+                console.log("aaa");
+        errors[formAllListings.direccion] = "*Revisa la dirección que ingresaste, no parece tener las caracteristicas de una dirección."
+
+    }else{
         delete errors[formAllListings.direccion];
     }
 

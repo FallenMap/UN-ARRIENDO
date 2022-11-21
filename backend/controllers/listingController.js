@@ -56,7 +56,12 @@ listingController.createListing = async (req, res) => {
     req.body.landlord = req.session.userID;
 
     // Adding the location  of the listing
-    req.body.location = await getLocation(req.body.address);
+    try{
+        req.body.location = await getLocation(req.body.address);
+    }catch{
+
+    }
+    
 
     // Limits
     // -74.20917701530674 4.508183089398315 -73.97403898269468 4.83571738439052
@@ -104,6 +109,7 @@ listingController.updateListing = async (req, res) => {
     //updating
     delete req.body.comments;
     delete req.body.reviewedByTenants;
+    delete req.body.location;
     if ((req.body.type).toLowerCase() == "apartment") {
         try {
             await Apartment.updateOne({ _id: req.body._id }, { $set: { ...req.body } });
