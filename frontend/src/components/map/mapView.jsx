@@ -26,7 +26,7 @@ export default function MapView({ listings }) {
                             return {
                                 'type': 'Feature',
                                 'properties': {
-                                    'description': `<center><img src=${imgSrc} style="max-width:100px; max-height:100px"></center><br><strong>${listing.title}</strong><p>${listing.description}</p><p>Precio: ${listing.price}&nbsp;COP</p><a href=/listing/details/${listing._id}><button>Ver más detalles</button></a>`,
+                                    'description': `<center><img src=${imgSrc} style="max-width:100px; max-height:100px"></center><br><strong>${listing.title}</strong><p>${listing.description}</p><p>Precio: ${listing.price}&nbsp;COP</p><center><a href=/listing/details/${listing._id}><button style="background-color: #1565c0; color: white; border: 1px solid #1565c0;border-radius: 5px;">Ver más detalles</button></a></center>`,
                                     'icon': `${icon}`
                                 },
                                 'geometry': {

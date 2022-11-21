@@ -132,10 +132,18 @@ export function MainScreen() {
               </Container>
             </Box>
 
-            <Container sx={{ pt: 8 }} maxWidth="md">
-              <ListingsFilter setListings = {setListings}/>
-            </Container>
-            
+            {
+              listings.length>0 ? 
+              (<Container sx={{ pt: 8 }} maxWidth="md">
+                <ListingsFilter setListings = {setListings}/>
+              </Container>) : (<Container sx={{ mt: 8 }} maxWidth="md">
+                <center>
+                <Typography variant="h5">
+                  No hay publicaciones en este momento :{'('}
+                </Typography>
+                </center>
+                </Container>)
+            } 
           </Grid>
           
 
