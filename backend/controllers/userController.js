@@ -307,5 +307,24 @@ userController.getUserProfile = async (req, res) => {
 
 }
 
+userController.find = async (req, res) => {
+    let listing, user;
+    try {
+        user = await User.find({ "$or": [{ "firstName": { $regex: req.params.value, $options: "i" } }, { "lastName": { $regex: req.params.value, $options: "i" } }] });
+        listing = await Listing.find({ "$or": [{ "title": { $regex: req.params.value, $options: "i" } }, { "description": { $regex: req.params.value, $options: "i" } }] });
+    } catch {
+        console.log("Something happened when the user try to search");
+        return res.status(500).json({
+            error: "No se han encontrado resultados para su busqueda"
+        });
+    }
+    res.status(200).json({
+        msg: "Busqueda realizada satisfactoriamente",
+        listings: listing,
+        users: user
+    });
+
+
+}
 module.exports = { userController };
 

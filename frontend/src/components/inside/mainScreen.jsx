@@ -18,6 +18,8 @@ import { useEffect } from "react";
 import { formAllListings } from "../../adapters/formAdapters";
 import ListingBlock from "../generic/listingBlock";
 import MapView from "../map/mapView";
+import { Fragment } from "react";
+import { ListingsFilter } from "./listingsFilter";
 
 
 
@@ -65,16 +67,16 @@ export function MainScreen() {
               sx={{
                 marginTop: "10px",
                 padding: '10px',
-                height:"400px",
+                height: "400px",
               }}>
               <Container style={{
-                height:"100%",
-                minHeight:"200px", 
-                maxHeight:"400px", 
-                minWidth:"200px", 
-                maxWidth:"600px",
-                }}>
-                <MapView />
+                height: "100%",
+                minHeight: "200px",
+                maxHeight: "400px",
+                minWidth: "200px",
+                maxWidth: "600px",
+              }}>
+                <MapView listings={listings} />
               </Container>
             </Box>
           </Grid>
@@ -129,36 +131,52 @@ export function MainScreen() {
                 </Stack>
               </Container>
             </Box>
-          </Grid>
 
-          <Grid item xs>
-            {" "}
-            {/* tarjetas */}
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <main>
-                {/* Hero unit */}
-                <Container sx={{ py: 8 }} maxWidth="md">
-                  {/* End hero unit */}
-                  <Grid container spacing={3}>
-                    {listings.map((listing) => {
-                      if (listing[formAllListings.activo]) {
-                        return (
-                          <Grid key={listing._id} item xs={6}>
-                            <ListingBlock listing={listing} />
-                          </Grid>
-                        )
-                      } else {
-                        return (<></>)
-                      }
-                    })}
-                  </Grid>
-                </Container>
-              </main>
-            </ThemeProvider>
-          </Grid>
+            <Container sx={{ pt: 8 }} maxWidth="md">
+              <ListingsFilter setListings={setListings} />
+            </Container>
+
+            {
+              listings.length > 0 ?
+                (<></>): (<Container sx = {{ mt: 8 }} maxWidth="md">
+            <center>
+              <Typography variant="h5">
+                No se encontró ninguna publicación :{'('}
+              </Typography>
+            </center>
+          </Container>)
+            }
         </Grid>
-      </Box>
+
+
+        <Grid item xs>
+          {" "}
+          {/* tarjetas */}
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <main>
+              {/* Hero unit */}
+              <Container sx={{ pt: 0, pb: 8 }} maxWidth="md">
+                {/* End hero unit */}
+                <Grid container spacing={3}>
+                  {listings.map((listing) => {
+                    if (listing[formAllListings.activo]) {
+                      return (
+                        <Grid key={listing._id} item xs={6}>
+                          <ListingBlock listing={listing} />
+                        </Grid>
+                      )
+                    } else {
+                      return (<Fragment key={listing._id}></Fragment>)
+                    }
+                  })}
+                </Grid>
+              </Container>
+            </main>
+          </ThemeProvider>
+        </Grid>
+      </Grid>
+    </Box>
     </>
   );
 }

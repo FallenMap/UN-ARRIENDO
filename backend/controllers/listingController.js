@@ -6,6 +6,31 @@ const StudioApartment = require('../models/studioApartment');
 const { ObjectId } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
+const fetch = require("node-fetch");
+const geocoder = require('../helpers/geocodingHelper');
+
+async function getLocation(address) {
+    if (!address || address.length < 3) {
+        console.log("The address string is too short. Enter at least three symbols");
+        return;
+    }
+
+    address = address.trim() + ", Bogotá";
+
+    let url = `https://us1.locationiq.com/v1/search?key=${process.env.GEOCODER_API_KEY}&q=${encodeURIComponent(address)}&format=json`;
+    let dataResult = await fetch(url);
+    dataResult = await dataResult.json();
+
+    //await geocoder.geocode(address);
+
+    let location = {
+        type: 'Point',
+        coordinates: [dataResult[0].lon, dataResult[0].lat],
+        formattedAddress: dataResult[0].display_name
+    };
+
+    return location;
+}
 
 // Create an object that save all controller functions.
 const listingController = {};
@@ -29,6 +54,17 @@ listingController.createListing = async (req, res) => {
 
     // Adding the user that created the listing:V
     req.body.landlord = req.session.userID;
+
+    // Adding the location  of the listing
+    try{
+        req.body.location = await getLocation(req.body.address);
+    }catch{
+
+    }
+    
+
+    // Limits
+    // -74.20917701530674 4.508183089398315 -73.97403898269468 4.83571738439052
 
     req.body.comments = [];
 
@@ -73,6 +109,7 @@ listingController.updateListing = async (req, res) => {
     //updating
     delete req.body.comments;
     delete req.body.reviewedByTenants;
+    delete req.body.location;
     if ((req.body.type).toLowerCase() == "apartment") {
         try {
             await Apartment.updateOne({ _id: req.body._id }, { $set: { ...req.body } });
@@ -158,8 +195,8 @@ listingController.ratingListing = async (req, res) => {
             }
         }
 
-        if(length<1){
-            length=1;
+        if (length < 1) {
+            length = 1;
         }
         let mean = (ratings / length);
 
@@ -304,6 +341,184 @@ listingController.deleteListingComment = async (req, res) => {
     res.status(200).json({
         msg: "Listing comment deleted!"
     });
+};
+
+// Function to filter publications.
+listingController.filterListing = async (req, res) => {
+    try {
+        let conditions = {};
+        if (String(req.body.type) != "undefined") { conditions.type = req.body.type }
+        if (String(req.body.price) != "undefined") { conditions.price = req.body.price }
+        if (String(req.body.stratum) != "undefined") { conditions.stratum = req.body.stratum }
+        if (String(req.body.petFriendly) != "undefined") { conditions.petFriendly = req.body.petFriendly }
+        if (String(req.body.carParking) != "undefined") { conditions.carParking = req.body.carParking }
+
+        console.log(conditions);
+
+        let getListing = "funciona";
+        if (JSON.stringify(conditions) == '{}') { getListing = await Listing.find().sort({ date: -1 }); }
+        else { getListing = await Listing.find(conditions).sort({ date: -1 }); }
+
+        res.status(200).json({
+            msg: "Se han filtrado las publicaciones correctamente!",
+            listings: getListing
+        });
+
+    } catch {
+        return res.status(500).json({
+            error: "Algo malo ocurrió cuando intentaba filtrar"
+        });
+    }
+};
+
+// Function to search publications using query url parameters to the route /listing/search?param=value&param2=value2....
+// most parameters use the same name as the schema attributes, only different (for now) are some range values for price, rooms, bathrooms and rating
+// type, cleaningArea and kitchen should match the values in db (in english case sensitive, ?type=StudioApartment not ?type=Apartaestudio)
+// specific type characteristics should only be sent with the corresponding type parameter, for example kitchen=Open should only be sent with type=Apartment to be valid
+// title, description and neighborhood search uses regex to finde the provided string in those fields
+// order should not matter
+
+//type: StudioApartment, Apartment, Room
+//title: text
+//description: text
+//neighborhood: text
+//priceMin: int
+//priceMax: int
+//furnished: boolean
+//stratum: 1, 2, 3, 4, 5, 6 (right now is exact match, may add range search)
+//bathroomsMin: int
+//bathroomsMax: int
+//carParking: boolean
+//petFriendly: boolean
+//bicycleParking: boolean
+//roomsMin: int
+//roomsMax: int
+//cleaningArea: Communal, Private
+//kitchen:  Open, Closed
+//ratingMin: float
+//ratingMax: float
+
+// can copy next lines into postman GET request Query Params Bulk Edit for testing 
+
+//type:StudioApartment
+//title:bug
+//description:ó
+//neighborhood:test
+//priceMin:10000
+//priceMax:40000
+//furnished:true
+//stratum:2
+//bathroomsMin:1
+//bathroomsMax:1
+//carParking:true
+//petFriendly:false
+//bicycleParking:true
+//roomsMin:1
+//roomsMax:5
+//cleaningArea:Communal
+//kitchen:Open
+//ratingMin:1.6
+//ratingMax:4
+
+listingController.searchListings = async (req, res) => {
+    try {
+        console.log(req.query);
+
+        let filter = {};
+
+        const attributes = new Set(Object.keys(Listing.schema.tree));
+
+        //define a set with characteristics from the model depending of type, to change url query params into valid mongo query. ej: ?stratum=2 > { "characteristics.stratum" : 2 }
+        let characteristicsSet;
+        const ranges = new Set(['priceMin', 'priceMax', 'roomsMin', 'roomsMax', 'bathroomsMin', 'bathroomsMax', 'ratingMin', 'ratingMax']);
+
+
+        switch (String(req.query.type)) {
+            case "undefined": //not specifying type
+                characteristicsSet = new Set(Object.keys(Listing.schema.tree.characteristics));
+                break;
+            case "StudioApartment":
+                characteristicsSet = new Set(Object.keys(StudioApartment.schema.tree.characteristics));
+                break;
+            case "Apartment":
+                characteristicsSet = new Set(Object.keys(Apartment.schema.tree.characteristics));
+                break;
+            case "Room":
+                characteristicsSet = new Set(Object.keys(Room.schema.tree.characteristics));
+                break;
+            default:
+                throw 'error generating characteristics set';
+        }
+
+        //console.log(characteristicsSet);
+
+        for (const [param, value] of Object.entries(req.query)) {
+            //console.log(param);
+            if ((param === 'title') || (param === 'description') || (param === 'neighborhood')) {   // casi insensitive text search using regex for title, description and neighborhood fields
+                filter[param] = { $regex: String(value), $options: 'i' };
+            } else if (characteristicsSet.has(param)) {     // exact match for fields in the characteristics set, depending on listing type
+                filter["characteristics." + param] = value;
+            } else if (ranges.has(param)) {     // range match between min and max for fields price, rooms and (private) bathrooms
+                switch (param) {
+                    case 'priceMin':
+                        if (filter.price === undefined) { filter.price = {} }
+                        filter.price.$gte = parseInt(value);
+                        break;
+                    case 'priceMax':
+                        if (filter.price === undefined) { filter.price = {} }
+                        filter.price.$lte = parseInt(value);
+                        break;
+                    case 'roomsMin':
+                        if (filter["characteristics.rooms"] === undefined) { filter["characteristics.rooms"] = {} }
+                        filter["characteristics.rooms"].$gte = parseInt(value);
+                        break;
+                    case 'roomsMax':
+                        if (filter["characteristics.rooms"] === undefined) { filter["characteristics.rooms"] = {} }
+                        filter["characteristics.rooms"].$lte = parseInt(value);
+                        break;
+                    case 'bathroomsMin':
+                        if (filter["characteristics.privateBathrooms"] === undefined) { filter["characteristics.privateBathrooms"] = {} }
+                        filter["characteristics.privateBathrooms"].$gte = parseInt(value);
+                        break;
+                    case 'bathroomsMax':
+                        if (filter["characteristics.privateBathrooms"] === undefined) { filter["characteristics.privateBathrooms"] = {} }
+                        filter["characteristics.privateBathrooms"].$lte = parseInt(value);
+                        break;
+                    case 'ratingMin':
+                        if (filter.rating === undefined) { filter.rating = {} }
+                        filter.rating.$gte = parseFloat(value);
+                        break;
+                    case 'ratingMax':
+                        if (filter.rating === undefined) { filter.rating = {} }
+                        filter.rating.$lte = parseFloat(value);
+                        break;
+                    default:
+                        break;
+                }
+            } else if (!attributes.has(param)) {        // skip this parameter if its not a attribute of the listing model
+                //console.log(param+' missed');
+                continue;
+            } else {        // exact match for fields that are model attributes
+                filter[param] = value;
+            }
+        }
+
+        console.log(filter);
+
+        let result = await Listing.find(filter).sort({ date: -1 });
+
+
+        res.status(200).json({
+            msg: "Se han filtrado las publicaciones correctamente!",
+            count: result.length,
+            listings: result
+        });
+
+    } catch {
+        return res.status(500).json({
+            error: "Algo malo ocurrió cuando intentaba filtrar"
+        });
+    }
 };
 
 module.exports = { listingController };

@@ -31,10 +31,10 @@ export default function ListingBlock(props) {
                         pr: "2%",
                         height: '300px'
                     }}
-                    src={props.listing[formAllListings.imagenes][0] ? `${URL_BACKEND}images/listing/` + props.listing[formAllListings.imagenes][0] : "https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png"}
+                    src={props.listing[formAllListings.imagenes][0] ? `${URL_BACKEND}/images/listing/` + props.listing[formAllListings.imagenes][0] : "https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png"}
                     alt="first image"
                     onError={(e) => {
-                        if (e.target.src === `${URL_BACKEND}images/listing/${props.listing[formAllListings.imagenes][0]}`) {
+                        if (e.target.src === `${URL_BACKEND}/images/listing/${props.listing[formAllListings.imagenes][0]}`) {
                             e.target.src = "https://programacion.net/files/article/20161110041116_image-not-found.png";
                         }
                     }}

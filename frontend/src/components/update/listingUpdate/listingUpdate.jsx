@@ -63,7 +63,7 @@ export default function ListingUpdate() {
                 if (!success) {
                     window.scroll(0, 0);
                 }
-            }).catch(console.log("Un error ha ocurrido al actulizar los datos de la publicacion"));
+            }).catch((e) => {console.log("Un error ha ocurrido al actulizar los datos de la publicacion")});
 
     }
     let idTimeout;

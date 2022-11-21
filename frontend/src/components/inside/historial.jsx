@@ -25,8 +25,9 @@ import Tooltip from "@mui/material/Tooltip";
 import EditIcon from "@mui/icons-material/Edit";
 import { deleteListing } from "../../controllers/listingActionsController";
 import CustomizedDialogs from "./contact";
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { URL_BACKEND } from "../../constantes";
+import { Fragment } from "react";
 const theme = createTheme();
 
 export function Historial() {
@@ -36,20 +37,35 @@ export function Historial() {
 
   const auth = useAuth();
 
-  const [open, setOpen] = useState(false);
+  const [openByIdListing, setOpenByIdListing] = useState({});
 
   useEffect(() => {
-    getHistoryListings(auth).then((listingsResp) => setListings(listingsResp));
+    getHistoryListings(auth).then((listingsResp) => {
+      let initialOpenObject = {};
+      listingsResp.forEach(listing => {
+        initialOpenObject[listing[formAllListings.idlisting]] = false;
+      });
+      setOpenByIdListing(initialOpenObject);
+      setListings(listingsResp)
+    });
   }, [auth]);
 
   const handleDelete = (action, idlisting) => {
     if (action) {
       deleteListing(auth, idlisting);
-      getHistoryListings(auth).then((listingsResp) =>
+      getHistoryListings(auth).then((listingsResp) => {
+        let initialOpenObject = {};
+        listingsResp.forEach(listing => {
+          initialOpenObject[listing[formAllListings.idlisting]] = false;
+        });
+        setOpenByIdListing(initialOpenObject);
         setListings(listingsResp)
-      );
+      });
+    }else{
+      openByIdListing[idlisting] = false;
+      setOpenByIdListing({ ...openByIdListing });
     }
-    setOpen(false);
+    
   };
 
   return (
@@ -72,7 +88,7 @@ export function Historial() {
                   {listings?.map((listing) => {
                     if (listing[formAllListings.activo]) {
                       return (
-                        <Grid item xs={6}>
+                        <Grid item xs={6} key={listing[formAllListings.idlisting]}>
                           <Card
                             sx={{
                               height: "100%",
@@ -97,8 +113,7 @@ export function Historial() {
                               onError={(e) => {
                                 if (
                                   e.target.src ===
-                                  `${URL_BACKEND}/images/listing/${
-                                    listing[formAllListings.imagenes][0]
+                                  `${URL_BACKEND}/images/listing/${listing[formAllListings.imagenes][0]
                                   }`
                                 ) {
                                   e.target.src =
@@ -128,9 +143,8 @@ export function Historial() {
                                       alignItems="center"
                                     >
                                       <Link
-                                        to={`/listing/details/${
-                                          listing[formAllListings.idlisting]
-                                        }`}
+                                        to={`/listing/details/${listing[formAllListings.idlisting]
+                                          }`}
                                         style={{ textDecoration: "none" }}
                                       >
                                         <Button size="small">
@@ -160,7 +174,7 @@ export function Historial() {
                                         }
                                         reviewedByTenants={
                                           listing[
-                                            formAllListings.valoradoEstudiantes
+                                          formAllListings.valoradoEstudiantes
                                           ]
                                         }
                                         value={
@@ -177,13 +191,19 @@ export function Historial() {
                                       alignItems="center"
                                     >
                                       <Tooltip title="Delete" placement="right">
-                                        <IconButton onClick={(e) => { e.preventDefault(); setOpen(true);}}>
+                                        <IconButton onClick={(e) => {
+                                          e.preventDefault();
+                                          openByIdListing[listing[formAllListings.idlisting]] = true;
+                                          setOpenByIdListing({ ...openByIdListing });
+                                        }}>
                                           <DeleteIcon />
                                         </IconButton>
                                       </Tooltip>
                                       <Dialog
-                                        open={open}
-                                        onClose={() => {handleDelete(false, listing[formAllListings.idlisting]);}}
+                                        open={openByIdListing[listing[formAllListings.idlisting]]}
+                                        onClose={() => {
+                                          handleDelete(false, listing[formAllListings.idlisting]);
+                                        }}
                                         aria-labelledby="alert-dialog-title"
                                         aria-describedby="alert-dialog-description"
                                       >
@@ -198,12 +218,16 @@ export function Historial() {
                                           </DialogContentText>
                                         </DialogContent>
                                         <DialogActions>
-                                          <Button variant="outlined" onClick={() => { handleDelete(false, listing[formAllListings.idlisting]); }}>
+                                          <Button variant="outlined" onClick={() => {
+                                            handleDelete(false, listing[formAllListings.idlisting]);
+                                          }}>
                                             Cancelar
                                           </Button>
                                           <Button
-                                            onClick={() => {handleDelete(true, listing[formAllListings.idlisting]);}}
-                                            style={{backgroundColor: "red",color: "white",}}
+                                            onClick={() => {
+                                              handleDelete(true, listing[formAllListings.idlisting]);
+                                            }}
+                                            style={{ backgroundColor: "red", color: "white", }}
                                             autoFocus
                                           >
                                             Eliminar
@@ -220,9 +244,8 @@ export function Historial() {
                                     >
                                       <Tooltip title="Editar" placement="right">
                                         <Link
-                                          to={`/listing/update/${
-                                            listing[formAllListings.idlisting]
-                                          }`}
+                                          to={`/listing/update/${listing[formAllListings.idlisting]
+                                            }`}
                                           style={{ textDecoration: "none" }}
                                         >
                                           <IconButton>
@@ -239,7 +262,7 @@ export function Historial() {
                         </Grid>
                       );
                     } else {
-                      return <></>;
+                      return <Fragment key={listing[formAllListings.idlisting]}></Fragment>;
                     }
                   })}
                 </Grid>
