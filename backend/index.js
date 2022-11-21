@@ -20,7 +20,7 @@ app.use(morgan('tiny'));
 
 //Configure the cors for request from frontend
 app.use(cors({
-  origin: ["https://frontend-unarriendo.herokuapp.com", "http://localhost:3000"],
+  origin: ["https://frontend-unarriendo.herokuapp.com", "http://localhost:3000", "https://un-arriendo.up.railway.app"],
   preflightContinue: true,
   methods: "GET, HEAD, PUT, PATH, POST, DELETE",
   credentials: true,
