@@ -15,16 +15,18 @@ async function getLocation(address) {
         return;
     }
 
-    const dataResult = await geocoder.geocode({
-        address: address,
-        countryCode: 'co',
-        limit: 5
-    });
+    address = address.trim() + ", Bogotá";
+
+    let url = `https://us1.locationiq.com/v1/search?key=${process.env.GEOCODER_API_KEY}&q=${encodeURIComponent(address)}&format=json`;
+    let dataResult = await fetch(url);
+    dataResult = await dataResult.json();
+
+    //await geocoder.geocode(address);
 
     let location = {
         type: 'Point',
-        coordinates: [dataResult[0].longitude, dataResult[0].latitude],
-        formattedAddress: dataResult[0].formattedAddress
+        coordinates: [dataResult[0].lon, dataResult[0].lat],
+        formattedAddress: dataResult[0].display_name
     };
 
     return location;

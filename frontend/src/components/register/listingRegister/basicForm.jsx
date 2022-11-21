@@ -12,13 +12,24 @@ import { AddressAutofill } from '@mapbox/search-js-react';
 
 export default function BasicForm(props) {
     const [postType, setPostType] = useState(undefined);
+    const [warningMsg, setWarningMsg] = useState(undefined);
 
     const handlerChangeType = (e) => {
         setPostType(e.target.value)
     }
 
+    const handleKeyUpAddress = (e) => {
+        let tempStringArray = e.target.value.split(' ');
+        if (tempStringArray[0].includes('.')) {
+            setWarningMsg('Procura no colocar la direccion con abreviaciones. Es decir, no coloques Cl. sino Calle.');
+        }else{
+            setWarningMsg(undefined);
+        }
+    }
+
     return (
         <Container>
+
             {
                 props.showTitle ? (
                     <Typography variant="h5" gutterBottom>
@@ -80,8 +91,9 @@ export default function BasicForm(props) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <AddressAutofill accessToken={API_KEY_MAPBOX} options={{
-                        country:'CO',
-                        language:'es'
+                        country: 'CO',
+                        language: 'es',
+                        bbox: [[-74.20917701530674, 4.508183089398315], [-73.97403898269468, 4.83571738439052]]
                     }}>
                         <TextField
                             required
@@ -93,8 +105,10 @@ export default function BasicForm(props) {
                             variant="standard"
                             defaultValue={props.data.get(formAllListings.direccion) || ""}
                             onChange={props.handleChange}
+                            onKeyUp={handleKeyUpAddress}
                         />
                     </AddressAutofill>
+                    {warningMsg ? <p style={{ color: "red" }}>{warningMsg}</p> : ''}
                     {props.control?.errors?.[formAllListings.direccion] && <p style={{ color: "red" }}>{`${props.control.errors?.[formAllListings.direccion]}`}</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
