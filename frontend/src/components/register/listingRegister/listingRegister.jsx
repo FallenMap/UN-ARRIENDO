@@ -60,15 +60,16 @@ const validate = (data, activeStep) => {
         delete errors[formAllListings.descripcion];
     }
 
+    let addressArray = data[formAllListings.direccion].toLowerCase().split(' ');
+
     if (!data[formAllListings.direccion]) {
         errors[formAllListings.direccion] = "*Este campo no puede estar vacio"
-    } else if (!((data[formAllListings.direccion].toLowerCase().split(' ').includes('avenida') || 
-               data[formAllListings.direccion].toLowerCase().split(' ').includes('calle') ||
-               data[formAllListings.direccion].toLowerCase().split(' ').includes('carrera') ||
-               data[formAllListings.direccion].toLowerCase().split(' ').includes('transversal') ||
-               data[formAllListings.direccion].toLowerCase().split(' ').includes('diagonal')) &&
+    } else if (!((addressArray.includes('avenida') || 
+                addressArray.includes('calle') ||
+                addressArray.includes('carrera') ||
+                addressArray.includes('transversal') ||
+                addressArray.includes('diagonal')) &&
                /[0-9]+/.test(data[formAllListings.direccion]))){
-                console.log("aaa");
         errors[formAllListings.direccion] = "*Revisa la dirección que ingresaste, no parece tener las caracteristicas de una dirección."
 
     }else{
