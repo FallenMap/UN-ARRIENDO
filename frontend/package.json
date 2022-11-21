@@ -27,7 +27,7 @@
     "web-vitals": "^2.1.4"
   },
   "engines": {
-    "node": "16.14.0",
+    "node": "10.23.1",
     "npm": "8.5.2"
   },
   "scripts": {
