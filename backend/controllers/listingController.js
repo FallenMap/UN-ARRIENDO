@@ -59,7 +59,10 @@ listingController.createListing = async (req, res) => {
     try{
         req.body.location = await getLocation(req.body.address);
     }catch{
-
+        res.status(400).json({
+            msg: "No fue posible encontrar la dirección.",
+        });
+        return;
     }
     
 
@@ -110,6 +113,16 @@ listingController.updateListing = async (req, res) => {
     delete req.body.comments;
     delete req.body.reviewedByTenants;
     delete req.body.location;
+    // Adding the location  of the listing
+    try{
+        req.body.location = await getLocation(req.body.address);
+    }catch{
+        res.status(400).json({
+            msg: "No fue posible encontrar la dirección.",
+        });
+        return;
+    }
+
     if ((req.body.type).toLowerCase() == "apartment") {
         try {
             await Apartment.updateOne({ _id: req.body._id }, { $set: { ...req.body } });
