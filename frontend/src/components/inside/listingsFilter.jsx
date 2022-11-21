@@ -136,6 +136,7 @@ export function ListingsFilter({ setListings }) {
                 label="Habitaciones"
                 type="number"
                 inputProps={{ min: 1, max: 10 }}
+                disabled= {value==="Room" || value==="All" ? true : false}
                 InputLabelProps={{
                   shrink: true,
                 }}
