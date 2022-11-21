@@ -27,8 +27,8 @@
     "web-vitals": "^2.1.4"
   },
   "engines": {
-    "node": "10.23.1",
-    "npm": "8.5.2"
+    "node": "16.15.0",
+    "npm": "8.5.5"
   },
   "scripts": {
     "start": "serve -s build",
