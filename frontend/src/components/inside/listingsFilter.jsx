@@ -133,7 +133,7 @@ export function ListingsFilter({ setListings }) {
                 id="roomsMin"
                 value={values.roomsMin}
                 onChange={handleChangeAmount('roomsMin')}
-                label="Habitaciones"
+                label="Min. numero de habitaciones"
                 type="number"
                 inputProps={{ min: 1, max: 10 }}
                 disabled= {value==="Room" || value==="All" ? true : false}
@@ -150,7 +150,7 @@ export function ListingsFilter({ setListings }) {
                 id="bathroomsMin"
                 value={values.bathroomsMin}
                 onChange={handleChangeAmount('bathroomsMin')}
-                label="Baños"
+                label="Min. numero de baños"
                 type="number"
                 inputProps={{ min: 1, max: 5 }}
                 InputLabelProps={{
