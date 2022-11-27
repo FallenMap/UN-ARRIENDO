@@ -124,6 +124,7 @@ export default function Comment(props) {
                 <Tooltip title="Edit" placement="right">
                   <IconButton onClick={(e) => {
                     e.preventDefault();
+                    setControl({ ...control, "content": props.content });
                     setEditMode(true);
                   }}>
                     <EditIcon />

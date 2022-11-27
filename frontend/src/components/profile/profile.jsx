@@ -42,7 +42,7 @@ export default function Profile() {
         if (Object.keys(result).length > 0) {
             return setControl({ ...control, errors: result });
         }
-        let formData = new FormData(document.querySelector('form')), review = {}, body = {};
+        let formData = new FormData(document.querySelector('#form-comment')), review = {}, body = {};
         review['content'] = formData.get('content');
         review["firstNameUser"] = auth.user?.[formAllDataUser.name];
         review["lastNameUser"] = auth.user?.[formAllDataUser.lastName];
@@ -52,7 +52,7 @@ export default function Profile() {
         createComment(auth, body, true)
             .then(res => {
                 if (res.comment) {
-                    document.querySelector('form').reset();
+                    document.querySelector('#form-comment').reset();
                     setComments([...comments, res.comment]);
                 } else {
                     console.log(res.msg);
@@ -202,7 +202,7 @@ export default function Profile() {
                                             <Box sx={{
                                                 padding: "20px",
                                             }}>
-                                                <form onSubmit={(e) => { handleOnSubmitComment(e) }}>
+                                                <form id='form-comment' onSubmit={(e) => { handleOnSubmitComment(e) }}>
                                                     <CommentForm
                                                         onChange={handleChange}
                                                         control={control}

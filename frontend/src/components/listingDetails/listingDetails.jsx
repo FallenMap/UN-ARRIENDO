@@ -54,7 +54,7 @@ export function ListingDetails() {
     if (Object.keys(result).length > 0) {
       return setControl({ ...control, errors: result });
     }
-    let formData = new FormData(document.querySelector('form')), comment = {}, body = {};
+    let formData = new FormData(document.querySelector('#form-comment')), comment = {}, body = {};
     comment['content'] = formData.get('content');
     comment["firstNameUser"] = auth.user?.[formAllDataUser.name];
     comment["lastNameUser"] = auth.user?.[formAllDataUser.lastName];
@@ -64,7 +64,7 @@ export function ListingDetails() {
     createComment(auth, body, false)
       .then(res => {
         if (res.comment) {
-          document.querySelector('form').reset();
+          document.querySelector('#form-comment').reset();
           setComments([...comments, res.comment]);
         } else {
           console.log(res.msg);
@@ -392,7 +392,7 @@ export function ListingDetails() {
                             <Divider sx={{ width: "95%", mb: "20px" }} />
                           </Box>
                           <Box>
-                            <form onSubmit={(e) => { handleOnSubmitComment(e) }}>
+                            <form id="form-comment" onSubmit={(e) => { handleOnSubmitComment(e) }}>
                               <CommentForm
                                 onChange={handleChange}
                                 control={control}
@@ -420,7 +420,7 @@ export function ListingDetails() {
                                 <Grid key={comment._id} item xs={12}>
                                   <Container maxWidth="md">
                                     <Paper elevation={2}>
-                                      <Comment isProfile={false} id={comment._id} idUser={comment.idUser} date={localDate(comment.date)} comments={comments} setComments={setComments} content={comment.content} firstName={comment.firstNameUser} lastName={comment.lastNameUser} showTools={comment.idUser === auth.user?.[formAllDataUser.id]} />
+                                      <Comment setControl={setControl} control={control} isProfile={false} id={comment._id} idUser={comment.idUser} date={localDate(comment.date)} comments={comments} setComments={setComments} content={comment.content} firstName={comment.firstNameUser} lastName={comment.lastNameUser} showTools={comment.idUser === auth.user?.[formAllDataUser.id]} />
                                     </Paper>
                                   </Container>
                                 </Grid>)

@@ -72,9 +72,10 @@ export default function ListingUpdate() {
         if (!idTimeout) {
             idTimeout = setTimeout(() => {
                 navigate(-2)
+                idTimeout=undefined;
             }, 5000);
         }
-
+        return "";
     }
 
 

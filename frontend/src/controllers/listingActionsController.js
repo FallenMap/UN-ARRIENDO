@@ -2,20 +2,21 @@ import { formAllListings } from "../adapters/formAdapters";
 import { createListingAPI, getAllListingsAPI, getHistoryListingsAPI, getListingApi, updateListingAPI, deleteListingAPI, updateRatingListingAPI } from "../api/listingAPI";
 //import { formAllListings } from "../adapters/formAdapters";
 
-export const listingCreateHandlerOnSubmit = (auth, listing) => {
-    createListingAPI(listing)
-    .then(res => {
-        console.log('Listing creation completed: '+res.data);
-        return true;
-    })
-    .catch(err => {
+export const listingCreateHandlerOnSubmit = async (auth, listing) => {
+    try{
+        let res = await createListingAPI(listing)
+        if(res.status===200){
+            return true;
+        }
+        return false;
+    }catch(err){
         if(err.response.data?.isNotLogged){
             auth.logOut();
         }
         
         console.log('Listing create error: '+err.response.data?.error);
         return false;
-    });
+    }
 }   
 
 export const getAllListings = async (auth) => {

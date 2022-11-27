@@ -39,17 +39,21 @@ const img = {
 export default function PhotosForm(props) {
   const [files, setFiles] = useState([]);
 
-  if (files.length === 0) {
-    let tempFiles = props.data.getAll('files');
-    if (tempFiles.length !== 0) {
-      setFiles(tempFiles.map(file => {
-        Object.assign(file, {
-          preview: URL.createObjectURL(file)
-        });
-        return file;
-      }));
+  useEffect(()=> {
+    if (files.length === 0) {
+      let tempFiles = props.data.getAll('files');
+      if (tempFiles.length !== 0) {
+        setFiles(tempFiles.map(file => {
+          Object.assign(file, {
+            preview: URL.createObjectURL(file)
+          });
+          return file;
+        }));
+      }
     }
-  }
+  }, [files, props.data])
+
+  
   
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {

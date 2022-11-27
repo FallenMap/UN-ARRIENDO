@@ -20,7 +20,7 @@ module.exports.userPhoto = (req, res, next) => {
           const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
           const fileExtension = file.mimetype.split('/')[1]
           cb(null, uniqueSuffix + '.' + fileExtension)
-        }
+        },
         
       });
     const upload = multer({
@@ -32,6 +32,9 @@ module.exports.userPhoto = (req, res, next) => {
                 cb(null, false);
                 return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
             }
+        },
+        limits: {
+            fileSize: 8000000, 
         }
     });
     
@@ -73,7 +76,10 @@ module.exports.listingPhotos = (req, res, next) => {
              cb(null, false);
              return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
          }
-     }
+     },
+     limits: {
+        fileSize: 8000000,
+    }
  });
  return upload.array('files')(req, res, () => {
      // Remember, the middleware will call it's next function

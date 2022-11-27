@@ -16,7 +16,6 @@ export const userLoginHandlerOnSubmit = (event, auth, navigate) => {
     }
 
     logInAPI(body).then(res => {
-        console.log(res);
         document.getElementById("error-text-login").innerText = "";
 
         /* the first data is property of axios response, the second is property of backend response*/

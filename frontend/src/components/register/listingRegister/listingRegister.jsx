@@ -19,6 +19,7 @@ import { listingCreateHandlerOnSubmit } from '../../../controllers/listingAction
 import { formAllListings } from '../../../adapters/formAdapters';
 import useAuth from '../../../auth/useAuth';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { CircularProgress } from '@mui/material';
 
 const steps = ['Datos basicos', 'Datos especificos', 'Fotos'];
 const theme = createTheme();
@@ -64,15 +65,15 @@ const validate = (data, activeStep) => {
 
     if (!data[formAllListings.direccion]) {
         errors[formAllListings.direccion] = "*Este campo no puede estar vacio"
-    } else if (!((addressArray.includes('avenida') || 
-                addressArray.includes('calle') ||
-                addressArray.includes('carrera') ||
-                addressArray.includes('transversal') ||
-                addressArray.includes('diagonal')) &&
-               /[0-9]+/.test(data[formAllListings.direccion]))){
-        errors[formAllListings.direccion] = "*Revisa la dirección que ingresaste, no parece tener las caracteristicas de una dirección."
+    } else if (!((addressArray.includes('avenida') ||
+        addressArray.includes('calle') ||
+        addressArray.includes('carrera') ||
+        addressArray.includes('transversal') ||
+        addressArray.includes('diagonal')) &&
+        /[0-9]+/.test(data[formAllListings.direccion]))) {
+        errors[formAllListings.direccion] = "*Revisa la dirección que ingresaste, no parece tener las caracteristicas de una dirección. No olvides que la direccion no debe tener abreviaciones."
 
-    }else{
+    } else {
         delete errors[formAllListings.direccion];
     }
 
@@ -166,14 +167,14 @@ export default function ListingRegister() {
     const [activeStep, setActiveStep] = useState(0);
     const [formData, setFormData] = useState(new FormData());
     const [control, setControl] = useState({ errors: {} })
+    const [showLoad, setShowLoad] = useState(true);
+    const [showSuccessText, setShowSuccessText] = useState(undefined);
     const auth = useAuth();
 
     const handleAnotherRegister = () => {
         setFormData(new FormData());
         setActiveStep(0);
     }
-
-    let showSuccessText = true;
 
     const handleNext = () => {
         const { errors, ...data } = control;
@@ -196,7 +197,14 @@ export default function ListingRegister() {
                 formData.set(formAllListings.tipo, translateType[formData.get(formAllListings.tipo)]);
                 formData.set(formAllListings.cocina, translateKitchen[formData.get(formAllListings.cocina)]);
                 formData.set(formAllListings.areaLimpieza, translateCleaning[formData.get(formAllListings.areaLimpieza)]);
-                showSuccessText = listingCreateHandlerOnSubmit(auth, formData);
+                listingCreateHandlerOnSubmit(auth, formData).then(res => {
+                    setShowLoad(false);
+                    if (res) {
+                        setShowSuccessText(true);
+                    } else {
+                        setShowSuccessText(false);
+                    }  
+                }).catch()
             }
 
             setActiveStep(activeStep + 1);
@@ -214,14 +222,14 @@ export default function ListingRegister() {
         console.log([...tempFormData]);
         for (const pair of tempFormData.entries()) {
             if ([...formData.keys()].indexOf(pair[0]) === -1) {
-                if(pair[0]==="files"){
-                    if(pair[1].name){
+                if (pair[0] === "files") {
+                    if (pair[1].name) {
                         formData.append(pair[0], pair[1]);
                     }
-                }else{
+                } else {
                     formData.append(pair[0], pair[1]);
                 }
-                
+
             } else if (pair[0] !== "files") {
                 formData.set(pair[0], pair[1]);
             }
@@ -250,7 +258,15 @@ export default function ListingRegister() {
                     <React.Fragment>
                         {activeStep === steps.length ? (
                             <Box justifyContent="center" style={{ textAlign: "center" }}>
-                                {showSuccessText ? (
+                                {showLoad ? (<><Box display="flex" alignItems="center" justifyContent="center" sx={{
+                                    margin: "20px 0px"
+                                }}>
+                                    <CircularProgress />
+
+                                    <Typography variant='h5'>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;Cargando...
+                                    </Typography>
+                                </Box></>) : (showSuccessText ? (
                                     <><Typography variant="h5" gutterBottom>
                                         ¡Se ha realizado la publicación!
                                     </Typography>
@@ -270,16 +286,22 @@ export default function ListingRegister() {
                                             <Button onClick={handleAnotherRegister} variant='contained'>
                                                 Crear publicación
                                             </Button>
-                                        </>)
+                                        </>))
+                                }
+                                {
+                                    showLoad ? (<></>) : (
+                                        <>
+                                            <br></br>
+                                            <br></br>
+                                            <Link to='/MainScreen' style={{ textDecoration: "none" }}>
+                                                <Button variant='outlined'>
+                                                    Regresar al inicio
+                                                </Button>
+                                            </Link>
+                                        </>
+                                    )
                                 }
 
-                                <br></br>
-                                <br></br>
-                                <Link to='/MainScreen' style={{ textDecoration: "none" }}>
-                                    <Button variant='outlined'>
-                                        Regresar al inicio
-                                    </Button>
-                                </Link>
                             </Box>
                         ) : (
                             <form>
